@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "MPU6050(Đ.Đức)"

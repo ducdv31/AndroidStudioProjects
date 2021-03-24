@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        >
+
+        <TextView
+            android:id="@+id/NameAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="false"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="1dp"
+            android:layout_toEndOf="@+id/ImgAcc"
+            android:textColor="#0B170A"
+            android:textSize="25sp" />
+
+        <ImageView
+            android:id="@+id/ImgAcc"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="false"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="1dp"
+            android:text="Status"
+            android:textStyle="italic"
+            android:id="@+id/Status"
+            android:layout_marginEnd="10dp"
+            android:textSize="25sp" />
+    </RelativeLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#32E19B"
+            android:gravity="center"
+            android:text="@string/enviroment"
+            android:textColor="#0B170A"
+            android:textSize="25sp">
+
+        </TextView>
+
+        <TableRow>
+
+            <TextView
+                android:background="#27E8D5"
+                android:gravity="center"
+                android:text="@string/temperature"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:background="#B466A59E"
+                android:gravity="center"
+                android:text="@string/humidity"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/temp"
+                android:background="#27E8D5"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/humi"
+                android:background="#B466A59E"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/MPU_Table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1AD6B1"
+            android:gravity="center"
+            android:text="@string/accelerometer"
+            android:textSize="25sp">
+
+        </TextView>
+
+        <TableRow>
+
+            <TextView
+                android:background="#38ACA0"
+                android:gravity="center"
+                android:text="@string/acx"
+                android:textSize="25sp" />
+
+            <TextView
+                android:background="#CBE4AE"
+                android:gravity="center"
+                android:text="@string/acy"
+                android:textSize="25sp" />
+
+            <TextView
+                android:background="#CDD588"
+                android:gravity="center"
+                android:text="@string/acz"
+                android:textSize="25sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/acx"
+                android:background="#38ACA0"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/acy"
+                android:background="#CBE4AE"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/acz"
+                android:background="#CDD588"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EA8D70"
+        android:gravity="center"
+        android:text="@string/gyroscopes"
+        android:textSize="25sp">
+
+    </TextView>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                android:background="#E6B7A8"
+                android:gravity="center"
+                android:text="@string/gyx"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:background="#DA8B8B"
+                android:gravity="center"
+                android:text="@string/gyy"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:background="#DF90B5"
+                android:gravity="center"
+                android:text="@string/gyz"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/gyx"
+                android:background="#E6B7A8"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/gyy"
+                android:background="#DA8B8B"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/gyz"
+                android:background="#DF90B5"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/webData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/web_data"
+        android:textSize="20sp">
+
+    </Button>
+
+    <Button
+        android:id="@+id/setDatabt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/set_database"
+        android:textSize="20sp">
+
+    </Button>
+</LinearLayout>

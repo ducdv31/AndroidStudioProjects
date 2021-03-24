@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "636522600890",
+    "firebase_url": "https://iot-cam-6db9c.firebaseio.com",
+    "project_id": "iot-cam-6db9c",
+    "storage_bucket": "iot-cam-6db9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636522600890:android:4606cc0a3461d8ffc26583",
+        "android_client_info": {
+          "package_name": "com.example.colordetectiot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636522600890-htvmldbol2fq3rkf5a70h8td841bu24q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPkNuBTXGoGQklipmtlPEZmwT8yJi0ea0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636522600890-htvmldbol2fq3rkf5a70h8td841bu24q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636522600890:android:083ecbd55f763689c26583",
+        "android_client_info": {
+          "package_name": "com.example.iotcam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636522600890-m9ik1fv6qoge881fo5hbf6nkq3hbodtf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iotcam",
+            "certificate_hash": "994c86556e1c14780fb8e8216e1884ca7b29a3e2"
+          }
+        },
+        {
+          "client_id": "636522600890-htvmldbol2fq3rkf5a70h8td841bu24q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPkNuBTXGoGQklipmtlPEZmwT8yJi0ea0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636522600890-htvmldbol2fq3rkf5a70h8td841bu24q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636522600890:android:a29c24202dd9912cc26583",
+        "android_client_info": {
+          "package_name": "com.example.textrecognitioniot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636522600890-htvmldbol2fq3rkf5a70h8td841bu24q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPkNuBTXGoGQklipmtlPEZmwT8yJi0ea0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636522600890-htvmldbol2fq3rkf5a70h8td841bu24q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

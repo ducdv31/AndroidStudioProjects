@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "491904579132",
+    "firebase_url": "https://duc-bkhn-k62.firebaseio.com",
+    "project_id": "duc-bkhn-k62",
+    "storage_bucket": "duc-bkhn-k62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491904579132:android:fe5e1facaba5a8059e3539",
+        "android_client_info": {
+          "package_name": "com.example.iothome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491904579132-s5857v08i1j5j4he6ftigpli71clg9jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuHncaNwTozah1lm11ldGo3lSlDu6wNsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491904579132-s5857v08i1j5j4he6ftigpli71clg9jk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491904579132:android:574c9f515147ef889e3539",
+        "android_client_info": {
+          "package_name": "com.example.mpu6050_dvd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491904579132-s5857v08i1j5j4he6ftigpli71clg9jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuHncaNwTozah1lm11ldGo3lSlDu6wNsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491904579132-s5857v08i1j5j4he6ftigpli71clg9jk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491904579132:android:4b39299b9ba7ad1d9e3539",
+        "android_client_info": {
+          "package_name": "com.example.mpu6050c"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491904579132-qnkfehnbiv54ej8cc08uuaej7n0v47fh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mpu6050c",
+            "certificate_hash": "994c86556e1c14780fb8e8216e1884ca7b29a3e2"
+          }
+        },
+        {
+          "client_id": "491904579132-s5857v08i1j5j4he6ftigpli71clg9jk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuHncaNwTozah1lm11ldGo3lSlDu6wNsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491904579132-s5857v08i1j5j4he6ftigpli71clg9jk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mpu6050Fragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TableLayout
+        android:id="@+id/MPU_Table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1AD6B1"
+            android:gravity="center"
+            android:text="@string/accelerometer"
+            android:textSize="30sp">
+
+        </TextView>
+
+        <TableRow>
+
+            <TextView
+                android:background="#38ACA0"
+                android:gravity="center"
+                android:text="@string/acx"
+                android:textSize="25sp" />
+
+            <TextView
+                android:background="#CBE4AE"
+                android:gravity="center"
+                android:text="@string/acy"
+                android:textSize="25sp" />
+
+            <TextView
+                android:background="#CDD588"
+                android:gravity="center"
+                android:text="@string/acz"
+                android:textSize="25sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/acx"
+                android:background="#38ACA0"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/acy"
+                android:background="#CBE4AE"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/acz"
+                android:background="#CDD588"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EA8D70"
+            android:gravity="center"
+            android:text="@string/gyroscopes"
+            android:textSize="30sp">
+
+        </TextView>
+        <TableRow>
+
+            <TextView
+                android:background="#E6B7A8"
+                android:gravity="center"
+                android:text="@string/gyx"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:background="#DA8B8B"
+                android:gravity="center"
+                android:text="@string/gyy"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:background="#DF90B5"
+                android:gravity="center"
+                android:text="@string/gyz"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/gyx"
+                android:background="#E6B7A8"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/gyy"
+                android:background="#DA8B8B"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/gyz"
+                android:background="#DF90B5"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+    </TableLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mpu6050"
+        />
+</LinearLayout>
+
+</FrameLayout>

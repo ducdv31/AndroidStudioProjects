@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">IoT Cam</string>
+    <string name="faces">Face</string>
+    <string name="number_of_faces">Number of Faces</string>
+    <string name="arrow_up">arrow up</string>
+    <string name="server">Server</string>
+    <string name="arrow__up">^</string>
+    <string name="nof">NoF:</string>
+    <string name="image">Image</string>
+    <string name="back">Back</string>
+    <string name="status">Status:</string>
+    <string name="next">Next</string>
+    <string name="sign_out">Sign out</string>
+    <string name="made_by_ng_c">Made by Đặng Đức</string>
+    <string name="intro_image">Intro Image</string>
+</resources>

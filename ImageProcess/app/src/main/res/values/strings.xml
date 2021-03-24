@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Image Process</string>
+    <string name="select_image">Select Image</string>
+</resources>

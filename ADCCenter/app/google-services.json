@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "640987444489",
+    "project_id": "adc-center-6b865",
+    "storage_bucket": "adc-center-6b865.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640987444489:android:74ca1e412fa9895759cfd8",
+        "android_client_info": {
+          "package_name": "com.example.adccenter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640987444489-j88jssvorqg8d55qbv3s7bi41214iao2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkCEIHkAwSjmB_xdwb6F6tviuH0HIFQWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640987444489-j88jssvorqg8d55qbv3s7bi41214iao2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">ADC Center</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="adc_team">ADC Team</string>
+    <string name="adc_green_air_life">ADC Green Air Life</string>
+    <string name="status">●</string>
+    <string name="temp_img">temp img</string>
+    <string name="enviroment">ENVIRONMENT</string>
+    <string name="temperature">TEMPERATURE</string>
+    <string name="humidity">HUMIDITY</string>
+    <string name="humi_img">Humi img</string>
+    <string name="monitoring">MONITORING</string>
+    <string name="more">MORE</string>
+    <string name="esp32">ESP32</string>
+</resources>

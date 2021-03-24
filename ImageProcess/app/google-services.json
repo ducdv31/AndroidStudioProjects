@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "763508494359",
+    "firebase_url": "https://image-process-6e31f.firebaseio.com",
+    "project_id": "image-process-6e31f",
+    "storage_bucket": "image-process-6e31f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763508494359:android:0c3d0288dfb1a0b5850c52",
+        "android_client_info": {
+          "package_name": "com.example.imageprocess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763508494359-pi8o266hojjun37hg6bf35d1ijqq2j0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFuzvLyYQ8A-iR58BIBU9Q8DBROxVzvIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763508494359-pi8o266hojjun37hg6bf35d1ijqq2j0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

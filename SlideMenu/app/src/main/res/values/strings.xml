@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Slide Menu</string>
+    <string name="Navigation_drawer_open">Open Nav  Drawer</string>
+    <string name="Navigation_drawer_close">Close Nav  Drawer</string>
+</resources>

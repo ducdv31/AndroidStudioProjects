@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="0"
+        android:stretchColumns="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#4EA1E3"
+            android:gravity="center"
+            android:text="@string/esp_information"
+            android:textSize="25sp">
+
+        </TextView>
+
+        <TableRow>
+
+            <TextView
+                android:background="#19DA03"
+                android:gravity="center"
+                android:text="@string/esp_time"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/ESP_Time"
+                android:background="#19DA03"
+                android:gravity="center"
+                android:textSize="25sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:background="#C936BAAD"
+                android:gravity="center"
+                android:text="@string/wifi"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/wifi_infor"
+                android:background="#C936BAAD"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:background="#F1E15A"
+                android:gravity="center"
+                android:text="@string/ip"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/esp_ip_info"
+                android:background="#F1E15A"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:background="#FBB375"
+                android:gravity="center"
+                android:text="@string/gateway_ip"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/gateway_ip_infor"
+                android:background="#FBB375"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:background="#FBA6BA"
+                android:gravity="center"
+                android:text="@string/subnet_mask"
+                android:textSize="25sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/subnet_mask_infor"
+                android:background="#FBA6BA"
+                android:gravity="center"
+                android:textSize="25sp">
+
+            </TextView>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

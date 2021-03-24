@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">IoT Home</string>
+    <string name="gyroscope_x">Gyroscope X</string>
+    <string name="accelerometer_y">Accelerometer Y</string>
+    <string name="gyroscope_y">Gyroscope Y</string>
+    <string name="accelerometer_z">Accelerometer Z</string>
+    <string name="gyroscope_z">Gyroscope Z</string>
+    <string name="nhi_t">Nhiệt độ</string>
+    <string name="m">Độ ẩm</string>
+    <string name="gyroscopes">GYROSCOPES</string>
+    <string name="accelerometer">ACCELEROMETER</string>
+    <string name="acx">AcX</string>
+    <string name="acy">AcY</string>
+    <string name="acz">AcZ</string>
+    <string name="gyx">GyX</string>
+    <string name="gyy">GyY</string>
+    <string name="gyz">GyZ</string>
+    <string name="enviroment">ENVIROMENT</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="setup_ble">SETUP BLE</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="made_by_ng_v_n_c">Made by Đặng Văn Đức</string>
+    <string name="hbk_h_n_i">ĐHBK HÀ NỘi</string>
+    <string name="c_t_07_k62">CĐT.07-K62</string>
+    <string name="about">About</string>
+    <string name="web_data">WEB DATA</string>
+    <string name="set_database">SET DATABASE</string>
+    <string name="set_data">SET DATA</string>
+    <string name="ip">IP</string>
+    <string name="wifi">WiFi</string>
+    <string name="gateway_ip">Gateway IP</string>
+    <string name="subnet_mask">Subnet Mask</string>
+    <string name="setting">Setting</string>
+    <string name="mpu6050">MPU6050</string>
+    <string name="dht11">DHT11</string>
+    <string name="esp_information">ESP Information</string>
+    <string name="esp_time">ESP Time</string>
+    <string name="data_database">Data Database</string>
+</resources>

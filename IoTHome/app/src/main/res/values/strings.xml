@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">IoT Home</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="enviroment">ENVIROMENT</string>
+    <string name="accelerometer">ACCELEROMETER</string>
+    <string name="acx">ACX</string>
+    <string name="acy">ACY</string>
+    <string name="acz">ACZ</string>
+    <string name="gyroscopes">GYROSCOPES</string>
+    <string name="gyx">GYX</string>
+    <string name="gyy">GYY</string>
+    <string name="gyz">GYZ</string>
+    <string name="status">Status</string>
+    <string name="img_gmail">Img gmail</string>
+    <string name="made_by_ng_c">Made by Đặng Đức</string>
+</resources>

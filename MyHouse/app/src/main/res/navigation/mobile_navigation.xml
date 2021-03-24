@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.myhouse.NavFragment.FragmentHome"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_more"
+        android:name="com.example.myhouse.NavFragment.FragmentMore"
+        android:label="More"
+        tools:layout="@layout/fragment_more" />
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.example.myhouse.NavFragment.FragmentAbout"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/nav_database"
+        android:name="com.example.myhouse.NavFragment.FragmentDatabase"
+        android:label="Database"
+        tools:layout="@layout/fragment_database" />
+    <fragment
+        android:id="@+id/nav_bedroom"
+        android:name="com.example.myhouse.NavFragment.FragmentCBedroom"
+        android:label="Bedroom"
+        tools:layout="@layout/fragment_c_bedroom" />
+    <fragment
+        android:id="@+id/nav_kitchen"
+        android:name="com.example.myhouse.NavFragment.FragmentCKitchen"
+        android:label="Kitchen"
+        tools:layout="@layout/fragment_c_kitchen" />
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.example.myhouse.NavFragment.FragmentHistory"
+        android:label="History"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/nav_board_info"
+        android:name="com.example.myhouse.NavFragment.FragmentBoardInfor"
+        android:label="Board Information"
+        tools:layout="@layout/fragment_board_infor" />
+    <fragment
+        android:id="@+id/nav_envi_info"
+        android:name="com.example.myhouse.NavFragment.FragmentEnvironmentInfo"
+        android:label="Environment Info"
+        tools:layout="@layout/fragment_environment_info" />
+</navigation>
