@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item android:title="@string/monitoring">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/icons8_home"
+                    android:title="@string/menu_home" />
+<!--                <item-->
+<!--                    android:id="@+id/nav_database"-->
+<!--                    android:icon="@drawable/icons8_database"-->
+<!--                    android:title="Database" />-->
+                <item
+                    android:id="@+id/nav_history"
+                    android:icon="@drawable/icons8_activity_history"
+                    android:title="History" />
+                <item
+                    android:id="@+id/nav_envi_info"
+                    android:icon="@drawable/icons8_environment_48"
+                    android:title="Environment Info" />
+            </group>
+        </menu>
+    </item>
+<!--    <item android:title="@string/controller">-->
+<!--        <menu>-->
+<!--            <group android:checkableBehavior="single">-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_bedroom"-->
+<!--                    android:icon="@drawable/icons8_bedroom"-->
+<!--                    android:title="Bedroom" />-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_kitchen"-->
+<!--                    android:icon="@drawable/icons8_kitchen_room_48"-->
+<!--                    android:title="Kitchen" />-->
+<!--            </group>-->
+<!--        </menu>-->
+<!--    </item>-->
+    <item android:title="@string/MORE">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_board_info"
+                    android:icon="@drawable/icons8_microchip_48"
+                    android:title="Board Infomation" />
+                <item
+                    android:id="@+id/nav_more"
+                    android:icon="@drawable/icons8_more_48"
+                    android:title="@string/more" />
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/icons8_about_48"
+                    android:title="About" />
+            </group>
+        </menu>
+    </item>
+</menu>
