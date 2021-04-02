@@ -4,7 +4,10 @@ import com.example.myhouse.timeconverter.TimeConverter;
 
 public class DataKKVV {
 
-    private String Key, Key2, Value1, Value2;
+    private final String Key;
+    private final String Key2;
+    private final String Value1;
+    private final String Value2;
 
     public DataKKVV(String key, String key2, String value1, String value2) {
         Key = key;

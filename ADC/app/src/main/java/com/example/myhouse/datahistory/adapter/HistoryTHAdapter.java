@@ -71,7 +71,7 @@ public class HistoryTHAdapter extends RecyclerView.Adapter<HistoryTHAdapter.HVie
         private final TextView KEY2;
         private final TextView VALUE1;
         private final TextView VALUE2;
-        private CardView cardView;
+        private final CardView cardView;
 
         public HViewHolder(@NonNull View itemView) {
             super(itemView);

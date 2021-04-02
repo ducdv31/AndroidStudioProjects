@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "861897430625",
+    "firebase_url": "https://deviot-duc-default-rtdb.firebaseio.com",
+    "project_id": "deviot-duc",
+    "storage_bucket": "deviot-duc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861897430625:android:fc93d1b8a870e6f887fc20",
+        "android_client_info": {
+          "package_name": "com.example.nrfcontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861897430625-5ci1cq50cubpd4g7mol39443c5n24p00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4Hz7dDstufNwcZ3gslMu-vyVAjPwkLag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861897430625-5ci1cq50cubpd4g7mol39443c5n24p00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
