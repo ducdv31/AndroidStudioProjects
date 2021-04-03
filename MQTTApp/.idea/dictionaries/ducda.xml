@@ -4,6 +4,7 @@
       <w>mosquitto</w>
       <w>mqtt</w>
       <w>paho</w>
+      <w>unsub</w>
     </words>
   </dictionary>
 </component>

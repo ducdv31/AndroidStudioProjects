@@ -3,75 +3,107 @@ package com.example.mqttapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
+import com.example.mqttapp.mqtt.MyMqtt;
+
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        connectServerUri("tcp://test.mosquitto.org:1883");
+        Button pub = findViewById(R.id.publish);
+        Button sub = findViewById(R.id.subscribe);
+        Button connect = findViewById(R.id.connect);
+        Button unsub = findViewById(R.id.unsubscribe);
+        Button disconnect = findViewById(R.id.disconnect);
+        MyMqtt myMqtt = new MyMqtt(this, new MyMqtt.MyMqttListener() {
+            @Override
+            public void ServerConnected(boolean status) {
+                if (status) {
+                    Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void MessageArrived(String topic, MqttMessage mqttMessage) {
+                Toast.makeText(MainActivity.this, mqttMessage.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void DeliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+            }
+
+            @Override
+            public void NotifyConnected(boolean notify) {
+                Toast.makeText(MainActivity.this, "Please connect first", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void OnSubscribe(boolean subscribe) {
+                if (subscribe){
+                    Toast.makeText(MainActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Can't subscribe", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void OnUnsubscribe(boolean unsubscribe) {
+                if (unsubscribe) {
+                    Toast.makeText(MainActivity.this, "UnSubscribe", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Not Unsubscribe", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void OnDisconnect(boolean disconnected) {
+                if (disconnected){
+                    Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Can't disconnected", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myMqtt.connectServerUri("tcp://test.mosquitto.org", 1883);
+            }
+        });
+        pub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myMqtt.publish("esp32", "Hello world", false);
+            }
+        });
+        sub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myMqtt.subscribe("esp32", 0);
+            }
+        });
+        unsub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myMqtt.unSubscribe("esp32");
+            }
+        });
+        disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myMqtt.disconnect();
+            }
+        });
     }
 
-    public void connectServerUri(String uri){
-        String clientId = MqttClient.generateClientId();
-        MqttAndroidClient client =
-                new MqttAndroidClient(this.getApplicationContext(), uri,
-                        clientId);
-        try {
-            IMqttToken token = client.connect();
-            token.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    // We are connected
-                    Log.e("TAG", "onSuccess");
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    // Something went wrong e.g. connection timeout or firewall problems
-                    Log.e("TAG", "onFailure");
-
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-
-        /* Connect MQTT version 3.1 */
-        MqttConnectOptions options = new MqttConnectOptions();
-        options.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
-        try {
-            IMqttToken token = client.connect(options);
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-
-        /* Publish */
-//        String topic = "esp32";
-//        String payload = "the payload";
-//        byte[] encodedPayload = new byte[2];
-//        encodedPayload[0] = 'H';
-//        encodedPayload[1] = 'i';
-//        try {
-//            encodedPayload = payload.getBytes(StandardCharsets.UTF_8);
-//            MqttMessage message = new MqttMessage(encodedPayload);
-//            client.publish(topic, message);
-//        } catch (MqttException e) {
-//            e.printStackTrace();
-//        }
-
-    }
 }
