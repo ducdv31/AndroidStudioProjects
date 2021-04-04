@@ -1,14 +1,14 @@
 package com.example.myhouse.model;
 
-public class PmModel {
+public class PmsModel {
     private int pm1;
     private int pm25;
     private int pm10;
 
-    public PmModel() {
+    public PmsModel() {
     }
 
-    public PmModel(int pm1, int pm25, int pm10) {
+    public PmsModel(int pm1, int pm25, int pm10) {
         this.pm1 = pm1;
         this.pm25 = pm25;
         this.pm10 = pm10;

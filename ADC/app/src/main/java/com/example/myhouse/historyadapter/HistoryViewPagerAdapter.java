@@ -1,0 +1,50 @@
+package com.example.myhouse.historyadapter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.myhouse.historycontent.Fragment_history_aht10;
+import com.example.myhouse.historycontent.Fragment_history_pms7003;
+
+public class HistoryViewPagerAdapter extends FragmentStatePagerAdapter {
+
+    public HistoryViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
+        super(fm, behavior);
+    }
+
+    @NonNull
+    @Override
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 1:
+                return new Fragment_history_pms7003();
+            default:
+                return new Fragment_history_aht10();
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return 2;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        String title = "";
+        switch (position) {
+            case 0:
+                title = "AHT10";
+                break;
+            case 1:
+                title = "PMS7003";
+                break;
+        }
+        return title;
+    }
+}

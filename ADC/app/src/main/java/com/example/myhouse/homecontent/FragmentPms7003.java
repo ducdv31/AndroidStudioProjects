@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 
 import com.ekn.gruzer.gaugelibrary.HalfGauge;
 import com.example.myhouse.R;
-import com.example.myhouse.datahistory.THValue;
-import com.example.myhouse.model.PmModel;
+import com.example.myhouse.model.PmsModel;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -83,11 +82,11 @@ public class FragmentPms7003 extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
-                            PmModel pmModel = snapshot.getValue(PmModel.class);
-                            assert pmModel != null;
-                            pm1.setValue(pmModel.getPm1());
-                            pm25.setValue(pmModel.getPm25());
-                            pm10.setValue(pmModel.getPm10());
+                            PmsModel pmsModel = snapshot.getValue(PmsModel.class);
+                            assert pmsModel != null;
+                            pm1.setValue(pmsModel.getPm1());
+                            pm25.setValue(pmsModel.getPm25());
+                            pm10.setValue(pmsModel.getPm10());
                         }
                     }
 
@@ -112,14 +111,14 @@ public class FragmentPms7003 extends Fragment {
                                     ArrayList<Entry> dataVals2 = new ArrayList<Entry>();
                                     ArrayList<Entry> dataVals3 = new ArrayList<>();
                                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                        PmModel pmModel = dataSnapshot1.getValue(PmModel.class);
-                                        assert pmModel != null;
+                                        PmsModel pmsModel = dataSnapshot1.getValue(PmsModel.class);
+                                        assert pmsModel != null;
                                         dataVals1.add(new Entry(Integer.parseInt(Objects.requireNonNull(dataSnapshot1.getKey())),
-                                                pmModel.getPm1()));
+                                                pmsModel.getPm1()));
                                         dataVals2.add(new Entry(Integer.parseInt(dataSnapshot1.getKey()),
-                                                pmModel.getPm25()));
+                                                pmsModel.getPm25()));
                                         dataVals3.add(new Entry(Integer.parseInt(dataSnapshot1.getKey()),
-                                                pmModel.getPm10()));
+                                                pmsModel.getPm10()));
                                     }
                                     show3Chart(dataVals1, "PM 1.0", Color.RED,
                                             dataVals2, "PM 2.5", Color.GREEN,

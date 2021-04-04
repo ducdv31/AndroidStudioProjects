@@ -24,13 +24,13 @@ public class MyMqtt {
     public interface MyMqttListener {
         void ServerConnected(boolean status);
 
+        void NotifyConnected(boolean notify);  // Requires connect
+
+        void OnSubscribe(boolean subscribe);
+
         void MessageArrived(String topic, MqttMessage mqttMessage);
 
         void DeliveryComplete(IMqttDeliveryToken iMqttDeliveryToken);
-
-        void NotifyConnected(boolean notify);
-
-        void OnSubscribe(boolean subscribe);
 
         void OnUnsubscribe(boolean unsubscribe);
 

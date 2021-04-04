@@ -1,18 +1,16 @@
-package com.example.myhouse.NavFragment;
+package com.example.myhouse.historycontent;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.myhouse.MainActivity;
 import com.example.myhouse.R;
@@ -20,8 +18,6 @@ import com.example.myhouse.animation.TranslateAnimationUtil;
 import com.example.myhouse.datahistory.DataKKVV;
 import com.example.myhouse.datahistory.THValue;
 import com.example.myhouse.datahistory.adapter.HistoryTHAdapter;
-import com.example.myhouse.historyadapter.HistoryViewPagerAdapter;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,64 +27,44 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class FragmentHistory extends Fragment {
+public class Fragment_history_aht10 extends Fragment {
 
+    private RecyclerView recyclerView;
     private HistoryTHAdapter historyTHAdapter;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    public FragmentHistory() {
-        // Required empty public constructor
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public Fragment_history_aht10() {
+        // Required empty public constructor
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View History = inflater.inflate(R.layout.fragment_history, container, false);
-//        RecyclerView recyclerViewH = History.findViewById(R.id.recycler_view_humidity);
-//        historyTHAdapter = new HistoryTHAdapter(getActivity());
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
-//                RecyclerView.VERTICAL,
-//                false);
-//        recyclerViewH.setLayoutManager(linearLayoutManager);
-//
-//        recyclerViewH.setAdapter(historyTHAdapter);
-//
-//        recyclerViewH.setOnTouchListener(new TranslateAnimationUtil(getContext(), MainActivity.fab_map));
+        final View hisAHT10 = inflater.inflate(R.layout.fragment_history_aht10, container, false);
 
-        tabLayout = History.findViewById(R.id.tab_history);
-        viewPager = History.findViewById(R.id.historyViewPager);
-        HistoryViewPagerAdapter historyViewPagerAdapter = new HistoryViewPagerAdapter(
-                requireActivity().getSupportFragmentManager(),
-                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-        );
-        viewPager.setAdapter(historyViewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        recyclerView = hisAHT10.findViewById(R.id.rcv_his_aht10);
+         historyTHAdapter = new HistoryTHAdapter(requireActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity(),
+                RecyclerView.VERTICAL,
+                false);
 
-        return History;
-    }
+        recyclerView.setAdapter(historyTHAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        MainActivity.fab_map.setVisibility(View.VISIBLE);
+        recyclerView.setOnTouchListener(new TranslateAnimationUtil(getContext(), MainActivity.fab_map));
+        new Thread(this::GetListData).start();
+        return hisAHT10;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        new Thread(this::GetListData).start();
-//        GetListData();
+
     }
 
     private void GetListData() {    /* Key: { t: value1, h: value2 } */
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("DHT11/History")
+        databaseReference.child("AHT10/History")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -119,5 +95,4 @@ public class FragmentHistory extends Fragment {
                 });
 
     }
-
 }

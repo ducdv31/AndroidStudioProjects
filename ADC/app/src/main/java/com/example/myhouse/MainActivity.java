@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
             NameAcc.setText("User name");
             Email.setText("User email");
             Glide.with(this).clear(ImgAcc);
-            ImgAcc.setImageResource(R.drawable.logo_iot_home);
+            ImgAcc.setImageResource(R.mipmap.adc_logo);
         }
     }
 
