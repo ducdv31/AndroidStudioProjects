@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/connect_mqtt"
+        android:title="Connect MQTT"
+        android:icon="@drawable/icons8_network_64"
+        app:showAsAction="ifRoom"/>
 </menu>

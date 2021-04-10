@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "141033137909",
+    "firebase_url": "https://rfid-3c0f9-default-rtdb.firebaseio.com",
+    "project_id": "rfid-3c0f9",
+    "storage_bucket": "rfid-3c0f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141033137909:android:9146c05870628c108f87bc",
+        "android_client_info": {
+          "package_name": "com.example.idmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141033137909-ajg3e9h12p6a3q3no03t3dodo4lqt732.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA3F4lp7LuC88FTcSGDjuTkZmmh8kWlkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141033137909-ajg3e9h12p6a3q3no03t3dodo4lqt732.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

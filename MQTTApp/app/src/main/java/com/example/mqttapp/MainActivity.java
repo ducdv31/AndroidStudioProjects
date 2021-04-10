@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void OnSubscribe(boolean subscribe) {
-                if (subscribe){
+                if (subscribe) {
                     Toast.makeText(MainActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Can't subscribe", Toast.LENGTH_SHORT).show();
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void OnDisconnect(boolean disconnected) {
-                if (disconnected){
+                if (disconnected) {
                     Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Can't disconnected", Toast.LENGTH_SHORT).show();
