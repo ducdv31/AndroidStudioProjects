@@ -28,7 +28,6 @@ import java.util.List;
 public class ListUsersFragment extends Fragment {
 
     private UserAdapter userAdapter;
-    private RecyclerView recyclerView;
 
     public ListUsersFragment() {
         // Required empty public constructor
@@ -39,10 +38,11 @@ public class ListUsersFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View usersView = inflater.inflate(R.layout.fragment_list_users, container, false);
         MainActivity mainActivity = (MainActivity) getActivity();
-        recyclerView = usersView.findViewById(R.id.rcv_list_user);
+        RecyclerView recyclerView = usersView.findViewById(R.id.rcv_list_user);
         userAdapter = new UserAdapter(requireContext(), new UserAdapter.IClickListener() {
             @Override
             public void onClickUser(User user) {
+                assert mainActivity != null;
                 mainActivity.gotoDetailFragment(user);
             }
         });
@@ -74,12 +74,11 @@ public class ListUsersFragment extends Fragment {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         if (dataSnapshot.hasChildren()) {
                             UserNID userNID = dataSnapshot.getValue(UserNID.class);
-
+                            assert userNID != null;
                             userList.add(new User(dataSnapshot.getKey(),
                                     userNID.getName(),
                                     userNID.getRank(),
                                     userNID.getRoom()));
-
                         }
                     }
 

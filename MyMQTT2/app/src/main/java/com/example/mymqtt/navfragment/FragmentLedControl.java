@@ -2,6 +2,7 @@ package com.example.mymqtt.navfragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import com.example.mymqtt.MainActivity;
 import com.example.mymqtt.R;
 import com.example.mymqtt.rcvadapter.LedControlModel;
 import com.example.mymqtt.rcvadapter.RCVLedControlAdapter;
+import com.example.mymqtt.sharedpreference.DataLocalManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class FragmentLedControl extends Fragment {
     private RCVLedControlAdapter rcvLedControlAdapter;
     private MainActivity mainActivity;
     private int led_total = 0;
+    private final String TAG_NUM_LED = "Num_led";
+    private final String TAG_TOPIC = "Topic_Led";
 
     public FragmentLedControl() {
         // Required empty public constructor
@@ -49,6 +53,11 @@ public class FragmentLedControl extends Fragment {
                 false);
         recyclerView.setAdapter(rcvLedControlAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        rcvLedControlAdapter.setData(getData(DataLocalManager.getNumLed(),
+                DataLocalManager.getTopicLed()));
+        topic_led_all.setText(DataLocalManager.getTopicLed());
+        led_total = DataLocalManager.getNumLed();
 
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,4 +94,21 @@ public class FragmentLedControl extends Fragment {
 
         return modelList;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        DataLocalManager.setNumLed(led_total);
+        DataLocalManager.setTopicLed(topic_led_all.getText().toString());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rcvLedControlAdapter.setData(getData(DataLocalManager.getNumLed(),
+                DataLocalManager.getTopicLed()));
+        topic_led_all.setText(DataLocalManager.getTopicLed());
+        led_total = DataLocalManager.getNumLed();
+    }
+
 }
