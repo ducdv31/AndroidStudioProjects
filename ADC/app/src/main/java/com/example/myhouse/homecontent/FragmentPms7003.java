@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ekn.gruzer.gaugelibrary.HalfGauge;
+import com.ekn.gruzer.gaugelibrary.Range;
 import com.example.myhouse.R;
 import com.example.myhouse.model.PmsModel;
 import com.github.mikephil.charting.charts.LineChart;
@@ -50,7 +51,36 @@ public class FragmentPms7003 extends Fragment {
         pm25 = pms7003View.findViewById(R.id.pm25);
         pm10 = pms7003View.findViewById(R.id.pm10);
         lineChart = pms7003View.findViewById(R.id.chartPms7003);
+        pm1.setMaxValue(100);
+        pm25.setMaxValue(100);
+        pm10.setMaxValue(100);
+        Range green = new Range();
+        green.setColor(Color.GREEN);
+        green.setFrom(0);
+        green.setTo(25);
 
+        Range yellow = new Range();
+        yellow.setColor(Color.YELLOW);
+        yellow.setFrom(25);
+        yellow.setTo(50);
+
+        Range red = new Range();
+        red.setColor(Color.RED);
+        red.setFrom(50);
+        red.setTo(100);
+
+
+        pm1.addRange(green);
+        pm1.addRange(yellow);
+        pm1.addRange(red);
+
+        pm25.addRange(green);
+        pm25.addRange(yellow);
+        pm25.addRange(red);
+
+        pm10.addRange(green);
+        pm10.addRange(yellow);
+        pm10.addRange(red);
 
         return pms7003View;
     }
@@ -121,7 +151,7 @@ public class FragmentPms7003 extends Fragment {
                                                 pmsModel.getPm10()));
                                     }
                                     show3Chart(dataVals1, "PM 1.0", Color.RED,
-                                            dataVals2, "PM 2.5", Color.GREEN,
+                                            dataVals2, "PM 2.5", Color.YELLOW,
                                             dataVals3, "PM 10", Color.BLUE);
                                 } else {
                                     lineChart.clear();
@@ -162,11 +192,11 @@ public class FragmentPms7003 extends Fragment {
         lineDataSet2.setDrawValues(false);
 
         // Line 3
-        lineDataSet2.setValues(dataVals3);
-        lineDataSet2.setLabel(ChartName3);
-        lineDataSet2.setColor(color3);
-        lineDataSet2.setLineWidth(4);
-        lineDataSet2.setDrawValues(false);
+        lineDataSet3.setValues(dataVals3);
+        lineDataSet3.setLabel(ChartName3);
+        lineDataSet3.setColor(color3);
+        lineDataSet3.setLineWidth(4);
+        lineDataSet3.setDrawValues(false);
 
         iLineDataSets.clear();
         iLineDataSets.add(lineDataSet);

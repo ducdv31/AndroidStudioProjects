@@ -123,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void connect_mqtt(String host, int port) {
-        if (Host == null) {
-            Host = "tcp://test.mosquitto.org";
-        }
+//        if (Host == null) {
+//            Host = "tcp://test.mosquitto.org";
+//        }
         if (Port == null) {
             Port = "1883";
         }

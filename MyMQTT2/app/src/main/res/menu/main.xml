@@ -4,6 +4,6 @@
     <item
         android:id="@+id/connect_mqtt"
         android:title="Connect MQTT"
-        android:icon="@drawable/icons8_network_64"
+        android:icon="@drawable/icons8_internet_64"
         app:showAsAction="ifRoom"/>
 </menu>

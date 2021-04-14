@@ -64,7 +64,7 @@ public class RCVLedControlAdapter extends RecyclerView.Adapter<RCVLedControlAdap
             public void onClick(View v) {
                 String led_id_str = holder.led_id.getText().toString();
                 String topic_led = ledControlModel.getTopic();
-                Log.e("TAG", "onClick: " + topic_led + " : " + led_id_str + " " + "1");
+//                Log.e("TAG", "onClick: " + topic_led + " : " + led_id_str + " " + "1");
                 mainActivity.publish(topic_led,
                         led_id_str + " : " + "1",
                         false);
@@ -76,7 +76,6 @@ public class RCVLedControlAdapter extends RecyclerView.Adapter<RCVLedControlAdap
             public void onClick(View v) {
                 String led_id_str = holder.led_id.getText().toString();
                 String topic_led = ledControlModel.getTopic();
-                Log.e("TAG", "onClick: " + topic_led + " : " + led_id_str + " " + "0");
                 mainActivity.publish(topic_led,
                         led_id_str + " : " + "0",
                         false);

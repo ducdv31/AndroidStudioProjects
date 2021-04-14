@@ -2,6 +2,8 @@ package com.example.mymqtt.navfragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 
 import com.example.mymqtt.MainActivity;
 import com.example.mymqtt.R;
+import com.example.mymqtt.sharedpreference.DataLocalManager;
 
 public class FragmentConfigMqtt extends Fragment {
     private EditText host;
@@ -36,7 +39,43 @@ public class FragmentConfigMqtt extends Fragment {
         initVariable();
         initButton();
 
+
+
         return configMqttView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        DataLocalManager.setHostMQTT(host.getText().toString());
+        DataLocalManager.setPortMQTT(port.getText().toString());
+        DataLocalManager.setUsernameMQTT(username.getText().toString());
+        DataLocalManager.setPasswordMQTT(password.getText().toString());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        restoreData();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        restoreData();
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        restoreData();
+    }
+
+    private void restoreData() {
+        host.setText(DataLocalManager.getHostMQTT());
+        port.setText(DataLocalManager.getPortMQTT());
+        username.setText(DataLocalManager.getUsernameMQTT());
+        password.setText(DataLocalManager.getPasswordMQTT());
     }
 
     private void initButton() {
@@ -54,13 +93,9 @@ public class FragmentConfigMqtt extends Fragment {
         save_mqtt_config.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String TAG="hehe";
-               Log.d(TAG, "onClick: ");
-                String portTemp="";
-                if(port.getText()==null)
-                {
-                    portTemp="1883";
-                    Log.d(TAG, "onClick: ");
+                String portTemp = "";
+                if (port.getText() == null) {
+                    portTemp = "1883";
                 }
                 mainActivity.set_config_mqtt(host.getText().toString(),
                         portTemp,
@@ -69,6 +104,7 @@ public class FragmentConfigMqtt extends Fragment {
             }
         });
     }
+
 
     void initVariable() {
         host = configMqttView.findViewById(R.id.host_mqtt);

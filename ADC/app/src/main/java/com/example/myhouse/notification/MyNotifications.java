@@ -26,14 +26,24 @@ public class MyNotifications extends Service {
     private static final String FOREGROUND_CHANNEL_ID = "Foreground channel ID";
     private static final int TEMP_NOTIFICATION_ID = 0;
     private static final int HUMI_NOTIFICATION_ID = 1;
+    private static final int PM1_NOTIFICATION_ID = 2;
+    private static final int PM25_NOTIFICATION_ID = 3;
+    private static final int PM10_NOTIFICATION_ID = 4;
     private static final int FOREGROUND_NOTIFICATION_ID = 2;
     public static final String TEMP_HIGH = "Channel 1";
     public static final String TEMP_LOW = "Channel 2";
     public static final String HUMI_HIGH = "Channel 3";
     public static final String HUMI_LOW = "Channel 4";
+    public static final String PM1_HIGH = "Channel 5";
+    public static final String PM25_HIGH = "Channel 6";
+    public static final String PM10_HIGH = "Channel 7";
     public static final String TEMP_NORM = "Delete temperature alert";
     public static final String HUMI_NORM = "Delete humidity alert";
+    public static final String PMS1_NORM = "Delete PM 1 alert";
+    public static final String PMS25_NORM = "Delete PM 2.5 alert";
+    public static final String PMS10_NORM = "Delete PM 10 alert";
     public static final String FOREGROUND_ID = "Channel 5";
+    private static final String PMS_CHANNEL_ID = "PMS channel ID";
     private final Context context;
 
     public MyNotifications(Context context) {
@@ -54,6 +64,13 @@ public class MyNotifications extends Service {
                     NotificationManager.IMPORTANCE_HIGH
             );
 
+            NotificationChannel pms7003 = new NotificationChannel(
+                    PMS_CHANNEL_ID,
+                    "PMS Alert",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+
+
             NotificationChannel foreground = new NotificationChannel(
                     FOREGROUND_CHANNEL_ID,
                     "Foreground Alert",
@@ -67,6 +84,9 @@ public class MyNotifications extends Service {
             humidity.setDescription("Humidity Alert");
             humidity.enableLights(true);
             humidity.setLightColor(Color.RED);
+            pms7003.setDescription("PMS Alert");
+            pms7003.enableLights(true);
+
             foreground.setDescription("Foreground notification");
             NotificationManager notificationManager
                     = context.getSystemService(NotificationManager.class);
@@ -74,6 +94,7 @@ public class MyNotifications extends Service {
             notificationManager.createNotificationChannel(temperature);
             notificationManager.createNotificationChannel(humidity);
             notificationManager.createNotificationChannel(foreground);
+            notificationManager.createNotificationChannel(pms7003);
         }
     }
 
@@ -84,7 +105,50 @@ public class MyNotifications extends Service {
                 R.drawable.icons8_temperature_high_64);
         Bitmap humi_bitmap = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.icons8_humidity_96);
+        Bitmap dust_bitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.icons8_dust_40);
         switch (alert) {
+            case PM1_HIGH:
+                NotificationCompat.Builder builder4
+                        = new NotificationCompat.Builder(context, TEMP_HIGH)
+                        .setSmallIcon(R.drawable.logo_iot_home)
+                        .setContentTitle("Dust pm1 Alert")
+                        .setContentText("Dust pm1 too high (" + value + " ºug/m3)")
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Temperature too high (" + value + " ºug/m3)"))
+                        .setChannelId(PMS_CHANNEL_ID)
+                        .setLargeIcon(dust_bitmap)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                notificationManagerCompat.notify(PM1_NOTIFICATION_ID, builder4.build());
+                break;
+
+            case PM25_HIGH:
+                NotificationCompat.Builder builder5
+                        = new NotificationCompat.Builder(context, TEMP_HIGH)
+                        .setSmallIcon(R.drawable.logo_iot_home)
+                        .setContentTitle("Dust pm 2.5 Alert")
+                        .setContentText("Dust pm 2.5 too high (" + value + " ºug/m3)")
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Dust pm 2.5 too high (" + value + " ºug/m3)"))
+                        .setChannelId(PMS_CHANNEL_ID)
+                        .setLargeIcon(dust_bitmap)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                notificationManagerCompat.notify(PM25_NOTIFICATION_ID, builder5.build());
+                break;
+
+            case PM10_HIGH:
+                NotificationCompat.Builder builder6
+                        = new NotificationCompat.Builder(context, TEMP_HIGH)
+                        .setSmallIcon(R.drawable.logo_iot_home)
+                        .setContentTitle("Dust pm 10 Alert")
+                        .setContentText("Dust pm 10 too high (" + value + " ºug/m3)")
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Dust pm 10 too high (" + value + " ºug/m3)"))
+                        .setChannelId(PMS_CHANNEL_ID)
+                        .setLargeIcon(dust_bitmap)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                notificationManagerCompat.notify(PM10_NOTIFICATION_ID, builder6.build());
+                break;
             case TEMP_HIGH:
                 NotificationCompat.Builder builder
                         = new NotificationCompat.Builder(context, TEMP_HIGH)
@@ -142,6 +206,15 @@ public class MyNotifications extends Service {
                 break;
             case HUMI_NORM:
                 notificationManagerCompat.cancel(HUMI_NOTIFICATION_ID);
+                break;
+            case PMS1_NORM:
+                notificationManagerCompat.cancel(PM1_NOTIFICATION_ID);
+                break;
+            case PMS25_NORM:
+                notificationManagerCompat.cancel(PM25_NOTIFICATION_ID);
+                break;
+            case PMS10_NORM:
+                notificationManagerCompat.cancel(PM10_NOTIFICATION_ID);
                 break;
         }
 
