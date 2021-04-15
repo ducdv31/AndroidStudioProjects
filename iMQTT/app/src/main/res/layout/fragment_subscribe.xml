@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".navigation.tabinmain.SubscribeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <com.ramotion.foldingcell.FoldingCell
+            android:id="@+id/folding_cell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            tools:ignore="ExtraText">​
+
+            <FrameLayout
+                android:id="@+id/cell_content_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#D2ED9C"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TOPIC: "
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <EditText
+                            android:id="@+id/topic_subscribe_mqtt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:textSize="20sp"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="QoS    : "
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+                        <EditText
+                            android:id="@+id/qos_mqtt"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textSize="20sp"
+                            tools:ignore="LabelFor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <Button
+                            android:id="@+id/subscribe_mqtt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:text="Subscribe"
+                            android:textSize="15sp"
+                            tools:ignore="ButtonStyle" />
+
+                        <Button
+                            android:id="@+id/unsubscribe_mqtt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:text="Unsubscribe"
+                            android:textSize="15sp"
+                            tools:ignore="ButtonStyle" />
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+            ​
+
+            <FrameLayout
+                android:id="@+id/cell_title_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDD3D3"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#6EACDC"
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
+
+                    <TextView
+                        android:id="@+id/tv_status_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-2dp"
+                        android:layout_marginTop="0dp"
+                        android:gravity="center"
+                        android:text="Subscribe"
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </com.ramotion.foldingcell.FoldingCell>
+    </LinearLayout>
+</ScrollView>

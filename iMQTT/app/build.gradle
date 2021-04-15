@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.mymqtt"
+        applicationId "com.example.imqtt"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
@@ -41,7 +41,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
 
     implementation('org.eclipse.paho:org.eclipse.paho.android.service:1.1.1') {
         exclude module: 'support-v4'
@@ -49,4 +48,6 @@ dependencies {
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
 
     implementation "androidx.cardview:cardview:1.0.0"
+
+    implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
 }
