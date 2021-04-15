@@ -1,13 +1,21 @@
 package com.example.imqtt;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.imqtt.mqttconfig.MyMqtt;
 import com.example.imqtt.navigation.tabinmain.ConfigMqttFragment;
+import com.example.imqtt.navigation.tabinmain.SubscribeFragment;
+import com.example.imqtt.navigation.tabinmain.rcv_adapter.DataModel;
+import com.example.imqtt.sharedpreference.DataLocalManager;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -23,11 +31,22 @@ import androidx.appcompat.widget.Toolbar;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static final String FRAGMENT_CONFIG_MQTT = "Fragment mqtt back stack";
     private MyMqtt myMqtt;
+    private List<DataModel> listDataSub;
+    private long backPressedTime;
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +66,43 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         initMQTT();
+        listDataSub = new ArrayList<>();
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                closeKeyboard();
+            }
 
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                closeKeyboard();
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+        String Port = DataLocalManager.getPortMQTT();
+        String Host = DataLocalManager.getHostMQTT();
+        if (!Host.isEmpty() && !Port.isEmpty()) {
+            connect_mqtt(Host, Integer.parseInt(Port));
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        String Port = DataLocalManager.getPortMQTT();
+//        String Host = DataLocalManager.getHostMQTT();
+//        if (!Host.isEmpty() && !Port.isEmpty()) {
+//            connect_mqtt(Host, Integer.parseInt(Port));
+//        }
     }
 
     @Override
@@ -82,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void MessageArrived(String topic, MqttMessage mqttMessage) {
-                Toast.makeText(MainActivity.this, topic + " - " + mqttMessage.toString(), Toast.LENGTH_SHORT).show();
+                listDataSub.add(new DataModel(getTime(), topic, mqttMessage.toString()));
+                SubscribeFragment.subDataAdapter.setData(listDataSub);
             }
 
             @Override
@@ -106,8 +162,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private String getTime() {
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        Date currentTime1 = Calendar.getInstance().getTime();
+        return currentTime + "   ||   " + currentDate;
+    }
+
     public void connect_mqtt(String host, int port) {
-            myMqtt.connectServerUri(host, port);
+        myMqtt.connectServerUri(host, port);
     }
 
     public void subscribe_topic(String topic, int QoS) {
@@ -131,6 +195,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mqtt_config:
+                String Port = DataLocalManager.getPortMQTT();
+                String Host = DataLocalManager.getHostMQTT();
+                if (!Host.isEmpty() && !Port.isEmpty()) {
+                    connect_mqtt(Host, Integer.parseInt(Port));
+                }
 
                 break;
         }
@@ -149,5 +218,41 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            mToast.cancel();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+            finish();
+            return;
+        } else {
+            mToast = Toast.makeText(this, "Press Back again to Exit", Toast.LENGTH_SHORT);
+            mToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
+    }
+
+    private void closeKeyboard() {
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        View view = this.getCurrentFocus();
+
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
+
+            // now assign the system
+            // service to InputMethodManager
+            InputMethodManager manager
+                    = (InputMethodManager) this
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

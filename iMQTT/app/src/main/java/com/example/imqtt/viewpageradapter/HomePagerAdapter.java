@@ -47,7 +47,7 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
                 title = "Subscribe";
                 break;
             case 2:
-                title = "Configuration";
+                title = "Config";
                 break;
         }
         return title;

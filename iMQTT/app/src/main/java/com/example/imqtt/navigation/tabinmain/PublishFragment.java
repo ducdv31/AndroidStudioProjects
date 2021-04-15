@@ -1,5 +1,6 @@
 package com.example.imqtt.navigation.tabinmain;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -8,10 +9,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.imqtt.MainActivity;
+import com.example.imqtt.MyApplication;
 import com.example.imqtt.R;
 import com.example.imqtt.sharedpreference.DataLocalManager;
 
@@ -19,7 +22,6 @@ public class PublishFragment extends Fragment {
 
     private EditText topic_pub;
     private EditText content;
-    private Button publish;
     private MainActivity mainActivity;
 
     public PublishFragment() {
@@ -32,7 +34,7 @@ public class PublishFragment extends Fragment {
         final View pubView = inflater.inflate(R.layout.fragment_publish, container, false);
         topic_pub = pubView.findViewById(R.id.topic_pub_mqtt);
         content = pubView.findViewById(R.id.content_mqtt);
-        publish = pubView.findViewById(R.id.publish_mqtt);
+        Button publish = pubView.findViewById(R.id.publish_mqtt);
         mainActivity = (MainActivity) getActivity();
 
 
@@ -43,11 +45,13 @@ public class PublishFragment extends Fragment {
                 String Content = content.getText().toString();
                 if (!Topic.isEmpty()){
                     mainActivity.publish(Topic, Content, false);
+                    closeKeyboard();
+                    content.setText("");
                 }
 
             }
         });
-
+        closeKeyboard();
         return pubView;
     }
 
@@ -62,12 +66,14 @@ public class PublishFragment extends Fragment {
         super.onPause();
         DataLocalManager.setTopicPubMQTT(topic_pub.getText().toString());
         DataLocalManager.setContentPubMQTT(content.getText().toString());
+        closeKeyboard();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         restoreSubConfig();
+        closeKeyboard();
     }
 
     @Override
@@ -80,5 +86,24 @@ public class PublishFragment extends Fragment {
         topic_pub.setText(DataLocalManager.getTopicPubMQTT());
         content.setText(DataLocalManager.getContentPubMQTT());
     }
+    private void closeKeyboard()
+    {
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        View view = requireActivity().getCurrentFocus();
 
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
+
+            // now assign the system
+            // service to InputMethodManager
+            InputMethodManager manager
+                    = (InputMethodManager) requireActivity()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 }

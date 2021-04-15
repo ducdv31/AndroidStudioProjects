@@ -1,5 +1,6 @@
 package com.example.imqtt.navigation.tabinmain;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -48,6 +50,7 @@ public class ConfigMqttFragment extends Fragment {
                 if (!Host.isEmpty() && !Port.isEmpty()) {
                     mainActivity.connect_mqtt(host.getText().toString(),
                             Integer.parseInt(port.getText().toString()));
+                    closeKeyboard();
                 } else {
                     Toast.makeText(mainActivity, "Please check host or port", Toast.LENGTH_SHORT).show();
                 }
@@ -70,6 +73,7 @@ public class ConfigMqttFragment extends Fragment {
         DataLocalManager.setPortMQTT(port.getText().toString());
         DataLocalManager.setUsernameMQTT(username.getText().toString());
         DataLocalManager.setPasswordMQTT(password.getText().toString());
+        closeKeyboard();
     }
 
     @Override
@@ -88,5 +92,24 @@ public class ConfigMqttFragment extends Fragment {
         port.setText(DataLocalManager.getPortMQTT());
         username.setText(DataLocalManager.getUsernameMQTT());
         password.setText(DataLocalManager.getPasswordMQTT());
+    }
+    private void closeKeyboard() {
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        View view = requireActivity().getCurrentFocus();
+
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
+
+            // now assign the system
+            // service to InputMethodManager
+            InputMethodManager manager
+                    = (InputMethodManager) requireActivity()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
