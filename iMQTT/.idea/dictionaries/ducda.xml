@@ -2,7 +2,9 @@
   <dictionary name="ducda">
     <words>
       <w>cardview</w>
+      <w>controler</w>
       <w>imqtt</w>
+      <w>madebyme</w>
       <w>mqtt</w>
       <w>paho</w>
       <w>tabinmain</w>

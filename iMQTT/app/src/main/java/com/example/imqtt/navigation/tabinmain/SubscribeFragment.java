@@ -1,6 +1,7 @@
 package com.example.imqtt.navigation.tabinmain;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -64,6 +65,8 @@ public class SubscribeFragment extends Fragment {
         recyclerView.setAdapter(subDataAdapter);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
+        unsubscribe.setBackgroundColor(Color.RED);
+
 
         foldingCell.setOnClickListener(new View.OnClickListener() {
             @Override

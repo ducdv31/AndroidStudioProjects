@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
@@ -10,4 +9,14 @@
             android:title="@string/control_center" />
 
     </group>
+    <item android:title="@string/more_menu_header">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/icons8_about_50"
+                    android:title="@string/about_header" />
+            </group>
+        </menu>
+    </item>
 </menu>

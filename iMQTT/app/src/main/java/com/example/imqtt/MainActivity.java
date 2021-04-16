@@ -42,11 +42,11 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    public static final String FRAGMENT_CONFIG_MQTT = "Fragment mqtt back stack";
     private MyMqtt myMqtt;
     private List<DataModel> listDataSub;
     private long backPressedTime;
     private Toast mToast;
+    private MenuItem connect_menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home)
+                R.id.nav_home,
+                R.id.nav_about)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -90,19 +91,21 @@ public class MainActivity extends AppCompatActivity {
         });
         String Port = DataLocalManager.getPortMQTT();
         String Host = DataLocalManager.getHostMQTT();
-        if (!Host.isEmpty() && !Port.isEmpty()) {
-            connect_mqtt(Host, Integer.parseInt(Port));
+        String Username = DataLocalManager.getUsernameMQTT();
+        String Password = DataLocalManager.getPasswordMQTT();
+        if (!Host.isEmpty() && !Port.isEmpty() && Username.isEmpty() && Password.isEmpty()) {
+            connect_mqtt(Host,
+                    Integer.parseInt(Port));
+            closeKeyboard();
+        } else if (!Host.isEmpty() && !Port.isEmpty() && !Username.isEmpty() && !Password.isEmpty()) {
+            connect_with_user_mqtt(Host,
+                    Integer.parseInt(Port),
+                    Username,
+                    Password);
+            closeKeyboard();
+        } else {
+            Toast.makeText(this, "Please check host or port", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        String Port = DataLocalManager.getPortMQTT();
-//        String Host = DataLocalManager.getHostMQTT();
-//        if (!Host.isEmpty() && !Port.isEmpty()) {
-//            connect_mqtt(Host, Integer.parseInt(Port));
-//        }
     }
 
     @Override
@@ -117,8 +120,10 @@ public class MainActivity extends AppCompatActivity {
             public void ServerConnected(boolean status) {
                 if (status) {
                     Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+                    connect_menu.setIcon(R.drawable.icons8_internet_of_things_green_50);
                 } else {
                     Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
+                    connect_menu.setIcon(R.drawable.icons8_internet_of_things_50);
                 }
             }
 
@@ -174,6 +179,10 @@ public class MainActivity extends AppCompatActivity {
         myMqtt.connectServerUri(host, port);
     }
 
+    public void connect_with_user_mqtt(String host, int port, String username, String password) {
+        myMqtt.connectServerUriSecure(host, port, username, password);
+    }
+
     public void subscribe_topic(String topic, int QoS) {
         myMqtt.subscribe(topic, QoS);
     }
@@ -210,6 +219,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        connect_menu = menu.findItem(R.id.mqtt_config);
         return true;
     }
 
@@ -236,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         backPressedTime = System.currentTimeMillis();
     }
 
-    private void closeKeyboard() {
+    public void closeKeyboard() {
         // this will give us the view
         // which is currently focus
         // in this layout

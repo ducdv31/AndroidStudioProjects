@@ -1,6 +1,7 @@
 package com.example.imqtt.navigation.tabinmain;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -42,18 +43,37 @@ public class ConfigMqttFragment extends Fragment {
         username = configView.findViewById(R.id.username_mqtt);
         password = configView.findViewById(R.id.password_mqtt);
         Button connect_mqtt_server = configView.findViewById(R.id.connect_mqtt);
+        Button disconnect_mqtt_server = configView.findViewById(R.id.disconnect_mqtt);
+        disconnect_mqtt_server.setBackgroundColor(Color.RED);
+
+
         connect_mqtt_server.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String Host = host.getText().toString();
                 String Port = port.getText().toString();
-                if (!Host.isEmpty() && !Port.isEmpty()) {
-                    mainActivity.connect_mqtt(host.getText().toString(),
-                            Integer.parseInt(port.getText().toString()));
+                String Username = username.getText().toString();
+                String Password = username.getText().toString();
+
+                if (!Host.isEmpty() && !Port.isEmpty() && Username.isEmpty() && Password.isEmpty()) {
+                    mainActivity.connect_mqtt(Host,
+                            Integer.parseInt(Port));
+                    closeKeyboard();
+                } else if (!Host.isEmpty() && !Port.isEmpty() && !Username.isEmpty() && !Password.isEmpty()) {
+                    mainActivity.connect_with_user_mqtt(Host,
+                            Integer.parseInt(Port),
+                            Username,
+                            Password);
                     closeKeyboard();
                 } else {
                     Toast.makeText(mainActivity, "Please check host or port", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        disconnect_mqtt_server.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.disconnect_mqtt();
             }
         });
 
@@ -87,12 +107,14 @@ public class ConfigMqttFragment extends Fragment {
         super.onViewStateRestored(savedInstanceState);
         restoreConfigMQTT();
     }
-    private void restoreConfigMQTT(){
+
+    private void restoreConfigMQTT() {
         host.setText(DataLocalManager.getHostMQTT());
         port.setText(DataLocalManager.getPortMQTT());
         username.setText(DataLocalManager.getUsernameMQTT());
         password.setText(DataLocalManager.getPasswordMQTT());
     }
+
     private void closeKeyboard() {
         // this will give us the view
         // which is currently focus
