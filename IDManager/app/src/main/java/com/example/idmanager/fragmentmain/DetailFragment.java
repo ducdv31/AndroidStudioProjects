@@ -1,4 +1,4 @@
-package com.example.idmanager;
+package com.example.idmanager.fragmentmain;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.idmanager.MainActivity;
+import com.example.idmanager.R;
 import com.example.idmanager.model.User;
 import com.example.idmanager.model.WorkFlow;
 import com.example.idmanager.rcvadapter.WorkTimeAdapter;

@@ -1,9 +1,8 @@
-package com.example.idmanager;
+package com.example.idmanager.fragmentmain;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.idmanager.MainActivity;
+import com.example.idmanager.R;
 import com.example.idmanager.model.User;
 import com.example.idmanager.model.UserNID;
+import com.example.idmanager.model.addmember.IDCard;
 import com.example.idmanager.rcvadapter.UserAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,12 +75,17 @@ public class ListUsersFragment extends Fragment {
                 if (snapshot.hasChildren()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         if (dataSnapshot.hasChildren()) {
-                            UserNID userNID = dataSnapshot.getValue(UserNID.class);
-                            assert userNID != null;
-                            userList.add(new User(dataSnapshot.getKey(),
-                                    userNID.getName(),
-                                    userNID.getRank(),
-                                    userNID.getRoom()));
+                            if (dataSnapshot.hasChild("name") &&
+                                    dataSnapshot.hasChild("rank") &&
+                                    dataSnapshot.hasChild("room")) {
+                                UserNID userNID = dataSnapshot.getValue(UserNID.class);
+                                assert userNID != null;
+                                userList.add(new User(dataSnapshot.getKey(),
+                                        userNID.getName(),
+                                        userNID.getRank(),
+                                        userNID.getRoom()));
+                            }
+
                         }
                     }
 

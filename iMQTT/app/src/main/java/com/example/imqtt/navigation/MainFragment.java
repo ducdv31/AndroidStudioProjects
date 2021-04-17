@@ -19,9 +19,6 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainFragment extends Fragment {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private HomePagerAdapter homePagerAdapter;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -30,9 +27,9 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View mainView = inflater.inflate(R.layout.fragment_main, container, false);
-        tabLayout = mainView.findViewById(R.id.tab_home);
-        viewPager = mainView.findViewById(R.id.view_pager_home);
-        homePagerAdapter = new HomePagerAdapter(requireActivity().getSupportFragmentManager(),
+        TabLayout tabLayout = mainView.findViewById(R.id.tab_home);
+        ViewPager viewPager = mainView.findViewById(R.id.view_pager_home);
+        HomePagerAdapter homePagerAdapter = new HomePagerAdapter(requireActivity().getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(homePagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

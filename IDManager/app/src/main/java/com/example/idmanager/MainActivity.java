@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.idmanager.fragmentmain.DetailFragment;
+import com.example.idmanager.fragmentmain.ListUsersFragment;
 import com.example.idmanager.model.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.add_member:
-                Toast.makeText(this, "Add member", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AddMemActivity.class);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -23,9 +23,9 @@
             android:background="@color/teal_200"
             app:tabBackground="@color/teal_200"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/cardview_dark_background"
+            app:tabIndicatorColor="#E91E63"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/teal_700" />
+            app:tabSelectedTextColor="#E91E63" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_home"
