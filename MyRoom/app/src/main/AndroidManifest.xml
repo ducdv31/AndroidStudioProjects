@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRoom">
+        <activity android:name=".activitylistday.ActivityListDay"></activity>
+        <activity android:name=".activitylistmem.ActivityListMem" />
+        <activity android:name=".activity2addmem.ActivityAddMem" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activitymain.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.MyRoom.NoActionBar">
             <intent-filter>
