@@ -12,6 +12,8 @@ import com.example.idmanager.fragmentaddmember.ListIdFragment;
 import com.example.idmanager.fragmentaddmember.SetDataUserFragment;
 import com.example.idmanager.fragmentmain.DetailFragment;
 import com.example.idmanager.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddMemActivity extends AppCompatActivity {
 
@@ -20,6 +22,7 @@ public class AddMemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mem);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setTitle("Add member");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -46,5 +49,10 @@ public class AddMemActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.add_member_content_frame, setDataUserFragment);
         fragmentTransaction.addToBackStack(SetDataUserFragment.SET_DATA_TAG);
         fragmentTransaction.commit();
+    }
+
+    public void deleteUnKnowUser(String id){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Deviot").child(id).setValue(null);
     }
 }

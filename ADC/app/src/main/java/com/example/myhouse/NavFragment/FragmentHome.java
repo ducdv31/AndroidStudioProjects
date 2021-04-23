@@ -18,21 +18,20 @@ import com.google.android.material.tabs.TabLayout;
 public class FragmentHome extends Fragment {
     private TabLayout tabLayout;
     private static ViewPager viewPager;
-    private View Dht11View;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Dht11View = inflater.inflate(R.layout.fragment_home, container, false);
-        tabLayout = Dht11View.findViewById(R.id.tab_select);
-        viewPager = Dht11View.findViewById(R.id.viewPager);
+        final View dht11View = inflater.inflate(R.layout.fragment_home, container, false);
+        tabLayout = dht11View.findViewById(R.id.tab_select);
+        viewPager = dht11View.findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(requireActivity()
                 .getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
-        return Dht11View;
+        return dht11View;
     }
 
     public static FragmentHome newInstance(int page) {

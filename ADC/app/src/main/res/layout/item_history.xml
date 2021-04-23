@@ -4,7 +4,7 @@
     android:id="@+id/cardView_history"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#BEFF72"
+    app:cardBackgroundColor="@color/blue_dot_background"
     app:cardCornerRadius="8dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">

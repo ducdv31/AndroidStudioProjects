@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="8dp"
     app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="@color/red_dot_background"
+    app:cardBackgroundColor="@color/blue_dot_background"
     app:cardPreventCornerOverlap="true">
 
     <LinearLayout

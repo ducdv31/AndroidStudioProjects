@@ -10,8 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_200"
+        android:background="#CFCFCF"
         android:gravity="center"
+        android:padding="10dp"
         android:orientation="horizontal">
 
         <TextView

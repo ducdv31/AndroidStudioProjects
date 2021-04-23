@@ -34,7 +34,7 @@ public class ListIdFragment extends Fragment {
 
     private IDRcvAdapter idRcvAdapter;
     private AddMemActivity addMemActivity;
-    private FloatingActionButton fab_clear_all;
+    private List<IDCard> list;
 
     public ListIdFragment() {
         // Required empty public constructor
@@ -46,18 +46,28 @@ public class ListIdFragment extends Fragment {
         final View idView = inflater.inflate(R.layout.fragment_list_id, container, false);
         addMemActivity = (AddMemActivity) getActivity();
         RecyclerView recyclerView = idView.findViewById(R.id.rcv_list_id_member);
-        fab_clear_all = idView.findViewById(R.id.bt_clear_list_add_user);
+        FloatingActionButton fab_clear_all = idView.findViewById(R.id.bt_clear_list_add_user);
+        list = new ArrayList<>();
         idRcvAdapter = new IDRcvAdapter(addMemActivity,
                 new IDRcvAdapter.IClickListenerSetDataUser() {
                     @Override
                     public void onClickIdUser(String id) {
                         addMemActivity.gotoSetDetailFragment(id);
                     }
+
+                    @Override
+                    public void onClickDeleteUnKowUser(String id) {
+                        /* delete functions */
+                        addMemActivity.deleteUnKnowUser(id);
+                    }
                 });
         fab_clear_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(addMemActivity, "Clear all", Toast.LENGTH_SHORT).show();
+                for (IDCard idCard : list){
+                    addMemActivity.deleteUnKnowUser(idCard.getId());
+                }
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(addMemActivity,
@@ -80,7 +90,7 @@ public class ListIdFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChildren()) {
-                    List<IDCard> list = new ArrayList<>();
+                    list.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) { // dataSnapshot = ID
                         if (!dataSnapshot.hasChild("name") ||
                                 !dataSnapshot.hasChild("rank") ||

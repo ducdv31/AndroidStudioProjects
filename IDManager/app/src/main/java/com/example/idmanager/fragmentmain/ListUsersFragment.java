@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.idmanager.MainActivity;
 import com.example.idmanager.R;
@@ -47,6 +49,19 @@ public class ListUsersFragment extends Fragment {
                 assert mainActivity != null;
                 mainActivity.gotoDetailFragment(user);
             }
+
+            @Override
+            public void onClickUpdateUser(User user) {
+                assert mainActivity != null;
+                mainActivity.gotoUpdateFragment(user);
+            }
+
+            @Override
+            public void onClickDeleteUser(String id) {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child(MainActivity.PARENT_CHILD).child(id).setValue(null);
+                Toast.makeText(mainActivity, "Deleted ID: " + id, Toast.LENGTH_SHORT).show();
+            }
         });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(),
@@ -62,7 +77,6 @@ public class ListUsersFragment extends Fragment {
         recyclerView.addItemDecoration(itemDecoration);
 
         getListUser();
-
         return usersView;
     }
 

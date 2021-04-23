@@ -12,11 +12,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.idmanager.fragmentmain.DetailFragment;
+import com.example.idmanager.fragmentmain.EditUserFragment;
 import com.example.idmanager.fragmentmain.ListUsersFragment;
 import com.example.idmanager.model.User;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG_UPDATE = "update_user";
+    public static final String PARENT_CHILD = "Deviot";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,18 @@ public class MainActivity extends AppCompatActivity {
         /*  Transform  */
         fragmentTransaction.replace(R.id.content_frame, detailFragment);
         fragmentTransaction.addToBackStack(DetailFragment.TAG);
+        fragmentTransaction.commit();
+    }
+
+    public void gotoUpdateFragment(User user) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        EditUserFragment editUserFragment = new EditUserFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(TAG_UPDATE, user);
+        editUserFragment.setArguments(bundle);
+        /*  Transform  */
+        fragmentTransaction.replace(R.id.content_frame, editUserFragment);
+        fragmentTransaction.addToBackStack(EditUserFragment.TAG_FRAG_EDIT);
         fragmentTransaction.commit();
     }
 

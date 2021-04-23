@@ -13,12 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        android:background="@color/teal_200"
+        android:background="@color/white"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorColor="#E91E63"
+        app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="4dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/purple_200" />
+        app:tabSelectedTextColor="#E91E63" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
