@@ -1,14 +1,14 @@
 package com.example.myroom.activitylistmem.knowuser.rcvadapter
 
 import android.content.Context
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.chauthai.swipereveallayout.SwipeRevealLayout
+import com.chauthai.swipereveallayout.ViewBinderHelper
 import com.example.myroom.R
 import com.example.myroom.activitylistmem.model.UserDetail
 
@@ -19,6 +19,7 @@ public class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHold
         fun onClickDeleteUser(userDetail: UserDetail)
     }
 
+    private var viewBinderHelper: ViewBinderHelper = ViewBinderHelper()
     private var listUser: List<UserDetail>? = null
     var context: Context? = null
     private var iClickUser: IClickUser? = null
@@ -28,7 +29,7 @@ public class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHold
         this.iClickUser = iClickUser
     }
 
-    public fun setData(list: List<UserDetail>) {
+    fun setData(list: List<UserDetail>) {
         listUser = list
         notifyDataSetChanged()
     }
@@ -41,6 +42,7 @@ public class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHold
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val userDetail: UserDetail = listUser!![position]
+        viewBinderHelper.bind(holder.swipeRevealLayout, userDetail.id)
         holder.name.text = userDetail.name
         holder.room.text = userDetail.room
         holder.rank.text = userDetail.rank.toString()
@@ -72,6 +74,7 @@ public class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHold
         val room: TextView = itemView.findViewById<TextView>(R.id.room_user)
         val delete: ImageView = itemView.findViewById<ImageView>(R.id.delete__user)
         val editUser: ImageView = itemView.findViewById<ImageView>(R.id.edit__user)
+        val swipeRevealLayout: SwipeRevealLayout = itemView.findViewById(R.id.swipeReveal_list_user)
     }
 
 }

@@ -3,26 +3,28 @@ package com.example.myroom.activitymain
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activitylistday.ActivityListDay
 import com.example.myroom.activitylistmem.ActivityListMem
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    private var backPressedTime: Long = 0
+    private var mToast: Toast? = null
 
     companion object {
         const val PARENT_CHILD: String = "Deviot"
@@ -68,13 +70,13 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    public fun openListMemActivity() {
+    fun openListMemActivity() {
         val intent = Intent(this, ActivityListMem::class.java)
         startActivity(intent)
 
     }
 
-    public fun openListDayActivity() {
+    fun openListDayActivity() {
         val intent = Intent(this, ActivityListDay::class.java)
         startActivity(intent)
 
@@ -96,4 +98,18 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            mToast?.cancel()
+            val intent = Intent(Intent.ACTION_MAIN)
+            intent.addCategory(Intent.CATEGORY_HOME)
+            startActivity(intent)
+            finish()
+            return
+        } else {
+            mToast = Toast.makeText(this, "Press Back again to Exit", Toast.LENGTH_SHORT)
+            mToast?.show()
+        }
+        backPressedTime = System.currentTimeMillis()
+    }
 }

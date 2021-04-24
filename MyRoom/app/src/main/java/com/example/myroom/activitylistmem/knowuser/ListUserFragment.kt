@@ -1,10 +1,13 @@
 package com.example.myroom.activitylistmem.knowuser
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myroom.R
@@ -20,6 +23,9 @@ class ListUserFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var rcvUserAdapter: RcvUserAdapter? = null
     private var activityListMem: ActivityListMem? = null
+    private var myToast: Toast? = null
+
+    @SuppressLint("ShowToast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,21 +34,24 @@ class ListUserFragment : Fragment() {
             .inflate(R.layout.fragment_list_user, container, false)
         recyclerView = listUserView.findViewById(R.id.rcv_list_mem)
         activityListMem = activity as ActivityListMem?
+        myToast = Toast.makeText(activityListMem, "No user", Toast.LENGTH_LONG)
+
         val linearLayoutManager = LinearLayoutManager(activityListMem, RecyclerView.VERTICAL, false)
-        rcvUserAdapter = RcvUserAdapter(requireContext(), iClickUser = object : RcvUserAdapter.IClickUser{
-            override fun onClickUser(userDetail: UserDetail) {
-                activityListMem?.gotoDetailUser(userDetail)
-            }
+        rcvUserAdapter =
+            RcvUserAdapter(requireContext(), iClickUser = object : RcvUserAdapter.IClickUser {
+                override fun onClickUser(userDetail: UserDetail) {
+                    activityListMem?.gotoDetailUser(userDetail)
+                }
 
-            override fun onClickUpdateUser(userDetail: UserDetail) {
-                activityListMem?.gotoUpdateUser(userDetail)
-            }
+                override fun onClickUpdateUser(userDetail: UserDetail) {
+                    activityListMem?.gotoUpdateUser(userDetail)
+                }
 
-            override fun onClickDeleteUser(userDetail: UserDetail) {
+                override fun onClickDeleteUser(userDetail: UserDetail) {
 
-            }
+                }
 
-        })
+            })
 
         recyclerView!!.layoutManager = linearLayoutManager
         recyclerView!!.adapter = rcvUserAdapter
@@ -80,15 +89,21 @@ class ListUserFragment : Fragment() {
                             }
                         }
                         rcvUserAdapter!!.setData(listMem)
+                    } else {
+                        myToast?.show()
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    Log.e("List user fragment", "onCancelled: Can't get data")
                 }
 
             })
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        myToast?.cancel()
+    }
 }

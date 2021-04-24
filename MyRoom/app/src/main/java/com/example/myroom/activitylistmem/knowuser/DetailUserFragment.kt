@@ -1,16 +1,13 @@
 package com.example.myroom.activitylistmem.knowuser
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.RecoverySystem
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.FragmentManager
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +17,6 @@ import com.example.myroom.activitylistmem.knowuser.rcvadapter.RcvTimeAdapter
 import com.example.myroom.activitylistmem.model.UserDetail
 import com.example.myroom.activitylistmem.model.WorkFlow
 import com.example.myroom.activitymain.MainActivity
-import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.firebase.database.*
 
 class DetailUserFragment : Fragment() {
@@ -28,6 +24,8 @@ class DetailUserFragment : Fragment() {
     private var rcvTimeAdapter: RcvTimeAdapter? = null
     private var recyclerView: RecyclerView? = null
     private var activityListMem: ActivityListMem? = null
+    private var myToast:Toast? = null
+    @SuppressLint("ShowToast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +45,7 @@ class DetailUserFragment : Fragment() {
         val itemDecoration: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
         recyclerView?.addItemDecoration(itemDecoration)
-
+        myToast = Toast.makeText(requireContext(), "No data", Toast.LENGTH_LONG)
 
         val bundle: Bundle? = arguments
         bundle?.let {
@@ -103,7 +101,7 @@ class DetailUserFragment : Fragment() {
                             })
 
                     } else {
-                        Log.e("TAG", " no child")
+                        myToast?.show()
                     }
                 }
 
@@ -114,4 +112,8 @@ class DetailUserFragment : Fragment() {
             })
     }
 
+    override fun onPause() {
+        super.onPause()
+        myToast?.cancel()
+    }
 }

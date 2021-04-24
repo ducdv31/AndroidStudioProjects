@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/gray"
             app:cardCornerRadius="8dp"
             app:cardUseCompatPadding="true">
 
@@ -68,7 +68,7 @@
             android:id="@+id/user_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#C6C6C6"
+            app:cardBackgroundColor="@color/gray"
             app:cardCornerRadius="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
