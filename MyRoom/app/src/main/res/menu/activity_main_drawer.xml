@@ -9,4 +9,10 @@
             android:icon="@drawable/icons8_control_panel_64"
             android:title="@string/control_panel" />
     </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/icons8_about_50"
+            android:title="@string/about_nav_title" />
+    </group>
 </menu>

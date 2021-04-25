@@ -17,7 +17,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
-import com.example.myroom.activitylistday.ActivityListDay
+import com.example.myroom.activitycalendar.ActivityCalendar
 import com.example.myroom.activitylistmem.ActivityListMem
 import com.google.android.material.navigation.NavigationView
 
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         const val RANK_CHILD: String = "rank"
         const val ROOM_CHILD: String = "room"
         const val WORK_TIME_CHILD: String = "Work-Time"
+        const val PARENT_DAY_CHILD:String = "Deviot-Date"
     }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -49,7 +50,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home
+                R.id.nav_home,
+                R.id.nav_about
             ),
             drawerLayout
         )
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openListDayActivity() {
-        val intent = Intent(this, ActivityListDay::class.java)
+        val intent = Intent(this, ActivityCalendar::class.java)
         startActivity(intent)
 
     }
