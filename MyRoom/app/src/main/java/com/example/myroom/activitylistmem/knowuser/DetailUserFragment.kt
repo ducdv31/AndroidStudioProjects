@@ -21,10 +21,10 @@ import com.google.firebase.database.*
 
 class DetailUserFragment : Fragment() {
 
-    private var rcvTimeAdapter: RcvTimeAdapter? = null
-    private var recyclerView: RecyclerView? = null
-    private var activityListMem: ActivityListMem? = null
-    private var myToast:Toast? = null
+    private lateinit var rcvTimeAdapter: RcvTimeAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var activityListMem: ActivityListMem
+    private lateinit var myToast:Toast
     @SuppressLint("ShowToast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,16 +35,16 @@ class DetailUserFragment : Fragment() {
         val name: TextView = detailView.findViewById(R.id.name_user_detail)
         val rank: TextView = detailView.findViewById(R.id.rank_user_detail)
         val room: TextView = detailView.findViewById(R.id.room_user_detail)
-        activityListMem = activity as ActivityListMem?
+        activityListMem = activity as ActivityListMem
         recyclerView = detailView.findViewById(R.id.rcv_user_work_time)
         rcvTimeAdapter = RcvTimeAdapter(requireContext())
         val linearLayoutManager: LinearLayoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        recyclerView?.layoutManager = linearLayoutManager
-        recyclerView?.adapter = rcvTimeAdapter
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.adapter = rcvTimeAdapter
         val itemDecoration: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        recyclerView?.addItemDecoration(itemDecoration)
+        recyclerView.addItemDecoration(itemDecoration)
         myToast = Toast.makeText(requireContext(), "No data", Toast.LENGTH_LONG)
 
         val bundle: Bundle? = arguments
@@ -101,7 +101,7 @@ class DetailUserFragment : Fragment() {
                             })
 
                     } else {
-                        myToast?.show()
+                        myToast.show()
                     }
                 }
 
@@ -114,6 +114,6 @@ class DetailUserFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        myToast?.cancel()
+        myToast.cancel()
     }
 }

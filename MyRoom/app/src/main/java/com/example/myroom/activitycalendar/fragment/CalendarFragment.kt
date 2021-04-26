@@ -1,7 +1,5 @@
 package com.example.myroom.activitycalendar.fragment
 
-import android.annotation.SuppressLint
-import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -13,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myroom.R
+import com.example.myroom.activitycalendar.ActivityCalendar
 import com.example.myroom.activitycalendar.model.IDCalendar
 import com.example.myroom.activitycalendar.model.UserCalendar
 import com.example.myroom.activitycalendar.rcvadapter.UserCalendarAdapter
@@ -23,8 +22,9 @@ import java.util.*
 
 class CalendarFragment : Fragment() {
 
-    var userCalendarAdapter: UserCalendarAdapter? = null
+    private lateinit var userCalendarAdapter: UserCalendarAdapter
     private lateinit var handler: Handler
+    private lateinit var activityCalendar: ActivityCalendar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +33,11 @@ class CalendarFragment : Fragment() {
         val calendarView = inflater.inflate(R.layout.fragment_calendar, container, false)
         val calendar: CalendarView = calendarView.findViewById(R.id.calender_view)
         val recyclerView: RecyclerView = calendarView.findViewById(R.id.rcv_user_calendar)
+        activityCalendar = activity as ActivityCalendar
+
         userCalendarAdapter = UserCalendarAdapter(requireContext())
 
-        val linearLayoutManager: LinearLayoutManager =
+        val linearLayoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
 
@@ -114,7 +116,7 @@ class CalendarFragment : Fragment() {
                     }
 
                 })
-            userCalendarAdapter?.setData(listUser)
+            userCalendarAdapter.setData(listUser)
         }
 //        userCalendarAdapter?.setData(listUser)
 

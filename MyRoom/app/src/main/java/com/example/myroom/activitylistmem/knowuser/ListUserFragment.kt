@@ -20,10 +20,10 @@ import com.google.firebase.database.*
 
 class ListUserFragment : Fragment() {
 
-    private var recyclerView: RecyclerView? = null
-    private var rcvUserAdapter: RcvUserAdapter? = null
-    private var activityListMem: ActivityListMem? = null
-    private var myToast: Toast? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var rcvUserAdapter: RcvUserAdapter
+    private lateinit var activityListMem: ActivityListMem
+    private lateinit var myToast: Toast
 
     @SuppressLint("ShowToast")
     override fun onCreateView(
@@ -33,18 +33,18 @@ class ListUserFragment : Fragment() {
         val listUserView = inflater
             .inflate(R.layout.fragment_list_user, container, false)
         recyclerView = listUserView.findViewById(R.id.rcv_list_mem)
-        activityListMem = activity as ActivityListMem?
+        activityListMem = activity as ActivityListMem
         myToast = Toast.makeText(activityListMem, "No user", Toast.LENGTH_LONG)
 
         val linearLayoutManager = LinearLayoutManager(activityListMem, RecyclerView.VERTICAL, false)
         rcvUserAdapter =
             RcvUserAdapter(requireContext(), iClickUser = object : RcvUserAdapter.IClickUser {
                 override fun onClickUser(userDetail: UserDetail) {
-                    activityListMem?.gotoDetailUser(userDetail)
+                    activityListMem.gotoDetailUser(userDetail)
                 }
 
                 override fun onClickUpdateUser(userDetail: UserDetail) {
-                    activityListMem?.gotoUpdateUser(userDetail)
+                    activityListMem.gotoUpdateUser(userDetail)
                 }
 
                 override fun onClickDeleteUser(userDetail: UserDetail) {
@@ -53,8 +53,8 @@ class ListUserFragment : Fragment() {
 
             })
 
-        recyclerView!!.layoutManager = linearLayoutManager
-        recyclerView!!.adapter = rcvUserAdapter
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.adapter = rcvUserAdapter
 
         getListData()
 
@@ -88,9 +88,9 @@ class ListUserFragment : Fragment() {
 
                             }
                         }
-                        rcvUserAdapter!!.setData(listMem)
+                        rcvUserAdapter.setData(listMem)
                     } else {
-                        myToast?.show()
+                        myToast.show()
                     }
                 }
 
@@ -104,6 +104,6 @@ class ListUserFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        myToast?.cancel()
+        myToast.cancel()
     }
 }
