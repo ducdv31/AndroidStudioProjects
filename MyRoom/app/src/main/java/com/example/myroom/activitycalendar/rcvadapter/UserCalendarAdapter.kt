@@ -11,7 +11,11 @@ import com.example.myroom.R
 import com.example.myroom.activitycalendar.model.UserCalendar
 
 class UserCalendarAdapter() : RecyclerView.Adapter<UserCalendarAdapter.UserCalendarViewHolder>() {
-    var listUsers: MutableList<UserCalendar>? = null
+    lateinit var listUsers: MutableList<UserCalendar>
+
+    init {
+        listUsers = mutableListOf()
+    }
 
     constructor(context: Context) : this() {
 
@@ -29,7 +33,7 @@ class UserCalendarAdapter() : RecyclerView.Adapter<UserCalendarAdapter.UserCalen
     }
 
     override fun onBindViewHolder(holder: UserCalendarViewHolder, position: Int) {
-        val userCalendar:UserCalendar = listUsers?.get(position) ?: return
+        val userCalendar:UserCalendar = listUsers[position] ?: return
         holder.name.text = userCalendar.Name
         holder.cardView.setOnClickListener(View.OnClickListener {
             /* open detail user fragment */
@@ -37,7 +41,7 @@ class UserCalendarAdapter() : RecyclerView.Adapter<UserCalendarAdapter.UserCalen
     }
 
     override fun getItemCount(): Int {
-        return listUsers?.size ?: return 0
+        return listUsers.size ?: return 0
     }
 
     class UserCalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

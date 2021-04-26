@@ -17,6 +17,8 @@ import com.example.myroom.activitycalendar.model.UserCalendar
 import com.example.myroom.activitycalendar.rcvadapter.UserCalendarAdapter
 import com.example.myroom.activitymain.MainActivity
 import com.google.firebase.database.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +27,7 @@ class CalendarFragment : Fragment() {
     private lateinit var userCalendarAdapter: UserCalendarAdapter
     private lateinit var handler: Handler
     private lateinit var activityCalendar: ActivityCalendar
-
+    private lateinit var listUser: MutableList<UserCalendar>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +38,7 @@ class CalendarFragment : Fragment() {
         activityCalendar = activity as ActivityCalendar
 
         userCalendarAdapter = UserCalendarAdapter(requireContext())
-
+        listUser = mutableListOf()
         val linearLayoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
@@ -83,7 +85,11 @@ class CalendarFragment : Fragment() {
                         }
                     }
                     /* find user by id and set data */
-                    findUserByID(listId)
+                    val findUser = GlobalScope.async {
+                        findUserByID(listId)
+                    }
+                    findUser.start()
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -95,7 +101,8 @@ class CalendarFragment : Fragment() {
 
     private fun findUserByID(listId: MutableList<IDCalendar>) {
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val listUser: MutableList<UserCalendar> = mutableListOf()
+//        val listUser: MutableList<UserCalendar> = mutableListOf()
+        listUser.clear()
         for (idCalendar: IDCalendar in listId) {
             /* get user with each id */
             databaseReference.child(MainActivity.PARENT_CHILD).child(idCalendar.ID)
@@ -107,7 +114,7 @@ class CalendarFragment : Fragment() {
                         if (checkUser) {
                             val Name = snapshot.child(MainActivity.NAME_CHILD).value.toString()
                             listUser.add(UserCalendar(idCalendar.ID, Name))
-//                            userCalendarAdapter?.setData(listUser)
+//                            userCalendarAdapter.setData(listUser)
                         }
                     }
 
@@ -116,9 +123,9 @@ class CalendarFragment : Fragment() {
                     }
 
                 })
-            userCalendarAdapter.setData(listUser)
+//            userCalendarAdapter.setData(listUser)
         }
-//        userCalendarAdapter?.setData(listUser)
+        userCalendarAdapter.setData(listUser)
 
     }
 
