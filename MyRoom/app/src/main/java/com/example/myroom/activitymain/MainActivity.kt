@@ -19,6 +19,7 @@ import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activitycalendar.ActivityCalendar
 import com.example.myroom.activitylistmem.ActivityListMem
+import com.example.myroom.activitysummary.ActivitySummary
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val PARENT_CHILD: String = "Deviot"
+        const val PARENT_MONTH_CHILD: String = "Deviot-Month"
         const val NAME_CHILD: String = "name"
         const val RANK_CHILD: String = "rank"
         const val ROOM_CHILD: String = "room"
@@ -82,6 +84,11 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, ActivityCalendar::class.java)
         startActivity(intent)
 
+    }
+
+    fun openSummaryActivity() {
+        val intent = Intent(this, ActivitySummary::class.java)
+        startActivity(intent)
     }
 
     private fun openAddMemActivity() {
