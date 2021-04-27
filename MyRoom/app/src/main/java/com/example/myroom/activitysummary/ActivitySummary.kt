@@ -12,6 +12,7 @@ import com.example.myroom.activitysummary.fragment.HomeSummaryFragment
 import com.example.myroom.activitysummary.fragment.UserInMonthFragment
 import com.example.myroom.activitysummary.model.IDSummary
 import com.example.myroom.activitysummary.model.UserSummary
+import com.example.myroom.activitysummary.rcvadapter.RcvUserMonthAdapter
 import com.google.firebase.database.*
 
 class ActivitySummary : AppCompatActivity() {
@@ -60,9 +61,10 @@ class ActivitySummary : AppCompatActivity() {
 
     }
 
-    fun findUserInMonth(month: String?) {
+    fun findUserInMonth(rcvUserMonthAdapter: RcvUserMonthAdapter, month: String?) {
         val date: String = "00 : $month : 2021"
         /* get date from server and pick up the month to compare */
+        var listUser:MutableList<UserSummary> = mutableListOf()
         databaseReference.child(MainActivity.PARENT_MONTH_CHILD)
             .child(month!!)
             .addValueEventListener(object : ValueEventListener {
@@ -70,7 +72,7 @@ class ActivitySummary : AppCompatActivity() {
                     if (snapshot.hasChildren()) {
                         val listID: MutableList<IDSummary> = mutableListOf()
                         for (snapshot1: DataSnapshot in snapshot.children) { // snapshot1 = day
-                            Log.e("Id in month", snapshot1.key.toString())
+//                            Log.e("Id in month", snapshot1.key.toString())
                             /* compare month with id and get time */
 //                            listID.add(IDSummary(snapshot1.key.toString()))
                             FirebaseDatabase.getInstance().reference.child(MainActivity.PARENT_CHILD)
@@ -82,10 +84,16 @@ class ActivitySummary : AppCompatActivity() {
                                                     snapshot.hasChild(MainActivity.RANK_CHILD) &&
                                                     snapshot.hasChild(MainActivity.ROOM_CHILD)
                                         if (checkUser) {
+                                            /* get name */
                                             val name =
                                                 snapshot.child(MainActivity.NAME_CHILD).value.toString() // name
-                                            Log.e("Name", name)
+//                                            Log.e("Name", name)
+                                            /* get total time */
+
+                                            /* set list user */
+                                            listUser.add(UserSummary(name, "100"))
                                         }
+                                        rcvUserMonthAdapter.setData(listUser)
                                     }
 
                                     override fun onCancelled(error: DatabaseError) {
@@ -93,6 +101,7 @@ class ActivitySummary : AppCompatActivity() {
                                     }
 
                                 })
+
                         }
                     }
                 }
@@ -102,6 +111,7 @@ class ActivitySummary : AppCompatActivity() {
                 }
 
             })
+        rcvUserMonthAdapter.setData(listUser)
     }
 
     fun findUserByID(listId: MutableList<IDSummary>): MutableList<UserSummary> {
@@ -117,7 +127,7 @@ class ActivitySummary : AppCompatActivity() {
                         if (checkUser) {
                             val name =
                                 snapshot.child(MainActivity.NAME_CHILD).value.toString() // name
-                            listUser.add(UserSummary(name))
+                            listUser.add(UserSummary(name, "10"))
                         }
                     }
 
