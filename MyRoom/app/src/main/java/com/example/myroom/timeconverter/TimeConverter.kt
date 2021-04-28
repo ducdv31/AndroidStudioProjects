@@ -15,6 +15,7 @@ class TimeConverter {
             Hours.toString() + " : 0" + Minutes
         } else Hours.toString() + " : " + Minutes
     }
+
     fun getHours(AllMinutes: Int): Int {
         Hours = AllMinutes / 60
         return Hours as Int

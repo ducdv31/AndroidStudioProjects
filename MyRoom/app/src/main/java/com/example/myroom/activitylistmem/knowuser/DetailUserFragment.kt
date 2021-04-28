@@ -2,6 +2,7 @@ package com.example.myroom.activitylistmem.knowuser
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.example.myroom.activitylistmem.knowuser.rcvadapter.RcvTimeAdapter
 import com.example.myroom.activitylistmem.model.UserDetail
 import com.example.myroom.activitylistmem.model.WorkFlow
 import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.timeconverter.TimeConverter2
 import com.google.firebase.database.*
 
 class DetailUserFragment : Fragment() {
@@ -35,9 +37,18 @@ class DetailUserFragment : Fragment() {
         val name: TextView = detailView.findViewById(R.id.name_user_detail)
         val rank: TextView = detailView.findViewById(R.id.rank_user_detail)
         val room: TextView = detailView.findViewById(R.id.room_user_detail)
+        val time: TextView = detailView.findViewById(R.id.all_tim_detail_user)
+        var minutes : Int = 0
         activityListMem = activity as ActivityListMem
         recyclerView = detailView.findViewById(R.id.rcv_user_work_time)
-        rcvTimeAdapter = RcvTimeAdapter(requireContext())
+        rcvTimeAdapter = RcvTimeAdapter(requireContext(), object : RcvTimeAdapter.ISummaryUser{
+            override fun onReceivedSummary(minute: Int) {
+                minutes += minute
+                Log.e("Time", minutes.toString())
+                time.text = TimeConverter2.convertFromMinutesWithDay(minutes)
+            }
+
+        })
         val linearLayoutManager: LinearLayoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = linearLayoutManager
@@ -90,7 +101,7 @@ class DetailUserFragment : Fragment() {
 
                                         }
                                         /* set data time work */
-                                        rcvTimeAdapter!!.setData(workFlow)
+                                        rcvTimeAdapter.setData(workFlow)
                                     }
                                 }
 

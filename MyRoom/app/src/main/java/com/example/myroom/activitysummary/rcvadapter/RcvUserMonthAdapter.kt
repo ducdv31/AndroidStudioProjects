@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myroom.R
 import com.example.myroom.activitysummary.model.UserSummary
+import com.example.myroom.timeconverter.TimeConverter2
 
 class RcvUserMonthAdapter() : RecyclerView.Adapter<RcvUserMonthAdapter.UserMonthViewHolder>() {
     lateinit var listUser : MutableList<UserSummary>
@@ -33,7 +34,8 @@ class RcvUserMonthAdapter() : RecyclerView.Adapter<RcvUserMonthAdapter.UserMonth
     override fun onBindViewHolder(holder: UserMonthViewHolder, position: Int) {
         val userSummary: UserSummary = listUser[position] ?: return
         holder.name.text = userSummary.Name
-        holder.all_time.text = userSummary.AllTime
+//        holder.all_time.text = userSummary.AllTime
+        holder.all_time.text = TimeConverter2.convertFromMinutesWithDay(userSummary.AllTime.toInt())
 
     }
 

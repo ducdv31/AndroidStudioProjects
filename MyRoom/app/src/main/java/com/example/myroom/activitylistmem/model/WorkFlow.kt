@@ -26,4 +26,12 @@ class WorkFlow(day: String, start: String, end: String) {
     fun getEnd(): String? {
         return timeConverter?.ConvertFromMinutes(end!!.toInt())
     }
+
+    fun getTimeLineDay(): String {
+        return timeConverter?.ConvertFromMinutes(end!!.toInt().minus(start?.toInt()!!)).toString()
+    }
+
+    fun getTimeLineMinutes(): Int {
+        return end!!.toInt().minus(start?.toInt()!!)
+    }
 }
