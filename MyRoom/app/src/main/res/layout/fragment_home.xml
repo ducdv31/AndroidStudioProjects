@@ -37,6 +37,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="Members"
+                android:textColor="@color/black"
                 android:textSize="35sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -71,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="Calendar"
+                android:textColor="@color/black"
                 android:textSize="35sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -105,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="Summary"
+                android:textColor="@color/black"
                 android:textSize="35sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
