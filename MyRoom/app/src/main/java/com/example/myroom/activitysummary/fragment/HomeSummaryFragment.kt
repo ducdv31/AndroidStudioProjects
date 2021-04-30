@@ -47,7 +47,7 @@ class HomeSummaryFragment : Fragment() {
         recyclerView.adapter = monthAdapter
         val itemDecoration: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        recyclerView.addItemDecoration(itemDecoration)
+//        recyclerView.addItemDecoration(itemDecoration)
 
         val month: MutableList<Int> = mutableListOf()
         for (i: Int in 1..12) {

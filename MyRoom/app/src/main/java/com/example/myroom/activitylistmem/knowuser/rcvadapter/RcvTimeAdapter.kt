@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myroom.R
 import com.example.myroom.activitylistmem.model.WorkFlow
+import java.util.*
 
 class RcvTimeAdapter() : RecyclerView.Adapter<RcvTimeAdapter.TimeViewHolder>() {
     private var listTime: MutableList<WorkFlow> = mutableListOf()
@@ -24,6 +25,7 @@ class RcvTimeAdapter() : RecyclerView.Adapter<RcvTimeAdapter.TimeViewHolder>() {
 
     fun setData(list: MutableList<WorkFlow>) {
         listTime = list
+        listTime.reverse()
         notifyDataSetChanged()
     }
 

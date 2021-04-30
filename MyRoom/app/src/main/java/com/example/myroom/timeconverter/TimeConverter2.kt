@@ -28,7 +28,7 @@ class TimeConverter2 {
             return if (Hours!! < 10 && Minutes!! < 10) {
                 "$Day day : 0$Hours : 0$Minutes"
             } else if (Hours!! < 10 && Minutes!! >= 10) {
-                "$Day day 0$Hours : $Minutes"
+                "$Day day : 0$Hours : $Minutes"
             } else if (Hours!! >= 10 && Minutes!! < 10) {
                 "$Day day : " + Hours.toString() + " : 0" + Minutes
             } else "$Day day : " + Hours.toString() + " : " + Minutes

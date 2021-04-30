@@ -20,8 +20,13 @@ import com.google.firebase.database.*
 
 class ListUserFragment : Fragment() {
 
+    companion object{
+        @SuppressLint("StaticFieldLeak")
+        lateinit var rcvUserAdapter: RcvUserAdapter
+    }
+
     private lateinit var recyclerView: RecyclerView
-    private lateinit var rcvUserAdapter: RcvUserAdapter
+//    private lateinit var rcvUserAdapter: RcvUserAdapter
     private lateinit var activityListMem: ActivityListMem
     private lateinit var myToast: Toast
 
@@ -52,7 +57,7 @@ class ListUserFragment : Fragment() {
                 }
 
             })
-
+        activityListMem.menuItem?.isVisible = true
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = rcvUserAdapter
 
@@ -102,8 +107,23 @@ class ListUserFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        activityListMem.menuItem?.isVisible = true
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        activityListMem.menuItem?.isVisible = true
+    }
+
     override fun onPause() {
         super.onPause()
         myToast.cancel()
+        activityListMem.closeKeyboard()
+        if (!activityListMem.searchView.isIconified){
+            activityListMem.searchView.isIconified = true
+        }
+        activityListMem.menuItem?.isVisible = false
     }
 }

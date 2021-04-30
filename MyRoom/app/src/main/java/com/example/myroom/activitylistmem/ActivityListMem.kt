@@ -1,10 +1,15 @@
 package com.example.myroom.activitylistmem
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
+
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import com.example.myroom.R
 import com.example.myroom.activitylistmem.knowuser.DetailUserFragment
 import com.example.myroom.activitylistmem.knowuser.ListUserFragment
@@ -20,6 +25,8 @@ class ActivityListMem : AppCompatActivity() {
         const val BACK_STACK_UPDATE_USER = "List user to update user"
     }
 
+    var menuItem: MenuItem? = null
+    lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +40,38 @@ class ActivityListMem : AppCompatActivity() {
         fragmentTransition.replace(R.id.frame_list_mem_act, ListUserFragment())
         fragmentTransition.commit()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_list_mem, menu)
+        menuItem = menu?.findItem(R.id.search_mem)
+        val searchManager: SearchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = menu?.findItem(R.id.search_mem)!!.actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.maxWidth = Int.MAX_VALUE
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                ListUserFragment.rcvUserAdapter.filter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                ListUserFragment.rcvUserAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
+
+        return true
+    }
+
+    override fun onBackPressed() {
+        if (!searchView.isIconified) {
+            searchView.isIconified = true
+            return
+        }
+        super.onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

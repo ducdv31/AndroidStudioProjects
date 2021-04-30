@@ -68,6 +68,7 @@ class ActivitySummary : AppCompatActivity() {
         val listUser: MutableList<UserSummary> = mutableListOf()
         var workFlow: WorkFlow
         var minutes: Int = 0
+        var day: Int = 0
         databaseReference.child(MainActivity.PARENT_MONTH_CHILD)
             .child(month!!)
             .addValueEventListener(object : ValueEventListener {
@@ -101,8 +102,8 @@ class ActivitySummary : AppCompatActivity() {
                                                     /* check for month */
                                                     val Date = snapShot1.key.toString()
                                                     val Month: String = Date.split(" : ")[1]
-                                                    Log.d("ID", snapshot1.key.toString())
-                                                    Log.d("Date", Date)
+//                                                    Log.d("ID", snapshot1.key.toString())
+//                                                    Log.d("Date", Date)
 //                                                    Log.e("Month Server", Month)
 
                                                     if (Month.trim() == month.trim()) {
@@ -112,7 +113,7 @@ class ActivitySummary : AppCompatActivity() {
                                                         for (timeSnapshot: DataSnapshot in snapShot1.children) {
                                                             time1.add(timeSnapshot.key?.toInt()!!)
                                                         }
-                                                        Log.e("Time", time1.toString())
+//                                                        Log.e("Time", time1.toString())
                                                         workFlow = WorkFlow(
                                                             Date,
                                                             time1[0].toString(),
@@ -120,6 +121,7 @@ class ActivitySummary : AppCompatActivity() {
                                                         )
                                                         /********************/
                                                         minutes += workFlow.getTimeLineMinutes()
+                                                        day++
                                                     }
 
                                                     /* get start - end -> total time */
@@ -128,10 +130,17 @@ class ActivitySummary : AppCompatActivity() {
                                                 }
                                             } else {
                                                 minutes = 0
+                                                day = 0
                                             }
                                             /* set list user */
 //                                            Log.e("Time", minutes.toString())
-                                            listUser.add(UserSummary(name, minutes.toString()))
+                                            listUser.add(
+                                                UserSummary(
+                                                    name,
+                                                    day.toString(),
+                                                    minutes.toString()
+                                                )
+                                            )
                                         }
                                         rcvUserMonthAdapter.setData(listUser)
                                     }
@@ -167,7 +176,7 @@ class ActivitySummary : AppCompatActivity() {
                         if (checkUser) {
                             val name =
                                 snapshot.child(MainActivity.NAME_CHILD).value.toString() // name
-                            listUser.add(UserSummary(name, "10"))
+                            listUser.add(UserSummary(name, "10", "10"))
                         }
                     }
 

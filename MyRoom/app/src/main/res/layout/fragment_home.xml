@@ -12,7 +12,7 @@
         android:id="@+id/cardView_list_user_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white_red"
+        app:cardBackgroundColor="@color/gray"
         app:cardCornerRadius="8dp"
         app:cardUseCompatPadding="true">
 
@@ -46,7 +46,7 @@
         android:id="@+id/cardView_day_select_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white_red"
+        app:cardBackgroundColor="@color/gray"
         app:cardCornerRadius="8dp"
         app:cardUseCompatPadding="true">
 
@@ -80,7 +80,7 @@
         android:id="@+id/cardView_summary_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white_red"
+        app:cardBackgroundColor="@color/gray"
         app:cardCornerRadius="8dp"
         app:cardUseCompatPadding="true">
 

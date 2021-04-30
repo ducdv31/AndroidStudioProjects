@@ -40,7 +40,7 @@ class UserInMonthFragment : Fragment() {
         recyclerView.adapter = rcvUserMonthAdapter
         val divider: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        recyclerView.addItemDecoration(divider)
+//        recyclerView.addItemDecoration(divider)
 
         val bundle: Bundle? = arguments
         bundle?.let {

@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/logo_bkhn"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         >
 
     </ImageView>
@@ -26,16 +26,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:text="ĐHBK HÀ NỘI"
+        android:text="ducdang513@gmail.com"
         android:layout_gravity="center">
 
     </TextView>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CK.CĐT.07 - K62"
-        android:textSize="25sp"
-        android:layout_gravity="center">
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="CK.CĐT.07 - K62"-->
+<!--        android:textSize="25sp"-->
+<!--        android:layout_gravity="center">-->
 
-    </TextView>
+<!--    </TextView>-->
 </LinearLayout>

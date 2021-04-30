@@ -36,7 +36,7 @@ class RcvUserMonthAdapter() : RecyclerView.Adapter<RcvUserMonthAdapter.UserMonth
         holder.name.text = userSummary.Name
 //        holder.all_time.text = userSummary.AllTime
         holder.all_time.text = TimeConverter2.convertFromMinutesWithDay(userSummary.AllTime.toInt())
-
+        holder.all_day.text = userSummary.day
     }
 
     override fun getItemCount(): Int {
@@ -46,5 +46,6 @@ class RcvUserMonthAdapter() : RecyclerView.Adapter<RcvUserMonthAdapter.UserMonth
     class UserMonthViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.tv_name_in_month)
         val all_time: TextView = itemView.findViewById(R.id.total_time_in_month)
+        val all_day: TextView = itemView.findViewById(R.id.number_day_of_month)
     }
 }

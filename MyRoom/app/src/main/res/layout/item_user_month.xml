@@ -29,6 +29,28 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/number_day_of_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/text_split"
+            android:text="Day"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text_split"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/total_time_in_month"
+            android:text=" || "
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/total_time_in_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
