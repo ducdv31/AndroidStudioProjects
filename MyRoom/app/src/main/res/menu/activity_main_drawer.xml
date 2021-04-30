@@ -11,6 +11,10 @@
     </group>
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_acc"
+            android:icon="@drawable/baseline_account_circle_black_24dp"
+            android:title="@string/account" />
+        <item
             android:id="@+id/nav_about"
             android:icon="@drawable/icons8_about_50"
             android:title="@string/about_nav_title" />

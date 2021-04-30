@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRoom">
-        <activity android:name=".activitysummary.ActivitySummary"></activity>
+        <activity android:name=".activitysummary.ActivitySummary" />
         <activity android:name=".activitycalendar.ActivityCalendar" />
         <activity android:name=".activitylistmem.ActivityListMem" />
         <activity android:name=".activity2addmem.ActivityAddMem" />
