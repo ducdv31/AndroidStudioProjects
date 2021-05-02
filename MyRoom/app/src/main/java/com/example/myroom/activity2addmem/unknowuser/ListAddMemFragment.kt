@@ -16,15 +16,21 @@ import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activity2addmem.unknowuser.model.UserID
 import com.example.myroom.activity2addmem.unknowuser.rcvadapter.RcvAddMemAdapter
 import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.dialog.TFDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 
 class ListAddMemFragment : Fragment() {
 
+    companion object {
+        const val TAG_DELETE_DIALOG = "Delete user dialog"
+    }
+
     private var recyclerView: RecyclerView? = null
     private var rcvAddMemAdapter: RcvAddMemAdapter? = null
     private var myToast: Toast? = null
     private var listMember: MutableList<UserID>? = null
+    lateinit var tfDialog: TFDialog
 
     @SuppressLint("ShowToast")
     override fun onCreateView(
@@ -40,6 +46,20 @@ class ListAddMemFragment : Fragment() {
         val fab_delete_all: FloatingActionButton =
             listAddView.findViewById(R.id.bt_clear_list_add_user)
 
+        tfDialog = TFDialog(requireContext(), object : TFDialog.IDialogResponse {
+            override fun onDialogResponse(response: Boolean) {
+                if (response) {
+                    val bundle: Bundle? = tfDialog.arguments
+                    bundle?.let {
+                        val userID: UserID = bundle.get(TAG_DELETE_DIALOG) as UserID
+                        databaseReference.child(MainActivity.PARENT_CHILD).child(userID.id)
+                            .setValue(null)
+                    }
+                }
+            }
+
+        })
+
         rcvAddMemAdapter =
             RcvAddMemAdapter(requireContext(), object : RcvAddMemAdapter.IClickUserAdd {
                 override fun onClickUser(userID: UserID) {
@@ -47,8 +67,11 @@ class ListAddMemFragment : Fragment() {
                 }
 
                 override fun onClickDeleteUser(userID: UserID) {
-                    databaseReference.child(MainActivity.PARENT_CHILD).child(userID.id)
-                        .setValue(null)
+
+                    val bundle: Bundle = Bundle()
+                    bundle.putSerializable(TAG_DELETE_DIALOG, userID)
+                    tfDialog.arguments = bundle
+                    tfDialog.show(requireActivity().supportFragmentManager, "Delete user")
                 }
 
             })

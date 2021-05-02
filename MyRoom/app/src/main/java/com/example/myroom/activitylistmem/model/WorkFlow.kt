@@ -16,7 +16,9 @@ class WorkFlow(day: String, start: String, end: String) {
     }
 
     fun getDay(): String? {
-        return day
+        /* 25 : 05 :  2021 */
+        /* 25 / 05 / 2021 */
+        return day?.replace(":", "/")
     }
 
     fun getStart(): String? {

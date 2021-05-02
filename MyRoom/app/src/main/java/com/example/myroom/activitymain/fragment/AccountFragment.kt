@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.myroom.R
 import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.dialog.TFDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.SignInButton
 import com.google.firebase.auth.FirebaseUser
@@ -30,6 +31,11 @@ class AccountFragment : Fragment() {
     var personId: String? = null
     var personPhoto: Uri? = null
 
+    /* dialog */
+    lateinit var TFDialog: TFDialog
+
+    /* **************** */
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,11 +47,19 @@ class AccountFragment : Fragment() {
         userImg = accountView.findViewById(R.id.img_user_account_fragment)
         sign_in = accountView.findViewById(R.id.sign_in_account_fragment)
         sign_out = accountView.findViewById(R.id.sign_out_account_fragment)
+        TFDialog = TFDialog(requireContext(), object : TFDialog.IDialogResponse{
+            override fun onDialogResponse(response: Boolean) {
+                if (response){
+                    mainActivity.signOut()
+                    checkAcc()
+                }
+            }
+
+        })
 
         sign_in.setOnClickListener { mainActivity.signIn() }
         sign_out.setOnClickListener {
-            mainActivity.signOut()
-            checkAcc()
+            TFDialog.show(requireActivity().supportFragmentManager, "Sign out")
         }
 
         checkAcc()

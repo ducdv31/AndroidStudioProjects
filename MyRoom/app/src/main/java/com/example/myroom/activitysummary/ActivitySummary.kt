@@ -74,10 +74,12 @@ class ActivitySummary : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChildren()) {
-                        val listID: MutableList<IDSummary> = mutableListOf()
                         for (snapshot1: DataSnapshot in snapshot.children) { // snapshot1 = id
 //                            Log.e("Id in month", snapshot1.key.toString())
                             /* compare month with id and get time */
+                            minutes = 0
+                            day = 0
+                            workFlow = WorkFlow("0", "0", "0")
 //                            listID.add(IDSummary(snapshot1.key.toString()))
                             FirebaseDatabase.getInstance().reference.child(MainActivity.PARENT_CHILD)
                                 .child(snapshot1.key.toString()) // id
@@ -95,13 +97,16 @@ class ActivitySummary : AppCompatActivity() {
 //                                            Log.e("Name", name)
                                             /* get total time */
                                             if (snapshot2.hasChild(MainActivity.WORK_TIME_CHILD)) {
+                                                minutes = 0
+                                                day = 0
+                                                workFlow = WorkFlow("0", "0", "0")
                                                 for (snapShot1: DataSnapshot in snapshot2.child(
                                                     MainActivity.WORK_TIME_CHILD
                                                 ).children) {
                                                     // snapShot1 = 25 : 04 : 2021
                                                     /* check for month */
                                                     val Date = snapShot1.key.toString()
-                                                    val Month: String = Date.split(" : ")[1]
+                                                    val Month: String = Date.split(":")[1]
 //                                                    Log.d("ID", snapshot1.key.toString())
 //                                                    Log.d("Date", Date)
 //                                                    Log.e("Month Server", Month)
@@ -150,7 +155,6 @@ class ActivitySummary : AppCompatActivity() {
                                     }
 
                                 })
-
                         }
                     }
                 }
