@@ -239,6 +239,11 @@ class ActivityCalendar : AppCompatActivity() {
     fun getTime(): String {
         val currentDate = SimpleDateFormat("dd : MM : yyyy", Locale.getDefault()).format(Date())
         val currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
-        return currentDate
+        val strDate = currentDate.split(":")
+        val day = strDate[0].trim().toInt()
+        val month = strDate[1].trim()
+        val year = strDate[2].trim()
+
+        return "$day : $month : $year"
     }
 }

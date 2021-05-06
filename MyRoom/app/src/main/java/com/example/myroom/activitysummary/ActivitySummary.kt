@@ -147,6 +147,7 @@ class ActivitySummary : AppCompatActivity() {
                                                 )
                                             )
                                         }
+                                        listUser.sortBy { userSummary -> userSummary.AllTime }
                                         rcvUserMonthAdapter.setData(listUser)
                                     }
 

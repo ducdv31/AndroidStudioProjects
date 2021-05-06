@@ -55,7 +55,7 @@ class DetailUserFragment : Fragment() {
         recyclerView.adapter = rcvTimeAdapter
         val itemDecoration: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        recyclerView.addItemDecoration(itemDecoration)
+//        recyclerView.addItemDecoration(itemDecoration)
         myToast = Toast.makeText(requireContext(), "No data", Toast.LENGTH_LONG)
 
         val bundle: Bundle? = arguments

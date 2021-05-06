@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,6 @@ import com.example.myroom.activitycalendar.rcvadapter.UserCalendarAdapter
 import com.example.myroom.activitylistmem.model.WorkFlow
 import com.example.myroom.activitymain.MainActivity
 import com.google.firebase.database.*
-import java.util.*
 
 class CalendarFragment : Fragment() {
 
@@ -46,7 +46,7 @@ class CalendarFragment : Fragment() {
         recyclerView.adapter = userCalendarAdapter
         val itemDecoration: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        recyclerView.addItemDecoration(itemDecoration)
+//        recyclerView.addItemDecoration(itemDecoration)
 
         calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             /* get time and set data to list user */

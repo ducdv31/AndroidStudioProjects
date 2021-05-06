@@ -81,7 +81,7 @@ class ListAddMemFragment : Fragment() {
         recyclerView?.adapter = rcvAddMemAdapter
         val itemDecoration: RecyclerView.ItemDecoration =
             DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        recyclerView?.addItemDecoration(itemDecoration)
+//        recyclerView?.addItemDecoration(itemDecoration)
 
         fab_delete_all.setOnClickListener(View.OnClickListener {
             listMember?.let {

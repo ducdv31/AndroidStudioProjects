@@ -21,9 +21,9 @@ class RcvUserMonthAdapter() : RecyclerView.Adapter<RcvUserMonthAdapter.UserMonth
     }
 
     fun setData(list: MutableList<UserSummary>) {
+//        list.sortBy { userSummary -> userSummary.AllTime }
+        list.reverse()
         listUser = list
-        listUser.sortBy { userSummary -> userSummary.AllTime }
-
         notifyDataSetChanged()
     }
 
