@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activity2addmem.unknowuser.model.UserID
 import com.example.myroom.activity2addmem.unknowuser.rcvadapter.RcvAddMemAdapter
 import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.activitymain.MyApplication
 import com.example.myroom.dialog.TFDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
@@ -24,8 +26,11 @@ class ListAddMemFragment : Fragment() {
 
     companion object {
         const val TAG_DELETE_DIALOG = "Delete user dialog"
+        var fab_delete_all: FloatingActionButton? = null
+        var swipeAble: Boolean = false
     }
 
+    private lateinit var activityAddMem: ActivityAddMem
     private var recyclerView: RecyclerView? = null
     private var rcvAddMemAdapter: RcvAddMemAdapter? = null
     private var myToast: Toast? = null
@@ -41,9 +46,9 @@ class ListAddMemFragment : Fragment() {
             .inflate(R.layout.fragment_list_add_mem, container, false)
         recyclerView = listAddView.findViewById(R.id.rcv_list_id_member)
         myToast = Toast.makeText(requireContext(), "No user", Toast.LENGTH_LONG)
-        val activityAddMem: ActivityAddMem = activity as ActivityAddMem
+        activityAddMem = activity as ActivityAddMem
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val fab_delete_all: FloatingActionButton =
+        fab_delete_all =
             listAddView.findViewById(R.id.bt_clear_list_add_user)
 
         tfDialog = TFDialog(requireContext(), object : TFDialog.IDialogResponse {
@@ -74,6 +79,14 @@ class ListAddMemFragment : Fragment() {
                     tfDialog.show(requireActivity().supportFragmentManager, "Delete user")
                 }
 
+                override fun onSwipeRevealLayout(swipeRevealLayout: SwipeRevealLayout) {
+                    if (swipeAble) {
+                        swipeRevealLayout.setLockDrag(false)
+                    } else {
+                        swipeRevealLayout.setLockDrag(true)
+                    }
+                }
+
             })
         val linearLayoutManager: LinearLayoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -83,7 +96,7 @@ class ListAddMemFragment : Fragment() {
             DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
 //        recyclerView?.addItemDecoration(itemDecoration)
 
-        fab_delete_all.setOnClickListener(View.OnClickListener {
+        fab_delete_all?.setOnClickListener(View.OnClickListener {
             listMember?.let {
                 for (userID: UserID in listMember!!) {
                     databaseReference.child(MainActivity.PARENT_CHILD).child(userID.id)
@@ -96,6 +109,11 @@ class ListAddMemFragment : Fragment() {
         getListData()
 
         return listAddView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MyApplication.getUIDPermission(activityAddMem)
     }
 
     private fun getListData() {

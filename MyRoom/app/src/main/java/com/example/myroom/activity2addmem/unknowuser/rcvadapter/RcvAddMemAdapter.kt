@@ -12,13 +12,16 @@ import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.chauthai.swipereveallayout.ViewBinderHelper
 import com.example.myroom.R
 import com.example.myroom.activity2addmem.unknowuser.model.UserID
+import com.example.myroom.activitymain.`interface`.IPermissionRequest
+import com.example.myroom.sharedpreference.DataLocalManager
 
 class RcvAddMemAdapter() : RecyclerView.Adapter<RcvAddMemAdapter.AddMemViewHolder>() {
-    var listIdAdd : MutableList<UserID> = mutableListOf()
-    var viewBinderHelper:ViewBinderHelper = ViewBinderHelper()
+    private var listIdAdd : MutableList<UserID> = mutableListOf()
+    private var viewBinderHelper:ViewBinderHelper = ViewBinderHelper()
     interface IClickUserAdd{
         fun onClickUser(userID: UserID)
         fun onClickDeleteUser(userID: UserID)
+        fun onSwipeRevealLayout(swipeRevealLayout: SwipeRevealLayout)
     }
     private var iClickUserAdd: IClickUserAdd? = null
 
@@ -41,6 +44,7 @@ class RcvAddMemAdapter() : RecyclerView.Adapter<RcvAddMemAdapter.AddMemViewHolde
     override fun onBindViewHolder(holder: AddMemViewHolder, position: Int) {
         val userID: UserID = listIdAdd[position]
         viewBinderHelper.bind(holder.swipeRevealLayout, userID.id)
+        iClickUserAdd?.onSwipeRevealLayout(holder.swipeRevealLayout)
         holder.id.text = userID.id
         holder.cardView.setOnClickListener(View.OnClickListener {
             /* open setup user fragment */

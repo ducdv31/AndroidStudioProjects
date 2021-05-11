@@ -25,7 +25,12 @@ import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activitycalendar.ActivityCalendar
 import com.example.myroom.activitylistmem.ActivityListMem
+import com.example.myroom.activitymain.`interface`.IPermissionRequest
+import com.example.myroom.activitymain.fragment.HomeFragment
+import com.example.myroom.activitymain.permission.PermData
+import com.example.myroom.activitymain.permission.UserPermission
 import com.example.myroom.activitysummary.ActivitySummary
+import com.example.myroom.sharedpreference.DataLocalManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -34,9 +39,16 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IPermissionRequest {
 
+    /* interface */
+
+    /* ************************** */
     private var backPressedTime: Long = 0
     private var mToast: Toast? = null
     lateinit var main_layout: DrawerLayout
@@ -65,13 +77,24 @@ class MainActivity : AppCompatActivity() {
         const val NAME_CHILD: String = "name"
         const val RANK_CHILD: String = "rank"
         const val ROOM_CHILD: String = "room"
+        const val USERNAME_CHILD: String = "username"
+        const val EMAIL_CHILD: String = "email"
+        const val PERM_CHILD: String = "perm"
         const val WORK_TIME_CHILD: String = "Work-Time"
         const val PARENT_DAY_CHILD: String = "Deviot-Date"
+        const val PARENT_PERMISSION_CHILD: String = "Deviot-Permission"
         const val RC_SIGN_IN: Int = 12 // for sign in
     }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var drawerLayout: DrawerLayout? = null
+
+    override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser: FirebaseUser? = mAuth?.currentUser
+        updateUI(currentUser)
+    }
 
     @SuppressLint("CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -142,6 +165,12 @@ class MainActivity : AppCompatActivity() {
                 snackbar.show()
             }
         }
+        MyApplication.getUIDPermission(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MyApplication.getUIDPermission(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -239,17 +268,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun firebaseAuthWithGoogle(idToken: String) {
+    private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth?.signInWithCredential(credential)
-            ?.addOnCompleteListener(this,
+            ?.addOnCompleteListener(
+                this,
                 OnCompleteListener<AuthResult?> { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        val user: FirebaseUser = mAuth!!.currentUser
+                        val user: FirebaseUser? = mAuth!!.currentUser
+                        /* set User to database for determine permission */
+                        user?.let {
+//                            iPermissionRequest.hasUserUID(true, user.uid)
+                            FirebaseDatabase.getInstance().reference
+                                .child(PARENT_PERMISSION_CHILD)
+                                .child(user.uid).child(USERNAME_CHILD)
+                                .setValue(user.displayName)
+                            FirebaseDatabase.getInstance().reference
+                                .child(PARENT_PERMISSION_CHILD)
+                                .child(user.uid).child(EMAIL_CHILD)
+                                .setValue(user.email)
+                        }
+                        MyApplication.getUIDPermission(this)
+                        /* update UI */
                         updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
+                        DataLocalManager.setUID("")
                         updateUI(null)
                         Toast.makeText(
                             this@MainActivity,
@@ -262,12 +307,7 @@ class MainActivity : AppCompatActivity() {
                 })
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser: FirebaseUser? = mAuth?.currentUser
-        updateUI(currentUser)
-    }
+
 
     private fun updateUI(account: FirebaseUser?) {
         val acct = GoogleSignIn.getLastSignedInAccount(this)
@@ -303,5 +343,34 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this, OnCompleteListener<Void?> {
                 // ...
             })
+        MyApplication.getUIDPermission(this)
+    }
+
+    override fun hasUserUID(has: Boolean, username: String) {
+        if(!has){
+            HomeFragment.bt_mode_list_user?.visibility = View.INVISIBLE
+        } else {
+            HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
+        }
+    }
+
+    override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
+
+    }
+
+    override fun hasRootUser(hasRoot: Boolean) {
+        if (hasRoot) {
+            /* show */
+            HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
+            HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
+        } else {
+            /* hide view */
+            HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_day_select?.visibility = View.INVISIBLE
+        }
+    }
+
+    override fun hasSupperRoot(hasSupperRoot: Boolean) {
+        
     }
 }

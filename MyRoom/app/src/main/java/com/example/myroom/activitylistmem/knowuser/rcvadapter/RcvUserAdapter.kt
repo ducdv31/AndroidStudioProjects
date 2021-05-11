@@ -8,6 +8,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.chauthai.swipereveallayout.ViewBinderHelper
@@ -20,6 +21,7 @@ class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHolder>(), 
         fun onClickUser(userDetail: UserDetail)
         fun onClickUpdateUser(userDetail: UserDetail)
         fun onClickDeleteUser(userDetail: UserDetail)
+        fun onSwipeRevealLayout(swipeRevealLayout: SwipeRevealLayout)
     }
 
     private var viewBinderHelper: ViewBinderHelper = ViewBinderHelper()
@@ -48,6 +50,7 @@ class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHolder>(), 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val userDetail: UserDetail = listUser!![position]
         viewBinderHelper.bind(holder.swipeRevealLayout, userDetail.id)
+        iClickUser?.onSwipeRevealLayout(holder.swipeRevealLayout)
         holder.name.text = userDetail.name
         holder.room.text = userDetail.room
         holder.rank.text = userDetail.rank.toString()
@@ -72,7 +75,7 @@ class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHolder>(), 
     }
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cardUser: View = itemView.findViewById<View>(R.id.user_card)
+        val cardUser: CardView = itemView.findViewById(R.id.user_card)
         val name: TextView = itemView.findViewById<TextView>(R.id.user_name)
         val id: TextView = itemView.findViewById<TextView>(R.id.id_user)
         val rank: TextView = itemView.findViewById<TextView>(R.id.rank_user)

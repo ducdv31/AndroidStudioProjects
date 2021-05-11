@@ -3,6 +3,7 @@ package com.example.myroom.activitylistmem
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -15,8 +16,16 @@ import com.example.myroom.activitylistmem.knowuser.DetailUserFragment
 import com.example.myroom.activitylistmem.knowuser.ListUserFragment
 import com.example.myroom.activitylistmem.knowuser.UpdateUserFragment
 import com.example.myroom.activitylistmem.model.UserDetail
+import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.activitymain.`interface`.IPermissionRequest
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-class ActivityListMem : AppCompatActivity() {
+class ActivityListMem : AppCompatActivity(), IPermissionRequest {
 
     companion object {
         const val USER_SEND_TAG = "User_detail"
@@ -128,5 +137,22 @@ class ActivityListMem : AppCompatActivity() {
                 .getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             manager.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    override fun hasUserUID(has: Boolean, username: String) {
+
+    }
+
+    override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
+
+    }
+
+    override fun hasRootUser(hasRoot: Boolean) {
+        ListUserFragment.swipeAble = hasRoot
+        ListUserFragment.clickAble = hasRoot
+    }
+
+    override fun hasSupperRoot(hasSupperRoot: Boolean) {
+
     }
 }

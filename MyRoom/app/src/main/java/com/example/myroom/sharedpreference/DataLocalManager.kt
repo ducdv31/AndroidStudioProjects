@@ -1,6 +1,8 @@
 package com.example.myroom.sharedpreference
 
 import android.content.Context
+import com.example.myroom.activitymain.permission.UserPermission
+import com.google.gson.Gson
 
 class DataLocalManager() {
     constructor(context: Context) : this() {
@@ -30,6 +32,12 @@ class DataLocalManager() {
         /* ******************** */
         private var instance: DataLocalManager? = null
 
+        /* user permission */
+        private val OBJECT_PERMISSION: String = "object user permission"
+        private val UID_SAVE: String = "uid user permission"
+
+        /* ********************* */
+
 
         fun init(context: Context?) {
             instance = DataLocalManager()
@@ -44,6 +52,33 @@ class DataLocalManager() {
             return instance
         }
 
+        /* user permission */
+        fun setUserPermission(userPermission: UserPermission) {
+            val gson: Gson = Gson()
+            val userPermStr = gson.toJson(userPermission)
+            DataLocalManager.getInstance()?.mySharedPreference?.putStringValue(
+                OBJECT_PERMISSION,
+                userPermStr
+            )
+        }
+
+        fun getUserPermission(): UserPermission? {
+            val userPerm = DataLocalManager.getInstance()?.mySharedPreference?.getStringValue(
+                OBJECT_PERMISSION
+            )
+            val gson = Gson()
+            return gson.fromJson(userPerm, UserPermission::class.java)
+        }
+
+        fun setUID(uid: String) {
+            DataLocalManager.getInstance()?.mySharedPreference?.putStringValue(UID_SAVE, uid)
+        }
+
+        fun getUID(): String? {
+            return DataLocalManager.getInstance()?.mySharedPreference?.getStringValue(UID_SAVE)
+        }
+
+        /* ******************* */
         fun setFirstInstall(isfirst: Boolean) {
             DataLocalManager.getInstance()?.mySharedPreference?.putBooleanValue(PRE_FIRST, isfirst)
         }

@@ -8,37 +8,50 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.myroom.R
 import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.activitymain.MyApplication
+import com.example.myroom.activitymain.`interface`.IPermissionRequest
 
 class HomeFragment : Fragment() {
 
     private lateinit var mainActivity: MainActivity
+
+    companion object {
+        var bt_mode_summary: CardView? = null
+        var bt_mode_day_select: CardView? = null
+        var bt_mode_list_user: CardView? = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val homeView = inflater.inflate(R.layout.fragment_home, container, false)
-        val bt_mode_list_user: CardView =
+        bt_mode_list_user =
             homeView.findViewById<CardView>(R.id.cardView_list_user_mode)
-        val bt_mode_day_select: CardView =
+        bt_mode_day_select =
             homeView.findViewById<CardView>(R.id.cardView_day_select_mode)
-        val bt_mode_summary: CardView =
+        bt_mode_summary =
             homeView.findViewById<CardView>(R.id.cardView_summary_mode)
 
         mainActivity = activity as MainActivity
-        bt_mode_list_user.setOnClickListener(View.OnClickListener {
+        bt_mode_list_user?.setOnClickListener(View.OnClickListener {
             /* open list user activity */
             mainActivity.openListMemActivity()
         })
-        bt_mode_day_select.setOnClickListener(View.OnClickListener {
+        bt_mode_day_select?.setOnClickListener(View.OnClickListener {
             /* open list user activity */
             mainActivity.openListDayActivity()
         })
-        bt_mode_summary.setOnClickListener(View.OnClickListener {
+        bt_mode_summary?.setOnClickListener(View.OnClickListener {
             mainActivity.openSummaryActivity()
         })
 
         return homeView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MyApplication.getUIDPermission(mainActivity)
     }
 
 }

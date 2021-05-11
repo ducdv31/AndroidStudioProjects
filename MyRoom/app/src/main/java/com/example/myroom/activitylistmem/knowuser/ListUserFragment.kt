@@ -7,29 +7,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.example.myroom.R
 import com.example.myroom.activitylistmem.ActivityListMem
 import com.example.myroom.activitylistmem.knowuser.rcvadapter.RcvUserAdapter
 import com.example.myroom.activitylistmem.model.UserDetail
 import com.example.myroom.activitylistmem.model.UserNID
 import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.activitymain.MyApplication
+import com.example.myroom.dialog.TFDialog
 import com.google.firebase.database.*
 
 class ListUserFragment : Fragment() {
 
-    companion object{
+    companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var rcvUserAdapter: RcvUserAdapter
+
+        @Volatile
+        var swipeAble: Boolean = false
+        @Volatile
+        var clickAble: Boolean = false
     }
 
+    private val TAG_DIALOG_DELETE: String = "Delete user dialog list user"
     private lateinit var recyclerView: RecyclerView
 //    private lateinit var rcvUserAdapter: RcvUserAdapter
     private lateinit var activityListMem: ActivityListMem
     private lateinit var myToast: Toast
-
+    private lateinit var tfDialog:TFDialog
     @SuppressLint("ShowToast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +52,22 @@ class ListUserFragment : Fragment() {
         myToast = Toast.makeText(activityListMem, "No user", Toast.LENGTH_LONG)
 
         val linearLayoutManager = LinearLayoutManager(activityListMem, RecyclerView.VERTICAL, false)
+
+        tfDialog = TFDialog(activityListMem, object : TFDialog.IDialogResponse {
+            override fun onDialogResponse(response: Boolean) {
+                if (response) {
+                    val bundle: Bundle? = tfDialog.arguments
+                    bundle?.let {
+                        val userDetail:UserDetail = bundle.get(TAG_DIALOG_DELETE) as UserDetail
+                        FirebaseDatabase.getInstance().reference
+                            .child(MainActivity.PARENT_CHILD)
+                            .child(userDetail.id!!).setValue(null)
+                    }
+                }
+            }
+
+        })
+
         rcvUserAdapter =
             RcvUserAdapter(requireContext(), iClickUser = object : RcvUserAdapter.IClickUser {
                 override fun onClickUser(userDetail: UserDetail) {
@@ -53,7 +79,18 @@ class ListUserFragment : Fragment() {
                 }
 
                 override fun onClickDeleteUser(userDetail: UserDetail) {
+                    val bundle = Bundle()
+                    bundle.putSerializable(TAG_DIALOG_DELETE, userDetail)
+                    tfDialog.arguments = bundle
+                    tfDialog.show(requireActivity().supportFragmentManager, "Delete user")
+                }
 
+                override fun onSwipeRevealLayout(swipeRevealLayout: SwipeRevealLayout) {
+                    if (swipeAble) {
+                        swipeRevealLayout.setLockDrag(false)
+                    } else {
+                        swipeRevealLayout.setLockDrag(true)
+                    }
                 }
 
             })
@@ -61,6 +98,7 @@ class ListUserFragment : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = rcvUserAdapter
 
+        MyApplication.getUIDPermission(activityListMem)
         getListData()
 
         return listUserView
@@ -110,6 +148,7 @@ class ListUserFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         activityListMem.menuItem?.isVisible = true
+        MyApplication.getUIDPermission(activityListMem)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

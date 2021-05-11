@@ -14,10 +14,17 @@ import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activity2addmem.unknowuser.model.UserID
 import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.activitymain.MyApplication
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class SetUserFragment : Fragment() {
+
+    private lateinit var activityAddMem: ActivityAddMem
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        var setUser: Button? = null
+    }
 
     @SuppressLint("ShowToast")
     override fun onCreateView(
@@ -29,10 +36,10 @@ class SetUserFragment : Fragment() {
         val name: EditText = setUserView.findViewById(R.id.name_set)
         val rank: EditText = setUserView.findViewById(R.id.rank_set)
         val room: EditText = setUserView.findViewById(R.id.room_set)
-        val setUser: Button = setUserView.findViewById(R.id.set_detail_user)
+        setUser = setUserView.findViewById(R.id.set_detail_user)
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().reference
         var ID: String = ""
-
+        activityAddMem = activity as ActivityAddMem
         val bundle: Bundle? = arguments
         bundle?.let {
             val userID: UserID = bundle.get(ActivityAddMem.DATA_SEND_TO_SET_USER) as UserID
@@ -42,27 +49,36 @@ class SetUserFragment : Fragment() {
             }
         }
 
-        setUser.setOnClickListener(View.OnClickListener {
+        setUser?.setOnClickListener(View.OnClickListener {
             val Name: String = name.text.toString()
             val Rank: String = rank.text.toString()
             val Room: String = room.text.toString()
-            if (Name.isEmpty()) {
-                Toast.makeText(requireContext(), "Name is invalid", Toast.LENGTH_SHORT).show()
-            } else if (Rank.isEmpty()) {
-                Toast.makeText(requireContext(), "Rank is invalid", Toast.LENGTH_SHORT).show()
-            } else if (Room.isEmpty()) {
-                Toast.makeText(requireContext(), "Room is invalid", Toast.LENGTH_SHORT).show()
-            } else {
-                databaseReference.child(MainActivity.PARENT_CHILD).child(ID)
-                    .child(MainActivity.NAME_CHILD).setValue(Name)
-                databaseReference.child(MainActivity.PARENT_CHILD).child(ID)
-                    .child(MainActivity.RANK_CHILD).setValue(Rank.toInt())
-                databaseReference.child(MainActivity.PARENT_CHILD).child(ID)
-                    .child(MainActivity.ROOM_CHILD).setValue(Room)
+            when {
+                Name.isEmpty() -> {
+                    Toast.makeText(requireContext(), "Name is invalid", Toast.LENGTH_SHORT).show()
+                }
+                Rank.isEmpty() -> {
+                    Toast.makeText(requireContext(), "Rank is invalid", Toast.LENGTH_SHORT).show()
+                }
+                Room.isEmpty() -> {
+                    Toast.makeText(requireContext(), "Room is invalid", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    databaseReference.child(MainActivity.PARENT_CHILD).child(ID)
+                        .child(MainActivity.NAME_CHILD).setValue(Name)
+                    databaseReference.child(MainActivity.PARENT_CHILD).child(ID)
+                        .child(MainActivity.RANK_CHILD).setValue(Rank.toInt())
+                    databaseReference.child(MainActivity.PARENT_CHILD).child(ID)
+                        .child(MainActivity.ROOM_CHILD).setValue(Room)
+                }
             }
         })
-
+        MyApplication.getUIDPermission(activityAddMem)
         return setUserView
     }
 
+    override fun onResume() {
+        super.onResume()
+        MyApplication.getUIDPermission(activityAddMem)
+    }
 }
