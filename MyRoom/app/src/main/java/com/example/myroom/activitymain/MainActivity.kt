@@ -26,6 +26,7 @@ import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activitycalendar.ActivityCalendar
 import com.example.myroom.activitylistmem.ActivityListMem
+import com.example.myroom.activitymain.fragment.AccountFragment
 import com.example.myroom.activitymain.fragment.HomeFragment
 import com.example.myroom.activitysummary.ActivitySummary
 import com.example.myroom.activitytask.ActivityTask
@@ -55,17 +56,17 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     var mAuth: FirebaseAuth? = null
 
     /* user detail */
-    var personName: String? = null
-    var personEmail: String? = null
-    var personId: String? = null
-    var personPhoto: Uri? = null
+    private var personName: String? = null
+    private var personEmail: String? = null
+    private var personId: String? = null
+    private var personPhoto: Uri? = null
 
     /* show info */
 
     lateinit var Name: TextView
-    lateinit var Email: TextView
+    private lateinit var Email: TextView
     lateinit var id: TextView
-    lateinit var accImg: ImageView
+    private lateinit var accImg: ImageView
 
     /* ************** */
     companion object {
@@ -303,7 +304,6 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
                         updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
-                        DataLocalManager.setUID("")
                         updateUI(null)
                         Toast.makeText(
                             this@MainActivity,
@@ -355,6 +355,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     override fun hasUnKnowUser(has: Boolean) {
         if (has) {
+            AccountFragment.typeUser?.text = "Not a member"
             HomeFragment.bt_mode_list_user?.visibility = View.INVISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.INVISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
@@ -365,6 +366,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
         if (hasInRoom) {
+            AccountFragment.typeUser?.text = "A member"
             HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
@@ -375,6 +377,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     override fun hasRootUser(hasRoot: Boolean) {
         if (hasRoot) {
             /* show */
+            AccountFragment.typeUser?.text = "Root user"
             HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
@@ -384,6 +387,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     override fun hasSupperRoot(hasSupperRoot: Boolean) {
         if (hasSupperRoot) {
+            AccountFragment.typeUser?.text = "Supper-root user"
             HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE

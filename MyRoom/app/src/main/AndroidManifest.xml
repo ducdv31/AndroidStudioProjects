@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRoom">
-        <activity android:name=".activityuserpermission.ActivityUserPermission"></activity>
+        <activity android:name=".activityuserpermission.ActivityUserPermission" />
         <activity android:name=".activitytask.ActivityTask" />
         <activity android:name=".activitysummary.ActivitySummary" />
         <activity android:name=".activitycalendar.ActivityCalendar" />

@@ -1,5 +1,6 @@
 package com.example.myroom.activitymain.fragment
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,12 +13,18 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.myroom.R
 import com.example.myroom.activitymain.MainActivity
+import com.example.myroom.activitymain.MyApplication
 import com.example.myroom.components.dialog.TFDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.SignInButton
 import com.google.firebase.auth.FirebaseUser
 
 class AccountFragment : Fragment() {
+
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        var typeUser: TextView? = null
+    }
 
     lateinit var mainActivity: MainActivity
     lateinit var userImg: ImageView
@@ -47,9 +54,10 @@ class AccountFragment : Fragment() {
         userImg = accountView.findViewById(R.id.img_user_account_fragment)
         sign_in = accountView.findViewById(R.id.sign_in_account_fragment)
         sign_out = accountView.findViewById(R.id.sign_out_account_fragment)
-        TFDialog = TFDialog(requireContext(), object : TFDialog.IDialogResponse{
+        typeUser = accountView.findViewById(R.id.type_account_fragment)
+        TFDialog = TFDialog(requireContext(), object : TFDialog.IDialogResponse {
             override fun onDialogResponse(response: Boolean) {
-                if (response){
+                if (response) {
                     mainActivity.signOut()
                     checkAcc()
                 }
@@ -63,13 +71,14 @@ class AccountFragment : Fragment() {
         }
 
         checkAcc()
-
+        MyApplication.getUIDPermission(mainActivity)
         return accountView
     }
 
     override fun onResume() {
         super.onResume()
         checkAcc()
+        MyApplication.getUIDPermission(mainActivity)
     }
 
     private fun checkAcc() {

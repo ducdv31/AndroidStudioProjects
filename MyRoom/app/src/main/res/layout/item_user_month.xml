@@ -26,27 +26,16 @@
             android:layout_marginStart="10dp"
             android:text="Name"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/number_day_of_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/text_split"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/total_time_in_month"
             android:text="Day"
-            android:layout_marginEnd="5dp"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/text_split"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@+id/total_time_in_month"
-            android:text=" || "
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -55,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_centerVertical="false"
             android:layout_marginEnd="10dp"
             android:text="Total Time"
             android:textColor="@color/black"

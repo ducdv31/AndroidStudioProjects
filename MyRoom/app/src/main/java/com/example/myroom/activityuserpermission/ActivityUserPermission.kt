@@ -76,7 +76,9 @@ class ActivityUserPermission : AppCompatActivity() {
                                             )
                                         )
                                     }
-                                    else -> return
+                                    else -> {
+
+                                    }
                                 }
                             }
 
