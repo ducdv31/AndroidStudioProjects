@@ -32,7 +32,6 @@ import com.example.myroom.activitysummary.ActivitySummary
 import com.example.myroom.activitytask.ActivityTask
 import com.example.myroom.activityuserpermission.ActivityUserPermission
 import com.example.myroom.components.`interface`.IPermissionRequest
-import com.example.myroom.components.sharedpreference.DataLocalManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -100,6 +99,8 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
                 .setTextColor(Color.RED)
                 .setActionTextColor(Color.GREEN)
                 .show()
+        } else {
+            MyApplication.setDataAfterLogIn(this, currentUser)
         }
         updateUI(currentUser)
     }
@@ -387,7 +388,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     override fun hasSupperRoot(hasSupperRoot: Boolean) {
         if (hasSupperRoot) {
-            AccountFragment.typeUser?.text = "Supper-root user"
+            AccountFragment.typeUser?.text = "Super-root user"
             HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE

@@ -1,5 +1,6 @@
 package com.example.myroom.activityuserpermission.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,10 +20,14 @@ class ListUserPermissionFragment : Fragment() {
 
     private val TAG_USER_PERMISSION_DATA_DIALOG = "send data from adapter to dialog"
 
-    lateinit var rcvUserPermissionAdapter: RCVUserPermissionAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var permissionSelectDialog: PermissionSelectDialog
     lateinit var activityUserPermission: ActivityUserPermission
+
+    companion object{
+        @SuppressLint("StaticFieldLeak")
+        lateinit var rcvUserPermissionAdapter: RCVUserPermissionAdapter
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

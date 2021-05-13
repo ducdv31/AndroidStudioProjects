@@ -55,23 +55,23 @@ class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHolder>(), 
         holder.room.text = userDetail.room
         holder.rank.text = userDetail.rank.toString()
         holder.id.text = userDetail.id
-        holder.cardUser.setOnClickListener(View.OnClickListener {
+        holder.cardUser.setOnClickListener {
             /* open detail user fragment */
             iClickUser!!.onClickUser(userDetail)
-        })
-        holder.delete.setOnClickListener(View.OnClickListener {
+        }
+        holder.delete.setOnClickListener {
             iClickUser!!.onClickDeleteUser(userDetail)
-        })
-        holder.editUser.setOnClickListener(View.OnClickListener {
+        }
+        holder.editUser.setOnClickListener {
             iClickUser!!.onClickUpdateUser(userDetail)
-        })
+        }
     }
 
     override fun getItemCount(): Int {
-        if (listUser.isNullOrEmpty()) {
-            return 0
+        return if (listUser.isNullOrEmpty()) {
+            0
         } else
-            return listUser!!.size
+            listUser!!.size
     }
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -91,8 +91,8 @@ class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHolder>(), 
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val strSearch: String = constraint.toString()
-                if (strSearch.isEmpty()) {
-                    listUser = listUserOld
+                listUser = if (strSearch.isEmpty()) {
+                    listUserOld
                 } else {
                     val list: MutableList<UserDetail> = mutableListOf()
                     for (userDetail: UserDetail in listUser!!) {
@@ -102,7 +102,7 @@ class RcvUserAdapter() : RecyclerView.Adapter<RcvUserAdapter.UserViewHolder>(), 
                             list.add(userDetail)
                         }
                     }
-                    listUser = list
+                    list
                 }
 
                 val filterResult: FilterResults = FilterResults()
