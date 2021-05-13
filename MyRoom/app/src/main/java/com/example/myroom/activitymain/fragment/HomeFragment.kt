@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.myroom.R
 import com.example.myroom.activitymain.MainActivity
 import com.example.myroom.activitymain.MyApplication
-import com.example.myroom.activitymain.`interface`.IPermissionRequest
 
 class HomeFragment : Fragment() {
 
@@ -19,6 +18,8 @@ class HomeFragment : Fragment() {
         var bt_mode_summary: CardView? = null
         var bt_mode_day_select: CardView? = null
         var bt_mode_list_user: CardView? = null
+        var bt_mode_permission_user: CardView? = null
+//        var bt_mode_task_user: CardView? = null
     }
 
     override fun onCreateView(
@@ -32,6 +33,8 @@ class HomeFragment : Fragment() {
             homeView.findViewById<CardView>(R.id.cardView_day_select_mode)
         bt_mode_summary =
             homeView.findViewById<CardView>(R.id.cardView_summary_mode)
+        bt_mode_permission_user =
+            homeView.findViewById(R.id.cardView_user_permission_mode)
 
         mainActivity = activity as MainActivity
         bt_mode_list_user?.setOnClickListener(View.OnClickListener {
@@ -45,6 +48,10 @@ class HomeFragment : Fragment() {
         bt_mode_summary?.setOnClickListener(View.OnClickListener {
             mainActivity.openSummaryActivity()
         })
+
+        bt_mode_permission_user?.setOnClickListener {
+            mainActivity.openUserPermissionActivity()
+        }
 
         return homeView
     }

@@ -1,4 +1,4 @@
-package com.example.myroom.timeconverter
+package com.example.myroom.components.timeconverter
 
 class TimeConverter2 {
     companion object {

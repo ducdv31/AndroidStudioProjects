@@ -1,6 +1,6 @@
 package com.example.myroom.activitylistmem.model
 
-import com.example.myroom.timeconverter.TimeConverter
+import com.example.myroom.components.timeconverter.TimeConverter
 
 class WorkFlow(day: String, start: String, end: String) {
     private var timeConverter: TimeConverter? = null

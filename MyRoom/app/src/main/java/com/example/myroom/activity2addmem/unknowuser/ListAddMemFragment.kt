@@ -18,7 +18,7 @@ import com.example.myroom.activity2addmem.unknowuser.model.UserID
 import com.example.myroom.activity2addmem.unknowuser.rcvadapter.RcvAddMemAdapter
 import com.example.myroom.activitymain.MainActivity
 import com.example.myroom.activitymain.MyApplication
-import com.example.myroom.dialog.TFDialog
+import com.example.myroom.components.dialog.TFDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 

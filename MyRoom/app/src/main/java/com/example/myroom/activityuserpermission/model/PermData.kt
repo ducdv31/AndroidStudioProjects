@@ -1,4 +1,4 @@
-package com.example.myroom.activitymain.permission
+package com.example.myroom.activityuserpermission.model
 
 class PermData(
     val username: String? = null,

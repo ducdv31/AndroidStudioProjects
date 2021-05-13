@@ -11,7 +11,7 @@ import com.example.myroom.activity2addmem.unknowuser.ListAddMemFragment
 import com.example.myroom.activity2addmem.unknowuser.SetUserFragment
 import com.example.myroom.activity2addmem.unknowuser.model.UserID
 import com.example.myroom.activitymain.MyApplication.Companion.getUIDPermission
-import com.example.myroom.activitymain.`interface`.IPermissionRequest
+import com.example.myroom.components.`interface`.IPermissionRequest
 
 class ActivityAddMem : AppCompatActivity(), IPermissionRequest {
 
@@ -58,12 +58,18 @@ class ActivityAddMem : AppCompatActivity(), IPermissionRequest {
 
     }
 
-    override fun hasUserUID(has: Boolean, username: String) {
-
+    override fun hasUnKnowUser(has: Boolean) {
+        if (has){
+            ListAddMemFragment.swipeAble = false
+            SetUserFragment.setUser?.visibility = View.INVISIBLE
+            ListAddMemFragment.fab_delete_all?.visibility = View.GONE
+        }
     }
 
     override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
-
+        ListAddMemFragment.swipeAble = false
+        SetUserFragment.setUser?.visibility = View.INVISIBLE
+        ListAddMemFragment.fab_delete_all?.visibility = View.GONE
     }
 
     override fun hasRootUser(hasRoot: Boolean) {
@@ -71,15 +77,15 @@ class ActivityAddMem : AppCompatActivity(), IPermissionRequest {
             ListAddMemFragment.swipeAble = true
             SetUserFragment.setUser?.visibility = View.VISIBLE
             ListAddMemFragment.fab_delete_all?.visibility = View.VISIBLE
-        } else {
-            ListAddMemFragment.swipeAble = false
-            SetUserFragment.setUser?.visibility = View.INVISIBLE
-            ListAddMemFragment.fab_delete_all?.visibility = View.GONE
         }
     }
 
     override fun hasSupperRoot(hasSupperRoot: Boolean) {
-
+        if (hasSupperRoot) {
+            ListAddMemFragment.swipeAble = true
+            SetUserFragment.setUser?.visibility = View.VISIBLE
+            ListAddMemFragment.fab_delete_all?.visibility = View.VISIBLE
+        }
     }
 
 }

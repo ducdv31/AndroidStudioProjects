@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +18,7 @@ import com.example.myroom.activitylistmem.model.UserDetail
 import com.example.myroom.activitylistmem.model.UserNID
 import com.example.myroom.activitymain.MainActivity
 import com.example.myroom.activitymain.MyApplication
-import com.example.myroom.dialog.TFDialog
+import com.example.myroom.components.dialog.TFDialog
 import com.google.firebase.database.*
 
 class ListUserFragment : Fragment() {
@@ -39,7 +38,7 @@ class ListUserFragment : Fragment() {
 //    private lateinit var rcvUserAdapter: RcvUserAdapter
     private lateinit var activityListMem: ActivityListMem
     private lateinit var myToast: Toast
-    private lateinit var tfDialog:TFDialog
+    private lateinit var tfDialog: TFDialog
     @SuppressLint("ShowToast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

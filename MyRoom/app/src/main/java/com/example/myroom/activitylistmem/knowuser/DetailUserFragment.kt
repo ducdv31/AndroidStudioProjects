@@ -18,7 +18,7 @@ import com.example.myroom.activitylistmem.knowuser.rcvadapter.RcvTimeAdapter
 import com.example.myroom.activitylistmem.model.UserDetail
 import com.example.myroom.activitylistmem.model.WorkFlow
 import com.example.myroom.activitymain.MainActivity
-import com.example.myroom.timeconverter.TimeConverter2
+import com.example.myroom.components.timeconverter.TimeConverter2
 import com.google.firebase.database.*
 
 class DetailUserFragment : Fragment() {

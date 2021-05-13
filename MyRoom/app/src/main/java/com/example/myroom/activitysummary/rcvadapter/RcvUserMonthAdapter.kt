@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myroom.R
 import com.example.myroom.activitysummary.model.UserSummary
-import com.example.myroom.timeconverter.TimeConverter2
+import com.example.myroom.components.timeconverter.TimeConverter2
 
 class RcvUserMonthAdapter() : RecyclerView.Adapter<RcvUserMonthAdapter.UserMonthViewHolder>() {
     lateinit var listUser : MutableList<UserSummary>

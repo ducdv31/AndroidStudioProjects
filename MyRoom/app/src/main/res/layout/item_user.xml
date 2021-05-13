@@ -12,25 +12,27 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:gravity="center"
             android:layout_gravity="center"
-            app:cardBackgroundColor="@color/gray"
-            app:cardCornerRadius="8dp"
-            app:cardUseCompatPadding="true">
+            android:orientation="horizontal"
+            tools:ignore="UselessLeaf,UselessParent">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                app:cardBackgroundColor="#009688"
+                app:cardCornerRadius="8dp"
+                app:cardUseCompatPadding="true">
 
                 <ImageView
                     android:id="@+id/edit__user"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_margin="8dp"
                     android:background="#009688"
                     android:contentDescription="Edit user"
                     android:padding="10dp"
@@ -38,13 +40,20 @@
                     android:text="Edit"
                     android:textColor="@color/black"
                     tools:ignore="HardcodedText" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="#FF0000"
+                app:cardCornerRadius="8dp"
+                app:cardUseCompatPadding="true">
 
                 <ImageView
                     android:id="@+id/delete__user"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_margin="8dp"
                     android:background="#FF0000"
                     android:contentDescription="Delete 1 user"
                     android:padding="10dp"
@@ -52,11 +61,8 @@
                     android:text="Delete"
                     android:textColor="@color/black"
                     tools:ignore="HardcodedText" />
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
     </FrameLayout>
     <!-- Your main layout here -->
@@ -97,6 +103,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="Name"
+                        android:textSize="20sp"
                         android:textColor="@color/black" />
                 </LinearLayout>
 

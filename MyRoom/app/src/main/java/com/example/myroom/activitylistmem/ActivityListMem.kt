@@ -3,7 +3,6 @@ package com.example.myroom.activitylistmem
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -16,14 +15,7 @@ import com.example.myroom.activitylistmem.knowuser.DetailUserFragment
 import com.example.myroom.activitylistmem.knowuser.ListUserFragment
 import com.example.myroom.activitylistmem.knowuser.UpdateUserFragment
 import com.example.myroom.activitylistmem.model.UserDetail
-import com.example.myroom.activitymain.MainActivity
-import com.example.myroom.activitymain.`interface`.IPermissionRequest
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.example.myroom.components.`interface`.IPermissionRequest
 
 class ActivityListMem : AppCompatActivity(), IPermissionRequest {
 
@@ -139,12 +131,14 @@ class ActivityListMem : AppCompatActivity(), IPermissionRequest {
         }
     }
 
-    override fun hasUserUID(has: Boolean, username: String) {
-
+    override fun hasUnKnowUser(has: Boolean) {
+        ListUserFragment.swipeAble = false
+        ListUserFragment.clickAble = false
     }
 
     override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
-
+        ListUserFragment.swipeAble = false
+        ListUserFragment.clickAble = false
     }
 
     override fun hasRootUser(hasRoot: Boolean) {
@@ -153,6 +147,7 @@ class ActivityListMem : AppCompatActivity(), IPermissionRequest {
     }
 
     override fun hasSupperRoot(hasSupperRoot: Boolean) {
-
+        ListUserFragment.swipeAble = hasSupperRoot
+        ListUserFragment.clickAble = hasSupperRoot
     }
 }

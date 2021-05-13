@@ -1,4 +1,4 @@
-package com.example.myroom.sharedpreference
+package com.example.myroom.components.sharedpreference
 
 import android.content.Context
 

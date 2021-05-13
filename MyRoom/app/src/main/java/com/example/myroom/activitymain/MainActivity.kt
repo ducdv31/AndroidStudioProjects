@@ -2,6 +2,7 @@ package com.example.myroom.activitymain
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -25,12 +26,12 @@ import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activitycalendar.ActivityCalendar
 import com.example.myroom.activitylistmem.ActivityListMem
-import com.example.myroom.activitymain.`interface`.IPermissionRequest
 import com.example.myroom.activitymain.fragment.HomeFragment
-import com.example.myroom.activitymain.permission.PermData
-import com.example.myroom.activitymain.permission.UserPermission
 import com.example.myroom.activitysummary.ActivitySummary
-import com.example.myroom.sharedpreference.DataLocalManager
+import com.example.myroom.activitytask.ActivityTask
+import com.example.myroom.activityuserpermission.ActivityUserPermission
+import com.example.myroom.components.`interface`.IPermissionRequest
+import com.example.myroom.components.sharedpreference.DataLocalManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -39,10 +40,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.*
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class MainActivity : AppCompatActivity(), IPermissionRequest {
 
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     lateinit var main_layout: DrawerLayout
 
     /* sign in */
-    lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var googleSignInClient: GoogleSignInClient
     var mAuth: FirebaseAuth? = null
 
     /* user detail */
@@ -79,6 +76,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         const val ROOM_CHILD: String = "room"
         const val USERNAME_CHILD: String = "username"
         const val EMAIL_CHILD: String = "email"
+        const val URI_PHOTO_CHILD: String = "uri"
         const val PERM_CHILD: String = "perm"
         const val WORK_TIME_CHILD: String = "Work-Time"
         const val PARENT_DAY_CHILD: String = "Deviot-Date"
@@ -93,6 +91,15 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser: FirebaseUser? = mAuth?.currentUser
+        if (currentUser == null) {
+            Snackbar.make(main_layout, "Log in to see more", Snackbar.LENGTH_LONG)
+                .setAction("Log in") {
+                    signIn()
+                }
+                .setTextColor(Color.RED)
+                .setActionTextColor(Color.GREEN)
+                .show()
+        }
         updateUI(currentUser)
     }
 
@@ -206,6 +213,16 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         startActivity(intent)
     }
 
+    fun openTaskActivity() {
+        val intent = Intent(this, ActivityTask::class.java)
+        startActivity(intent)
+    }
+
+    fun openUserPermissionActivity() {
+        val intent = Intent(this, ActivityUserPermission::class.java)
+        startActivity(intent)
+    }
+
     @SuppressLint("RtlHardcoded")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -279,15 +296,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
                         val user: FirebaseUser? = mAuth!!.currentUser
                         /* set User to database for determine permission */
                         user?.let {
-//                            iPermissionRequest.hasUserUID(true, user.uid)
-                            FirebaseDatabase.getInstance().reference
-                                .child(PARENT_PERMISSION_CHILD)
-                                .child(user.uid).child(USERNAME_CHILD)
-                                .setValue(user.displayName)
-                            FirebaseDatabase.getInstance().reference
-                                .child(PARENT_PERMISSION_CHILD)
-                                .child(user.uid).child(EMAIL_CHILD)
-                                .setValue(user.email)
+                            MyApplication.setDataAfterLogIn(this, user)
                         }
                         MyApplication.getUIDPermission(this)
                         /* update UI */
@@ -318,12 +327,10 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
             personPhoto = acct.photoUrl
             Name.text = personName
             Email.text = personEmail
-//        id.setText(personId)
             Glide.with(this).load(personPhoto).into(accImg)
         } else {
             Email.text = "user account"
             Name.text = "user name"
-//        id.setText("")
             Glide.with(accImg).clear(accImg)
         }
 
@@ -346,31 +353,41 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         MyApplication.getUIDPermission(this)
     }
 
-    override fun hasUserUID(has: Boolean, username: String) {
-        if(!has){
+    override fun hasUnKnowUser(has: Boolean) {
+        if (has) {
             HomeFragment.bt_mode_list_user?.visibility = View.INVISIBLE
-        } else {
-            HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
+            HomeFragment.bt_mode_day_select?.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_permission_user?.visibility = View.INVISIBLE
         }
     }
 
-    override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
 
+    override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
+        if (hasInRoom) {
+            HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
+            HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
+            HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_permission_user?.visibility = View.INVISIBLE
+        }
     }
 
     override fun hasRootUser(hasRoot: Boolean) {
         if (hasRoot) {
             /* show */
+            HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
-        } else {
-            /* hide view */
-            HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
-            HomeFragment.bt_mode_day_select?.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_permission_user?.visibility = View.INVISIBLE
         }
     }
 
     override fun hasSupperRoot(hasSupperRoot: Boolean) {
-        
+        if (hasSupperRoot) {
+            HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
+            HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
+            HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
+            HomeFragment.bt_mode_permission_user?.visibility = View.VISIBLE
+        }
     }
 }

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.myroom.R
 import com.example.myroom.activitymain.MainActivity
-import com.example.myroom.dialog.TFDialog
+import com.example.myroom.components.dialog.TFDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.SignInButton
 import com.google.firebase.auth.FirebaseUser

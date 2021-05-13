@@ -9,7 +9,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myroom.R
 import com.example.myroom.activitycalendar.model.UserCalendar
-import com.example.myroom.sharedpreference.DataLocalManager
 
 class UserCalendarAdapter() : RecyclerView.Adapter<UserCalendarAdapter.UserCalendarViewHolder>() {
     var listUsers: MutableList<UserCalendar>

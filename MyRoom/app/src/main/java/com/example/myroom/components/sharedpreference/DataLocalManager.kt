@@ -1,7 +1,7 @@
-package com.example.myroom.sharedpreference
+package com.example.myroom.components.sharedpreference
 
 import android.content.Context
-import com.example.myroom.activitymain.permission.UserPermission
+import com.example.myroom.activityuserpermission.model.UserPermission
 import com.google.gson.Gson
 
 class DataLocalManager() {

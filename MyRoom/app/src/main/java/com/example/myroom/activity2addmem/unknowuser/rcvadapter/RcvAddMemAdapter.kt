@@ -12,8 +12,6 @@ import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.chauthai.swipereveallayout.ViewBinderHelper
 import com.example.myroom.R
 import com.example.myroom.activity2addmem.unknowuser.model.UserID
-import com.example.myroom.activitymain.`interface`.IPermissionRequest
-import com.example.myroom.sharedpreference.DataLocalManager
 
 class RcvAddMemAdapter() : RecyclerView.Adapter<RcvAddMemAdapter.AddMemViewHolder>() {
     private var listIdAdd : MutableList<UserID> = mutableListOf()
