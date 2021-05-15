@@ -29,7 +29,6 @@ import com.example.myroom.activitylistmem.ActivityListMem
 import com.example.myroom.activitymain.fragment.AccountFragment
 import com.example.myroom.activitymain.fragment.HomeFragment
 import com.example.myroom.activitysummary.ActivitySummary
-import com.example.myroom.activitytask.ActivityTask
 import com.example.myroom.activityuserpermission.ActivityUserPermission
 import com.example.myroom.components.`interface`.IPermissionRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -212,11 +211,6 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     private fun openAddMemActivity() {
         val intent = Intent(this, ActivityAddMem::class.java)
-        startActivity(intent)
-    }
-
-    fun openTaskActivity() {
-        val intent = Intent(this, ActivityTask::class.java)
         startActivity(intent)
     }
 
