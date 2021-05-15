@@ -56,7 +56,8 @@ class RCVUserPermissionAdapter() :
                 0 -> "Super-Root user"
                 1 -> "Root user"
                 2 -> "Member"
-                else -> "UnKnow"
+                3 -> "None"
+                else -> "UnKnown"
             }
         Glide.with(context).load(userPermission.uri.toUri()).into(holder.imageUser)
         holder.editPermission.setOnClickListener {

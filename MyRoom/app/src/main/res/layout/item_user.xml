@@ -24,7 +24,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:cardBackgroundColor="#009688"
+                app:cardBackgroundColor="@color/edit_img"
                 app:cardCornerRadius="8dp"
                 app:cardUseCompatPadding="true">
 
@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="#009688"
+                    android:background="@color/edit_img"
                     android:contentDescription="Edit user"
                     android:padding="10dp"
                     android:src="@drawable/outline_edit_note_black_24dp"
