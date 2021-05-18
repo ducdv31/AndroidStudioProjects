@@ -27,9 +27,9 @@ import java.util.*
 class ActivityCalendar : AppCompatActivity(), IPermissionRequest {
 
     companion object {
-        val TAG_TASKUSER: String = "task user send to task fragment"
-        val TAG_DATE: String = "date task send to task fragment"
-        val TAG_BACKSTACK_CALENDAR: String = "add calendar fragment to backstack"
+        const val TAG_TASKUSER: String = "task user send to task fragment"
+        const val TAG_DATE: String = "date task send to task fragment"
+        const val TAG_BACKSTACK_CALENDAR: String = "add calendar fragment to backstack"
     }
 
     var actionBar: ActionBar? = null
