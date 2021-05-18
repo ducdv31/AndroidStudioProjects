@@ -8,17 +8,23 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myroom.R
+import com.example.myroom.activitycalendar.model.TaskUser
 import com.example.myroom.activitycalendar.model.UserCalendar
 
 class UserCalendarAdapter() : RecyclerView.Adapter<UserCalendarAdapter.UserCalendarViewHolder>() {
     var listUsers: MutableList<UserCalendar>
+    interface IClickUserCalendar{
+        fun onClickUserCalendar(taskUser: TaskUser)
+    }
+
+    private lateinit var iClickUserCalendar: IClickUserCalendar
 
     init {
         listUsers = mutableListOf()
     }
 
-    constructor(context: Context) : this() {
-
+    constructor(context: Context, iClickUserCalendar: IClickUserCalendar) : this() {
+        this.iClickUserCalendar = iClickUserCalendar
     }
 
     fun setData(list: MutableList<UserCalendar>){
@@ -37,6 +43,7 @@ class UserCalendarAdapter() : RecyclerView.Adapter<UserCalendarAdapter.UserCalen
         holder.name.text = userCalendar.Name
         holder.cardView.setOnClickListener(View.OnClickListener {
             /* open detail user fragment */
+            iClickUserCalendar.onClickUserCalendar(TaskUser(userCalendar.ID, userCalendar.Name))
         })
         holder.start.text = userCalendar.Start
         holder.stop.text = userCalendar.Stop

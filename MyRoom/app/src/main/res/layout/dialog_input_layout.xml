@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@drawable/background_white_cornor"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_white_cornor_top_fr"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Input task"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/editText_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_white_cornor_border_gray"
+        android:hint="Input"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:padding="10dp"
+        tools:ignore="HardcodedText,LabelFor" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        tools:ignore="UselessLeaf">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_red_cornor"
+            android:text="Cancel"
+            tools:ignore="ButtonStyle,HardcodedText" />
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="18dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_green_cornor"
+            android:text="Ok"
+            tools:ignore="ButtonStyle,HardcodedText" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -26,11 +26,11 @@ import com.example.myroom.R
 import com.example.myroom.activity2addmem.ActivityAddMem
 import com.example.myroom.activitycalendar.ActivityCalendar
 import com.example.myroom.activitylistmem.ActivityListMem
-import com.example.myroom.activitymain.fragment.AccountFragment
 import com.example.myroom.activitymain.fragment.HomeFragment
 import com.example.myroom.activitysummary.ActivitySummary
 import com.example.myroom.activityuserpermission.ActivityUserPermission
 import com.example.myroom.components.`interface`.IPermissionRequest
+import com.example.myroom.components.dialog.AccountDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -41,6 +41,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.*
 
 class MainActivity : AppCompatActivity(), IPermissionRequest {
+
+    /* dialog */
+    lateinit var accountDialog: AccountDialog
+    /* ****** */
 
     /* interface */
 
@@ -101,7 +105,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         } else {
             MyApplication.setDataAfterLogIn(this, currentUser)
         }
-        updateUI(currentUser)
+        updateUI()
     }
 
     @SuppressLint("CutPasteId")
@@ -114,7 +118,10 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         /* sign in */
         mAuth = FirebaseAuth.getInstance()
         /* ******************** */
+        /* dialog */
+        accountDialog = AccountDialog()
 
+        /* ****** */
         /* navigation view */
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         val headerView: View = navigationView.getHeaderView(0)
@@ -132,8 +139,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
-                R.id.nav_about,
-                R.id.nav_acc
+                R.id.nav_about
             ),
             drawerLayout
         )
@@ -142,35 +148,20 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         createRequest()
 
         accImg.setOnClickListener {
-            val acct = GoogleSignIn.getLastSignedInAccount(this)
-            if (acct == null) {
-                signIn()
-            } else {
-                val snackbar: Snackbar =
-                    Snackbar.make(main_layout, "You are signed in", Snackbar.LENGTH_SHORT)
-                snackbar.show()
+            if (!accountDialog.isAdded) {
+                accountDialog.show(supportFragmentManager, "DA")
             }
         }
 
         Name.setOnClickListener {
-            val acct = GoogleSignIn.getLastSignedInAccount(this)
-            if (acct == null) {
-                signIn()
-            } else {
-                val snackbar: Snackbar =
-                    Snackbar.make(main_layout, "You are signed in", Snackbar.LENGTH_SHORT)
-                snackbar.show()
+            if (!accountDialog.isAdded) {
+                accountDialog.show(supportFragmentManager, "DA")
             }
         }
 
         Email.setOnClickListener {
-            val acct = GoogleSignIn.getLastSignedInAccount(this)
-            if (acct == null) {
-                signIn()
-            } else {
-                val snackbar: Snackbar =
-                    Snackbar.make(main_layout, "You are signed in", Snackbar.LENGTH_SHORT)
-                snackbar.show()
+            if (!accountDialog.isAdded) {
+                accountDialog.show(supportFragmentManager, "DA")
             }
         }
         MyApplication.getUIDPermission(this)
@@ -275,7 +266,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 // ...
-                updateUI(null)
+                updateUI()
                 Log.e("Not ", "Log in")
             }
         }
@@ -296,10 +287,10 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
                         }
                         MyApplication.getUIDPermission(this)
                         /* update UI */
-                        updateUI(user)
+                        updateUI()
                     } else {
                         // If sign in fails, display a message to the user.
-                        updateUI(null)
+                        updateUI()
                         Toast.makeText(
                             this@MainActivity,
                             "Error firebase Auth with google",
@@ -313,7 +304,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
 
 
-    private fun updateUI(account: FirebaseUser?) {
+    private fun updateUI() {
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         if (acct != null) {
             personName = acct.displayName
@@ -350,7 +341,8 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     override fun hasUnKnowUser(has: Boolean) {
         if (has) {
-            AccountFragment.typeUser?.text = "Not a member"
+//            AccountFragment.typeUser?.text = "Not a member"
+            AccountDialog.type?.text = "Not a member"
             HomeFragment.bt_mode_list_user?.visibility = View.INVISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.INVISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
@@ -361,7 +353,8 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
         if (hasInRoom) {
-            AccountFragment.typeUser?.text = "A member"
+//            AccountFragment.typeUser?.text = "A member"
+            AccountDialog.type?.text = "A member"
             HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
@@ -372,7 +365,8 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     override fun hasRootUser(hasRoot: Boolean) {
         if (hasRoot) {
             /* show */
-            AccountFragment.typeUser?.text = "Root user"
+//            AccountFragment.typeUser?.text = "Root user"
+            AccountDialog.type?.text = "Root user"
             HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
@@ -382,7 +376,8 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     override fun hasSupperRoot(hasSupperRoot: Boolean) {
         if (hasSupperRoot) {
-            AccountFragment.typeUser?.text = "Super-root user"
+//            AccountFragment.typeUser?.text = "Super-root user"
+            AccountDialog.type?.text = "Super-root user"
             HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
             HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
             HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE

@@ -58,7 +58,7 @@ class MyApplication : Application() {
                                     iPermissionRequest.hasSupperRoot(true)
                                 }
                                 "2" -> {
-                                    iPermissionRequest.hasUserInRoom(true, user.displayName)
+                                    iPermissionRequest.hasUserInRoom(true, user.displayName!!)
                                 }
                                 "3" -> {
                                     iPermissionRequest.hasUnKnowUser(true)

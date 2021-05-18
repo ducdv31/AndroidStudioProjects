@@ -11,11 +11,6 @@
         android:label="@string/control_panel"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/nav_acc"
-        android:name="com.example.myroom.activitymain.fragment.AccountFragment"
-        android:label="@string/account"
-        tools:layout="@layout/fragment_account" />
-    <fragment
         android:id="@+id/nav_about"
         android:name="com.example.myroom.activitymain.fragment.AboutFragment"
         android:label="@string/about_nav_title"
