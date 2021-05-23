@@ -43,7 +43,7 @@ import com.google.firebase.auth.*
 class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     /* dialog */
-    lateinit var accountDialog: AccountDialog
+    private lateinit var accountDialog: AccountDialog
     /* ****** */
 
     /* interface */
@@ -315,18 +315,15 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
             Email.text = personEmail
             Glide.with(this).load(personPhoto).into(accImg)
         } else {
-            Email.text = "user account"
-            Name.text = "user name"
+            Name.text = getString(R.string.nav_header_title)
+            Email.text = getString(R.string.nav_header_subtitle)
             Glide.with(accImg).clear(accImg)
+            accImg.setImageResource(R.drawable.outline_group_black_24dp)
         }
 
     }
 
     fun signOut() {
-        Email.text = "user account"
-        Name.text = "user name"
-//        id.setText("")
-        Glide.with(accImg).clear(accImg)
         FirebaseAuth.getInstance().signOut()
         revokeAccess()
     }
@@ -336,6 +333,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
             .addOnCompleteListener(this, OnCompleteListener<Void?> {
                 // ...
             })
+        updateUI()
         MyApplication.getUIDPermission(this)
     }
 

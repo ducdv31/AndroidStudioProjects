@@ -16,7 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.SignInButton
 import de.hdodenhof.circleimageview.CircleImageView
 
-class AccountDialog() : DialogFragment() {
+class AccountDialog : DialogFragment() {
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -27,7 +27,7 @@ class AccountDialog() : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val mainActivity: MainActivity = activity as MainActivity
-            val builder = AlertDialog.Builder(it, R.style.MyDialogTheme)
+            val builder = AlertDialog.Builder(it, R.style.Trans50)
 
             val inflate = requireActivity().layoutInflater
             val view = inflate.inflate(R.layout.dialog_account, null)
@@ -85,8 +85,8 @@ class AccountDialog() : DialogFragment() {
             sign_in.visibility = View.GONE
             sign_out.visibility = View.VISIBLE
         } else {
-            Email.text = "username"
-            Name.text = "example@email.com"
+            Name.text = getString(R.string.nav_header_title)
+            Email.text = getString(R.string.nav_header_subtitle)
             userImg.setImageResource(R.drawable.outline_group_black_24dp)
             /* hide sign out button */
             sign_in.visibility = View.VISIBLE
