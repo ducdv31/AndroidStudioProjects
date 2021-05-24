@@ -150,18 +150,21 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         accImg.setOnClickListener {
             if (!accountDialog.isAdded) {
                 accountDialog.show(supportFragmentManager, "DA")
+                drawerLayout!!.closeDrawers()
             }
         }
 
         Name.setOnClickListener {
             if (!accountDialog.isAdded) {
                 accountDialog.show(supportFragmentManager, "DA")
+                drawerLayout!!.closeDrawers()
             }
         }
 
         Email.setOnClickListener {
             if (!accountDialog.isAdded) {
                 accountDialog.show(supportFragmentManager, "DA")
+                drawerLayout!!.closeDrawers()
             }
         }
         MyApplication.getUIDPermission(this)

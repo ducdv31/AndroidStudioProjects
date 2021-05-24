@@ -20,4 +20,7 @@
     <style name="Trans50" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:background">#7F000000</item>
     </style>
+    <style name="Trans20" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">#37000000</item>
+    </style>
 </resources>
