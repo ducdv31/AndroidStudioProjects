@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activitymain.fragment.ListDevicesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_list_devices"
+        android:layout_above="@+id/back_to_home"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_width="match_parent"
+        android:layout_alignParentBottom="false"
         android:layout_height="match_parent"
         android:padding="8dp" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/back_to_home"
+        style="@style/MyButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:text="Back"
+        tools:ignore="HardcodedText" />
+</RelativeLayout>

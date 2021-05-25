@@ -2,6 +2,7 @@ package com.example.bluetooth.activitymain
 
 import android.bluetooth.BluetoothDevice
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bluetooth.R
 import com.example.bluetooth.activitymain.fragment.HomeFragment
@@ -14,7 +15,6 @@ class MainActivity : AppCompatActivity() {
         const val TAG_HOME_BACKSTACK = "Add home fragment to backstack"
     }
 
-    lateinit var initBluetooth: InitBluetooth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,30 +24,24 @@ class MainActivity : AppCompatActivity() {
         fragmentTransition.replace(R.id.frame_main, HomeFragment())
         fragmentTransition.commit()
 
-        initBt()
-    }
-
-    private fun initBt() {
-        initBluetooth = InitBluetooth()
     }
 
     fun startConnect(bluetoothDevice: BluetoothDevice) {
         val thread = Thread {
-            initBluetooth.onStartConnect(bluetoothDevice)
+            InitBluetooth.getInstance().onStartConnect(bluetoothDevice)
         }
         thread.start()
     }
 
     fun getListDevices(): MutableList<BluetoothDevice> {
-        return initBluetooth.getListDevices()
+        return InitBluetooth.getInstance().getListDevices()
     }
 
     fun sendData(data: Any) {
-        if (initBluetooth.bluetoothSocket != null && initBluetooth.bluetoothSocket?.isConnected!!) {
-            initBluetooth.onSendData(data)
+        if (InitBluetooth.getInstance().bluetoothSocket != null && InitBluetooth.getInstance().bluetoothSocket?.isConnected!!) {
+            InitBluetooth.getInstance().onSendData(data)
         } else {
-            initBluetooth.getSocket(initBluetooth.getListDevices()[8])
-            initBluetooth.onSendData(data)
+            Toast.makeText(this, "No connect", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -60,6 +54,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        initBluetooth.onCloseSocket()
+        InitBluetooth.getInstance().onCloseSocket()
     }
 }

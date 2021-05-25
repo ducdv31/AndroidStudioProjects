@@ -31,7 +31,8 @@ class HomeFragment : Fragment() {
         devices.setOnClickListener { mainActivity.gotoListDevices() }
         send.setOnClickListener {
             val data = contextSend.text.toString()
-            mainActivity.sendData(data)
+            mainActivity.sendData(data.trim())
+            contextSend.setText("")
         }
 
         return fragView
