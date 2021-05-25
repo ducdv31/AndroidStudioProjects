@@ -34,6 +34,7 @@ public class InitBluetooth {
     }
 
     public void init(String MacAddress) {
+        // when select device ->get mac device
 //        getPairedDevices();
         setBTMac(MacAddress);
         initBT(MacAddress);
