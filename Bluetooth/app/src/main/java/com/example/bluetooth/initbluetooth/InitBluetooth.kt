@@ -4,6 +4,11 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.io.InputStream
 import java.util.*
@@ -12,7 +17,7 @@ class InitBluetooth private constructor(): BaseBluetooth() {
 
     companion object {
 
-        var instances: InitBluetooth = InitBluetooth()
+        private var instances: InitBluetooth = InitBluetooth()
 
         fun getInstance(): InitBluetooth {
             return instances
@@ -45,56 +50,46 @@ class InitBluetooth private constructor(): BaseBluetooth() {
         try {
             bluetoothSocket!!.connect()
         } catch (e: IOException) {
-            Log.e("TAG", "onStartConnect: $e")
+            Log.e("InitBluetooth", "onStartConnect: $e")
         } finally {
             if (bluetoothSocket!!.isConnected) {
-                onReceived()
+                val job = CoroutineScope(Main).async {
+                    onReceived()
+                }
             }
         }
         /* create 1 coroutine to listen and send */
     }
 
-    override fun onSendData(data: Any) {
+    override suspend fun onSendData(data: Any) {
         /* check bluetooth socket */
         if (bluetoothSocket != null && bluetoothSocket?.isConnected!!) {
             if (data is String) {
-                val threadSend = Thread {
+                withContext(IO){
                     val dataSend: ByteArray = data.toString().toByteArray()
-                    try {
-                        val outputStream = bluetoothSocket!!.outputStream
-                        outputStream.write(dataSend)
-                        outputStream.flush()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
+                    val outputStream = bluetoothSocket!!.outputStream
+                    outputStream.write(dataSend)
+                    outputStream.flush()
                 }
-                threadSend.start()
             }
         }
 
     }
 
-    override fun onReceived() {
-        /* check bluetooth socket */
-        val threadReceived = Thread {
-            try {
-                Log.e("TAG", "onReceived: Running listen")
-                val inputStream: InputStream = bluetoothSocket!!.inputStream
-                while (bluetoothSocket!!.isConnected) {
-                    var b: Int
-                    val text = StringBuilder()
-                    while ((inputStream.read().also { b = it }) != 13) {
-                        val dataReceived = b.toChar().toString()
-                        text.append(dataReceived)
-                    }
-                    Log.e("TAG", "onReceived: ${text.trim()}")
+    override suspend fun onReceived() {
+        withContext(IO){
+            Log.e("InitBluetooth", "onReceived: Running listen")
+            val inputStream: InputStream = bluetoothSocket!!.inputStream
+            while (bluetoothSocket!!.isConnected) {
+                var b: Int
+                val text = StringBuilder()
+                while ((inputStream.read().also { b = it }) != 13) {
+                    val dataReceived = b.toChar().toString()
+                    text.append(dataReceived)
                 }
-            } catch (e: IOException) {
-                Log.e("Error onReceived", "$e")
+                Log.e("InitBluetooth", "onReceived: ${text.trim()}")
             }
-
         }
-        threadReceived.start()
         /* listen data */
     }
 

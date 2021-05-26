@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.example.bluetooth.R
 import com.example.bluetooth.activitymain.MainActivity
+import kotlinx.coroutines.*
 
 class HomeFragment : Fragment() {
 
@@ -17,6 +18,7 @@ class HomeFragment : Fragment() {
     lateinit var contextSend: EditText
     lateinit var mainActivity: MainActivity
 
+    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +33,9 @@ class HomeFragment : Fragment() {
         devices.setOnClickListener { mainActivity.gotoListDevices() }
         send.setOnClickListener {
             val data = contextSend.text.toString()
-            mainActivity.sendData(data.trim())
+            val job = CoroutineScope(Dispatchers.IO).async {
+                mainActivity.sendData(data.trim())
+            }
             contextSend.setText("")
         }
 

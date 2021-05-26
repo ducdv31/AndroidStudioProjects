@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bluetooth.R
 import com.example.bluetooth.activitymain.MainActivity
 import com.example.bluetooth.activitymain.adapter.RcvListDevicesAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class ListDevicesFragment : Fragment() {
 
@@ -32,7 +35,10 @@ class ListDevicesFragment : Fragment() {
 
         rcvListDevicesAdapter = RcvListDevicesAdapter(object : RcvListDevicesAdapter.IClickDevice {
             override fun onClickDevice(bluetoothDevice: BluetoothDevice) {
-                mainActivity.startConnect(bluetoothDevice)
+                CoroutineScope(IO).launch{
+                    mainActivity.startConnect(bluetoothDevice)
+                }
+
             }
         })
 

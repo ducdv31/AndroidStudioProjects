@@ -34,14 +34,16 @@
             android:layout_weight="9"
             android:hint="context"
             android:inputType="text"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/bt_send_bt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="send" />
+            android:text="send"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 </RelativeLayout>

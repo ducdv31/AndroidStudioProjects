@@ -8,6 +8,7 @@ import com.example.bluetooth.R
 import com.example.bluetooth.activitymain.fragment.HomeFragment
 import com.example.bluetooth.activitymain.fragment.ListDevicesFragment
 import com.example.bluetooth.initbluetooth.InitBluetooth
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,20 +27,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun startConnect(bluetoothDevice: BluetoothDevice) {
-        val thread = Thread {
+    suspend fun startConnect(bluetoothDevice: BluetoothDevice) {
+        withContext(Dispatchers.IO) {
             InitBluetooth.getInstance().onStartConnect(bluetoothDevice)
         }
-        thread.start()
     }
 
     fun getListDevices(): MutableList<BluetoothDevice> {
         return InitBluetooth.getInstance().getListDevices()
     }
 
-    fun sendData(data: Any) {
+    suspend fun sendData(data: Any) {
         if (InitBluetooth.getInstance().bluetoothSocket != null && InitBluetooth.getInstance().bluetoothSocket?.isConnected!!) {
-            InitBluetooth.getInstance().onSendData(data)
+            withContext(Dispatchers.IO){
+                InitBluetooth.getInstance().onSendData(data)
+            }
         } else {
             Toast.makeText(this, "No connect", Toast.LENGTH_SHORT).show()
         }
