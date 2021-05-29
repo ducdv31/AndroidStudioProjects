@@ -22,9 +22,9 @@ abstract class BaseBluetooth {
     /* function */
     abstract fun getListDevices(): MutableList<BluetoothDevice>
 
-    abstract suspend fun onStartConnect(bluetoothDevice: BluetoothDevice)
+    abstract fun onStartConnect(bluetoothDevice: BluetoothDevice)
 
-    abstract suspend fun onSendData(data: Any)
+    abstract fun onSendData(data: Any)
 
     abstract suspend fun onReceived()
 

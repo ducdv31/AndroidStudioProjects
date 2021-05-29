@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.io.InputStream
@@ -47,48 +48,49 @@ class InitBluetooth private constructor(): BaseBluetooth() {
         return listDevices.toMutableList()
     }
 
-    override suspend fun onStartConnect(bluetoothDevice: BluetoothDevice) {
+    override fun onStartConnect(bluetoothDevice: BluetoothDevice) {
         /* get UUID of client */
         val clientMac: String = bluetoothDevice.toString()
         this.bluetoothDevice = bluetoothAdapter.getRemoteDevice(clientMac)
         val uuid: String = this.bluetoothDevice!!.uuids[0].toString()
         val clientUuid2: UUID = UUID.fromString(uuid)
+        CoroutineScope(IO).launch {
+            /* start connect */
+            bluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(clientUuid2)
 
-        /* start connect */
-        bluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(clientUuid2)
-
-        try {
-            bluetoothSocket!!.connect()
-        } catch (e: IOException) {
-            Log.e("InitBluetooth", "onStartConnect: $e")
-        } finally {
-            withContext(Main) {
-                checkSocketStatus(bluetoothSocket!!.isConnected)
-            }
-            if (bluetoothSocket!!.isConnected) {
-                onReceived()
+            try {
+                bluetoothSocket!!.connect()
+            } catch (e: IOException) {
+                Log.e("InitBluetooth", "onStartConnect: $e")
+            } finally {
+                withContext(Main) {
+                    checkSocketStatus(bluetoothSocket!!.isConnected)
+                }
+                if (bluetoothSocket!!.isConnected) {
+                    onReceived()
+                }
             }
         }
-
-        /* create 1 coroutine to listen and send */
     }
 
-    override suspend fun onSendData(data: Any) {
+    @Suppress("DeferredResultUnused")
+    override fun onSendData(data: Any) {
         /* check bluetooth socket */
         if (bluetoothSocket != null && bluetoothSocket?.isConnected!!) {
-            withContext(IO){
+            CoroutineScope(IO).async {
                 val dataSend: ByteArray = data.toString().toByteArray()
                 val outputStream = bluetoothSocket!!.outputStream
                 outputStream.write(dataSend)
                 outputStream.flush()
             }
+        } else {
+            checkSocketStatus(bluetoothSocket!!.isConnected)
         }
 
     }
 
     override suspend fun onReceived() {
         val job = CoroutineScope(Main).async {
-            showData("Start listening")
             val inputStream: InputStream = bluetoothSocket!!.inputStream
             while (bluetoothSocket!!.isConnected) {
                 var b: Int
@@ -108,8 +110,8 @@ class InitBluetooth private constructor(): BaseBluetooth() {
     override fun onCloseSocket() {
         if (bluetoothDevice != null && bluetoothSocket?.isConnected!!) {
             bluetoothSocket!!.close()
-            checkSocketStatus(bluetoothSocket!!.isConnected)
             bluetoothDevice = null
+            checkSocketStatus(bluetoothSocket!!.isConnected)
         }
     }
 

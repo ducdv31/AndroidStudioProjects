@@ -8,10 +8,6 @@ import com.example.bluetooth.R
 import com.example.bluetooth.activitymain.fragment.HomeFragment
 import com.example.bluetooth.activitymain.fragment.ListDevicesFragment
 import com.example.bluetooth.initbluetooth.InitBluetooth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
 
@@ -32,9 +28,7 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
     }
 
     fun startConnect(bluetoothDevice: BluetoothDevice) {
-        val job = CoroutineScope(Dispatchers.IO).async {
-            InitBluetooth.getInstance().onStartConnect(bluetoothDevice)
-        }
+        InitBluetooth.getInstance().onStartConnect(bluetoothDevice)
     }
 
     fun getListDevices(): MutableList<BluetoothDevice> {
@@ -42,17 +36,10 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
     }
 
     fun sendData(data: Any) {
-        val job = CoroutineScope(Dispatchers.IO).async {
-            if (InitBluetooth.getInstance().bluetoothSocket != null && InitBluetooth.getInstance().bluetoothSocket?.isConnected!!) {
-                InitBluetooth.getInstance().onSendData(data)
-            } else {
-                withContext(Dispatchers.Main) {
-                    showToast("No connection")
-                }
-            }
-        }
+        InitBluetooth.getInstance().onSendData(data)
     }
 
+    /* other func */
     fun gotoListDevices() {
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.replace(R.id.frame_main, ListDevicesFragment())
