@@ -8,9 +8,12 @@ import com.example.bluetooth.R
 import com.example.bluetooth.activitymain.fragment.HomeFragment
 import com.example.bluetooth.activitymain.fragment.ListDevicesFragment
 import com.example.bluetooth.initbluetooth.InitBluetooth
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
 
     companion object {
         const val TAG_HOME_BACKSTACK = "Add home fragment to backstack"
@@ -25,10 +28,11 @@ class MainActivity : AppCompatActivity() {
         fragmentTransition.replace(R.id.frame_main, HomeFragment())
         fragmentTransition.commit()
 
+        InitBluetooth.startListening(this)
     }
 
-    suspend fun startConnect(bluetoothDevice: BluetoothDevice) {
-        withContext(Dispatchers.IO) {
+    fun startConnect(bluetoothDevice: BluetoothDevice) {
+        val job = CoroutineScope(Dispatchers.IO).async {
             InitBluetooth.getInstance().onStartConnect(bluetoothDevice)
         }
     }
@@ -37,13 +41,15 @@ class MainActivity : AppCompatActivity() {
         return InitBluetooth.getInstance().getListDevices()
     }
 
-    suspend fun sendData(data: Any) {
-        if (InitBluetooth.getInstance().bluetoothSocket != null && InitBluetooth.getInstance().bluetoothSocket?.isConnected!!) {
-            withContext(Dispatchers.IO){
+    fun sendData(data: Any) {
+        val job = CoroutineScope(Dispatchers.IO).async {
+            if (InitBluetooth.getInstance().bluetoothSocket != null && InitBluetooth.getInstance().bluetoothSocket?.isConnected!!) {
                 InitBluetooth.getInstance().onSendData(data)
+            } else {
+                withContext(Dispatchers.Main) {
+                    showToast("No connection")
+                }
             }
-        } else {
-            Toast.makeText(this, "No connect", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -57,5 +63,17 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         InitBluetooth.getInstance().onCloseSocket()
+    }
+
+    private fun showToast(s: String) {
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onSocketIsConnected(status: Boolean) {
+        showToast(status.toString())
+    }
+
+    override fun onDataReceived(data: Any) {
+        showToast(data.toString())
     }
 }
