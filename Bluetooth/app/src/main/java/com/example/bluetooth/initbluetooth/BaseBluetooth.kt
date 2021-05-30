@@ -20,6 +20,8 @@ abstract class BaseBluetooth {
 
 
     /* function */
+    abstract fun isBluetoothEnable():Boolean
+
     abstract fun getListDevices(): MutableList<BluetoothDevice>
 
     abstract fun onStartConnect(bluetoothDevice: BluetoothDevice)

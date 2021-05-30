@@ -22,6 +22,7 @@ class InitBluetooth private constructor(): BaseBluetooth() {
     interface IBluetoothListener {
         fun onSocketIsConnected(status: Boolean)
         fun onDataReceived(data: Any)
+        fun onSentData(data: Any)
     }
 
     companion object {
@@ -42,6 +43,10 @@ class InitBluetooth private constructor(): BaseBluetooth() {
     override var bluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     override var bluetoothSocket: BluetoothSocket? = null
     override var bluetoothDevice: BluetoothDevice? = null
+
+    override fun isBluetoothEnable():Boolean{
+        return bluetoothAdapter.isEnabled
+    }
 
     override fun getListDevices(): MutableList<BluetoothDevice> {
         val listDevices: MutableSet<BluetoothDevice> = bluetoothAdapter.bondedDevices
@@ -82,9 +87,12 @@ class InitBluetooth private constructor(): BaseBluetooth() {
                 val outputStream = bluetoothSocket!!.outputStream
                 outputStream.write(dataSend)
                 outputStream.flush()
+                withContext(Main){
+                    iBluetoothListener.onSentData(data)
+                }
             }
         } else {
-            checkSocketStatus(bluetoothSocket!!.isConnected)
+            checkSocketStatus(false)
         }
 
     }
