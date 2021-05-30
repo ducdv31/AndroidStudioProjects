@@ -8,4 +8,10 @@
         android:title="Device connected"
         app:showAsAction="always"
         tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/setting_menu"
+        android:icon="@drawable/outline_settings_white_24dp"
+        android:title="Setting"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
 </menu>

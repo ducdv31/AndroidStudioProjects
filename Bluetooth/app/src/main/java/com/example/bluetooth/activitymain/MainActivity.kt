@@ -7,15 +7,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bluetooth.R
+import com.example.bluetooth.activitymain.fragment.AboutFragment
 import com.example.bluetooth.activitymain.fragment.HomeFragment
 import com.example.bluetooth.activitymain.fragment.ListDevicesFragment
 import com.example.bluetooth.activitymain.model.DataRS
+import com.example.bluetooth.dialog.DialogSetting
 import com.example.bluetooth.initbluetooth.InitBluetooth
 
 class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
@@ -31,15 +34,19 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             when (result.resultCode) {
                 Activity.RESULT_OK -> gotoListDevices()
-                else -> {}
+                else -> {
+                }
             }
         }
+
+    lateinit var dialogSetting: DialogSetting
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         actionBar = supportActionBar
+        dialogSetting = DialogSetting()
 
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.replace(R.id.frame_main, HomeFragment())
@@ -75,6 +82,13 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         }
     }
 
+    fun gotoAboutFragment(){
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        fragmentTransition.replace(R.id.frame_main, AboutFragment())
+        fragmentTransition.addToBackStack(TAG_HOME_BACKSTACK)
+        fragmentTransition.commit()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         InitBluetooth.getInstance().onCloseSocket()
@@ -93,6 +107,7 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.device_menu -> gotoListDevices()
+            R.id.setting_menu -> dialogSetting.show(supportFragmentManager, "Dialog Setting")
         }
 
         return false
@@ -118,5 +133,25 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         HomeFragment.listRS.add(DataRS(data.toString(), true))
         HomeFragment.rcvDataAdapter?.setData(HomeFragment.listRS)
         HomeFragment.recyclerView?.scrollToPosition(HomeFragment.listRS.size - 1)
+    }
+
+    /* other function  */
+    fun closeKeyboard() {
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        val view = this.currentFocus
+
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
+
+            // now assign the system
+            // service to InputMethodManager
+            val manager = this
+                .getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            manager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }

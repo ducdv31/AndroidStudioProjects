@@ -61,4 +61,8 @@ class HomeFragment : Fragment() {
         return fragView
     }
 
+    override fun onPause() {
+        super.onPause()
+        mainActivity.closeKeyboard()
+    }
 }
