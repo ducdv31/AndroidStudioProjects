@@ -6,12 +6,9 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.util.Log
 import com.example.bluetooth.activitymain.MainActivity
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.io.InputStream
 import java.util.*
@@ -76,23 +73,34 @@ class InitBluetooth private constructor(): BaseBluetooth() {
         }
     }
 
+    private var job: Job? = null
+
     @Suppress("DeferredResultUnused")
-    override fun onSendData(data: Any) {
+    override suspend fun onSendData(data: Any) {
         /* check bluetooth socket */
         if (bluetoothSocket != null && bluetoothSocket?.isConnected!!) {
-            CoroutineScope(IO).async {
+            job = CoroutineScope(IO).async {
                 val dataSend: ByteArray = data.toString().toByteArray()
                 val outputStream = bluetoothSocket!!.outputStream
                 outputStream.write(dataSend)
                 outputStream.flush()
-                withContext(Main){
+                withContext(Main) {
                     iBluetoothListener.onSentData(data)
                 }
+                Log.e("Completed: ", job!!.isCompleted.toString())
+                Log.e("Enable: ", job!!.isActive.toString())
             }
+//            job!!.join()
+            CoroutineScope(Main).launch {
+                delay(1000)
+                Log.e("Cancel 1: ", job!!.isCancelled.toString())
+                Log.e("Enable 1: ", job!!.isActive.toString())
+                Log.e("Completed 1: ", job!!.isCompleted.toString())
+            }
+
         } else {
             checkSocketStatus(false)
         }
-
     }
 
     override suspend fun onReceived() {

@@ -20,7 +20,7 @@ abstract class BaseBluetooth {
 
     abstract fun onStartConnect(bluetoothDevice: BluetoothDevice)
 
-    abstract fun onSendData(data: Any)
+    abstract suspend fun onSendData(data: Any)
 
     abstract suspend fun onReceived()
 

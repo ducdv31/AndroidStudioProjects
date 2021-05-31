@@ -20,6 +20,9 @@ import com.example.bluetooth.activitymain.fragment.ListDevicesFragment
 import com.example.bluetooth.activitymain.model.DataRS
 import com.example.bluetooth.dialog.DialogSetting
 import com.example.bluetooth.initbluetooth.InitBluetooth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
 
@@ -64,7 +67,9 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
     }
 
     fun sendData(data: Any) {
-        InitBluetooth.getInstance().onSendData(data)
+        CoroutineScope(Dispatchers.IO).launch {
+            InitBluetooth.getInstance().onSendData(data)
+        }
     }
 
     /* other func */
