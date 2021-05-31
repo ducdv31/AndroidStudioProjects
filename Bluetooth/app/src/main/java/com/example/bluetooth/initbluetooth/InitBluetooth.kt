@@ -55,9 +55,7 @@ class InitBluetooth private constructor(): BaseBluetooth() {
 
     override fun onStartConnect(bluetoothDevice: BluetoothDevice) {
         /* get UUID of client */
-        val clientMac: String = bluetoothDevice.toString()
-        this.bluetoothDevice = bluetoothAdapter.getRemoteDevice(clientMac)
-        val uuid: String = this.bluetoothDevice!!.uuids[0].toString()
+        val uuid: String = bluetoothDevice.uuids[0].toString()
         val clientUuid2: UUID = UUID.fromString(uuid)
         CoroutineScope(IO).launch {
             /* start connect */
