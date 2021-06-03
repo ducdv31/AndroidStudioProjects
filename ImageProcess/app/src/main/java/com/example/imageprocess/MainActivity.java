@@ -160,13 +160,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    private void displayImage(Mat mat) {
-//        Bitmap bitmap = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888);
-//        // Convert mat to bitmap
-//        Utils.matToBitmap(mat, bitmap);
-//        imageView.setImageBitmap(bitmap);
-//    }
-
     private String getPath(Uri uri) {
         if (uri == null) {
             return null;
@@ -194,9 +187,6 @@ public class MainActivity extends AppCompatActivity {
             int width = originImage.width();
             Log.e("Width", String.valueOf(width));
         }
-//        Imgproc.cvtColor(ImageSrc,mGray,Imgproc.COLOR_RGBA2GRAY);
-//        Imgproc.Canny(mGray,cannyEdge,50,150);
-//        Mat Edge = new  Mat(cannyEdge.rows(),cannyEdge.cols(), CvType.CV_8UC1, Scalar.all(0));
 
         ImageSrc.copyTo(ImageDst);
 
@@ -259,12 +249,6 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(List<ImageLabel> imageLabels) {
                 dialog.dismiss();
 
-//                for (ImageLabel label : imageLabels)
-//                {
-//                    String eachLabel = label.getText().toUpperCase();
-//                    Float confidence = label.getConfidence();
-//                    textView.append(eachLabel+" : "+(""+confidence*100).subSequence(0,4)+"%"+"\n");
-//                }
                 String eachLabel = imageLabels.get(0).getText().toUpperCase();
                 Float confidence = imageLabels.get(0).getConfidence();
                 textView.append(eachLabel + " : " + ("" + confidence * 100).subSequence(0, 4) + "%" + "\n");

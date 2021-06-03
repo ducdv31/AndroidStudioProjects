@@ -451,28 +451,6 @@ public class MainActivity extends AppCompatActivity implements
         boxContours.add(new MatOfPoint(vertices));
         Imgproc.drawContours(Image, boxContours, 0, new Scalar(200, 0, 0), 2);
 
-        // Box draw
-//                    Point[] vertices = new Point[4];
-//                    r.points(vertices);
-//                    List<MatOfPoint> boxContours = new ArrayList<>();
-//                    boxContours.add(new MatOfPoint(vertices));
-//                    Imgproc.drawContours(img, boxContours, 0, new Scalar(128, 128, 128), 5);
-        // Line Draw
-
-//            for (int j = 0; j < 4; j++) {
-//                double Lx1 = vertices[(j + 1) % 4].x - vertices[j].x;
-//                double Ly1 = vertices[(j + 1) % 4].y - vertices[j].y;
-//                double Lx2 = vertices[(j + 2) % 4].x - vertices[j + 1].x;
-//                double Ly2 = vertices[(j + 2) % 4].y - vertices[j + 1].y;
-//                if (Lx1 > 50 && Ly1 > 20) {
-//                    drawBox(vertices);
-//                }
-
-//                Imgproc.line(mRgba,
-//                        vertices[j],
-//                        vertices[(j + 1) % 4],
-//                        new Scalar(0, 255, 0),
-//                        8);
         return Image;
     }
 
@@ -509,10 +487,6 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-//                Intent startMain = new Intent(Intent.ACTION_MAIN);
-//                startMain.addCategory(Intent.CATEGORY_HOME);
-//                startActivity(startMain);
-//                finish();
                 BackLogIn();
                 break;
         }

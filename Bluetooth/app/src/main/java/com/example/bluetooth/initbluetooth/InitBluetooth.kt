@@ -76,10 +76,10 @@ class InitBluetooth private constructor(): BaseBluetooth() {
     private var job: Job? = null
 
     @Suppress("DeferredResultUnused")
-    override suspend fun onSendData(data: Any) {
+    override fun onSendData(data: Any) {
         /* check bluetooth socket */
         if (bluetoothSocket != null && bluetoothSocket?.isConnected!!) {
-            job = CoroutineScope(IO).async {
+            CoroutineScope(IO).async {
                 val dataSend: ByteArray = data.toString().toByteArray()
                 val outputStream = bluetoothSocket!!.outputStream
                 outputStream.write(dataSend)
@@ -87,17 +87,7 @@ class InitBluetooth private constructor(): BaseBluetooth() {
                 withContext(Main) {
                     iBluetoothListener.onSentData(data)
                 }
-                Log.e("Completed: ", job!!.isCompleted.toString())
-                Log.e("Enable: ", job!!.isActive.toString())
             }
-//            job!!.join()
-            CoroutineScope(Main).launch {
-                delay(1000)
-                Log.e("Cancel 1: ", job!!.isCancelled.toString())
-                Log.e("Enable 1: ", job!!.isActive.toString())
-                Log.e("Completed 1: ", job!!.isCompleted.toString())
-            }
-
         } else {
             checkSocketStatus(false)
         }
@@ -118,7 +108,6 @@ class InitBluetooth private constructor(): BaseBluetooth() {
                 showData(text.trim())
             }
         }
-        job.join()
     }
 
     override fun onCloseSocket() {
