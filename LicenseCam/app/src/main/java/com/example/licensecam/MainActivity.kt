@@ -1,18 +1,18 @@
 package com.example.licensecam
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.text.TextBlock
@@ -43,6 +43,15 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var licPlate: TextView
     private lateinit var preProcess: TextView
 
+    /* permission */
+    private val getPermission = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { result ->
+        if (result[Manifest.permission.CAMERA] == false) {
+            onBackPressed()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -65,6 +74,15 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         dataStatus = findViewById(R.id.data)
         licPlate = findViewById(R.id.lic_plate)
         preProcess = findViewById(R.id.pre_process)
+
+        /* check permission */
+        getPermission.launch(
+            arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        )
+        /* **************** */
 
         /* camView setup */
         javaCameraView = findViewById(R.id.javaCamView)
