@@ -257,7 +257,13 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     private fun drawBox(Image: Mat, vertices: Array<Point?>): Mat {
         val boxContours: MutableList<MatOfPoint> = ArrayList()
         boxContours.add(MatOfPoint(*vertices))
-        Imgproc.drawContours(Image, boxContours, 0, Scalar(200.0, 0.0, 0.0), 2)
+        Imgproc.drawContours(
+            Image,
+            boxContours,
+            0,
+            Scalar(200.0, 0.0, 0.0),
+            2
+        )
         return Image
     }
 }
