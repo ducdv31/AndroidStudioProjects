@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LicenseCam">
+        android:theme="@style/Theme.LicenseCam"
+        tools:ignore="AllowBackup">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="landscape">

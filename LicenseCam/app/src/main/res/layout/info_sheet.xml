@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="Status"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/ServerStatus"
@@ -65,7 +66,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="License Plate"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
@@ -82,7 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Pre-Process"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/pre_process"
@@ -103,8 +106,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="Licencs Plate"
-            android:textColor="@color/black" />
+            android:text="Licence Plate"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/lic_plate"

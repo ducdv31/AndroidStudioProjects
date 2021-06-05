@@ -1,11 +1,14 @@
 package com.example.licensecam
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -35,8 +38,8 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var bottomSheetArrow: ImageView
 
     /* view */
-    private lateinit var ServerStatus: TextView
-    private lateinit var DataStatus: TextView
+    private lateinit var serverStatus: TextView
+    private lateinit var dataStatus: TextView
     private lateinit var licPlate: TextView
     private lateinit var preProcess: TextView
 
@@ -50,8 +53,6 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         }
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        val actionBar = supportActionBar
-        actionBar!!.hide()
 
         /* bottom sheer */
         // Layout
@@ -60,14 +61,13 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
         bottomSheetArrow = findViewById(R.id.bottom_sheet_arrow)
         /* ***************** */
-        //        SignOut = findViewById(R.id.button_sign_out);
-        ServerStatus = findViewById<View>(R.id.ServerStatus) as TextView
-        DataStatus = findViewById(R.id.data)
+        serverStatus = findViewById<View>(R.id.ServerStatus) as TextView
+        dataStatus = findViewById(R.id.data)
         licPlate = findViewById(R.id.lic_plate)
         preProcess = findViewById(R.id.pre_process)
 
         /* camView setup */
-        javaCameraView = findViewById<View>(R.id.javaCamView) as JavaCameraView
+        javaCameraView = findViewById(R.id.javaCamView)
         if (!OpenCVLoader.initDebug()) {
             OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_0_0, this, baseCallBack)
         } else {
@@ -95,16 +95,21 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
 
         sheetBehavior.addBottomSheetCallback(
             object : BottomSheetCallback() {
+                @SuppressLint("SwitchIntDef")
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
-//                    when (newState) {
-//                        BottomSheetBehavior.STATE_HIDDEN -> {
-//                        }
-//                        BottomSheetBehavior.STATE_EXPANDED -> bottomSheetArrow.setImageResource(R.mipmap.arrow_down)
-//                        BottomSheetBehavior.STATE_COLLAPSED, BottomSheetBehavior.STATE_SETTLING -> bottomSheetArrow.setImageResource(
-//                            R.mipmap.arrow_up
-//                        )
-//                        BottomSheetBehavior.STATE_DRAGGING -> bottomSheetArrow.setImageResource(R.mipmap.line_dot)
-//                    }
+                    when (newState) {
+                        BottomSheetBehavior.STATE_HIDDEN -> {
+                        }
+                        BottomSheetBehavior.STATE_EXPANDED -> bottomSheetArrow
+                            .setImageResource(R.drawable.outline_keyboard_arrow_down_black_24dp)
+                        BottomSheetBehavior.STATE_COLLAPSED,
+                        BottomSheetBehavior.STATE_SETTLING -> bottomSheetArrow
+                            .setImageResource(
+                                R.drawable.outline_keyboard_arrow_up_black_24dp
+                            )
+                        BottomSheetBehavior.STATE_DRAGGING -> bottomSheetArrow
+                            .setImageResource(R.drawable.outline_more_horiz_black_24dp)
+                    }
                 }
 
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
@@ -242,7 +247,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
                 )
             ) {
                 licPlate.text = stringBuilder.toString()
-                DataStatus.text = stringBuilder.toString()
+                dataStatus.text = stringBuilder.toString()
             } else {
                 mDetect.release()
             }
