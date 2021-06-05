@@ -85,7 +85,7 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/NumOfFaces"
+            android:id="@+id/pre_process"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

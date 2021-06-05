@@ -19,7 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import org.opencv.android.*
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2
 import org.opencv.core.*
@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     private lateinit var ServerStatus: TextView
     private lateinit var DataStatus: TextView
     private lateinit var licPlate: TextView
+    private lateinit var preProcess: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +49,6 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
             Log.i("OpenCV debug", "Success")
         }
 
-        //        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val actionBar = supportActionBar
         actionBar!!.hide()
@@ -62,10 +62,9 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         /* ***************** */
         //        SignOut = findViewById(R.id.button_sign_out);
         ServerStatus = findViewById<View>(R.id.ServerStatus) as TextView
-        DataStatus = findViewById<TextView>(R.id.data)
-        licPlate = findViewById<TextView>(R.id.lic_plate)
-//        NumPlate = setDatabase("Number Plate")
-//        PreProcess = setDatabase("Pre-Process")
+        DataStatus = findViewById(R.id.data)
+        licPlate = findViewById(R.id.lic_plate)
+        preProcess = findViewById(R.id.pre_process)
 
         /* camView setup */
         javaCameraView = findViewById<View>(R.id.javaCamView) as JavaCameraView
@@ -168,21 +167,20 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
             var mSubmat: Mat
             var mDetect = Mat()
 
-            var temp_contour = contours[0]
+            var tempContour: MatOfPoint
             for (i in contours.indices) {
-                temp_contour = contours[i]
-                val newMat = MatOfPoint2f(*temp_contour.toArray())
-                val contourSize = temp_contour.total().toInt()
-                val approxCurve_temp = MatOfPoint2f()
+                tempContour = contours[i]
+                val newMat = MatOfPoint2f(*tempContour.toArray())
+                val approxCurveTemp = MatOfPoint2f()
                 Imgproc.approxPolyDP(
                     newMat,
-                    approxCurve_temp,
+                    approxCurveTemp,
                     Imgproc.arcLength(newMat, true) * 0.02,
                     true
                 )
-                val total = approxCurve_temp.total().toDouble()
+                val total = approxCurveTemp.total().toDouble()
                 if (total in 4.0..5.0) {
-                    val points = MatOfPoint(*approxCurve_temp.toArray())
+                    val points = MatOfPoint(*approxCurveTemp.toArray())
                     val rect = Imgproc.boundingRect(points)
                     val vertices: Array<Point?> = arrayOfNulls(4)
                     mSubmat = RGB.submat(rect)
@@ -191,21 +189,23 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
                             mSubmat.width() > 50 && mSubmat.height() > 20
                     if (condition) {
                         mDetect = Mat(RGB, rect)
-                        val r = Imgproc.minAreaRect(approxCurve_temp)
+                        val r = Imgproc.minAreaRect(approxCurveTemp)
                         r.points(vertices)
                         drawBox(RGB, vertices)
                     }
                 }
                 if (i == contours.size - 1) {
                     val job = CoroutineScope(Dispatchers.IO).async {
-                        detectContext(mDetect)
+                        withTimeoutOrNull(1000) {
+                            detectContext(mDetect)
+                        }
                     }
                 }
             }
         }
     }
 
-    private suspend fun detectContext(mDetect: Mat) {
+    private fun detectContext(mDetect: Mat) {
         val bitmap = Bitmap.createBitmap(mDetect.width(), mDetect.height(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(mDetect, bitmap)
         val textRecognizer: TextRecognizer = TextRecognizer.Builder(applicationContext).build()
@@ -217,9 +217,8 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
             val stringBuilder = StringBuilder()
             val item: TextBlock = items.valueAt(0)
             stringBuilder.append(item.value)
-//            NumOfFaces.setText(stringBuilder.toString())
+            preProcess.text = stringBuilder.toString()
             val LP = "$stringBuilder "
-//            sendData(PreProcess, LP)
             if ((LP.regionMatches(
                     3,
                     "21A-311.99 ",
@@ -242,10 +241,8 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
                     1
                 )
             ) {
-                withContext(Dispatchers.Main) {
-                    licPlate.text = stringBuilder.toString()
-                    DataStatus.text = stringBuilder.toString()
-                }
+                licPlate.text = stringBuilder.toString()
+                DataStatus.text = stringBuilder.toString()
             } else {
                 mDetect.release()
             }
