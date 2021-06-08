@@ -143,14 +143,14 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
     }
 
     override fun onCameraFrame(inputFrame: CameraBridgeViewBase.CvCameraViewFrame?): Mat {
-        val mRgba = inputFrame!!.rgba()
+        var mRgba = inputFrame!!.rgba()
         val mGray = inputFrame.gray()
-        detectLicPlate(mRgba, mGray)
+        mRgba = detectLicPlate(mRgba, mGray)
 
         return mRgba
     }
 
-    private fun detectLicPlate(RGB: Mat, Gray: Mat) {
+    private fun detectLicPlate(RGB: Mat, Gray: Mat): Mat {
         // Detect rectangle
         val mThresh = Mat()
         val mEdge = Mat()
@@ -160,6 +160,8 @@ class MainActivity : AppCompatActivity(), CvCameraViewListener2 {
         Imgproc.Canny(mThresh, mEdge, 100.0, 255.0)
         Imgproc.dilate(mEdge, mEdge, Mat())
         findContours1(RGB, mEdge)
+
+        return RGB
     }
 
     private fun findContours1(RGB: Mat, Edge: Mat) {

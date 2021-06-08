@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class HomeFragment : Fragment() {
 
-    lateinit var send: Button
+    lateinit var send: ImageView
     lateinit var contextSend: EditText
     lateinit var mainActivity: MainActivity
 

@@ -9,7 +9,6 @@ abstract class BaseBluetooth {
     /* variable */
     abstract var bluetoothAdapter: BluetoothAdapter
     abstract var bluetoothSocket: BluetoothSocket?
-    abstract var bluetoothDevice: BluetoothDevice?
     /* ******** */
 
 

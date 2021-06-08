@@ -21,7 +21,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Made by Đặng Đức"
-        android:textSize="25sp"
+        android:textSize="20sp"
         tools:ignore="HardcodedText">
 
     </TextView>
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="ducdang513@gmail.com"
-        android:textSize="25sp"
+        android:textSize="20sp"
         tools:ignore="HardcodedText">
 
     </TextView>

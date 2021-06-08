@@ -28,8 +28,8 @@ class InitBluetooth private constructor(): BaseBluetooth() {
 
         private var instances: InitBluetooth = InitBluetooth()
 
-        fun startListening(activity: Activity) {
-            this.iBluetoothListener = activity as MainActivity
+        fun startListening(iBluetoothListener: IBluetoothListener) {
+            this.iBluetoothListener = iBluetoothListener
         }
 
         fun getInstance(): InitBluetooth {
@@ -39,7 +39,6 @@ class InitBluetooth private constructor(): BaseBluetooth() {
 
     override var bluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     override var bluetoothSocket: BluetoothSocket? = null
-    override var bluetoothDevice: BluetoothDevice? = null
 
     override fun isBluetoothEnable():Boolean{
         return bluetoothAdapter.isEnabled
@@ -64,10 +63,15 @@ class InitBluetooth private constructor(): BaseBluetooth() {
                 Log.e("InitBluetooth", "onStartConnect: $e")
             } finally {
                 withContext(Main) {
-                    checkSocketStatus(bluetoothSocket!!.isConnected)
-                }
-                if (bluetoothSocket!!.isConnected) {
-                    onReceived()
+                    when(bluetoothSocket){
+                        null -> checkSocketStatus(false)
+                        else -> {
+                            checkSocketStatus(bluetoothSocket!!.isConnected)
+                            if (bluetoothSocket!!.isConnected) {
+                                onReceived()
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -111,10 +115,11 @@ class InitBluetooth private constructor(): BaseBluetooth() {
     }
 
     override fun onCloseSocket() {
-        if (bluetoothDevice != null && bluetoothSocket?.isConnected!!) {
-            bluetoothSocket!!.close()
-            bluetoothDevice = null
-            checkSocketStatus(bluetoothSocket!!.isConnected)
+        bluetoothSocket?.let {
+            if (bluetoothSocket!!.isConnected) {
+                bluetoothSocket!!.close()
+                checkSocketStatus(bluetoothSocket!!.isConnected)
+            }
         }
     }
 
