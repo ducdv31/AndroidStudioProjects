@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".UpdateActivity">
 
     <EditText
-        android:id="@+id/et_name"
+        android:id="@+id/et_name_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
@@ -16,7 +16,7 @@
         tools:ignore="Autofill" />
 
     <EditText
-        android:id="@+id/et_age"
+        android:id="@+id/et_age_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
@@ -25,33 +25,10 @@
         tools:ignore="Autofill" />
 
     <Button
-        android:id="@+id/set_data"
+        android:id="@+id/update_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Set" />
-
-    <EditText
-        android:id="@+id/et_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="search"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/delete_all_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Delete All"
-        android:textColor="#E91E63" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_user_database"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp" />
+        android:text="Update" />
 
 </LinearLayout>
