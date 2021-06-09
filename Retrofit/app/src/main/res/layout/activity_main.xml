@@ -80,4 +80,12 @@
         android:layout_gravity="center_horizontal"
         android:text="Get" />
 
+    <TextView
+        android:id="@+id/id_post_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
 </LinearLayout>
