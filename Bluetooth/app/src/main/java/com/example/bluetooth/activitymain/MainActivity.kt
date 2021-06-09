@@ -24,10 +24,10 @@ import com.example.bluetooth.initbluetooth.InitBluetooth
 class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
 
     companion object {
-        const val TAG_HOME_BACKSTACK = "Add home fragment to backstack"
         var devicesItem: MenuItem? = null
     }
 
+    private val TAG_HOME_BACKSTACK = "Add home fragment to backstack"
     var actionBar: ActionBar? = null
 
     private val getContent =

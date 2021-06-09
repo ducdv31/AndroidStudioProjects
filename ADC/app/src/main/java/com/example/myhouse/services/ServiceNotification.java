@@ -38,11 +38,13 @@ public class ServiceNotification extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.e("TAG", "onCreate: ");
         GetCurrentData();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e("TAG", "onStartCommand: ");
         GetCurrentData();
         return START_REDELIVER_INTENT;
     }

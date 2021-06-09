@@ -3,6 +3,7 @@ package com.example.roomdatabase
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.UserManager
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roomdatabase.database.UserDatabase
+import com.example.roomdatabase.user2.MasterUser
 
 class MainActivity : AppCompatActivity() {
 
@@ -118,6 +120,7 @@ class MainActivity : AppCompatActivity() {
 
         /* set room database */
         val user = User(0, userName, userAge.toInt())
+        val userMasterUser = MasterUser(0, userName, userAge.toInt())
 
         if (!isUserExist(user)) {
             Toast.makeText(this, "User exist", Toast.LENGTH_SHORT).show()
@@ -125,6 +128,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         UserDatabase.getInstance(this).userDAO().insertUser(user)
+        UserDatabase.getInstance(this).userDAO2().insertUser23(userMasterUser)
         Toast.makeText(this, "Add Ok", Toast.LENGTH_LONG).show()
 
         /* ***************** */

@@ -10,18 +10,18 @@ interface UserDAO {
     @Insert
     fun insertUser(user: User)
 
+    @Update
+    fun updateUser(user: User)
+
+    @Delete
+    fun deleteUser(user: User)
+
     @Query("SELECT * From `user table`")
     fun getListUser(): MutableList<User>
 
     /* check user exist */
     @Query("SELECT * FROM `user table` WHERE name = :username")
     fun checkUser(username: String): MutableList<User>
-
-    @Update
-    fun updateUser(user: User)
-
-    @Delete
-    fun deleteUser(user: User)
 
     @Query("DELETE From `user table`")
     fun deleteAllUser()
