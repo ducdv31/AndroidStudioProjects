@@ -1,12 +1,13 @@
 package com.example.foregroundservices;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickStartServices();
+                new Thread(MainActivity.this::clickStartServices).start();
             }
         });
         stop.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
                 clickStopServices();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("TAG", "onDestroy: ");
     }
 
     private void clickStopServices() {

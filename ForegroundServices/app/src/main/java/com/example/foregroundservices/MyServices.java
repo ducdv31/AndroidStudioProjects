@@ -29,7 +29,17 @@ public class MyServices extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String dataIntent = intent.getStringExtra("Key Data intent");
         sendNotification(dataIntent);
-
+        Log.e("onStartCommand: ", Thread.currentThread().getName());
+        for (int i =  0; i<20;i++){
+            Log.e("onStartCommand: ", "OK" + i);
+            try {
+                Thread.sleep(1000);
+                Log.e("onStartCommand: ", Thread.currentThread().getName());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        stopSelf();
         return START_NOT_STICKY;
     }
 
