@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 
 class UserViewModel : ViewModel() {
 
-    val num: MutableLiveData<Int> by lazy {
+    private val num: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>().also {
             loadUsers()
         }
     }
 
-    fun upNum(): LiveData<Int> {
+    fun getNum(): LiveData<Int> {
         return num
     }
 
