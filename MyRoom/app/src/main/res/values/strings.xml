@@ -13,4 +13,8 @@
     <string name="about_nav_title">About</string>
     <string name="account">Account</string>
     <string name="type_user">Type</string>
+    <string name="not_a_member">Not a member</string>
+    <string name="a_member">A member</string>
+    <string name="root_user">Root user</string>
+    <string name="super_root_user">Super-root user</string>
 </resources>

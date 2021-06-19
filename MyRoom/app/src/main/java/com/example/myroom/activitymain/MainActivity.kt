@@ -35,7 +35,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.*
@@ -279,30 +278,30 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth?.signInWithCredential(credential)
             ?.addOnCompleteListener(
-                this,
-                OnCompleteListener<AuthResult?> { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        val user: FirebaseUser? = mAuth!!.currentUser
-                        /* set User to database for determine permission */
-                        user?.let {
-                            MyApplication.setDataAfterLogIn(this, user)
-                        }
-                        MyApplication.getUIDPermission(this)
-                        /* update UI */
-                        updateUI()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        updateUI()
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Error firebase Auth with google",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                this
+            ) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    val user: FirebaseUser? = mAuth!!.currentUser
+                    /* set User to database for determine permission */
+                    user?.let {
+                        MyApplication.setDataAfterLogIn(this, user)
                     }
+                    MyApplication.getUIDPermission(this)
+                    /* update UI */
+                    updateUI()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    updateUI()
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error firebase Auth with google",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-                    // ...
-                })
+                // ...
+            }
     }
 
 
@@ -333,21 +332,21 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     private fun revokeAccess() {
         googleSignInClient.revokeAccess()
-            .addOnCompleteListener(this, OnCompleteListener<Void?> {
+            .addOnCompleteListener(this) {
                 // ...
-            })
-        updateUI()
+                updateUI()
+            }
         MyApplication.getUIDPermission(this)
     }
 
     override fun hasUnKnowUser(has: Boolean) {
         if (has) {
 //            AccountFragment.typeUser?.text = "Not a member"
-            AccountDialog.type?.text = "Not a member"
-            HomeFragment.bt_mode_list_user?.visibility = View.INVISIBLE
-            HomeFragment.bt_mode_day_select?.visibility = View.INVISIBLE
-            HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
-            HomeFragment.bt_mode_permission_user?.visibility = View.INVISIBLE
+            AccountDialog.type?.text = getString(R.string.not_a_member)
+            HomeFragment.bt_mode_list_user.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_day_select.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_summary.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_permission_user.visibility = View.INVISIBLE
         }
     }
 
@@ -355,11 +354,11 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     override fun hasUserInRoom(hasInRoom: Boolean, username: String) {
         if (hasInRoom) {
 //            AccountFragment.typeUser?.text = "A member"
-            AccountDialog.type?.text = "A member"
-            HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
-            HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
-            HomeFragment.bt_mode_summary?.visibility = View.INVISIBLE
-            HomeFragment.bt_mode_permission_user?.visibility = View.INVISIBLE
+            AccountDialog.type?.text = getString(R.string.a_member)
+            HomeFragment.bt_mode_list_user.visibility = View.VISIBLE
+            HomeFragment.bt_mode_day_select.visibility = View.VISIBLE
+            HomeFragment.bt_mode_summary.visibility = View.INVISIBLE
+            HomeFragment.bt_mode_permission_user.visibility = View.INVISIBLE
         }
     }
 
@@ -367,22 +366,22 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         if (hasRoot) {
             /* show */
 //            AccountFragment.typeUser?.text = "Root user"
-            AccountDialog.type?.text = "Root user"
-            HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
-            HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
-            HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
-            HomeFragment.bt_mode_permission_user?.visibility = View.INVISIBLE
+            AccountDialog.type?.text = getString(R.string.root_user)
+            HomeFragment.bt_mode_list_user.visibility = View.VISIBLE
+            HomeFragment.bt_mode_summary.visibility = View.VISIBLE
+            HomeFragment.bt_mode_day_select.visibility = View.VISIBLE
+            HomeFragment.bt_mode_permission_user.visibility = View.INVISIBLE
         }
     }
 
     override fun hasSupperRoot(hasSupperRoot: Boolean) {
         if (hasSupperRoot) {
 //            AccountFragment.typeUser?.text = "Super-root user"
-            AccountDialog.type?.text = "Super-root user"
-            HomeFragment.bt_mode_list_user?.visibility = View.VISIBLE
-            HomeFragment.bt_mode_summary?.visibility = View.VISIBLE
-            HomeFragment.bt_mode_day_select?.visibility = View.VISIBLE
-            HomeFragment.bt_mode_permission_user?.visibility = View.VISIBLE
+            AccountDialog.type?.text = getString(R.string.super_root_user)
+            HomeFragment.bt_mode_list_user.visibility = View.VISIBLE
+            HomeFragment.bt_mode_summary.visibility = View.VISIBLE
+            HomeFragment.bt_mode_day_select.visibility = View.VISIBLE
+            HomeFragment.bt_mode_permission_user.visibility = View.VISIBLE
         }
     }
 }

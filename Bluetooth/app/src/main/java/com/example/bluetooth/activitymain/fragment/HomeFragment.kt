@@ -18,8 +18,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class HomeFragment : Fragment() {
 
-    lateinit var send: ImageView
-    lateinit var contextSend: EditText
+    private lateinit var send: ImageView
+    private lateinit var contextSend: EditText
     lateinit var mainActivity: MainActivity
 
     /* recycler view */
@@ -53,6 +53,11 @@ class HomeFragment : Fragment() {
         recyclerView!!.layoutManager = linearLayoutManager
         recyclerView!!.adapter = rcvDataAdapter
 
+        send.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus){
+                
+            }
+        }
         send.setOnClickListener {
             val data = contextSend.text.toString()
             mainActivity.sendData(data.trim())
