@@ -1,17 +1,14 @@
 package com.example.myroom.activitymain.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.myroom.R
 import com.example.myroom.activitymain.MainActivity
 import com.example.myroom.activitymain.MyApplication
-import com.google.firebase.database.collection.LLRBNode
 
 class HomeFragment : Fragment() {
 
@@ -22,7 +19,6 @@ class HomeFragment : Fragment() {
         lateinit var bt_mode_day_select: CardView
         lateinit var bt_mode_list_user: CardView
         lateinit var bt_mode_permission_user: CardView
-//        var bt_mode_task_user: CardView? = null
     }
 
     override fun onCreateView(

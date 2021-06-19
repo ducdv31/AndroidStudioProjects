@@ -13,6 +13,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -50,7 +52,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     /* ************************** */
     private var backPressedTime: Long = 0
     private var mToast: Toast? = null
-    lateinit var main_layout: DrawerLayout
+    private lateinit var mainLayout: DrawerLayout
 
     /* sign in */
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -64,8 +66,8 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     /* show info */
 
-    lateinit var Name: TextView
-    private lateinit var Email: TextView
+    private lateinit var tvName: TextView
+    private lateinit var tvEmail: TextView
     lateinit var id: TextView
     private lateinit var accImg: ImageView
 
@@ -83,18 +85,37 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         const val WORK_TIME_CHILD: String = "Work-Time"
         const val PARENT_DAY_CHILD: String = "Deviot-Date"
         const val PARENT_PERMISSION_CHILD: String = "Deviot-Permission"
-        const val RC_SIGN_IN: Int = 12 // for sign in
     }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var drawerLayout: DrawerLayout? = null
+
+    /* result activity */
+    private val getSignInResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account!!.idToken.toString())
+                Log.e("Log in", "Success")
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                // ...
+                updateUI()
+                Log.e("Not ", "Log in")
+            }
+        }
+    /* *************** */
 
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser: FirebaseUser? = mAuth?.currentUser
         if (currentUser == null) {
-            Snackbar.make(main_layout, "Log in to see more", Snackbar.LENGTH_LONG)
+            Snackbar.make(mainLayout, "Log in to see more", Snackbar.LENGTH_LONG)
                 .setAction("Log in") {
                     signIn()
                 }
@@ -113,7 +134,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        main_layout = findViewById(R.id.drawer_layout)
+        mainLayout = findViewById(R.id.drawer_layout)
         /* sign in */
         mAuth = FirebaseAuth.getInstance()
         /* ******************** */
@@ -124,8 +145,8 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         /* navigation view */
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         val headerView: View = navigationView.getHeaderView(0)
-        Name = headerView.findViewById(R.id.user_name_sign_in)
-        Email = headerView.findViewById(R.id.mail_user_sign_in)
+        tvName = headerView.findViewById(R.id.user_name_sign_in)
+        tvEmail = headerView.findViewById(R.id.mail_user_sign_in)
         accImg = headerView.findViewById(R.id.user_img)
 
         /* ******************* */
@@ -153,14 +174,14 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
             }
         }
 
-        Name.setOnClickListener {
+        tvName.setOnClickListener {
             if (!accountDialog.isAdded) {
                 accountDialog.show(supportFragmentManager, "DA")
                 drawerLayout!!.closeDrawers()
             }
         }
 
-        Email.setOnClickListener {
+        tvEmail.setOnClickListener {
             if (!accountDialog.isAdded) {
                 accountDialog.show(supportFragmentManager, "DA")
                 drawerLayout!!.closeDrawers()
@@ -251,27 +272,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
 
     fun signIn() {
         val signInIntent: Intent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!.idToken.toString())
-                Log.e("Log in", "Success")
-            } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
-                // ...
-                updateUI()
-                Log.e("Not ", "Log in")
-            }
-        }
+        getSignInResult.launch(signInIntent)
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
@@ -313,12 +314,12 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
             personEmail = acct.email
             personId = acct.id
             personPhoto = acct.photoUrl
-            Name.text = personName
-            Email.text = personEmail
+            tvName.text = personName
+            tvEmail.text = personEmail
             Glide.with(this).load(personPhoto).into(accImg)
         } else {
-            Name.text = getString(R.string.nav_header_title)
-            Email.text = getString(R.string.nav_header_subtitle)
+            tvName.text = getString(R.string.nav_header_title)
+            tvEmail.text = getString(R.string.nav_header_subtitle)
             Glide.with(accImg).clear(accImg)
             accImg.setImageResource(R.drawable.outline_group_black_24dp)
         }
