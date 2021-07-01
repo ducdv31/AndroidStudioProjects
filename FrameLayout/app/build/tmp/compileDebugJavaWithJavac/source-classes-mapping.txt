@@ -1,0 +1,2 @@
+com/example/framelayout/BuildConfig.java
+ com.example.framelayout.BuildConfig
