@@ -23,5 +23,6 @@ class MainActivity : AppCompatActivity() {
         println("s2 3")
 
         println("Will be delete from remote 1")
+        println("Will be delete from remote 2")
     }
 }
