@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     /* ****** */
 
     // test git squash 1
+    // test git squash 2
     /* interface */
 
     /* ************************** */
