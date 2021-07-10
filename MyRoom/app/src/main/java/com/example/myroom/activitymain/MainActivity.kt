@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     private lateinit var accountDialog: AccountDialog
     /* ****** */
 
+    // test git squash 1
     /* interface */
 
     /* ************************** */
