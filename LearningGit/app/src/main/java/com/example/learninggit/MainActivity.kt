@@ -13,5 +13,6 @@ class MainActivity : AppCompatActivity() {
         println("Hello 2")
 
         println("Hello 3")
+        println("s 1")
     }
 }
