@@ -13,5 +13,17 @@ class MainActivity : AppCompatActivity() {
         println("Hello 2")
 
         println("Hello 3")
+        println("s 1")
+        println("s 2")
+        println("s 3")
+
+
+        println("s2 1")
+        println("s2 2")
+        println("s2 3")
+
+        println("Will be delete from remote 1")
+        println("Will be delete from remote 2")
+        println("Will be delete from remote 3")
     }
 }
