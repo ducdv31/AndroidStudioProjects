@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -52,7 +53,13 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         fragmentTransition.replace(R.id.frame_main, HomeFragment())
         fragmentTransition.commit()
 
-        InitBluetooth.startListening(this)
+        if (InitBluetooth.getInstance().hasBluetooth()) {
+            InitBluetooth.startListening(this)
+        } else {
+            Toast.makeText(this, "No BT Adapter", Toast.LENGTH_SHORT).show()
+            devicesItem?.isVisible = false
+            this.invalidateOptionsMenu()
+        }
     }
 
     fun startConnect(bluetoothDevice: BluetoothDevice) {
@@ -70,15 +77,19 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
     /* other func */
     private fun gotoListDevices() {
         /* check bluetooth && request */
-        if (!InitBluetooth.getInstance().isBluetoothEnable()) {
-            val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            getContent.launch(intent)
+        if (InitBluetooth.getInstance().hasBluetooth()) {
+            if (!InitBluetooth.getInstance().isBluetoothEnable()) {
+                val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                getContent.launch(intent)
+            } else {
+                /* go to list device */
+                val fragmentTransition = supportFragmentManager.beginTransaction()
+                fragmentTransition.replace(R.id.frame_main, ListDevicesFragment())
+                fragmentTransition.addToBackStack(TAG_HOME_BACKSTACK)
+                fragmentTransition.commit()
+            }
         } else {
-            /* go to list device */
-            val fragmentTransition = supportFragmentManager.beginTransaction()
-            fragmentTransition.replace(R.id.frame_main, ListDevicesFragment())
-            fragmentTransition.addToBackStack(TAG_HOME_BACKSTACK)
-            fragmentTransition.commit()
+            Toast.makeText(this, "No BT Adapter", Toast.LENGTH_SHORT).show()
         }
     }
 

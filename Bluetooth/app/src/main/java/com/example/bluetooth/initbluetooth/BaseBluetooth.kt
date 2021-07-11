@@ -7,13 +7,15 @@ import android.bluetooth.BluetoothSocket
 abstract class BaseBluetooth {
 
     /* variable */
-    abstract var bluetoothAdapter: BluetoothAdapter
+    abstract var bluetoothAdapter: BluetoothAdapter?
     abstract var bluetoothSocket: BluetoothSocket?
     /* ******** */
 
 
     /* function */
-    abstract fun isBluetoothEnable():Boolean
+    abstract fun hasBluetooth(): Boolean
+
+    abstract fun isBluetoothEnable(): Boolean
 
     abstract fun getListDevices(): MutableList<BluetoothDevice>
 

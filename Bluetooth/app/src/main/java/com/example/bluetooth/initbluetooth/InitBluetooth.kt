@@ -1,11 +1,9 @@
 package com.example.bluetooth.initbluetooth
 
-import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.util.Log
-import com.example.bluetooth.activitymain.MainActivity
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -37,15 +35,20 @@ class InitBluetooth private constructor(): BaseBluetooth() {
         }
     }
 
-    override var bluetoothAdapter: BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+    override var bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
     override var bluetoothSocket: BluetoothSocket? = null
 
-    override fun isBluetoothEnable():Boolean{
-        return bluetoothAdapter.isEnabled
+    override fun hasBluetooth(): Boolean {
+        return bluetoothAdapter != null
+    }
+
+
+    override fun isBluetoothEnable(): Boolean {
+        return bluetoothAdapter!!.isEnabled
     }
 
     override fun getListDevices(): MutableList<BluetoothDevice> {
-        val listDevices: MutableSet<BluetoothDevice> = bluetoothAdapter.bondedDevices
+        val listDevices: MutableSet<BluetoothDevice> = bluetoothAdapter!!.bondedDevices
         return listDevices.toMutableList()
     }
 
