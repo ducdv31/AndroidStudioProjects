@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
@@ -20,7 +19,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var send: ImageView
     private lateinit var contextSend: EditText
-    lateinit var mainActivity: MainActivity
+    private lateinit var mainActivity: MainActivity
 
     /* recycler view */
     /* ************* */
@@ -53,11 +52,6 @@ class HomeFragment : Fragment() {
         recyclerView!!.layoutManager = linearLayoutManager
         recyclerView!!.adapter = rcvDataAdapter
 
-        send.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus){
-                
-            }
-        }
         send.setOnClickListener {
             val data = contextSend.text.toString()
             mainActivity.sendData(data.trim())

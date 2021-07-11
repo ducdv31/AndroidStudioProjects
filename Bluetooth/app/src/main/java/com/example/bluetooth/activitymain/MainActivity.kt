@@ -1,9 +1,11 @@
 package com.example.bluetooth.activitymain
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,8 +14,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.NonNull
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.fragment.app.Fragment
 import com.example.bluetooth.R
 import com.example.bluetooth.activitymain.fragment.AboutFragment
 import com.example.bluetooth.activitymain.fragment.HomeFragment
@@ -22,7 +29,7 @@ import com.example.bluetooth.activitymain.model.DataRS
 import com.example.bluetooth.dialog.DialogSetting
 import com.example.bluetooth.initbluetooth.InitBluetooth
 
-class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
+open class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
 
     companion object {
         var devicesItem: MenuItem? = null
@@ -46,6 +53,7 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        requestOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         actionBar = supportActionBar
         dialogSetting = DialogSetting()
 
@@ -62,6 +70,11 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        InitBluetooth.startListening(this)
+    }
+
     fun startConnect(bluetoothDevice: BluetoothDevice) {
         InitBluetooth.getInstance().onStartConnect(bluetoothDevice)
     }
@@ -72,6 +85,28 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
 
     fun sendData(data: Any) {
         InitBluetooth.getInstance().onSendData(data)
+    }
+
+    open fun showActionBar(isShow: Boolean) {
+        val actionBar: ActionBar? = supportActionBar
+        if (isShow) {
+            actionBar?.let {
+                if (!actionBar.isShowing) {
+                    actionBar.show()
+                }
+            }
+        } else {
+            actionBar?.let {
+                if (actionBar.isShowing) {
+                    actionBar.hide()
+                }
+            }
+        }
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    open fun requestOrientation(orientation: Int) {
+        requestedOrientation = orientation
     }
 
     /* other func */
@@ -93,11 +128,25 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         }
     }
 
-    fun gotoAboutFragment(){
+    fun gotoAboutFragment() {
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.replace(R.id.frame_main, AboutFragment())
         fragmentTransition.addToBackStack(TAG_HOME_BACKSTACK)
         fragmentTransition.commit()
+    }
+
+    fun gotoFragment(fragment: Fragment, addBackStack: Boolean) {
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        fragmentTransition.replace(R.id.frame_main, fragment)
+        if (addBackStack) {
+            fragmentTransition.addToBackStack(TAG_HOME_BACKSTACK)
+        }
+        fragmentTransition.commit()
+    }
+
+    fun gotoActivity(@NonNull activityClass: Class<*>) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
     }
 
     override fun onDestroy() {
@@ -105,7 +154,7 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         InitBluetooth.getInstance().onCloseSocket()
     }
 
-    private fun showToast(s: String) {
+    open fun showToast(s: String) {
         Toast.makeText(this, s, Toast.LENGTH_LONG).show()
     }
 
@@ -145,6 +194,27 @@ class MainActivity : AppCompatActivity(), InitBluetooth.IBluetoothListener {
         HomeFragment.rcvDataAdapter?.setData(HomeFragment.listRS)
         HomeFragment.recyclerView?.scrollToPosition(HomeFragment.listRS.size - 1)
     }
+
+    /* hide status bar */
+    fun hideSystemUI() {
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+        WindowInsetsControllerCompat(
+            window,
+            window.decorView.findViewById(R.id.frame_main)
+        ).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars())
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    fun showSystemUI() {
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+        WindowInsetsControllerCompat(window, window.decorView.findViewById(R.id.frame_main)).show(
+            WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars()
+        )
+    }
+    /* *************** */
 
     /* other function  */
     fun closeKeyboard() {

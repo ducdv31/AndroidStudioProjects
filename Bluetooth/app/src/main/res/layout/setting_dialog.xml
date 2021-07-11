@@ -22,8 +22,27 @@
         tools:ignore="UselessLeaf">
 
         <TextView
+            android:id="@+id/tv_ps_controller"
+            style="@style/MySelectTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_ln_pressed"
+            android:text="PS Controller"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ln_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="UselessLeaf">
+
+        <TextView
             android:id="@+id/tv_about"
             style="@style/MySelectTV"
+            android:background="@drawable/background_ln_pressed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="About"
