@@ -1,9 +1,12 @@
 package com.example.mpandroidchart
 
-import android.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.utils.ColorTemplate
 
 
 class BarChartActivity : AppCompatActivity() {
@@ -13,18 +16,18 @@ class BarChartActivity : AppCompatActivity() {
 
         val chart: BarChart = findViewById(R.id.barchart)
 
-        val NoOfEmp = ArrayList<Any>()
+        val NoOfEmp : MutableList<BarEntry> = mutableListOf()
 
-        NoOfEmp.add(BarEntry(945f, 0))
-        NoOfEmp.add(BarEntry(1040f, 1))
-        NoOfEmp.add(BarEntry(1133f, 2))
-        NoOfEmp.add(BarEntry(1240f, 3))
-        NoOfEmp.add(BarEntry(1369f, 4))
-        NoOfEmp.add(BarEntry(1487f, 5))
-        NoOfEmp.add(BarEntry(1501f, 6))
-        NoOfEmp.add(BarEntry(1645f, 7))
-        NoOfEmp.add(BarEntry(1578f, 8))
-        NoOfEmp.add(BarEntry(1695f, 9))
+        NoOfEmp.add(BarEntry(945f, 0f))
+        NoOfEmp.add(BarEntry(1040f, 1f))
+        NoOfEmp.add(BarEntry(1133f, 2f))
+        NoOfEmp.add(BarEntry(1240f, 3f))
+        NoOfEmp.add(BarEntry(1369f, 4f))
+        NoOfEmp.add(BarEntry(1487f, 5f))
+        NoOfEmp.add(BarEntry(1501f, 6f))
+        NoOfEmp.add(BarEntry(1645f, 7f))
+        NoOfEmp.add(BarEntry(1578f, 8f))
+        NoOfEmp.add(BarEntry(1695f, 9f))
 
         val year = ArrayList<Any>()
 
@@ -41,8 +44,8 @@ class BarChartActivity : AppCompatActivity() {
 
         val bardataset = BarDataSet(NoOfEmp, "No Of Employee")
         chart.animateY(5000)
-        val data = BarData(year, bardataset)
-        bardataset.setColors(ColorTemplate.COLORFUL_COLORS)
+        val data = BarData(bardataset)
+        bardataset.setColors(ColorTemplate.COLORFUL_COLORS, this)
         chart.setData(data)
     }
 }

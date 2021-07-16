@@ -3,7 +3,11 @@ package com.example.mpandroidchart
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.ColorTemplate
 
 
 class PieChartActivity : AppCompatActivity() {
@@ -12,21 +16,21 @@ class PieChartActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pie_chart)
 
         val pieChart: PieChart = findViewById(R.id.piechart)
-        val NoOfEmp = ArrayList<Any>()
+        val NoOfEmp : MutableList<PieEntry> = mutableListOf()
 
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(945f, 0))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1040f, 1))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1133f, 2))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1240f, 3))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1369f, 4))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1487f, 5))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1501f, 6))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1645f, 7))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1578f, 8))
-        NoOfEmp.add(MutableMap.MutableEntry<Any?, Any?>(1695f, 9))
+        NoOfEmp.add(PieEntry(945f, 0f))
+        NoOfEmp.add(PieEntry(1040f, 1f))
+        NoOfEmp.add(PieEntry(1133f, 2f))
+        NoOfEmp.add(PieEntry(1240f, 3f))
+        NoOfEmp.add(PieEntry(1369f, 4f))
+        NoOfEmp.add(PieEntry(1487f, 5f))
+        NoOfEmp.add(PieEntry(1501f, 6f))
+        NoOfEmp.add(PieEntry(1645f, 7f))
+        NoOfEmp.add(PieEntry(1578f, 8f))
+        NoOfEmp.add(PieEntry(1695f, 9f))
         val dataSet = PieDataSet(NoOfEmp, "Number Of Employees")
 
-        val year = ArrayList<Any>()
+        val year : MutableList<String> = mutableListOf()
 
         year.add("2008")
         year.add("2009")
@@ -38,9 +42,9 @@ class PieChartActivity : AppCompatActivity() {
         year.add("2015")
         year.add("2016")
         year.add("2017")
-        val data = PieData(year, dataSet)
+        val data = PieData(dataSet)
         pieChart.setData(data)
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS)
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS, this)
         pieChart.animateXY(5000, 5000)
     }
 }
