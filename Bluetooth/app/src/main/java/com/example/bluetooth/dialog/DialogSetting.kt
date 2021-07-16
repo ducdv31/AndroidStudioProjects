@@ -6,11 +6,13 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.bluetooth.R
 import com.example.bluetooth.activityPsControl.PsControlActivity
 import com.example.bluetooth.activitymain.MainActivity
 import com.example.bluetooth.activitymain.fragment.PsControlFragment
+import com.example.bluetooth.initbluetooth.InitBluetooth
 
 class DialogSetting : DialogFragment() {
     @SuppressLint("InflateParams")
@@ -35,8 +37,12 @@ class DialogSetting : DialogFragment() {
             }
 
             psController.setOnClickListener {
-                dialog?.cancel()
-                mainActivity.gotoFragment(PsControlFragment(), true)
+                if (InitBluetooth.getInstance().hasBluetooth()) {
+                    dialog?.cancel()
+                    mainActivity.gotoFragment(PsControlFragment(), true)
+                } else {
+                    Toast.makeText(requireContext(), "No BT Adapter", Toast.LENGTH_SHORT).show()
+                }
                 //mainActivity.gotoActivity(PsControlActivity::class.java)
             }
 

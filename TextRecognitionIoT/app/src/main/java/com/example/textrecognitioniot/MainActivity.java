@@ -44,51 +44,6 @@ public class MainActivity extends AppCompatActivity {
         cameraView = findViewById(R.id.surface_view);
         textView = findViewById(R.id.text_view);
 
-//        gestureLayout =findViewById(R.id.gestureLayout);
-//        bottomSheetLayout =findViewById(R.id.sheet_layout);
-//        sheetBehavior =BottomSheetBehavior.from(bottomSheetLayout);
-
-//        ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
-//        vto.addOnGlobalLayoutListener(
-//                new ViewTreeObserver.OnGlobalLayoutListener() {
-//                    @Override
-//                    public void onGlobalLayout() {
-//                        gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                        //                int width = bottomSheetLayout.getMeasuredWidth();
-//                        int height = gestureLayout.getMeasuredHeight();
-//                        sheetBehavior.setPeekHeight(height);
-//                    }
-//                }
-//        );
-//        sheetBehavior.setHideable(false);
-//        sheetBehavior.addBottomSheetCallback(
-//                new BottomSheetBehavior.BottomSheetCallback() {
-//                    @Override
-//                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//                        switch (newState) {
-//                            case BottomSheetBehavior.STATE_HIDDEN:
-//                                break;
-//                            case BottomSheetBehavior.STATE_EXPANDED:
-////                                bottomSheetArrow.setImageResource(R.mipmap.arrow_down);
-//                                break;
-//                            case BottomSheetBehavior.STATE_COLLAPSED:
-//                            case BottomSheetBehavior.STATE_SETTLING:
-////                                bottomSheetArrow.setImageResource(R.mipmap.arrow_up);
-//                                break;
-//                            case BottomSheetBehavior.STATE_DRAGGING:
-////                                bottomSheetArrow.setImageResource(R.mipmap.line_dot);
-//                                break;
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-//
-//                    }
-//                }
-//        );
-
-
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
         if (!textRecognizer.isOperational()) {
             Log.e("MainActivity", "Not available");
