@@ -44,7 +44,7 @@ class PieChartActivity : AppCompatActivity() {
         year.add("2017")
         val data = PieData(dataSet)
         pieChart.setData(data)
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS, this)
+//        dataSet.setColors(ColorTemplate.COLORFUL_COLORS, this)
         pieChart.animateXY(5000, 5000)
     }
 }

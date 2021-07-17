@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         Log.e(TAG, "onStartScheduler: ", )
         val componentName = ComponentName(this, MyJobServices::class.java)
         val jobInfo = JobInfo.Builder(JOB_ID, componentName)
-//            .setRequiresCharging(true)
             .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED) // Dung wifi
             .setPersisted(true) // Khoi dong lai van chay bth
             .setPeriodic(15 * 60 * 1000L)
