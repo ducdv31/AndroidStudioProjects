@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_history,
                 R.id.nav_board_info,
                 R.id.nav_envi_info)
-                .setDrawerLayout(drawer)
+                .setOpenableLayout(drawer)
                 .build();
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

@@ -46,9 +46,6 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
     /* dialog */
     private lateinit var accountDialog: AccountDialog
     /* ****** */
-    // add 1
-    // add 2
-    // add 3
     /* interface */
 
     /* ************************** */
