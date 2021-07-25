@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.myhome.tool.Constant
 import com.example.myhome.R
 import com.example.myhome.activitymain.MainActivity
-import com.example.myhome.tool.TimeConverter
 import com.example.myhome.activitymain.model.Dht11Value
 import com.example.myhome.historyactivity.HistoryActivity
+import com.example.myhome.tool.Constant
+import com.example.myhome.tool.TimeConverter
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -50,6 +50,7 @@ class Dht11Fragment : Fragment() {
         layoutCurrentValue = fragView.findViewById(R.id.layout_current_value)
         mainActivity = activity as MainActivity
 
+        mainActivity.setActionBar(mainActivity.getString(R.string.my_home), false)
         layoutCurrentValue.setOnClickListener {
             mainActivity.gotoActivity(HistoryActivity::class.java)
         }
