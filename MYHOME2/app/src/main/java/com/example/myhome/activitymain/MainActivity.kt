@@ -1,5 +1,8 @@
 package com.example.myhome.activitymain
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -21,6 +24,7 @@ import com.example.myhome.R
 import com.example.myhome.activitymain.dialog.DialogAccountMain
 import com.example.myhome.activitymain.fragment.Dht11Fragment
 import com.example.myhome.activitymain.model.UserProfileModel
+import com.example.myhome.job.JobAlert
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -31,6 +35,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
+    private val JOB_ID: Int = 1
     private val DATA_MAIN = "Data from mainActivity"
     private val BACK_STACK = "Add to back stack main"
     private var actionBar: ActionBar? = null
@@ -83,6 +88,19 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_main, Dht11Fragment())
         fragmentTransaction.commit()
+
+        startScheduler()
+    }
+
+    private fun startScheduler() {
+        val componentName = ComponentName(this, JobAlert::class.java)
+        val jobInfor = JobInfo.Builder(JOB_ID, componentName)
+            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+            .setPersisted(true)
+            .setPeriodic(15 * 60 * 1000L)
+            .build()
+        val jobScheduler: JobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobScheduler.schedule(jobInfor)
     }
 
     override fun onResume() {

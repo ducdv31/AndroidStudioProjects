@@ -10,6 +10,10 @@
     <string name="about">About</string>
     <string name="sign_out">Sign out</string>
     <string name="my_home">MY HOME</string>
+    <string name="t_notification_alert_name">Alert temperature</string>
+    <string name="h_notification_alert_name">Alert humidity</string>
+    <string name="t_description_info_noti_alert">Alert temperature not in safe range</string>
+    <string name="h_description_info_noti_alert">Alert humidity not in safe range</string>
 
     <style name="tvValue">
         <item name="android:textSize">20sp</item>
