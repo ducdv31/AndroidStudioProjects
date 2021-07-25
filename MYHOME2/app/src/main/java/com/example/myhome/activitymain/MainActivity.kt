@@ -1,6 +1,7 @@
 package com.example.myhome.activitymain
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,9 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.myhome.R
 import com.example.myhome.activitymain.dialog.DialogAccountMain
 import com.example.myhome.activitymain.fragment.Dht11Fragment
@@ -79,6 +83,11 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_main, Dht11Fragment())
         fragmentTransaction.commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateUI()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -173,9 +182,24 @@ class MainActivity : AppCompatActivity() {
             personEmail = acct.email
             personId = acct.id
             personPhoto = acct.photoUrl
+            Glide.with(this)
+                .asDrawable()
+                .load(personPhoto)
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?
+                    ) {
+                        itemAcc?.icon = resource
+                    }
 
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+
+                })
         } else {
-
+            itemAcc?.setIcon(R.drawable.outline_account_circle_white_36dp)
         }
 
     }
