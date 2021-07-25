@@ -14,6 +14,12 @@
     <string name="h_notification_alert_name">Alert humidity</string>
     <string name="t_description_info_noti_alert">Alert temperature not in safe range</string>
     <string name="h_description_info_noti_alert">Alert humidity not in safe range</string>
+    <string name="board_information">Board Information</string>
+    <string name="back">Back</string>
+    <string name="wifi">WiFi</string>
+    <string name="ip">IP</string>
+    <string name="gateway">Gateway</string>
+    <string name="subnet">Subnet</string>
 
     <style name="tvValue">
         <item name="android:textSize">20sp</item>
@@ -51,7 +57,11 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">25sp</item>
         <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:padding">8dp</item>
-        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+    <style name="Trans20" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">#37000000</item>
     </style>
 </resources>

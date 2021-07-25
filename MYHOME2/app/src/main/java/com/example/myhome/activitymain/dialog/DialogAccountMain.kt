@@ -2,6 +2,8 @@ package com.example.myhome.activitymain.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -12,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.myhome.R
 import com.example.myhome.activitymain.MainActivity
 import com.example.myhome.activitymain.fragment.AboutFragment
+import com.example.myhome.activitymain.fragment.BoardInformationFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
 class DialogAccountMain : DialogFragment() {
@@ -22,10 +25,11 @@ class DialogAccountMain : DialogFragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var signOut: TextView
     private lateinit var about: TextView
+    private lateinit var boardInfor: TextView
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return activity?.let {
-            val builder = AlertDialog.Builder(it)
+            val builder = AlertDialog.Builder(it, R.style.Trans20)
 
             val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.dialog_account_main, null)
@@ -71,6 +75,11 @@ class DialogAccountMain : DialogFragment() {
             mainActivity.signOut()
             dialog?.dismiss()
         }
+
+        boardInfor.setOnClickListener {
+            dialog?.dismiss()
+            mainActivity.gotoFragment(BoardInformationFragment(), null, true)
+        }
     }
 
     private fun initVar(view: View) {
@@ -81,5 +90,6 @@ class DialogAccountMain : DialogFragment() {
         layoutAcc = view.findViewById(R.id.ln_account)
         signOut = view.findViewById(R.id.btn_sign_out)
         about = view.findViewById(R.id.btn_about)
+        boardInfor = view.findViewById(R.id.board_information)
     }
 }

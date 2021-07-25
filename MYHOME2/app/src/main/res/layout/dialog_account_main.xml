@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@drawable/background_dialog"
     android:padding="8dp">
 
     <LinearLayout
@@ -10,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/background_account"
+        android:padding="8dp"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -41,16 +44,23 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/board_information"
+        style="@style/BtnSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/board_information" />
+
+    <TextView
         android:id="@+id/btn_about"
         style="@style/BtnSelect"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/about" />
 
     <TextView
         android:id="@+id/btn_sign_out"
         style="@style/BtnSelect"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_out"
         android:textColor="@color/red" />

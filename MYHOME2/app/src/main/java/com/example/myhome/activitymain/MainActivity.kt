@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private val DATA_MAIN = "Data from mainActivity"
     private val BACK_STACK = "Add to back stack main"
     private var actionBar: ActionBar? = null
+    private lateinit var dialogAccountMain: DialogAccountMain
 
     /* sign in */
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!.idToken.toString())
+                firebaseAuthWithGoogle(account!!.idToken!!.toString())
                 Log.e("Log in", "Success")
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         actionBar?.setDisplayUseLogoEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.setLogo(R.drawable.outline_home_white_36dp)
+        dialogAccountMain = DialogAccountMain()
 
         createRequest()
 
@@ -117,8 +119,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.account_menu -> {
-                val dialogAccountMain = DialogAccountMain()
-                dialogAccountMain.show(supportFragmentManager, "Main dialog")
+                if (!dialogAccountMain.isAdded) {
+                    dialogAccountMain.show(supportFragmentManager, "Main dialog")
+                }
             }
             android.R.id.home -> onBackPressed()
         }

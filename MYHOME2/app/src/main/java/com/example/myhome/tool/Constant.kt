@@ -9,5 +9,6 @@ class Constant {
         const val H_CHANNEL_ID: String = "Channel humidity"
         const val T_NOTI_ID: Int = 1
         const val H_NOTI_ID: Int = 2
+        const val ESP_INFOR_CHILD: String = "ESP Information"
     }
 }

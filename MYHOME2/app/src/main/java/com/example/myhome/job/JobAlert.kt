@@ -77,7 +77,7 @@ class JobAlert : JobService() {
             notificationManagerCompat.cancel(Constant.T_NOTI_ID)
         }
 
-        if (dht11Value.h !in 40..70) {
+        if (dht11Value.h !in 40..80) {
             notificationManagerCompat.notify(
                 Constant.H_NOTI_ID, builder2.build()
             )
