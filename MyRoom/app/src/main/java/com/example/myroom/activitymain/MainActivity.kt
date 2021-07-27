@@ -169,21 +169,18 @@ class MainActivity : AppCompatActivity(), IPermissionRequest {
         accImg.setOnClickListener {
             if (!accountDialog.isAdded) {
                 accountDialog.show(supportFragmentManager, "DA")
-                drawerLayout!!.closeDrawers()
             }
         }
 
         tvName.setOnClickListener {
             if (!accountDialog.isAdded) {
                 accountDialog.show(supportFragmentManager, "DA")
-                drawerLayout!!.closeDrawers()
             }
         }
 
         tvEmail.setOnClickListener {
             if (!accountDialog.isAdded) {
                 accountDialog.show(supportFragmentManager, "DA")
-                drawerLayout!!.closeDrawers()
             }
         }
         MyApplication.getUIDPermission(this)

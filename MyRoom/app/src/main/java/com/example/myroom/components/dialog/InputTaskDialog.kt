@@ -20,7 +20,7 @@ class InputTaskDialog(val collection: String, val date: String) : DialogFragment
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
 
-            val builder = AlertDialog.Builder(it, R.style.Trans20)
+            val builder = AlertDialog.Builder(it, R.style.CustomDialog)
 
             val inflater: LayoutInflater = requireActivity().layoutInflater
             val view: View = inflater.inflate(R.layout.dialog_input_layout, null)

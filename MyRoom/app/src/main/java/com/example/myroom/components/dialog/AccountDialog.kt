@@ -27,7 +27,7 @@ class AccountDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val mainActivity: MainActivity = activity as MainActivity
-            val builder = AlertDialog.Builder(it, R.style.Trans20)
+            val builder = AlertDialog.Builder(it, R.style.CustomDialog)
 
             val inflate = requireActivity().layoutInflater
             val view = inflate.inflate(R.layout.dialog_account, null)
