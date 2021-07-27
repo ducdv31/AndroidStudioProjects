@@ -19,7 +19,7 @@ class MyApplication : Application() {
             val tChannel = NotificationChannel(
                 Constant.T_CHANNEL_ID,
                 getString(R.string.t_notification_alert_name),
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = getString(R.string.t_description_info_noti_alert)
             }
@@ -27,7 +27,7 @@ class MyApplication : Application() {
             val hChannel = NotificationChannel(
                 Constant.H_CHANNEL_ID,
                 getString(R.string.h_notification_alert_name),
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = getString(R.string.t_description_info_noti_alert)
             }

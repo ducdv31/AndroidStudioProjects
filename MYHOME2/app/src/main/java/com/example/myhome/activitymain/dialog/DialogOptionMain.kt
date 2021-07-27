@@ -1,13 +1,13 @@
 package com.example.myhome.activitymain.dialog
 
-import android.app.AlertDialog
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.example.myhome.R
 import com.example.myhome.activitymain.MainActivity
@@ -15,7 +15,7 @@ import com.example.myhome.activitymain.fragment.AboutFragment
 import com.example.myhome.activitymain.fragment.BoardInformationFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
-class DialogAccountMain : DialogFragment() {
+class DialogOptionMain(context: Context, private val activity: Activity) : Dialog(context) {
     private lateinit var userImg: CircleImageView
     private lateinit var username: TextView
     private lateinit var email: TextView
@@ -24,21 +24,14 @@ class DialogAccountMain : DialogFragment() {
     private lateinit var signOut: TextView
     private lateinit var about: TextView
     private lateinit var boardInfor: TextView
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        return activity?.let {
-            val builder = AlertDialog.Builder(it, R.style.CustomDialog)
-
-            val inflater = requireActivity().layoutInflater
-            val view = inflater.inflate(R.layout.dialog_account_main, null)
-
-            builder.setView(view)
-
-            initVar(view)
-            setUp()
-
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val view = layoutInflater.inflate(R.layout.dialog_account_main, null)
+        setContentView(view)
+        window?.setBackgroundDrawableResource(android.R.color.transparent)
+        initVar(view, activity)
+        setUp()
     }
 
     private fun setUp() {
@@ -47,6 +40,11 @@ class DialogAccountMain : DialogFragment() {
             Glide.with(mainActivity).load(userProfileModel.photo).into(userImg)
             username.text = userProfileModel.name
             email.text = userProfileModel.email
+        }
+        if (userProfileModel == null){
+            Glide.with(mainActivity).clear(userImg)
+            username.text = mainActivity.getString(R.string.user_name)
+            email.text = mainActivity.getString(R.string.email)
         }
         if (!mainActivity.isSignIn()) {
             signOut.visibility = View.GONE
@@ -57,7 +55,6 @@ class DialogAccountMain : DialogFragment() {
         layoutAcc.setOnClickListener {
             if (!mainActivity.isSignIn()) {
                 mainActivity.signIn()
-                dialog?.dismiss()
             } else {
                 Toast.makeText(mainActivity, "You are signed in", Toast.LENGTH_SHORT).show()
             }
@@ -65,32 +62,32 @@ class DialogAccountMain : DialogFragment() {
         }
 
         about.setOnClickListener {
-            dialog?.dismiss()
             mainActivity.gotoFragment(
                 AboutFragment(),
                 null,
                 true,
-                getString(R.string.about)
+                activity.getString(R.string.about)
             )
+            onBackPressed()
         }
 
         signOut.setOnClickListener {
             mainActivity.signOut()
-            dialog?.dismiss()
+            onBackPressed()
         }
 
         boardInfor.setOnClickListener {
-            dialog?.dismiss()
             mainActivity.gotoFragment(
                 BoardInformationFragment(),
                 null,
                 true,
-                getString(R.string.board_information)
+                activity.getString(R.string.board_information)
             )
+            onBackPressed()
         }
     }
 
-    private fun initVar(view: View) {
+    private fun initVar(view: View, activity: Activity) {
         mainActivity = activity as MainActivity
         userImg = view.findViewById(R.id.img_user)
         username = view.findViewById(R.id.username)
@@ -100,4 +97,5 @@ class DialogAccountMain : DialogFragment() {
         about = view.findViewById(R.id.btn_about)
         boardInfor = view.findViewById(R.id.board_information)
     }
+
 }

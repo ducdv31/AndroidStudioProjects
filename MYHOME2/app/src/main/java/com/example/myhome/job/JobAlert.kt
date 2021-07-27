@@ -56,7 +56,7 @@ class JobAlert : JobService() {
             .setContentTitle("Temperature Alert")
             .setContentText("Temperature now is ${dht11Value!!.t} ºC")
             .setChannelId(Constant.T_CHANNEL_ID)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
         /* humidity */
         val builder2: NotificationCompat.Builder = NotificationCompat.Builder(
             this,
@@ -66,7 +66,7 @@ class JobAlert : JobService() {
             .setContentTitle("Humidity Alert")
             .setContentText("Humidity now is ${dht11Value.h} %")
             .setChannelId(Constant.H_CHANNEL_ID)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
 
         /* check and noti */
         if (dht11Value.t !in 20..37) {
@@ -77,7 +77,7 @@ class JobAlert : JobService() {
             notificationManagerCompat.cancel(Constant.T_NOTI_ID)
         }
 
-        if (dht11Value.h !in 40..80) {
+        if (dht11Value.h !in 40..70) {
             notificationManagerCompat.notify(
                 Constant.H_NOTI_ID, builder2.build()
             )

@@ -22,6 +22,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.myhome.R
 import com.example.myhome.activitymain.dialog.DialogAccountMain
+import com.example.myhome.activitymain.dialog.DialogOptionMain
 import com.example.myhome.activitymain.fragment.Dht11Fragment
 import com.example.myhome.activitymain.model.UserProfileModel
 import com.example.myhome.job.JobAlert
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private val BACK_STACK = "Add to back stack main"
     private var actionBar: ActionBar? = null
     private lateinit var dialogAccountMain: DialogAccountMain
+    private lateinit var dialogOptionMain: DialogOptionMain
 
     /* sign in */
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -83,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.setLogo(R.drawable.outline_home_white_36dp)
         dialogAccountMain = DialogAccountMain()
+        dialogOptionMain = DialogOptionMain(this, this)
 
         createRequest()
 
@@ -122,6 +125,9 @@ class MainActivity : AppCompatActivity() {
                 if (!dialogAccountMain.isAdded) {
                     dialogAccountMain.show(supportFragmentManager, "Main dialog")
                 }
+//                if (!dialogOptionMain.isShowing) {
+//                    dialogOptionMain.show()
+//                }
             }
             android.R.id.home -> onBackPressed()
         }
@@ -239,9 +245,20 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    fun gotoFragment(fragment: Fragment, data: Any? = null, popBackStack: Boolean) {
+    fun gotoFragment(
+        fragment: Fragment,
+        data: Any? = null,
+        popBackStack: Boolean,
+        TAG: String
+    ) {
+        val fragmentOld = supportFragmentManager.findFragmentByTag(TAG)
+        fragmentOld?.let {
+            if (fragmentOld.isAdded) {
+                supportFragmentManager.beginTransaction().remove(fragmentOld).commit()
+            }
+        }
         val fg = supportFragmentManager.beginTransaction()
-        fg.replace(R.id.frame_main, fragment)
+        fg.replace(R.id.frame_main, fragment, TAG)
         data?.let {
             val bundle = Bundle()
             bundle.putSerializable(DATA_MAIN, data as Serializable)

@@ -61,7 +61,13 @@
         <item name="android:padding">8dp</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
+
     <style name="Trans20" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:background">#37000000</item>
+    </style>
+
+    <style name="CustomDialog" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 </resources>

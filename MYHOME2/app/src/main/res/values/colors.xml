@@ -10,4 +10,6 @@
     <color name="gray">#D5D5D5</color>
     <color name="red">#FF1616</color>
     <color name="red_white">#FF5656</color>
+    <color name="tab_unselected_text_color">#FFFFFFFF</color>
+    <color name="tab_selected_text_color">#FF5656</color>
 </resources>

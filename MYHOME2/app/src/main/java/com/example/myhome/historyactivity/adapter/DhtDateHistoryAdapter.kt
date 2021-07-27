@@ -24,6 +24,7 @@ class DhtDateHistoryAdapter(iClickDate: IClickDate) : RecyclerView.Adapter<DhtDa
 
     fun setData(list: MutableList<DateHistory>) {
         listData = list
+        listData.reverse()
         notifyDataSetChanged()
     }
 
