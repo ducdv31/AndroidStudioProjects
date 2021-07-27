@@ -2,12 +2,15 @@ package com.example.myhome.activitymain.fragment
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.myhome.R
 import com.example.myhome.activitymain.MainActivity
@@ -29,6 +32,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class Dht11Fragment : Fragment() {
 
@@ -39,6 +43,7 @@ class Dht11Fragment : Fragment() {
     private lateinit var lineChart: LineChart
     private lateinit var mainActivity: MainActivity
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,6 +64,9 @@ class Dht11Fragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             getCurrentData()
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
             getDataForLineChart()
         }
 
@@ -81,7 +89,13 @@ class Dht11Fragment : Fragment() {
             })
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getDataForLineChart() {
+        val localDate = LocalDate.now()
+        var month = localDate.month.toString()
+        month = month.substring(0, 1).uppercase() + month.substring(1).lowercase()
+        val currentTime = "${localDate.dayOfMonth} $month ${localDate.year}"
+        Log.e(TAG, "Month: $currentTime")
         FirebaseDatabase.getInstance().reference
             .child(Constant.DHT11_CHILD).child(Constant.HISTORY_CHILD)
             .addValueEventListener(object : ValueEventListener {

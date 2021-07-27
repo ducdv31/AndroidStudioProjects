@@ -2,39 +2,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".activitymain.fragment.BoardInformationFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/background_data_stroke"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_back">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/TitleBig25"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:text="@string/wifi" />
-
-            <TextView
-                android:id="@+id/wifi_name"
-                style="@style/TitleBig25"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/wifi" />
-        </LinearLayout>
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/background_data_stroke"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TitleBig25"
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi" />
+
+                    <TextView
+                        android:id="@+id/wifi_name"
+                        style="@style/TitleBig25"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/wifi" />
+                </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,8 +108,34 @@
                 android:gravity="center_horizontal"
                 android:text="@string/subnet" />
         </LinearLayout>
-    </LinearLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/temp_internal"
+                    style="@style/TextBlack25"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_data_stroke"
+                    android:gravity="center_horizontal"
+                    android:padding="8dp"
+                    android:text="@string/internal_temperature" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart_temperature_internal"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
     <Button
         android:id="@+id/btn_back"
         android:layout_width="match_parent"

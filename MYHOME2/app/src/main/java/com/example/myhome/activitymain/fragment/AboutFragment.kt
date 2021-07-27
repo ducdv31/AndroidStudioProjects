@@ -26,4 +26,9 @@ class AboutFragment : Fragment() {
         }
         return fragView
     }
+
+    override fun onDetach() {
+        super.onDetach()
+        mainActivity.setActionBar(mainActivity.getString(R.string.my_home), false)
+    }
 }

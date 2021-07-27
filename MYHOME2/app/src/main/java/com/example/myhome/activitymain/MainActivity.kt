@@ -94,7 +94,6 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frame_main, Dht11Fragment())
         fragmentTransaction.commit()
 
-        startScheduler()
     }
 
     private fun startScheduler() {
@@ -111,6 +110,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         updateUI()
+        startScheduler()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -258,7 +258,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         val fg = supportFragmentManager.beginTransaction()
-        fg.replace(R.id.frame_main, fragment, TAG)
+        fg.add(R.id.frame_main, fragment, TAG)
         data?.let {
             val bundle = Bundle()
             bundle.putSerializable(DATA_MAIN, data as Serializable)

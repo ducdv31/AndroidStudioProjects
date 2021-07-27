@@ -10,5 +10,6 @@ class Constant {
         const val T_NOTI_ID: Int = 1
         const val H_NOTI_ID: Int = 2
         const val ESP_INFOR_CHILD: String = "ESP Information"
+        const val I_TEMP_CHILD : String = "Internal_Temperature"
     }
 }
