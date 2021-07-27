@@ -16,6 +16,7 @@ import com.example.myhome.historyactivity.adapter.DhtDetailHistoryAdapter
 import com.example.myhome.historyactivity.model.DateHistory
 import com.example.myhome.historyactivity.model.DhtTimeValueModel
 import com.example.myhome.tool.Constant
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -32,6 +33,7 @@ class DhtDetailHistoryFragment : Fragment() {
     private lateinit var rvDataHistory: RecyclerView
     private lateinit var dhtDetailHistoryAdapter: DhtDetailHistoryAdapter
     private lateinit var historyActivity: HistoryActivity
+    private lateinit var shimmerDhtDetail: ShimmerFrameLayout
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,9 +41,11 @@ class DhtDetailHistoryFragment : Fragment() {
         val fragView = inflater.inflate(R.layout.fragment_dht_detail_history, container, false)
         date = fragView.findViewById(R.id.tv_date_in_detail_dht_history)
         rvDataHistory = fragView.findViewById(R.id.rv_detail_dht_history)
+        shimmerDhtDetail = fragView.findViewById(R.id.sm_rv_detail_dht_history)
         historyActivity = activity as HistoryActivity
         dhtDetailHistoryAdapter = DhtDetailHistoryAdapter()
 
+        shimmerDhtDetail.startShimmerAnimation()
         historyActivity.setTitleActionBar(
             historyActivity.getString(R.string.detail),
             R.drawable.outline_analytics_white_36dp
@@ -93,6 +97,8 @@ class DhtDetailHistoryFragment : Fragment() {
                                 )
                             }
                             dhtDetailHistoryAdapter.setData(listTimeData)
+                            shimmerDhtDetail.visibility = View.GONE
+                            rvDataHistory.visibility = View.VISIBLE
                         } else {
                             Toast.makeText(historyActivity, "No data", Toast.LENGTH_SHORT).show()
                         }

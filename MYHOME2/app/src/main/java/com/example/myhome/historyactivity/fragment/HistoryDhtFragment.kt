@@ -12,6 +12,7 @@ import com.example.myhome.historyactivity.HistoryActivity
 import com.example.myhome.historyactivity.adapter.DhtDateHistoryAdapter
 import com.example.myhome.historyactivity.model.DateHistory
 import com.example.myhome.tool.Constant
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -25,6 +26,7 @@ class HistoryDhtFragment : Fragment() {
     private lateinit var rvHistoryDht: RecyclerView
     private lateinit var dhtDateHistoryAdapter: DhtDateHistoryAdapter
     private lateinit var historyActivity: HistoryActivity
+    private lateinit var shimmerDhtDateHistory: ShimmerFrameLayout
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +34,9 @@ class HistoryDhtFragment : Fragment() {
         val fragView = inflater.inflate(R.layout.fragment_history_dht, container, false)
         rvHistoryDht = fragView.findViewById(R.id.rv_history_dht)
         historyActivity = activity as HistoryActivity
+        shimmerDhtDateHistory = fragView.findViewById(R.id.sm_rv_history_dht)
+
+        shimmerDhtDateHistory.startShimmerAnimation()
         dhtDateHistoryAdapter = DhtDateHistoryAdapter {
             /* open fragment detail */
             historyActivity.gotoFragment(DhtDetailHistoryFragment(), it, true)
@@ -70,6 +75,8 @@ class HistoryDhtFragment : Fragment() {
                             )
                         }
                         dhtDateHistoryAdapter.setData(listDateHistory)
+                        shimmerDhtDateHistory.visibility = View.GONE
+                        rvHistoryDht.visibility = View.VISIBLE
                     }
                 }
 

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ln_date_dht_history"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@drawable/background_data_stroke"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_date_dht_history"
-        style="@style/HeaderBig"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Date"
-        tools:ignore="HardcodedText" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="16dp"
+        android:src="@color/gray"
+        tools:ignore="ContentDescription" />
 </LinearLayout>

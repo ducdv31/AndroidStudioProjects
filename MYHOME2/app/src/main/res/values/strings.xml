@@ -21,6 +21,7 @@
     <string name="gateway">Gateway</string>
     <string name="subnet">Subnet</string>
     <string name="internal_temperature">Internal Temperature</string>
+    <string name="no_data_for_chart">No data for chart</string>
 
     <style name="tvValue">
         <item name="android:textSize">20sp</item>

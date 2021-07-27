@@ -15,9 +15,37 @@
         android:text="Date"
         tools:ignore="HardcodedText" />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/sm_rv_detail_dht_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/shimmer_date_history" />
+
+            <include layout="@layout/shimmer_date_history" />
+
+            <include layout="@layout/shimmer_date_history" />
+
+            <include layout="@layout/shimmer_date_history" />
+
+            <include layout="@layout/shimmer_date_history" />
+
+            <include layout="@layout/shimmer_date_history" />
+
+            <include layout="@layout/shimmer_date_history" />
+
+            <include layout="@layout/shimmer_date_history" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_detail_dht_history"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.myhome.R
@@ -18,6 +18,7 @@ import com.example.myhome.activitymain.model.Dht11Value
 import com.example.myhome.historyactivity.HistoryActivity
 import com.example.myhome.tool.Constant
 import com.example.myhome.tool.TimeConverter
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -39,9 +40,11 @@ class Dht11Fragment : Fragment() {
     private val TAG = Dht11Fragment::class.java.simpleName
     private lateinit var tValue: TextView
     private lateinit var hValue: TextView
-    private lateinit var layoutCurrentValue:RelativeLayout
+    private lateinit var layoutCurrentValue: RelativeLayout
     private lateinit var lineChart: LineChart
     private lateinit var mainActivity: MainActivity
+    private lateinit var shimmerTHValue: ShimmerFrameLayout
+    private lateinit var shimmerLineChart: ShimmerFrameLayout
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -54,11 +57,16 @@ class Dht11Fragment : Fragment() {
         lineChart = fragView.findViewById(R.id.line_chart_dht11)
         layoutCurrentValue = fragView.findViewById(R.id.layout_current_value)
         mainActivity = activity as MainActivity
+        shimmerTHValue = fragView.findViewById(R.id.sm_th_value)
+        shimmerLineChart = fragView.findViewById(R.id.sm_line_chart)
 
         mainActivity.setActionBar(mainActivity.getString(R.string.my_home), false)
         layoutCurrentValue.setOnClickListener {
             mainActivity.gotoActivity(HistoryActivity::class.java)
         }
+
+        shimmerTHValue.startShimmerAnimation()
+        shimmerLineChart.startShimmerAnimation()
 
         configChart(lineChart)
 
@@ -170,6 +178,9 @@ class Dht11Fragment : Fragment() {
         lineChart.clear()
         lineChart.data = lineData
         lineChart.invalidate()
+
+        shimmerLineChart.visibility = View.GONE
+        lineChart.visibility = View.VISIBLE
     }
 
     private fun configChart(lineChart: LineChart) {
@@ -196,6 +207,7 @@ class Dht11Fragment : Fragment() {
     private fun setDht11View(dht11Value: Dht11Value?) {
         tValue.text = "${dht11Value?.t ?: 0} ºC"
         hValue.text = "${dht11Value?.h ?: 0} %"
+        shimmerTHValue.stopShimmerAnimation()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
