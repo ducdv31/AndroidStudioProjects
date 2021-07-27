@@ -91,42 +91,39 @@ class Dht11Fragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getDataForLineChart() {
-        val localDate = LocalDate.now()
-        var month = localDate.month.toString()
-        month = month.substring(0, 1).uppercase() + month.substring(1).lowercase()
-        val currentTime = "${localDate.dayOfMonth} $month ${localDate.year}"
-        Log.e(TAG, "Month: $currentTime")
         FirebaseDatabase.getInstance().reference
             .child(Constant.DHT11_CHILD).child(Constant.HISTORY_CHILD)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChildren()) {
                         for (dataDate: DataSnapshot in snapshot.children) {
-                            val tEntry: MutableList<Entry> = mutableListOf()
-                            val hEntry: MutableList<Entry> = mutableListOf()
-                            if (dataDate.hasChildren()) {
-                                for (dataTime: DataSnapshot in dataDate.children) {
-                                    val dht11Value: Dht11Value? =
-                                        dataTime.getValue(Dht11Value::class.java)
-                                    dht11Value?.let {
-                                        tEntry.add(
-                                            Entry(
-                                                dataTime.key!!.toFloat(),
-                                                (dht11Value.t ?: 0).toFloat()
+                            if (dataDate.key.toString() == getCurrentDate()) {
+                                val tEntry: MutableList<Entry> = mutableListOf()
+                                val hEntry: MutableList<Entry> = mutableListOf()
+                                if (dataDate.hasChildren()) {
+                                    for (dataTime: DataSnapshot in dataDate.children) {
+                                        val dht11Value: Dht11Value? =
+                                            dataTime.getValue(Dht11Value::class.java)
+                                        dht11Value?.let {
+                                            tEntry.add(
+                                                Entry(
+                                                    dataTime.key!!.toFloat(),
+                                                    (dht11Value.t ?: 0).toFloat()
+                                                )
                                             )
-                                        )
-                                        hEntry.add(
-                                            Entry(
-                                                dataTime.key!!.toFloat(),
-                                                (dht11Value.h ?: 0).toFloat()
+                                            hEntry.add(
+                                                Entry(
+                                                    dataTime.key!!.toFloat(),
+                                                    (dht11Value.h ?: 0).toFloat()
+                                                )
                                             )
+                                        }
+                                        show2LineChart(
+                                            lineChart,
+                                            tEntry, "Temperature", Color.YELLOW,
+                                            hEntry, "Humidity", Color.GREEN
                                         )
                                     }
-                                    show2LineChart(
-                                        lineChart,
-                                        tEntry, "Temperature", Color.YELLOW,
-                                        hEntry, "Humidity", Color.GREEN
-                                    )
                                 }
                             }
                         }
@@ -199,5 +196,13 @@ class Dht11Fragment : Fragment() {
     private fun setDht11View(dht11Value: Dht11Value?) {
         tValue.text = "${dht11Value?.t ?: 0} ºC"
         hValue.text = "${dht11Value?.h ?: 0} %"
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getCurrentDate():String{
+        val localDate = LocalDate.now()
+        var month = localDate.month.toString()
+        month = month.substring(0, 1).uppercase() + month.substring(1).lowercase()
+        return "${localDate.dayOfMonth} $month ${localDate.year}"
     }
 }
