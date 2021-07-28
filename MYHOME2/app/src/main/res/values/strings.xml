@@ -22,6 +22,8 @@
     <string name="subnet">Subnet</string>
     <string name="internal_temperature">Internal Temperature</string>
     <string name="no_data_for_chart">No data for chart</string>
+    <string name="permission">Permission</string>
+    <string name="power_optimization">Power Optimization</string>
 
     <style name="tvValue">
         <item name="android:textSize">30sp</item>
@@ -48,10 +50,17 @@
         <item name="android:textSize">25sp</item>
         <item name="android:layout_marginStart">10dp</item>
     </style>
+
     <style name="TextBlack25">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">25sp</item>
     </style>
+
+    <style name="TextBlack20">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="TitleBig20">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>

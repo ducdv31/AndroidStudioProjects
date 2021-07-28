@@ -122,17 +122,22 @@ class BoardInformationFragment : Fragment() {
         chart.axisLeft.setDrawGridLines(true)
         chart.axisLeft.enableGridDashedLine(10f, 10f, 0f)
         /* ************ */
-        val iTempData =
-            LineDataSet(listInterTemp, getString(R.string.internal_temperature))
-        iTempData.setDrawCircles(false)
+        if (isAdded) {
+            val iTempData =
+                LineDataSet(
+                    listInterTemp,
+                    getString(R.string.internal_temperature)
+                )
+            iTempData.setDrawCircles(false)
 
-        val iLineDataSet: MutableList<ILineDataSet> = mutableListOf()
-        iLineDataSet.add(iTempData)
+            val iLineDataSet: MutableList<ILineDataSet> = mutableListOf()
+            iLineDataSet.add(iTempData)
 
-        val lineData = LineData(iLineDataSet)
+            val lineData = LineData(iLineDataSet)
 
-        chart.clear()
-        chart.data = lineData
+            chart.clear()
+            chart.data = lineData
+        }
     }
 
     private fun getITemp(textView: TextView) {

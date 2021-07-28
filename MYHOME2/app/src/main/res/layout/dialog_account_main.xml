@@ -44,6 +44,13 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/permission_information"
+        style="@style/BtnSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/permission" />
+
+    <TextView
         android:id="@+id/board_information"
         style="@style/BtnSelect"
         android:layout_width="match_parent"

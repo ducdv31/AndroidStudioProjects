@@ -3,10 +3,12 @@ package com.example.myhome.activitymain
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.PowerManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -99,6 +101,11 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
 
         startScheduler()
+    }
+
+    fun isIgnorePowerOptimize(): Boolean {
+        val powerManager: PowerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        return powerManager.isIgnoringBatteryOptimizations(this.packageName)
     }
 
     private fun startScheduler() {
@@ -259,7 +266,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         val fg = supportFragmentManager.beginTransaction()
-        fg.add(R.id.frame_main, fragment, TAG)
+        fg.replace(R.id.frame_main, fragment, TAG)
         data?.let {
             val bundle = Bundle()
             bundle.putSerializable(DATA_MAIN, data as Serializable)

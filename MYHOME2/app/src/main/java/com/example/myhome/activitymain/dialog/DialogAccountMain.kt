@@ -13,6 +13,7 @@ import com.example.myhome.R
 import com.example.myhome.activitymain.MainActivity
 import com.example.myhome.activitymain.fragment.AboutFragment
 import com.example.myhome.activitymain.fragment.BoardInformationFragment
+import com.example.myhome.activitymain.fragment.PermissionFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
 class DialogAccountMain : DialogFragment() {
@@ -24,6 +25,7 @@ class DialogAccountMain : DialogFragment() {
     private lateinit var signOut: TextView
     private lateinit var about: TextView
     private lateinit var boardInfor: TextView
+    private lateinit var permission: TextView
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return activity?.let {
@@ -88,6 +90,16 @@ class DialogAccountMain : DialogFragment() {
                 getString(R.string.board_information)
             )
         }
+
+        permission.setOnClickListener {
+            dialog?.dismiss()
+            mainActivity.gotoFragment(
+                PermissionFragment(),
+                null,
+                true,
+                getString(R.string.permission)
+            )
+        }
     }
 
     private fun initVar(view: View) {
@@ -99,5 +111,6 @@ class DialogAccountMain : DialogFragment() {
         signOut = view.findViewById(R.id.btn_sign_out)
         about = view.findViewById(R.id.btn_about)
         boardInfor = view.findViewById(R.id.board_information)
+        permission = view.findViewById(R.id.permission_information)
     }
 }
