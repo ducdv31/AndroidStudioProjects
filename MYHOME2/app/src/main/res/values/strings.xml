@@ -24,7 +24,7 @@
     <string name="no_data_for_chart">No data for chart</string>
 
     <style name="tvValue">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/black</item>
     </style>

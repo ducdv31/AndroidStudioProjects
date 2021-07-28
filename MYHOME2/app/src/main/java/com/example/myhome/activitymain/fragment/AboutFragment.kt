@@ -22,7 +22,7 @@ class AboutFragment : Fragment() {
         back = fragView.findViewById(R.id.btn_back_about)
         mainActivity.setActionBar(mainActivity.getString(R.string.about), false)
         back.setOnClickListener {
-            mainActivity.onBackPressed()
+            mainActivity.supportFragmentManager.popBackStack()
         }
         return fragView
     }

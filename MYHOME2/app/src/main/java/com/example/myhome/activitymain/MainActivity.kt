@@ -36,12 +36,15 @@ import com.google.firebase.auth.GoogleAuthProvider
 import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
+    private val TAG = MainActivity::class.java.simpleName
     private val JOB_ID: Int = 1
     private val DATA_MAIN = "Data from mainActivity"
     private val BACK_STACK = "Add to back stack main"
     private var actionBar: ActionBar? = null
     private lateinit var dialogAccountMain: DialogAccountMain
     private lateinit var dialogOptionMain: DialogOptionMain
+    private var backPressedTime: Long = 0
+    private lateinit var mToast: Toast
 
     /* sign in */
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -86,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         actionBar?.setLogo(R.drawable.outline_home_white_36dp)
         dialogAccountMain = DialogAccountMain()
         dialogOptionMain = DialogOptionMain(this, this)
+        mToast = Toast.makeText(this, "Press Back again to Exit", Toast.LENGTH_SHORT)
 
         createRequest()
 
@@ -94,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frame_main, Dht11Fragment())
         fragmentTransaction.commit()
 
+        startScheduler()
     }
 
     private fun startScheduler() {
@@ -110,7 +115,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         updateUI()
-        startScheduler()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -125,9 +129,6 @@ class MainActivity : AppCompatActivity() {
                 if (!dialogAccountMain.isAdded) {
                     dialogAccountMain.show(supportFragmentManager, "Main dialog")
                 }
-//                if (!dialogOptionMain.isShowing) {
-//                    dialogOptionMain.show()
-//                }
             }
             android.R.id.home -> onBackPressed()
         }
@@ -276,7 +277,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        supportFragmentManager.popBackStack()
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            mToast.cancel()
+            val intent = Intent(Intent.ACTION_MAIN)
+            intent.addCategory(Intent.CATEGORY_HOME)
+            startActivity(intent)
+            finish()
+            return
+        } else {
+            mToast.show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }

@@ -56,7 +56,7 @@ class BoardInformationFragment : Fragment() {
         mainActivity.setActionBar(getString(R.string.board_information), false)
 
         back.setOnClickListener {
-            mainActivity.onBackPressed()
+            mainActivity.supportFragmentManager.popBackStack()
         }
 
         getData()
