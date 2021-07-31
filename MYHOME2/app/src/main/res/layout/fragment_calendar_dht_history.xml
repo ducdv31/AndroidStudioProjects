@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".historyactivity.fragment.CalendarDhtHistoryFragment">
+
+        <CalendarView
+            android:id="@+id/dht_history_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sm_rv_detail_dht_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/shimmer_date_history" />
+
+                <include layout="@layout/shimmer_date_history" />
+
+                <include layout="@layout/shimmer_date_history" />
+
+                <include layout="@layout/shimmer_date_history" />
+
+                <include layout="@layout/shimmer_date_history" />
+
+                <include layout="@layout/shimmer_date_history" />
+
+                <include layout="@layout/shimmer_date_history" />
+
+                <include layout="@layout/shimmer_date_history" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_detail_dht_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

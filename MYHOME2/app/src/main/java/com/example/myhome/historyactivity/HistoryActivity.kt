@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myhome.R
 import com.example.myhome.historyactivity.fragment.HistoryDhtFragment
+import com.example.myhome.historyactivity.fragment.HistoryHomeFragment
 import java.io.Serializable
 
 class HistoryActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class HistoryActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_history, HistoryDhtFragment())
+        fragmentTransaction.replace(R.id.frame_history, HistoryHomeFragment())
         fragmentTransaction.commit()
     }
 
