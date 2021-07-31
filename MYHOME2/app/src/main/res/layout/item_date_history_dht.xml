@@ -10,10 +10,10 @@
 
     <TextView
         android:id="@+id/tv_date_dht_history"
-        style="@style/HeaderBig"
+        style="@style/HeaderBig35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="16dp"
         android:text="Date"
         tools:ignore="HardcodedText" />
 </LinearLayout>

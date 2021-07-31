@@ -7,33 +7,46 @@
     android:background="@color/white"
     android:padding="8dp"
     tools:context=".activitymain.fragment.PermissionFragment">
+<ScrollView
+    android:id="@+id/sr_permission"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="60dp"
+    app:layout_constraintBottom_toTopOf="@+id/btn_back"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_account"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sw_power_optimization"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp" />
-
-        <TextView
-            style="@style/TextBlack20"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center_horizontal"
-            android:text="@string/power_optimization" />
-    </LinearLayout>
+            android:background="@drawable/background_account"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_power_optimization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                style="@style/TextBlack20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_horizontal"
+                android:text="@string/power_optimization" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
     <Button
         android:id="@+id/btn_back"
         android:layout_width="match_parent"

@@ -133,6 +133,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.account_menu -> {
+                updateUI()
                 if (!dialogAccountMain.isAdded) {
                     dialogAccountMain.show(supportFragmentManager, "Main dialog")
                 }

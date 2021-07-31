@@ -24,6 +24,7 @@ class PermissionFragment : Fragment() {
         back = fragView.findViewById(R.id.btn_back)
         mainActivity = activity as MainActivity
 
+        mainActivity.setActionBar(mainActivity.getString(R.string.permission), false)
         back.setOnClickListener {
             mainActivity.supportFragmentManager.popBackStack()
         }

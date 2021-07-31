@@ -3,6 +3,7 @@ package com.example.getallvideos
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -59,6 +60,8 @@ class MainActivity : AppCompatActivity() {
         var cursor: Cursor
         var columnIndexData: Int
         var thumb: Int
-
+        var absolutePathVideo: String
+        var thumbnail:String
+        uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
     }
 }
