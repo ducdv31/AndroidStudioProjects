@@ -29,6 +29,7 @@ import java.time.LocalDate
 
 class CalendarDhtHistoryFragment : Fragment() {
 
+    private val TAG = CalendarDhtHistoryFragment::class.java.simpleName
     private lateinit var calendarView: CalendarView
     private lateinit var recyclerView: RecyclerView
     private lateinit var dhtDetailHistoryAdapter: DhtDetailHistoryAdapter
@@ -60,7 +61,12 @@ class CalendarDhtHistoryFragment : Fragment() {
 
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             runShimmer(true)
-            val date = "$dayOfMonth ${getMonth(month)} $year"
+            val day = if (dayOfMonth < 10) {
+                "0$dayOfMonth"
+            } else {
+                dayOfMonth
+            }
+            val date = "$day ${getMonth(month)} $year"
             getDataFromDate(date)
         }
 
@@ -73,7 +79,12 @@ class CalendarDhtHistoryFragment : Fragment() {
         val month =
             localDate.month.toString().substring(0, 1).uppercase() + localDate.month.toString()
                 .substring(1).lowercase()
-        return "${localDate.dayOfMonth} $month ${localDate.year}"
+        val day = if (localDate.dayOfMonth < 10) {
+            "0${localDate.dayOfMonth}"
+        } else {
+            localDate.dayOfMonth
+        }
+        return "$day $month ${localDate.year}"
     }
 
     private fun getDataFromDate(date: String) {

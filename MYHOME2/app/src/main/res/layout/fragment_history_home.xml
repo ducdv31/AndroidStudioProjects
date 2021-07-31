@@ -11,7 +11,8 @@
         android:id="@+id/tab_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabGravity="center" />
+        app:tabMode="auto"
+        app:tabGravity="start" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vpg_history"

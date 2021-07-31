@@ -2,23 +2,25 @@ package com.example.myhouse.homecontent;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.ekn.gruzer.gaugelibrary.HalfGauge;
 import com.ekn.gruzer.gaugelibrary.Range;
 import com.example.myhouse.R;
 import com.example.myhouse.model.PmsModel;
+import com.example.myhouse.timeconverter.TimeConverter2;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,6 +53,22 @@ public class FragmentPms7003 extends Fragment {
         pm25 = pms7003View.findViewById(R.id.pm25);
         pm10 = pms7003View.findViewById(R.id.pm10);
         lineChart = pms7003View.findViewById(R.id.chartPms7003);
+        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        lineChart.getXAxis().setDrawGridLines(true);
+        lineChart.getXAxis().enableGridDashedLine(10f, 10f, 0f);
+        lineChart.getAxisRight().setEnabled(false);
+        lineChart.getAxisLeft().setDrawGridLines(true);
+        lineChart.getAxisLeft().enableGridDashedLine(10f, 10f, 0f);
+        lineChart.getXAxis().setAxisLineWidth(1f);
+        lineChart.getAxisLeft().setAxisLineWidth(1f);
+
+        lineChart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return TimeConverter2.convertFromMinutes((int) value);
+            }
+        });
+
         pm1.setMaxValue(100);
         pm25.setMaxValue(100);
         pm10.setMaxValue(100);

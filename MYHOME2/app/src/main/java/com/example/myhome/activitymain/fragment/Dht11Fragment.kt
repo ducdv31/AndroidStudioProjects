@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.myhome.R
@@ -215,6 +214,11 @@ class Dht11Fragment : Fragment() {
         val localDate = LocalDate.now()
         var month = localDate.month.toString()
         month = month.substring(0, 1).uppercase() + month.substring(1).lowercase()
-        return "${localDate.dayOfMonth} $month ${localDate.year}"
+        val day = if (localDate.dayOfMonth < 10) {
+            "0${localDate.dayOfMonth}"
+        } else {
+            localDate.dayOfMonth
+        }
+        return "$day $month ${localDate.year}"
     }
 }

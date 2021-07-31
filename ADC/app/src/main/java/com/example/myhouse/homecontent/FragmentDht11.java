@@ -14,10 +14,13 @@ import com.ekn.gruzer.gaugelibrary.ArcGauge;
 import com.ekn.gruzer.gaugelibrary.Range;
 import com.example.myhouse.R;
 import com.example.myhouse.datahistory.THValue;
+import com.example.myhouse.timeconverter.TimeConverter2;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +46,22 @@ public class FragmentDht11 extends Fragment {
                              Bundle savedInstanceState) {
         View dht11View = inflater.inflate(R.layout.fragment_dht11, container, false);
         lineChart = dht11View.findViewById(R.id.chartDht11);
+        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        lineChart.getXAxis().setDrawGridLines(true);
+        lineChart.getXAxis().enableGridDashedLine(10f, 10f, 0f);
+        lineChart.getAxisRight().setEnabled(false);
+        lineChart.getAxisLeft().setDrawGridLines(true);
+        lineChart.getAxisLeft().enableGridDashedLine(10f, 10f, 0f);
+        lineChart.getXAxis().setAxisLineWidth(1f);
+        lineChart.getAxisLeft().setAxisLineWidth(1f);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        lineChart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return TimeConverter2.convertFromMinutes((int) value);
+            }
+        });
         Range Humidity = new Range();
         Humidity.setColor(Color.GREEN);
         Humidity.setFrom(0);
