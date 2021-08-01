@@ -4,8 +4,11 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
+    id 'kotlin-kapt'
 }
-
+kapt {
+    generateStubs = true
+}
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -83,4 +86,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    kapt 'com.jakewharton:butterknife-compiler:10.2.3'
 }

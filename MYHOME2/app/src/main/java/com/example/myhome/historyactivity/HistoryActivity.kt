@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import butterknife.ButterKnife
 import com.example.myhome.R
 import com.example.myhome.historyactivity.fragment.HistoryDhtFragment
 import com.example.myhome.historyactivity.fragment.HistoryHomeFragment
@@ -21,6 +22,7 @@ class HistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
+        ButterKnife.bind(this)
         actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
