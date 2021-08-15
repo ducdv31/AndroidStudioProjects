@@ -25,10 +25,6 @@ class HomeDataFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var binding: FragmentHomeDataBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -172,7 +172,7 @@ open class BaseActivity : AppCompatActivity() {
             acct?.let {
                 return UserProfileModel(
                     acct.id,
-                    acct.photoUrl,
+                    acct.photoUrl?.toString(),
                     acct.displayName,
                     acct.email
                 )
@@ -188,7 +188,7 @@ open class BaseActivity : AppCompatActivity() {
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         if (acct != null) {
             Glide.with(this)
-                .load(acct.photoUrl)
+                .load(acct.photoUrl?.toString())
                 .into(getUserImgView())
         } else {
             Glide.with(this).load(R.drawable.outline_account_circle_black_48dp)
@@ -211,13 +211,6 @@ open class BaseActivity : AppCompatActivity() {
             }
     }
 
-    /* end sign in */
-    val user = hashMapOf(
-        "first" to "Alan",
-        "middle" to "Mathison",
-        "last" to "Turing",
-        "born" to 1912
-    )
 
     /* set user profile to fireStore */
     fun setUserToFireStore() {
@@ -225,7 +218,7 @@ open class BaseActivity : AppCompatActivity() {
         userProfileModel?.let {
             userProfileModel.id?.let { it1 ->
                 Firebase.firestore.collection(Constants.PERMISSION).document(it1)
-                    .set(convertToCollection(it), SetOptions.merge())
+                    .set(it, SetOptions.merge())
                     .addOnSuccessListener {
 
                     }
@@ -242,17 +235,10 @@ open class BaseActivity : AppCompatActivity() {
             it.id?.let { it1 ->
                 Firebase.firestore.collection(Constants.PERMISSION).document(it1)
                     .set(hashMapOf(Constants.PERMISSION to perm), SetOptions.merge())
+                    .addOnSuccessListener { }
+                    .addOnFailureListener { }
             }
         }
-    }
-
-    fun convertToCollection(userProfileModel: UserProfileModel?): HashMap<Any, Any?> {
-        return hashMapOf(
-            Constants.ID to userProfileModel?.id,
-            Constants.USERNAME to userProfileModel?.displayName,
-            Constants.EMAIL to userProfileModel?.email,
-            Constants.URIPHOTO to userProfileModel?.photoUri.toString()
-        )
     }
 
     /* ***************************** */

@@ -5,7 +5,7 @@ import java.io.Serializable
 
 data class UserProfileModel(
     val id: String? = null,
-    val photoUri: Uri? = null,
+    val photoUri: String? = null,
     val displayName: String? = null,
     val email: String? = null
 ) : Serializable {
