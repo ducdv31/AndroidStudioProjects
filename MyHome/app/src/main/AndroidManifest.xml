@@ -3,6 +3,8 @@
     package="com.example.myhome">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".MyApplication"
@@ -12,6 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyHome">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCDy2-JaN3GIZPVGRNBB2tXooVGJx2hgzw" />
         <activity android:name=".BaseActivity" />
         <activity
             android:name=".ui.view.activity.main.MainActivity"

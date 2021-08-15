@@ -16,6 +16,10 @@
     <string name="made_by_dang_duc">Dang Duc</string>
     <string name="back">Back</string>
     <string name="duc_email">ducdang513@gmail.com</string>
+    <string name="map">Map</string>
+    <string name="granted_permission">Granted permission</string>
+    <string name="deny_permission">Permission not granted</string>
+    <string name="deny_message">"If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]"</string>
 
     <style name="Title_30" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>
@@ -31,13 +35,17 @@
 
     <style name="TextBlack_25" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="TextBlack_30" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="TextBlack_20" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="MyDialog" parent="Theme.AppCompat.Dialog.Alert">
