@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.myhome.ui.view.fragment.account.AccountFragment
-import com.example.myhome.ui.view.fragment.dht.DhtFragment
+import com.example.myhome.ui.view.fragment.main.HomeDataFragment
 
 class HomeViewPager(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
@@ -14,9 +14,9 @@ class HomeViewPager(fragmentActivity: FragmentActivity) : FragmentStateAdapter(f
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> DhtFragment()
+            0 -> HomeDataFragment()
             1 -> AccountFragment()
-            else -> DhtFragment()
+            else -> HomeDataFragment()
         }
     }
 }

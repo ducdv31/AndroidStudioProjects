@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/back_action_select.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/background_button.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/icon_bottom_select.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_main.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_account.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_dht.xml" value="0.264" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_data.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_main.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/my_action_bar.xml" value="0.2" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/menu/bottom_main_menu.xml" value="0.23645833333333333" />

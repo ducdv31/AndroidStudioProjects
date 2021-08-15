@@ -1,4 +1,4 @@
-package com.example.myhome.ui.view.fragment.dht
+package com.example.myhome.ui.view.fragment.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.myhome.R
-import com.example.myhome.databinding.FragmentDhtBinding
+import com.example.myhome.databinding.FragmentHomeDataBinding
 import com.example.myhome.ui.view.activity.main.MainActivity
 import com.example.myhome.ui.viewmodel.dht.DhtFactoryViewModel
 import com.example.myhome.ui.viewmodel.dht.DhtViewmodel
 import kotlinx.android.synthetic.*
 
-class DhtFragment : Fragment() {
+class HomeDataFragment : Fragment() {
 
     private val viewModel: DhtViewmodel by lazy {
         ViewModelProvider(
@@ -23,7 +23,7 @@ class DhtFragment : Fragment() {
     }
 
     private lateinit var mainActivity: MainActivity
-    private lateinit var binding: FragmentDhtBinding
+    private lateinit var binding: FragmentHomeDataBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class DhtFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_dht, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_home_data, container, false)
         val fragView = binding.root
         mainActivity = activity as MainActivity
 

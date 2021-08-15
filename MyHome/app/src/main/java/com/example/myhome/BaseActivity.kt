@@ -172,16 +172,13 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUI() {
+    fun updateUI() {
         val acct = GoogleSignIn.getLastSignedInAccount(this)
-        Log.e("ACC", "updateUI: $acct")
         if (acct != null) {
-            Log.e("TAG", "updateUI: ")
             Glide.with(this)
                 .load(acct.photoUrl)
                 .into(getUserImgView())
         } else {
-            Log.e("TAG", "updateUI: Error")
             Glide.with(this).load(R.drawable.outline_account_circle_black_48dp)
                 .into(getUserImgView())
         }

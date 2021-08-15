@@ -5,6 +5,9 @@
     <string name="home">Home</string>
     <string name="account">Account</string>
     <string name="temp_humi">Temp | Humi</string>
+    <string name="username">username</string>
+    <string name="email">example@mail.com</string>
+    <string name="sign_out">Sign out</string>
 
     <style name="Title_30" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>
@@ -15,5 +18,11 @@
         <item name="android:textSize">25sp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
+    </style>
+    <style name="TextBlack_25" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">25sp</item>
+    </style>
+    <style name="TextBlack_20" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">20sp</item>
     </style>
 </resources>

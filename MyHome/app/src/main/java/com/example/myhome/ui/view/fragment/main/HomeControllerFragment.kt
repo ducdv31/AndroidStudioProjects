@@ -3,20 +3,17 @@ package com.example.myhome.ui.view.fragment.main
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
-import com.example.myhome.BaseActivity
 import com.example.myhome.R
 import com.example.myhome.ui.adapter.main.HomeViewPager
 import com.example.myhome.ui.view.activity.main.MainActivity
-import com.google.android.material.navigation.NavigationBarView
 import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.fragment_home_main.*
+import kotlinx.android.synthetic.main.fragment_home_controller.*
 
 
-class HomeMainFragment : Fragment() {
+class HomeControllerFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var homeViewPager: HomeViewPager
 
@@ -24,7 +21,7 @@ class HomeMainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val fragView = inflater.inflate(R.layout.fragment_home_main, container, false)
+        val fragView = inflater.inflate(R.layout.fragment_home_controller, container, false)
         mainActivity = activity as MainActivity
         homeViewPager = HomeViewPager(mainActivity)
         return fragView
