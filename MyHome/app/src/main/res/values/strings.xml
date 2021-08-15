@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="account">Account</string>
-    <string name="temp_humi">Temp | Humi</string>
+    <string name="temp_humi">---- | ----</string>
     <string name="username">username</string>
     <string name="email">example@mail.com</string>
     <string name="sign_out">Sign out</string>
@@ -12,6 +12,10 @@
     <string name="ok">Ok</string>
     <string name="title_sign_out">Do you want to sign out?</string>
     <string name="about">About</string>
+    <string name="options">Options</string>
+    <string name="made_by_dang_duc">Dang Duc</string>
+    <string name="back">Back</string>
+    <string name="duc_email">ducdang513@gmail.com</string>
 
     <style name="Title_30" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>
@@ -27,6 +31,9 @@
 
     <style name="TextBlack_25" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">25sp</item>
+    </style>
+    <style name="TextBlack_30" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="TextBlack_20" parent="Widget.AppCompat.TextView">

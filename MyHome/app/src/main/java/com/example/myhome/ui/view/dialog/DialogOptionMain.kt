@@ -13,7 +13,12 @@ import java.lang.IllegalStateException
 
 class DialogOptionMain : DialogFragment() {
 
+    private val TAG = DialogAbout::class.java.simpleName
     private lateinit var about: TextView
+    private val dialogAbout: DialogAbout by lazy {
+        DialogAbout()
+    }
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -26,7 +31,7 @@ class DialogOptionMain : DialogFragment() {
 
             about = view.findViewById(R.id.option_about)
             about.setOnClickListener {
-                Toast.makeText(requireContext(), "About", Toast.LENGTH_SHORT).show()
+                dialogAbout.show(requireActivity().supportFragmentManager, TAG)
                 dialog?.dismiss()
             }
 
