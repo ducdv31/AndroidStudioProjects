@@ -9,12 +9,14 @@ import com.bumptech.glide.Glide
 import com.example.myhome.R
 import com.example.myhome.data.model.login.UserProfileModel
 import com.example.myhome.ui.view.activity.main.MainActivity
+import com.example.myhome.ui.view.dialog.DialogQuestion
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_account.*
 
 class AccountFragment : Fragment() {
 
     private lateinit var mainActivity: MainActivity
+    private lateinit var dialogQuestion: DialogQuestion
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +24,19 @@ class AccountFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         mainActivity = activity as MainActivity
+        dialogQuestion = DialogQuestion(
+            getString(R.string.title_sign_out),
+            object : DialogQuestion.IClickDialogButton {
+                override fun onClickCancel() {
+
+                }
+
+                override fun onClickOk() {
+                    mainActivity.signOut()
+                    updateUser()
+                }
+
+            })
         return inflater.inflate(R.layout.fragment_account, container, false)
     }
 
@@ -34,8 +49,12 @@ class AccountFragment : Fragment() {
             }
         }
         btn_sign_out.setOnClickListener {
-            mainActivity.signOut()
-            updateUser()
+            if (!dialogQuestion.isAdded) {
+                dialogQuestion.show(
+                    mainActivity.supportFragmentManager,
+                    getString(R.string.title_sign_out)
+                )
+            }
         }
     }
 
