@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.myhome.data.model.login.UserProfileModel
+import com.example.myhome.utils.Constants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -18,12 +19,21 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.my_action_bar.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.HashMap
 
 open class BaseActivity : AppCompatActivity() {
 
+    private val TAG = BaseActivity::class.java.simpleName
     private lateinit var googleSignInClient: GoogleSignInClient
     private var mAuth: FirebaseAuth? = null
 
@@ -37,6 +47,7 @@ open class BaseActivity : AppCompatActivity() {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account!!.idToken!!.toString())
+                setUserToFireStore()
                 showToast("Sign In Successfully")
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
@@ -173,6 +184,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun updateUI() {
+        setUserToFireStore()
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         if (acct != null) {
             Glide.with(this)
@@ -198,7 +210,52 @@ open class BaseActivity : AppCompatActivity() {
                 Toast.makeText(this, "Sign out successfully", Toast.LENGTH_SHORT).show()
             }
     }
+
     /* end sign in */
+    val user = hashMapOf(
+        "first" to "Alan",
+        "middle" to "Mathison",
+        "last" to "Turing",
+        "born" to 1912
+    )
+
+    /* set user profile to fireStore */
+    fun setUserToFireStore() {
+        val userProfileModel = getUserProfile()
+        userProfileModel?.let {
+            userProfileModel.id?.let { it1 ->
+                Firebase.firestore.collection(Constants.PERMISSION).document(it1)
+                    .set(convertToCollection(it), SetOptions.merge())
+                    .addOnSuccessListener {
+
+                    }
+                    .addOnFailureListener {
+
+                    }
+            }
+        }
+    }
+
+    fun setUserPermission(perm: Int) {
+        val userProfileModel = getUserProfile()
+        userProfileModel?.let {
+            it.id?.let { it1 ->
+                Firebase.firestore.collection(Constants.PERMISSION).document(it1)
+                    .set(hashMapOf(Constants.PERMISSION to perm), SetOptions.merge())
+            }
+        }
+    }
+
+    fun convertToCollection(userProfileModel: UserProfileModel?): HashMap<Any, Any?> {
+        return hashMapOf(
+            Constants.ID to userProfileModel?.id,
+            Constants.USERNAME to userProfileModel?.displayName,
+            Constants.EMAIL to userProfileModel?.email,
+            Constants.URIPHOTO to userProfileModel?.photoUri.toString()
+        )
+    }
+
+    /* ***************************** */
 
     override fun onDestroy() {
         super.onDestroy()

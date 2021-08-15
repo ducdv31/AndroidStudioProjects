@@ -8,6 +8,7 @@ import com.example.myhome.ui.view.dialog.DialogOptionMain
 import com.example.myhome.ui.view.fragment.main.HomeControllerFragment
 import com.google.android.gms.maps.SupportMapFragment
 import kotlinx.android.synthetic.*
+import kotlin.random.Random
 
 class MainActivity : BaseActivity() {
 
