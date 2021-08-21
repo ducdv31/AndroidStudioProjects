@@ -16,5 +16,9 @@ class Constants {
         const val USERNAME: String = "Name"
         const val EMAIL: String = "Email"
         const val URIPHOTO: String = "UriPhoto"
+        const val NAME_SENSOR: String = "Name_sensor"
+        /* item type */
+        const val ITEM_TYPE_DHT:Int = 1
+        /* ********* */
     }
 }
