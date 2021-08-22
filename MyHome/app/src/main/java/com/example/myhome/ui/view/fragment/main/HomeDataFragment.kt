@@ -2,11 +2,12 @@ package com.example.myhome.ui.view.fragment.main
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myhome.R
 import com.example.myhome.databinding.FragmentHomeDataBinding
@@ -15,8 +16,6 @@ import com.example.myhome.ui.view.activity.main.MainActivity
 import com.example.myhome.ui.viewmodel.dht.DhtFactoryViewModel
 import com.example.myhome.ui.viewmodel.dht.DhtViewmodel
 import com.example.myhome.utils.Constants
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.fragment_home_data.*
 
 class HomeDataFragment : Fragment() {
 
@@ -28,6 +27,7 @@ class HomeDataFragment : Fragment() {
 
     private lateinit var mainActivity: MainActivity
     private lateinit var binding: FragmentHomeDataBinding
+    private lateinit var tv_temp_humi: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +36,7 @@ class HomeDataFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home_data, container, false)
         val fragView = binding.root
+        tv_temp_humi = fragView.findViewById(R.id.tv_temp_humi)
         mainActivity = activity as MainActivity
 
         binding.lifecycleOwner = mainActivity
@@ -51,11 +52,6 @@ class HomeDataFragment : Fragment() {
             intent.putExtra(Constants.NAME_SENSOR, Constants.DHT11_CHILD)
             startActivity(intent)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        this.clearFindViewByIdCache()
     }
 
 }

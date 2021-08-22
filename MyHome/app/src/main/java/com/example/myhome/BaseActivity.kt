@@ -3,8 +3,8 @@ package com.example.myhome
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,19 +23,30 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.my_action_bar.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.collections.HashMap
 
 open class BaseActivity : AppCompatActivity() {
 
     private val TAG = BaseActivity::class.java.simpleName
     private lateinit var googleSignInClient: GoogleSignInClient
     private var mAuth: FirebaseAuth? = null
+    private lateinit var btn_back_actionBar: CircleImageView
+    private lateinit var img_user: CircleImageView
+    private lateinit var title_action_bar: TextView
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initLogIn()
+    }
+
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
+        btn_back_actionBar = findViewById(R.id.btn_back_action_bar)
+        img_user = findViewById(R.id.img_user)
+        title_action_bar = findViewById(R.id.title_action_bar)
+        startListenImgUserClick()
+        startListenBackActionBar()
+    }
 
     /* result activity */
     private val getSignInResult =
@@ -63,13 +74,8 @@ open class BaseActivity : AppCompatActivity() {
 
     /* *************** */
 
-    fun setUpActivity() {
-        startListenBackActionBar()
-        startListenImgUserClick()
-    }
-
     fun startListenBackActionBar() {
-        btn_back_action_bar.setOnClickListener {
+        btn_back_actionBar.setOnClickListener {
             setOnBackActionBar()
         }
     }
@@ -81,7 +87,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     open fun setBackRes(res: Int) {
-        btn_back_action_bar.setImageResource(res)
+        btn_back_actionBar.setImageResource(res)
     }
 
     open fun setUserImgRes(res: Int) {
@@ -102,9 +108,9 @@ open class BaseActivity : AppCompatActivity() {
 
     open fun isShowBackActionBar(isShow: Boolean) {
         if (isShow) {
-            btn_back_action_bar.visibility = View.VISIBLE
+            btn_back_actionBar.visibility = View.VISIBLE
         } else {
-            btn_back_action_bar.visibility = View.GONE
+            btn_back_actionBar.visibility = View.GONE
         }
     }
 
@@ -128,7 +134,7 @@ open class BaseActivity : AppCompatActivity() {
     private fun createRequest() {
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(R.string.default_web_client_id_2))
             .requestEmail()
             .build()
         // Build a GoogleSignInClient with the options specified by gso.
@@ -248,9 +254,4 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     /* ***************************** */
-
-    override fun onDestroy() {
-        super.onDestroy()
-        this.clearFindViewByIdCache()
-    }
 }

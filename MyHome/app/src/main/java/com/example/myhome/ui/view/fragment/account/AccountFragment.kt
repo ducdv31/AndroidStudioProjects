@@ -5,23 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.myhome.R
 import com.example.myhome.data.model.login.UserProfileModel
 import com.example.myhome.ui.view.activity.main.MainActivity
 import com.example.myhome.ui.view.dialog.DialogQuestion
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.fragment_account.*
+import de.hdodenhof.circleimageview.CircleImageView
 
 class AccountFragment : Fragment() {
 
     private lateinit var mainActivity: MainActivity
     private lateinit var dialogQuestion: DialogQuestion
+    private lateinit var ln_account: LinearLayout
+    private lateinit var btn_sign_out: Button
+    private lateinit var img_user: CircleImageView
+    private lateinit var username: TextView
+    private lateinit var email: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_account, container, false)
+        ln_account = view.findViewById(R.id.ln_account)
+        btn_sign_out = view.findViewById(R.id.btn_sign_out)
+        img_user = view.findViewById(R.id.img_user)
+        username = view.findViewById(R.id.username)
+        email = view.findViewById(R.id.email)
         // Inflate the layout for this fragment
         mainActivity = activity as MainActivity
         dialogQuestion = DialogQuestion(
@@ -37,7 +50,7 @@ class AccountFragment : Fragment() {
                 }
 
             })
-        return inflater.inflate(R.layout.fragment_account, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,10 +95,5 @@ class AccountFragment : Fragment() {
             username.text = mainActivity.getString(R.string.username)
             email.text = mainActivity.getString(R.string.email)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        this.clearFindViewByIdCache()
     }
 }

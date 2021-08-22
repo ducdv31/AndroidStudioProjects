@@ -1,9 +1,9 @@
 package com.example.myhome.ui.view.activity.history
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
+import android.widget.CalendarView
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhome.BaseActivity
@@ -17,23 +17,25 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.activity_history_data.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.DateFormatSymbols
-import java.time.LocalDate
 
 class HistoryDataActivity : BaseActivity() {
     private var sensorName: String? = null
     private lateinit var dataHistoryAdapter: DataHistoryAdapter<DhtTimeValueModel>
+    private lateinit var progress_bar: ProgressBar
+    private lateinit var rv_history_data: RecyclerView
+    private lateinit var calendar_history: CalendarView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history_data)
         setShowUserImg(false)
-        setUpActivity()
+        setTitleActionBar(getString(R.string.history))
+        progress_bar = findViewById(R.id.progress_bar)
+        rv_history_data = findViewById(R.id.rv_history_data)
+        calendar_history = findViewById(R.id.calendar_history)
 
         dataHistoryAdapter = DataHistoryAdapter(this, Constants.ITEM_TYPE_DHT)
         val llmn = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -84,10 +86,5 @@ class HistoryDataActivity : BaseActivity() {
 
                 })
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        this.clearFindViewByIdCache()
     }
 }

@@ -7,8 +7,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.myhome.R
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.dialog_option_menu.*
 import java.lang.IllegalStateException
 
 class DialogOptionMain : DialogFragment() {
@@ -39,9 +37,4 @@ class DialogOptionMain : DialogFragment() {
         } ?: throw IllegalStateException("No Activity")
     }
 
-
-    override fun onDetach() {
-        super.onDetach()
-        this.clearFindViewByIdCache()
-    }
 }

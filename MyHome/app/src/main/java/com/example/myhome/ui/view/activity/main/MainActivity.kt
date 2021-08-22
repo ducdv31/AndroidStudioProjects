@@ -7,8 +7,6 @@ import com.example.myhome.R
 import com.example.myhome.ui.view.dialog.DialogOptionMain
 import com.example.myhome.ui.view.fragment.main.HomeControllerFragment
 import com.google.android.gms.maps.SupportMapFragment
-import kotlinx.android.synthetic.*
-import kotlin.random.Random
 
 class MainActivity : BaseActivity() {
 
@@ -18,9 +16,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initLogIn()
-        startListenBackActionBar()
-        startListenImgUserClick()
+
+        setTitleActionBar(getString(R.string.app_name))
         dialogOptionMain = DialogOptionMain()
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.frame_main, HomeControllerFragment())
@@ -44,11 +41,6 @@ class MainActivity : BaseActivity() {
 
     fun showToast(s: String) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        this.clearFindViewByIdCache()
     }
 
 }

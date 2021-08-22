@@ -17,6 +17,7 @@
     <string name="back">Back</string>
     <string name="duc_email">ducdang513@gmail.com</string>
     <string name="map">Map</string>
+    <string name="history">History</string>
     <string name="permission">Permission</string>
     <string name="granted_permission">Granted permission</string>
     <string name="deny_permission">Permission not granted</string>
