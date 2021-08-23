@@ -22,6 +22,7 @@
     <string name="granted_permission">Granted permission</string>
     <string name="deny_permission">Permission not granted</string>
     <string name="deny_message">"If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]"</string>
+    <string name="preferences">Preferences</string>
 
     <style name="Title_30" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>

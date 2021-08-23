@@ -18,7 +18,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         setTitleActionBar(getString(R.string.app_name))
-        dialogOptionMain = DialogOptionMain()
+        dialogOptionMain = DialogOptionMain(this)
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.frame_main, HomeControllerFragment())
         ft.commit()
