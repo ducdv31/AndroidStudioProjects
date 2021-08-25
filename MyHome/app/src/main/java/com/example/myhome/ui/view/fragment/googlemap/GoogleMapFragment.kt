@@ -49,6 +49,7 @@ class GoogleMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
+        mainActivity.setTitleActionBar(getString(R.string.map))
         getCurrentLocation()
     }
 

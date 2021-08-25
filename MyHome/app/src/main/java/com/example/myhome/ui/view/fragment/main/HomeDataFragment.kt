@@ -54,4 +54,9 @@ class HomeDataFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainActivity.setTitleActionBar(getString(R.string.app_name))
+    }
+
 }

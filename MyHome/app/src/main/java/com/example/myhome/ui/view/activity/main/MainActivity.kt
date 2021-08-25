@@ -27,6 +27,11 @@ class MainActivity : BaseActivity() {
         updateUI()
     }
 
+    override fun onResume() {
+        super.onResume()
+        setTitleActionBar(getString(R.string.app_name))
+    }
+
     override fun setOnClickUserImg() {
         super.setOnClickUserImg()
         if (!dialogOptionMain.isAdded) {
