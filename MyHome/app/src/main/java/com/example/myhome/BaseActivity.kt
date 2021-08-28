@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -68,7 +69,7 @@ open class BaseActivity : AppCompatActivity() {
             }
         }
 
-    private fun showToast(s: String) {
+    fun showToast(s: String) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
     }
 
@@ -254,4 +255,9 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     /* ***************************** */
+
+    fun getSupportMapFragment(): SupportMapFragment {
+        return supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+    }
 }

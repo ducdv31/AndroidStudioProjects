@@ -2,15 +2,12 @@ package com.example.myhome.ui.view.activity.main
 
 import android.bluetooth.BluetoothAdapter
 import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.widget.Toast
 import com.example.myhome.BaseActivity
 import com.example.myhome.R
 import com.example.myhome.ui.view.dialog.DialogOptionMain
 import com.example.myhome.ui.view.fragment.main.HomeControllerFragment
-import com.example.myhome.utils.MyBroadCastReceiver
-import com.google.android.gms.maps.SupportMapFragment
+import com.example.myhome.ui.broadcast.MyBroadCastReceiver
 
 class MainActivity : BaseActivity() {
 
@@ -54,15 +51,6 @@ class MainActivity : BaseActivity() {
         if (!dialogOptionMain.isAdded) {
             dialogOptionMain.show(supportFragmentManager, TAG)
         }
-    }
-
-    fun getSupportMapFragment(): SupportMapFragment {
-        return supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-    }
-
-    fun showToast(s: String) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
     }
 
 }
