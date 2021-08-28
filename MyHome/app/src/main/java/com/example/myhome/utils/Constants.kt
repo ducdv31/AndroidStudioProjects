@@ -2,6 +2,8 @@ package com.example.myhome.utils
 
 class Constants {
     companion object {
+        const val BASE_URL = "https://duc-bkhn-k62.firebaseio.com/"
+        const val DATE_FORMAT_GSON = "yyyy-MM-dd HH:mm:ss"
         const val DHT11_CHILD = "DHT11"
         const val CURRENT_CHILD = "Current"
         const val HISTORY_CHILD = "History"
