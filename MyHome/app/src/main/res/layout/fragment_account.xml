@@ -56,6 +56,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tv_btn_user_permission"
+                style="@style/Btn_In_Account"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:text="@string/manage_user" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <Button
                 android:id="@+id/btn_sign_out"
                 style="@style/TextBlack_20"

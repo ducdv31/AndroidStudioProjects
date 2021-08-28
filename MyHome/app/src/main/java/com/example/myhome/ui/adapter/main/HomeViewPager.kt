@@ -10,14 +10,13 @@ import com.example.myhome.ui.view.fragment.main.HomeDataFragment
 class HomeViewPager(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int {
-        return 3
+        return 2
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> HomeDataFragment()
-            1 -> GoogleMapFragment()
-            2 -> AccountFragment()
+            1 -> AccountFragment()
             else -> HomeDataFragment()
         }
     }

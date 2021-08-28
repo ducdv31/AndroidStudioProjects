@@ -3,6 +3,7 @@ package com.example.myhome
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.myhome.data.model.login.UserProfileModel
+import com.example.myhome.data.model.manageUserModel.UserProfileHasIDModel
 import com.example.myhome.utils.Constants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,10 +22,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.internal.wait
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -75,13 +80,13 @@ open class BaseActivity : AppCompatActivity() {
 
     /* *************** */
 
-    fun startListenBackActionBar() {
+    private fun startListenBackActionBar() {
         btn_back_actionBar.setOnClickListener {
             setOnBackActionBar()
         }
     }
 
-    fun startListenImgUserClick() {
+    private fun startListenImgUserClick() {
         img_user.setOnClickListener {
             setOnClickUserImg()
         }
@@ -115,7 +120,7 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    open fun setShowUserImg(isShow: Boolean) {
+    open fun isShowUserImg(isShow: Boolean) {
         if (isShow) {
             img_user.visibility = View.VISIBLE
         } else {
@@ -242,16 +247,29 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun setUserPermission(perm: Int) {
-        val userProfileModel = getUserProfile()
-        userProfileModel?.let {
-            it.id?.let { it1 ->
-                Firebase.firestore.collection(Constants.PERMISSION).document(it1)
-                    .set(hashMapOf(Constants.PERMISSION to perm), SetOptions.merge())
-                    .addOnSuccessListener { }
-                    .addOnFailureListener { }
+    fun setUserPermission(id: String, perm: Int) {
+        Firebase.firestore.collection(Constants.PERMISSION).document(id)
+            .set(hashMapOf(Constants.PERMISSION to perm), SetOptions.merge())
+            .addOnSuccessListener {
+                showToast(getString(R.string.set_user_ok))
             }
+            .addOnFailureListener {
+                showToast(getString(R.string.set_user_fail))
+            }
+    }
+
+    fun getCurrentUserPermission(): Int {
+        val acc = GoogleSignIn.getLastSignedInAccount(this)
+        var type: Int = 99
+        if (acc != null) {
+            FirebaseFirestore.getInstance().collection(Constants.PERMISSION)
+                .document(acc.id!!).addSnapshotListener { value, error ->
+                    type = value?.get(Constants.PERMISSION).toString().toInt()
+                    Log.e(TAG, "Type: $type")
+                }
         }
+        Log.e(TAG, "Out type: $type")
+        return type
     }
 
     /* ***************************** */

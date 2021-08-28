@@ -13,7 +13,7 @@ class Constants {
         const val H_NOTI_ID: Int = 2
         const val ESP_INFOR_CHILD: String = "ESP Information"
         const val I_TEMP_CHILD: String = "Internal_Temperature"
-        const val PERMISSION: String = "Permission"
+        const val PERMISSION: String = "permission"
         const val ID: String = "ID"
         const val USERNAME: String = "Name"
         const val EMAIL: String = "Email"
@@ -22,5 +22,14 @@ class Constants {
         /* item type */
         const val ITEM_TYPE_DHT:Int = 1
         /* ********* */
+
+        /* type user */
+        const val MASTER = "Master"
+        const val ROOT = "Root"
+        const val NORMAL = "Normal"
+        const val NONE = "None"
+        /* ********* */
+
+        const val BUNDLE_MANAGE_USER = "set data to bundle in set type user"
     }
 }

@@ -38,8 +38,7 @@ class HomeControllerFragment : Fragment() {
         bottom_view_home.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.btn_home_bottom -> view_pager_home.currentItem = 0
-                R.id.btn_map_bottom -> view_pager_home.currentItem = 1
-                R.id.btn_account_bottom -> view_pager_home.currentItem = 2
+                R.id.btn_account_bottom -> view_pager_home.currentItem = 1
             }
 
             true
@@ -50,8 +49,7 @@ class HomeControllerFragment : Fragment() {
                 super.onPageSelected(position)
                 when (position) {
                     0 -> bottom_view_home.menu.findItem(R.id.btn_home_bottom).isChecked = true
-                    1 -> bottom_view_home.menu.findItem(R.id.btn_map_bottom).isChecked = true
-                    2 -> bottom_view_home.menu.findItem(R.id.btn_account_bottom).isChecked = true
+                    1 -> bottom_view_home.menu.findItem(R.id.btn_account_bottom).isChecked = true
                 }
             }
         })

@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyHome">
         <activity
+            android:name=".ui.view.activity.manageUser.ManageUserActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.view.activity.history.HistoryDataActivity"
             android:exported="true" />
 

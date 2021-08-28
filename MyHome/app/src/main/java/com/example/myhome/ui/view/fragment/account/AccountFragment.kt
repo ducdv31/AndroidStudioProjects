@@ -1,5 +1,6 @@
 package com.example.myhome.ui.view.fragment.account
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.myhome.R
 import com.example.myhome.data.model.login.UserProfileModel
 import com.example.myhome.ui.view.activity.main.MainActivity
+import com.example.myhome.ui.view.activity.manageUser.ManageUserActivity
 import com.example.myhome.ui.view.dialog.DialogQuestion
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -24,6 +26,7 @@ class AccountFragment : Fragment() {
     private lateinit var img_user: CircleImageView
     private lateinit var username: TextView
     private lateinit var email: TextView
+    private lateinit var btnManageUser: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +38,7 @@ class AccountFragment : Fragment() {
         img_user = view.findViewById(R.id.img_user)
         username = view.findViewById(R.id.username)
         email = view.findViewById(R.id.email)
+        btnManageUser = view.findViewById(R.id.tv_btn_user_permission)
         // Inflate the layout for this fragment
         mainActivity = activity as MainActivity
         dialogQuestion = DialogQuestion(
@@ -68,6 +72,11 @@ class AccountFragment : Fragment() {
                     getString(R.string.title_sign_out)
                 )
             }
+        }
+        btnManageUser.setOnClickListener {
+            /* open list user in firestore */
+            val intent = Intent(mainActivity, ManageUserActivity::class.java)
+            startActivity(intent)
         }
     }
 

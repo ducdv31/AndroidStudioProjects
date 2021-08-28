@@ -31,7 +31,7 @@ class HistoryDataActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history_data)
-        setShowUserImg(false)
+        isShowUserImg(false)
         setTitleActionBar(getString(R.string.history))
         progress_bar = findViewById(R.id.progress_bar)
         rv_history_data = findViewById(R.id.rv_history_data)
