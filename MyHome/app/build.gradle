@@ -92,4 +92,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
 
     implementation 'io.github.ParkSangGwon:tedpermission:2.3.0'
+
+    implementation('com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1')
 }
