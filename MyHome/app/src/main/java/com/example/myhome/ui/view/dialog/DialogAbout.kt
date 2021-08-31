@@ -21,12 +21,13 @@ class DialogAbout : DialogFragment() {
         return activity?.let {
             val builder = AlertDialog.Builder(it, R.style.MyDialog)
 
+            this.isCancelable = false
             val view = requireActivity().layoutInflater.inflate(R.layout.dialog_about, null)
             builder.setView(view)
 
             back = view.findViewById(R.id.btn_back)
             back.setOnClickListener {
-                if (dialog?.isShowing == true){
+                if (dialog?.isShowing == true) {
                     dialog?.dismiss()
                 }
             }

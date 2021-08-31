@@ -31,5 +31,6 @@ class Constants {
         /* ********* */
 
         const val BUNDLE_MANAGE_USER = "set data to bundle in set type user"
+        const val EMPTY = ""
     }
 }
