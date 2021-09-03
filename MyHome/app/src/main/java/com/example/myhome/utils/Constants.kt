@@ -19,8 +19,9 @@ class Constants {
         const val EMAIL: String = "Email"
         const val URIPHOTO: String = "UriPhoto"
         const val NAME_SENSOR: String = "Name_sensor"
+
         /* item type */
-        const val ITEM_TYPE_DHT:Int = 1
+        const val ITEM_TYPE_DHT: Int = 1
         /* ********* */
 
         /* type user */
@@ -32,5 +33,9 @@ class Constants {
 
         const val BUNDLE_MANAGE_USER = "set data to bundle in set type user"
         const val EMPTY = ""
+
+
+        const val BD_NAME_SENSOR = "bundle_name_sensor"
+        const val BD_DATA = "bundle_data"
     }
 }

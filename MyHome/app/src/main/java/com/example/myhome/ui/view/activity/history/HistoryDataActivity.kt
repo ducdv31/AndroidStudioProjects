@@ -11,6 +11,7 @@ import com.example.myhome.R
 import com.example.myhome.data.model.dht.DhtTimeValueModel
 import com.example.myhome.data.model.dht.ThValue
 import com.example.myhome.ui.adapter.history.DataHistoryAdapter
+import com.example.myhome.ui.view.dialog.DialogQuestion
 import com.example.myhome.utils.Constants
 import com.example.myhome.utils.Utils
 import com.google.firebase.database.DataSnapshot
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 class HistoryDataActivity : BaseActivity() {
     private var sensorName: String? = null
@@ -27,6 +29,8 @@ class HistoryDataActivity : BaseActivity() {
     private lateinit var progress_bar: ProgressBar
     private lateinit var rv_history_data: RecyclerView
     private lateinit var calendar_history: CalendarView
+    private var daySelected: String = Constants.EMPTY
+    private lateinit var dialogQuestion: DialogQuestion
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +41,47 @@ class HistoryDataActivity : BaseActivity() {
         rv_history_data = findViewById(R.id.rv_history_data)
         calendar_history = findViewById(R.id.calendar_history)
 
-        dataHistoryAdapter = DataHistoryAdapter(this, Constants.ITEM_TYPE_DHT)
+        dialogQuestion = DialogQuestion(
+            getString(R.string.title_dialog_clear_data),
+            object : DialogQuestion.IClickDialogButton {
+                override fun onClickCancel() {
+
+                }
+
+                override fun onClickOk() {
+                    val bundle: Bundle? = dialogQuestion.arguments
+                    var data: Any? = null
+                    bundle?.let {
+                        data = it[Constants.BD_DATA]
+                    }
+                    data?.let {
+                        when (it) {
+                            is DhtTimeValueModel -> {
+                                clearData(Constants.DHT11_CHILD, daySelected, it.time.toString())
+                            }
+                        }
+                    }
+                }
+
+            })
+        dataHistoryAdapter = DataHistoryAdapter(
+            this,
+            Constants.ITEM_TYPE_DHT,
+            object : DataHistoryAdapter.IClickItemData {
+                override fun onClickDeleteData(data: Any) {
+                    if (!dialogQuestion.isAdded) {
+                        val bundle = Bundle()
+                        bundle.putSerializable(Constants.BD_DATA, data as Serializable)
+                        dialogQuestion.arguments = bundle
+                        dialogQuestion.show(
+                            supportFragmentManager,
+                            getString(R.string.title_dialog_clear_data)
+                        )
+                    }
+
+                }
+
+            })
         val llmn = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_history_data.layoutManager = llmn
         rv_history_data.adapter = dataHistoryAdapter
@@ -46,6 +90,7 @@ class HistoryDataActivity : BaseActivity() {
         sensorName = intent?.extras?.get(Constants.NAME_SENSOR) as? String
 
         sensorName?.let {
+            daySelected = Utils.getCurrentDate()
             getDataFromDate(it, Utils.getCurrentDate())
         }
 
@@ -57,6 +102,7 @@ class HistoryDataActivity : BaseActivity() {
                     dayOfMonth
                 }
                 val date = "$day ${Utils.getMonth(month)} $year"
+                daySelected = date
                 getDataFromDate(it, date)
             }
         }

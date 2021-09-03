@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhome.R
@@ -12,10 +13,17 @@ import com.example.myhome.data.model.dht.DhtTimeValueModel
 import com.example.myhome.utils.Constants
 import java.util.*
 
-class DataHistoryAdapter<T>(val context: Context, private val itemType: Int) :
+class DataHistoryAdapter<T>(
+    val context: Context,
+    private val itemType: Int,
+    val iClickItemData: IClickItemData
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var listData: MutableList<T>? = null
 
+    interface IClickItemData {
+        fun onClickDeleteData(data: Any)
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(list: MutableList<T>) {
@@ -47,6 +55,9 @@ class DataHistoryAdapter<T>(val context: Context, private val itemType: Int) :
                 dhtDataHistoryViewHolder.time.text = itemDhtData.getTimeFormatted()
                 dhtDataHistoryViewHolder.tValue.text = (itemDhtData.dht11Value?.t ?: 0).toString()
                 dhtDataHistoryViewHolder.hValue.text = (itemDhtData.dht11Value?.h ?: 0).toString()
+                dhtDataHistoryViewHolder.btnClear.setOnClickListener {
+                    iClickItemData.onClickDeleteData(itemDhtData)
+                }
             }
         }
     }
@@ -63,5 +74,6 @@ class DataHistoryAdapter<T>(val context: Context, private val itemType: Int) :
         val time: TextView = itemView.findViewById(R.id.time)
         val tValue: TextView = itemView.findViewById(R.id.temperature_history)
         val hValue: TextView = itemView.findViewById(R.id.humidity_history)
+        val btnClear: ImageView = itemView.findViewById(R.id.btn_clear_data)
     }
 }

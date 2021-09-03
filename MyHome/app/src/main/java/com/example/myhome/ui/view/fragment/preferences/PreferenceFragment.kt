@@ -15,9 +15,13 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         const val KEY_SWITCH_MAP = "turn_on_map_preference"
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        baseActivity.isShowBackActionBar(true)
+    }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference, rootKey)
-
         baseActivity = activity as BaseActivity
         baseActivity.setTitleActionBar(getString(R.string.preferences))
 
@@ -31,5 +35,6 @@ class PreferenceFragment : PreferenceFragmentCompat() {
     override fun onDetach() {
         super.onDetach()
         baseActivity.setTitleActionBar(getString(R.string.app_name))
+        baseActivity.isShowBackActionBar(false)
     }
 }

@@ -22,6 +22,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.Source
@@ -277,5 +278,12 @@ open class BaseActivity : AppCompatActivity() {
     fun getSupportMapFragment(): SupportMapFragment {
         return supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
+    }
+
+
+    fun clearData(sensorName: String, day: String, time: String) {
+        FirebaseDatabase.getInstance().reference
+            .child(sensorName).child(Constants.HISTORY_CHILD)
+            .child(day).child(time).setValue(null)
     }
 }
