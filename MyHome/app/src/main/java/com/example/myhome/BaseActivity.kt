@@ -2,7 +2,6 @@ package com.example.myhome
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -12,24 +11,23 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.myhome.data.model.login.UserProfileModel
-import com.example.myhome.data.model.manageUserModel.UserProfileHasIDModel
 import com.example.myhome.utils.Constants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
-import okhttp3.internal.wait
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -60,11 +58,12 @@ open class BaseActivity : AppCompatActivity() {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            val task: Task<GoogleSignInAccount> =
+                GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!.idToken!!.toString())
+                val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account.idToken!!.toString())
                 setUserToFireStore()
                 showToast("Sign In Successfully")
             } catch (e: ApiException) {
