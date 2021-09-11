@@ -1,7 +1,7 @@
-package com.example.myhome.ui.view.activity.manageUser
+package com.example.myhome.ui.view.activity.typeUser
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +11,11 @@ import com.example.myhome.data.model.manageUserModel.UserProfileHasIDModel
 import com.example.myhome.ui.adapter.managerUserAdapter.ManageUserAdapter
 import com.example.myhome.ui.view.dialog.DialogSelectTypeUser
 import com.example.myhome.utils.Constants
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.firebase.firestore.*
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.QuerySnapshot
 
 class ManageUserActivity : BaseActivity() {
 
@@ -21,6 +24,7 @@ class ManageUserActivity : BaseActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var numberUser: TextView
     private lateinit var dialogSelectTypeUser: DialogSelectTypeUser
+    private lateinit var lnManageUser: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +34,27 @@ class ManageUserActivity : BaseActivity() {
         isShowBackActionBar(true)
         isShowUserImg(false)
 
+        lnManageUser = findViewById(R.id.ln_manage_user)
         numberUser = findViewById(R.id.number_user)
         recyclerView = findViewById(R.id.rv_manage_user)
+
         manageUserAdapter = ManageUserAdapter(this) {
-            if (!dialogSelectTypeUser.isAdded) {
-                val bundle = Bundle()
-                bundle.putSerializable(Constants.BUNDLE_MANAGE_USER, it)
-                dialogSelectTypeUser.arguments = bundle
-                dialogSelectTypeUser.show(
-                    supportFragmentManager,
-                    getString(R.string.title_set_type_user)
-                )
+            if (typeUserViewModel.getTypeUser().value == 0) {
+                if (!dialogSelectTypeUser.isAdded) {
+                    val bundle = Bundle()
+                    bundle.putSerializable(Constants.BUNDLE_MANAGE_USER, it)
+                    dialogSelectTypeUser.arguments = bundle
+                    dialogSelectTypeUser.show(
+                        supportFragmentManager,
+                        getString(R.string.title_set_type_user)
+                    )
+                }
+            } else {
+                Snackbar.make(
+                    lnManageUser,
+                    "${Constants.CANT_SET_TYPE_USER} - cid: ${typeUserViewModel.getTypeUser().value}",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
         dialogSelectTypeUser = DialogSelectTypeUser {
@@ -48,16 +62,11 @@ class ManageUserActivity : BaseActivity() {
             val userProfileHasIDModelClicked: UserProfileHasIDModel? =
                 bundle?.get(Constants.BUNDLE_MANAGE_USER) as UserProfileHasIDModel?
             userProfileHasIDModelClicked?.let { userClicked ->
-                val acc = GoogleSignIn.getLastSignedInAccount(this)
-                if (acc != null) {
-                    FirebaseFirestore.getInstance().collection(Constants.PERMISSION)
-                        .document(acc.id!!).addSnapshotListener { value, error ->
-                            val currentUserType =
-                                value?.get(Constants.PERMISSION).toString().toInt()
-                            if (currentUserType < userClicked.getPermissionEx() && currentUserType <= 1) {
-                                setUserPermission(userClicked.id!!, it)
-                            }
-                        }
+                val currentUserType: Int = typeUserViewModel.getTypeUser().value ?: 99
+                if (currentUserType < userClicked.getPermissionEx()
+                    && currentUserType <= 1
+                ) {
+                    setUserPermission(userClicked.id!!, it)
                 }
 
             }

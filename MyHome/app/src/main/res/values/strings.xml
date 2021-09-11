@@ -28,8 +28,8 @@
     <string name="total_user">Total user</string>
     <string name="zero">0</string>
     <string name="title_set_type_user">Set type user</string>
-    <string name="set_user_ok">Set type user successfully</string>
-    <string name="set_user_fail">Set type user fail</string>
+    <string name="set_user_ok">Change type user successfully</string>
+    <string name="set_user_fail">Change type user fail</string>
     <string name="title_dialog_clear_data">"Do you want to delete data?"</string>
 
     <style name="Title_30" parent="Widget.AppCompat.TextView">

@@ -9,8 +9,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.myhome.data.model.login.UserProfileModel
+import com.example.myhome.data.repository.MyDataLocal
+import com.example.myhome.ui.viewmodel.typeuser.TypeUserViewModel
 import com.example.myhome.utils.Constants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -31,17 +35,26 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 open class BaseActivity : AppCompatActivity() {
 
+    companion object {
+        var idLd: MutableLiveData<String> = MutableLiveData(Constants.EMPTY)
+        var isLogIn: MutableLiveData<Boolean> = MutableLiveData(false)
+    }
+
     private val TAG = BaseActivity::class.java.simpleName
     private lateinit var googleSignInClient: GoogleSignInClient
     private var mAuth: FirebaseAuth? = null
     private lateinit var btn_back_actionBar: CircleImageView
     private lateinit var img_user: CircleImageView
     private lateinit var title_action_bar: TextView
+    val typeUserViewModel: TypeUserViewModel by lazy {
+        ViewModelProvider(this)[TypeUserViewModel::class.java]
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initLogIn()
+        createRequest()
+        typeUserViewModel.getTypeUserFromFireStore(this)
     }
 
     override fun setContentView(layoutResID: Int) {
@@ -69,6 +82,7 @@ open class BaseActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 // ...
+                isLogIn.value = false
                 updateUI()
                 showToast("Sign In Fail")
             }
@@ -133,9 +147,6 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     /* sign in */
-    fun initLogIn() {
-        createRequest()
-    }
 
     private fun createRequest() {
         // Configure Google Sign In
@@ -160,12 +171,14 @@ open class BaseActivity : AppCompatActivity() {
                 this
             ) { task ->
                 if (task.isSuccessful) {
+                    isLogIn.value = true
                     // Sign in success, update UI with the signed-in user's information
                     val user: FirebaseUser? = mAuth!!.currentUser
                     /* set User to database for determine permission */
                     /* update UI */
                     updateUI()
                 } else {
+                    isLogIn.value = false
                     // If sign in fails, display a message to the user.
                     updateUI()
                     Toast.makeText(
@@ -182,6 +195,10 @@ open class BaseActivity : AppCompatActivity() {
     fun isSignIn(): Boolean {
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         return acct != null
+    }
+
+    fun isLogIn(): MutableLiveData<Boolean> {
+        return isLogIn
     }
 
     fun getUserProfile(): UserProfileModel? {
@@ -203,32 +220,44 @@ open class BaseActivity : AppCompatActivity() {
 
     fun updateUI() {
         setUserToFireStore()
+        typeUserViewModel.getTypeUserFromFireStore(this)
         val acct = GoogleSignIn.getLastSignedInAccount(this)
         if (acct != null) {
+            idLd.value = acct.id
             Glide.with(this)
                 .load(acct.photoUrl?.toString())
                 .into(getUserImgView())
+            acct.id?.let {
+                MyDataLocal.getInstance().putIDCurrentUser(it)
+            }
+            typeUserViewModel.getTypeUser()
         } else {
+            idLd.value = Constants.EMPTY
             Glide.with(this).load(R.drawable.outline_account_circle_black_48dp)
                 .into(getUserImgView())
+            MyDataLocal.getInstance().clearIDCurrentUser()
         }
 
     }
 
-    fun signOut() {
+    fun requestLogOut(
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
         FirebaseAuth.getInstance().signOut()
-        revokeAccess()
-    }
-
-    private fun revokeAccess() {
         googleSignInClient.revokeAccess()
             .addOnCompleteListener(this) {
                 // ...
+                onSuccess.invoke()
+                isLogIn.value = false
+                typeUserViewModel.clearTypeUser()
                 updateUI()
                 Toast.makeText(this, "Sign out successfully", Toast.LENGTH_SHORT).show()
             }
+            .addOnFailureListener {
+                onFailure.invoke()
+            }
     }
-
 
     /* set user profile to fireStore */
     fun setUserToFireStore() {
@@ -284,5 +313,36 @@ open class BaseActivity : AppCompatActivity() {
         FirebaseDatabase.getInstance().reference
             .child(sensorName).child(Constants.HISTORY_CHILD)
             .child(day).child(time).setValue(null)
+    }
+
+    fun getStringTypeUser(): String {
+        return when (typeUserViewModel.getTypeUser().value) {
+            Constants.MASTER_ID -> Constants.MASTER
+            Constants.ROOT_ID -> Constants.ROOT
+            Constants.NORMAL_ID -> Constants.NORMAL
+            else -> Constants.NONE
+        }
+    }
+
+    fun checkShowHideByUser(
+        onShow: () -> Unit,
+        onHide: () -> Unit
+    ) {
+        typeUserViewModel.getTypeUser().observe(this, {
+            when (it) {
+                Constants.MASTER_ID -> {
+                    onShow.invoke()
+                }
+                Constants.ROOT_ID -> {
+                    onShow.invoke()
+                }
+                Constants.NORMAL_ID -> {
+                    onHide.invoke()
+                }
+                else -> {
+                    onHide.invoke()
+                }
+            }
+        })
     }
 }

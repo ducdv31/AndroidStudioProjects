@@ -24,9 +24,16 @@ object Constants {
     /* ********* */
 
     /* type user */
+    const val MASTER_ID = 0
     const val MASTER = "Master"
+
+    const val ROOT_ID = 1
     const val ROOT = "Root"
+
+    const val NORMAL_ID = 2
     const val NORMAL = "Normal"
+
+    const val NONE_ID = 3
     const val NONE = "None"
     /* ********* */
 
@@ -36,4 +43,7 @@ object Constants {
 
     const val BD_NAME_SENSOR = "bundle_name_sensor"
     const val BD_DATA = "bundle_data"
+
+    const val CANT_SET_TYPE_USER = "You haven't permission to change user"
+    const val CANT_DELETE_HISTORY_DATA = "You haven't permission to delete data"
 }
