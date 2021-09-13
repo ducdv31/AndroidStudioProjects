@@ -22,7 +22,10 @@ class DhtViewmodel(activity: Activity) : ViewModel() {
     }
 
 
-    fun getCurrentData() {
+    fun getCurrentData(
+        onLoadSuccess: () -> Unit = {},
+        onLoadFailure: () -> Unit = {}
+    ) {
         apiServices.getCurrentData(Constants.DHT11_CHILD)
             ?.enqueue(object : Callback<CurrentData> {
                 override fun onResponse(
@@ -30,10 +33,11 @@ class DhtViewmodel(activity: Activity) : ViewModel() {
                     response: Response<CurrentData>
                 ) {
                     thVal.value = setTHFormatValue(response.body()?.t, response.body()?.h)
+                    onLoadSuccess.invoke()
                 }
 
                 override fun onFailure(call: Call<CurrentData>, t: Throwable) {
-
+                    onLoadFailure.invoke()
                 }
 
             })

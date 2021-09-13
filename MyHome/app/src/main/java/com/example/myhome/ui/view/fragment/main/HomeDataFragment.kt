@@ -17,6 +17,7 @@ import com.example.myhome.ui.view.activity.main.MainActivity
 import com.example.myhome.ui.viewmodel.dht.DhtFactoryViewModel
 import com.example.myhome.ui.viewmodel.dht.DhtViewmodel
 import com.example.myhome.utils.Constants
+import com.google.android.material.snackbar.Snackbar
 
 class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
@@ -62,14 +63,32 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     override fun onRefresh() {
-        viewModel.getCurrentData()
-        swipeRefreshLayout.isRefreshing = false
+        viewModel.getCurrentData(
+            onLoadSuccess = { swipeRefreshLayout.isRefreshing = false },
+            onLoadFailure = {
+                swipeRefreshLayout.isRefreshing = false
+                Snackbar.make(
+                    swipeRefreshLayout,
+                    Constants.LOAD_DATA_ERROR,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            })
     }
 
     override fun onResume() {
         super.onResume()
         mainActivity.setTitleActionBar(getString(R.string.app_name))
-        viewModel.getCurrentData()
+        swipeRefreshLayout.isRefreshing = true
+        viewModel.getCurrentData(
+            onLoadSuccess = { swipeRefreshLayout.isRefreshing = false },
+            onLoadFailure = {
+                swipeRefreshLayout.isRefreshing = false
+                Snackbar.make(
+                    swipeRefreshLayout,
+                    Constants.LOAD_DATA_ERROR,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            })
     }
 
 }

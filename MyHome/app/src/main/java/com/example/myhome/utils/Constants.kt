@@ -46,4 +46,6 @@ object Constants {
 
     const val CANT_SET_TYPE_USER = "You haven't permission to change user"
     const val CANT_DELETE_HISTORY_DATA = "You haven't permission to delete data"
+
+    const val LOAD_DATA_ERROR = "Load data error"
 }
