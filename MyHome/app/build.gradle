@@ -142,4 +142,6 @@ dependencies {
     // optional - Jetpack Compose integration
     implementation("androidx.paging:paging-compose:1.0.0-alpha12")
     /* paging 3.0 - end */
+
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }

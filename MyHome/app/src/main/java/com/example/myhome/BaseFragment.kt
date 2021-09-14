@@ -1,13 +1,11 @@
 package com.example.myhome
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import androidx.annotation.RequiresOptIn
+import androidx.fragment.app.Fragment
 
 abstract class BaseFragment : Fragment() {
 
@@ -18,7 +16,9 @@ abstract class BaseFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(getLayout(), container, false)
 
-        initData(view)
+        initVar(view)
+        initListener()
+        handleLogic()
 
         return view
     }
@@ -26,5 +26,9 @@ abstract class BaseFragment : Fragment() {
     @LayoutRes
     abstract fun getLayout(): Int
 
-    abstract fun initData(rootView: View)
+    abstract fun initVar(rootView: View)
+
+    abstract fun initListener()
+
+    abstract fun handleLogic()
 }
