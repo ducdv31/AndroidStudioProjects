@@ -31,6 +31,7 @@
     <string name="set_user_ok">Change type user successfully</string>
     <string name="set_user_fail">Change type user fail</string>
     <string name="title_dialog_clear_data">"Do you want to delete data?"</string>
+    <string name="storage">Storage</string>
 
     <style name="Title_30" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>

@@ -16,6 +16,17 @@
         android:textColor="@color/red_primary" />
 
     <TextView
+        android:id="@+id/option_storage"
+        style="@style/TextBlack_25"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/background_dialog"
+        android:backgroundTint="@color/textview_selector"
+        android:gravity="center"
+        android:text="@string/storage"
+        android:textColor="@color/black" />
+
+    <TextView
         android:id="@+id/option_preferences"
         style="@style/TextBlack_25"
         android:layout_width="match_parent"

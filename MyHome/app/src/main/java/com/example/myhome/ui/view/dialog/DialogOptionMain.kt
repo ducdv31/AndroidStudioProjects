@@ -3,25 +3,26 @@ package com.example.myhome.ui.view.dialog
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.myhome.R
 import com.example.myhome.ui.view.activity.main.MainActivity
+import com.example.myhome.ui.view.activity.storage.StorageMainActivity
 import com.example.myhome.ui.view.fragment.preferences.PreferenceFragment
 import com.example.myhome.utils.Utils
-import java.lang.IllegalStateException
 
 class DialogOptionMain(private val activity: Activity) : DialogFragment() {
 
     private val TAG = DialogAbout::class.java.simpleName
     private lateinit var about: TextView
+    private lateinit var storage: TextView
+    private lateinit var preferences: TextView
     private val dialogAbout: DialogAbout by lazy {
         DialogAbout()
     }
-    private lateinit var preferences: TextView
     private val mainActivity: MainActivity by lazy {
         activity as MainActivity
     }
@@ -38,20 +39,7 @@ class DialogOptionMain(private val activity: Activity) : DialogFragment() {
 
             initView(view)
 
-            about.setOnClickListener {
-                dialogAbout.show(requireActivity().supportFragmentManager, TAG)
-                dialog?.dismiss()
-            }
-
-            preferences.setOnClickListener {
-                Utils.gotoFragment(
-                    mainActivity,
-                    R.id.frame_main,
-                    PreferenceFragment(),
-                    true
-                )
-                dialog?.dismiss()
-            }
+            setUpListener()
 
             builder.create()
         } ?: throw IllegalStateException("No Activity")
@@ -60,6 +48,31 @@ class DialogOptionMain(private val activity: Activity) : DialogFragment() {
     private fun initView(view: View) {
         about = view.findViewById(R.id.option_about)
         preferences = view.findViewById(R.id.option_preferences)
+        storage = view.findViewById(R.id.option_storage)
+    }
+
+    private fun setUpListener() {
+
+        storage.setOnClickListener {
+            val intent = Intent(requireContext(), StorageMainActivity::class.java)
+            dialog?.dismiss()
+            startActivity(intent)
+        }
+
+        about.setOnClickListener {
+            dialogAbout.show(requireActivity().supportFragmentManager, TAG)
+            dialog?.dismiss()
+        }
+
+        preferences.setOnClickListener {
+            Utils.gotoFragment(
+                mainActivity,
+                R.id.frame_main,
+                PreferenceFragment(),
+                true
+            )
+            dialog?.dismiss()
+        }
     }
 
 }
