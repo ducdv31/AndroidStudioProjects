@@ -6,7 +6,7 @@ import com.example.myhome.R
 import com.example.myhome.ui.view.fragment.storage.PdfStorageFragment
 
 
-class StorageMainActivity : BaseActivity() {
+class StorageActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

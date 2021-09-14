@@ -18,7 +18,7 @@ object Constants {
     const val EMAIL: String = "Email"
     const val URIPHOTO: String = "UriPhoto"
     const val NAME_SENSOR: String = "Name_sensor"
-
+    const val PDF_PATH_STORAGE = "Pdf"
     /* item type */
     const val ITEM_TYPE_DHT: Int = 1
     /* ********* */
@@ -48,4 +48,6 @@ object Constants {
     const val CANT_DELETE_HISTORY_DATA = "You haven't permission to delete data"
 
     const val LOAD_DATA_ERROR = "Load data error"
+
+    const val PDF_APPLICATION = "application/pdf"
 }

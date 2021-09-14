@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.myhome.R
 import com.example.myhome.ui.view.activity.main.MainActivity
-import com.example.myhome.ui.view.activity.storage.StorageMainActivity
+import com.example.myhome.ui.view.activity.storage.StorageActivity
 import com.example.myhome.ui.view.fragment.preferences.PreferenceFragment
 import com.example.myhome.utils.Utils
 
@@ -54,7 +54,7 @@ class DialogOptionMain(private val activity: Activity) : DialogFragment() {
     private fun setUpListener() {
 
         storage.setOnClickListener {
-            val intent = Intent(requireContext(), StorageMainActivity::class.java)
+            val intent = Intent(requireContext(), StorageActivity::class.java)
             dialog?.dismiss()
             startActivity(intent)
         }
