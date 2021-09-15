@@ -67,7 +67,7 @@ class DialogOptionMain(private val activity: Activity) : DialogFragment() {
         preferences.setOnClickListener {
             Utils.gotoFragment(
                 mainActivity,
-                R.id.frame_main,
+                R.id.nav_host_main,
                 PreferenceFragment(),
                 true
             )

@@ -43,9 +43,9 @@ open class BaseActivity : AppCompatActivity() {
     private val TAG = BaseActivity::class.java.simpleName
     private lateinit var googleSignInClient: GoogleSignInClient
     private var mAuth: FirebaseAuth? = null
-    private lateinit var btn_back_actionBar: CircleImageView
-    private lateinit var img_user: CircleImageView
-    private lateinit var title_action_bar: TextView
+    private lateinit var btnBackActionBar: CircleImageView
+    private lateinit var imgUser: CircleImageView
+    private lateinit var titleActionBar: TextView
     val typeUserViewModel: TypeUserViewModel by lazy {
         ViewModelProvider(this)[TypeUserViewModel::class.java]
     }
@@ -59,9 +59,9 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
-        btn_back_actionBar = findViewById(R.id.btn_back_action_bar)
-        img_user = findViewById(R.id.img_user)
-        title_action_bar = findViewById(R.id.title_action_bar)
+        btnBackActionBar = findViewById(R.id.btn_back_action_bar)
+        imgUser = findViewById(R.id.img_user)
+        titleActionBar = findViewById(R.id.title_action_bar)
         startListenImgUserClick()
         startListenBackActionBar()
     }
@@ -95,23 +95,23 @@ open class BaseActivity : AppCompatActivity() {
     /* *************** */
 
     private fun startListenBackActionBar() {
-        btn_back_actionBar.setOnClickListener {
+        btnBackActionBar.setOnClickListener {
             setOnBackActionBar()
         }
     }
 
     private fun startListenImgUserClick() {
-        img_user.setOnClickListener {
+        imgUser.setOnClickListener {
             setOnClickUserImg()
         }
     }
 
     open fun setBackRes(res: Int) {
-        btn_back_actionBar.setImageResource(res)
+        btnBackActionBar.setImageResource(res)
     }
 
     open fun setUserImgRes(res: Int) {
-        img_user.setImageResource(res)
+        imgUser.setImageResource(res)
     }
 
     open fun setOnBackActionBar() {
@@ -123,27 +123,27 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     open fun setTitleActionBar(title: String) {
-        title_action_bar.text = title
+        titleActionBar.text = title
     }
 
     open fun isShowBackActionBar(isShow: Boolean) {
         if (isShow) {
-            btn_back_actionBar.visibility = View.VISIBLE
+            btnBackActionBar.visibility = View.VISIBLE
         } else {
-            btn_back_actionBar.visibility = View.GONE
+            btnBackActionBar.visibility = View.GONE
         }
     }
 
     open fun isShowUserImg(isShow: Boolean) {
         if (isShow) {
-            img_user.visibility = View.VISIBLE
+            imgUser.visibility = View.VISIBLE
         } else {
-            img_user.visibility = View.GONE
+            imgUser.visibility = View.GONE
         }
     }
 
     fun getUserImgView(): CircleImageView {
-        return img_user
+        return imgUser
     }
 
     /* sign in */

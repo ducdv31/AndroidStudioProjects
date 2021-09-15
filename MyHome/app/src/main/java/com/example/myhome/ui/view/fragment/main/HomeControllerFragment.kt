@@ -33,7 +33,7 @@ class HomeControllerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view_pager_home.adapter = homeViewPager
-        view_pager_home.isUserInputEnabled = false
+        view_pager_home.isUserInputEnabled = true
 
         bottom_view_home.setOnItemSelectedListener { item ->
             when (item.itemId) {

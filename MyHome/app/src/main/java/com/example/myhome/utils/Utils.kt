@@ -1,14 +1,13 @@
 package com.example.myhome.utils
 
-import android.app.Activity
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.myhome.BaseActivity
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import java.io.Serializable
 import java.text.DateFormatSymbols
 import java.time.LocalDate
@@ -61,5 +60,12 @@ object Utils {
             }
         }
         ft.commit()
+    }
+
+    fun navigateToFragment(
+        view: View,
+        navDirections: NavDirections
+    ) {
+        view.findNavController().navigate(navDirections)
     }
 }
