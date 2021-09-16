@@ -30,7 +30,10 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_controller.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_data.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_main.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_storage.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_image_storage.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_pdf_storage.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_video_storage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_data_dht_history.xml" value="0.4" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_data_history.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_name_file_storage.xml" value="0.4" />
@@ -38,6 +41,7 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/my_action_bar.xml" value="0.264" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/preferences.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/menu/bottom_main_menu.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/menu/bottom_storage_menu.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14479166666666668" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.14479166666666668" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/xml/preference.xml" value="0.23645833333333333" />

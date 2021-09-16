@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/imageStorageFragment"
+        android:icon="@drawable/outline_image_black_48dp"
+        android:title="@string/image" />
+
+    <item
+        android:id="@+id/videoStorageFragment"
+        android:icon="@drawable/outline_videocam_black_48dp"
+        android:title="@string/video" />
+
+    <item
+        android:id="@+id/pdfStorageFragment"
+        android:icon="@drawable/outline_picture_as_pdf_black_48dp"
+        android:title="@string/pdf" />
+
+</menu>

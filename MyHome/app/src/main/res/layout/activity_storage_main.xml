@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.view.activity.storage.StorageActivity">
 
-    <include layout="@layout/my_action_bar" />
+    <include
+        android:id="@+id/top"
+        layout="@layout/my_action_bar" />
 
-    <FrameLayout
-        android:id="@+id/frame_storage"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_storage"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+
+        android:layout_above="@+id/bottom_nav_storage"
+        android:layout_below="@+id/top"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="true"
+
+        app:defaultNavHost="false"
+        app:navGraph="@navigation/storage_nav" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_storage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_storage_menu" />
+
+</RelativeLayout>
