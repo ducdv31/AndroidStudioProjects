@@ -1,6 +1,7 @@
 package com.example.myhome.ui.view.fragment.storage
 
 import android.view.View
+import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ class PdfStorageFragment : BaseFragment() {
     private lateinit var pdfNameAdapter: PdfNameAdapter
     private lateinit var llmn: LinearLayoutManager
     private lateinit var storageActivity: StorageActivity
+    private lateinit var progressBar: ProgressBar
 
     override fun getLayout(): Int {
         return R.layout.fragment_pdf_storage
@@ -26,6 +28,7 @@ class PdfStorageFragment : BaseFragment() {
 
     override fun initVar(rootView: View) {
         storageActivity = activity as StorageActivity
+        progressBar = rootView.findViewById(R.id.progress_bar)
         recyclerView = rootView.findViewById(R.id.rv_storage)
         pdfNameAdapter = PdfNameAdapter(storageActivity)
         llmn = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -34,10 +37,22 @@ class PdfStorageFragment : BaseFragment() {
     }
 
     override fun initListener() {
-        pdfStorageViewModel.getListPdfName(pdfNameAdapter)
+        showLoading(true)
+        pdfStorageViewModel.getListPdfName(pdfNameAdapter, {
+            showLoading(false)
+        }, {
+            showLoading(false)
+        })
     }
 
     override fun handleLogic() {
     }
 
+    private fun showLoading(isShow: Boolean) {
+        if (isShow) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.GONE
+        }
+    }
 }

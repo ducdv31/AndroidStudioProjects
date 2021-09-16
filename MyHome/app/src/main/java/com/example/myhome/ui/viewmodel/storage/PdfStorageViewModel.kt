@@ -27,9 +27,16 @@ class PdfStorageViewModel : ViewModel() {
         }
     }
 
-    fun getListPdfName(pdfNameAdapter: PdfNameAdapter) {
+    fun getListPdfName(
+        pdfNameAdapter: PdfNameAdapter,
+        onSuccess: (() -> Unit) = {},
+        onFailure: ((exception: Exception) -> Unit) = {}
+    ) {
         pathPdf.listAll().addOnSuccessListener {
+            onSuccess.invoke()
             pdfNameAdapter.setData(it.items)
+        }.addOnFailureListener {
+            onFailure.invoke(it)
         }
     }
 }
