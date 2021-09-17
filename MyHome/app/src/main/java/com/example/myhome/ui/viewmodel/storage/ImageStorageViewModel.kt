@@ -18,7 +18,7 @@ class ImageStorageViewModel(lifecycleOwner: LifecycleOwner) : ViewModel() {
     ) {
         val list: MutableList<String> = mutableListOf()
         FirebaseStorage.getInstance().reference
-            .child(Constants.IMAGE_PATH_STORaGE)
+            .child(Constants.IMAGE_PATH_STORAGE)
             .listAll().addOnSuccessListener {
                 if (it.items.isEmpty()) {
                     imageStorageAdapter.setData(list)

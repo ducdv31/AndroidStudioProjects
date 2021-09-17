@@ -19,8 +19,8 @@ object Constants {
     const val URIPHOTO: String = "UriPhoto"
     const val NAME_SENSOR: String = "Name_sensor"
     const val PDF_PATH_STORAGE = "Pdf"
-    const val IMAGE_PATH_STORaGE = "Images"
-    const val VIDEO_PATH_STORaGE = "Videos"
+    const val IMAGE_PATH_STORAGE = "Images"
+    const val VIDEO_PATH_STORAGE = "Videos"
     /* item type */
     const val ITEM_TYPE_DHT: Int = 1
     /* ********* */

@@ -63,6 +63,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="TextBlack_15" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="MyDialog" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
