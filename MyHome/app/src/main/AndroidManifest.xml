@@ -20,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyHome">
         <activity
+            android:name=".utils.playmedia.PlayMedialMxActivity"
+            android:exported="true" />
+        <activity
+            android:name=".utils.playmedia.PlayMediaActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.view.activity.storage.StorageActivity"
             android:exported="true" />
         <activity

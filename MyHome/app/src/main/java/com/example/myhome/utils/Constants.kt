@@ -52,4 +52,6 @@ object Constants {
     const val LOAD_DATA_ERROR = "Load data error"
 
     const val PDF_APPLICATION = "application/pdf"
+
+    const val VIDEO_KEY = "VIDEO_KEY"
 }

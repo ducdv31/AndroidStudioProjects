@@ -1,5 +1,6 @@
 package com.example.myhome.ui.view.fragment.storage
 
+import android.content.Intent
 import android.view.View
 import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,8 @@ import com.example.myhome.BaseFragment
 import com.example.myhome.R
 import com.example.myhome.ui.adapter.storage.video.VideoStorageAdapter
 import com.example.myhome.ui.viewmodel.storage.VideoStorageViewModel
+import com.example.myhome.utils.Constants
+import com.example.myhome.utils.playmedia.PlayMediaActivity
 
 class VideoStorageFragment : BaseFragment() {
 
@@ -30,7 +33,11 @@ class VideoStorageFragment : BaseFragment() {
         recyclerView = rootView.findViewById(R.id.rv_storage)
         progressBar = rootView.findViewById(R.id.progress_bar)
         swipeRefreshLayout = rootView.findViewById(R.id.refresh_container)
-        videoStorageAdapter = VideoStorageAdapter(requireContext())
+        videoStorageAdapter = VideoStorageAdapter(requireContext()) {
+            val intent = Intent(requireContext(), PlayMediaActivity::class.java)
+            intent.putExtra(Constants.VIDEO_KEY, it)
+            startActivity(intent)
+        }
         gridLayoutManager = GridLayoutManager(
             requireContext(),
             2,

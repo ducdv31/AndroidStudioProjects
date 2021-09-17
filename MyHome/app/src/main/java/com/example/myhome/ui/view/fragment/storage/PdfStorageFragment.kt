@@ -5,6 +5,7 @@ import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myhome.BaseFragment
 import com.example.myhome.R
 import com.example.myhome.ui.adapter.storage.pdf.PdfStorageAdapter
@@ -21,6 +22,7 @@ class PdfStorageFragment : BaseFragment() {
     private lateinit var llmn: LinearLayoutManager
     private lateinit var storageActivity: StorageActivity
     private lateinit var progressBar: ProgressBar
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun getLayout(): Int {
         return R.layout.fragment_pdf_storage
@@ -28,6 +30,7 @@ class PdfStorageFragment : BaseFragment() {
 
     override fun initVar(rootView: View) {
         storageActivity = activity as StorageActivity
+        swipeRefreshLayout = rootView.findViewById(R.id.refresh_container)
         progressBar = rootView.findViewById(R.id.progress_bar)
         recyclerView = rootView.findViewById(R.id.rv_storage)
         pdfStorageAdapter = PdfStorageAdapter(storageActivity)
@@ -37,6 +40,13 @@ class PdfStorageFragment : BaseFragment() {
     }
 
     override fun initListener() {
+        swipeRefreshLayout.setOnRefreshListener {
+            pdfStorageViewModel.getListPdfName(pdfStorageAdapter, {
+                swipeRefreshLayout.isRefreshing = false
+            }, {
+                swipeRefreshLayout.isRefreshing = false
+            })
+        }
         showLoading(true)
         pdfStorageViewModel.getListPdfName(pdfStorageAdapter, {
             showLoading(false)

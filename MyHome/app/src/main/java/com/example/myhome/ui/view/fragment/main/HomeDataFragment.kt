@@ -60,6 +60,22 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             intent.putExtra(Constants.NAME_SENSOR, Constants.DHT11_CHILD)
             startActivity(intent)
         }
+
+        loadData()
+    }
+
+    private fun loadData() {
+        swipeRefreshLayout.isRefreshing = true
+        viewModel.getCurrentData(
+            onLoadSuccess = { swipeRefreshLayout.isRefreshing = false },
+            onLoadFailure = {
+                swipeRefreshLayout.isRefreshing = false
+                Snackbar.make(
+                    swipeRefreshLayout,
+                    Constants.LOAD_DATA_ERROR,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            })
     }
 
     override fun onRefresh() {
@@ -78,17 +94,6 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onResume() {
         super.onResume()
         mainActivity.setTitleActionBar(getString(R.string.app_name))
-        swipeRefreshLayout.isRefreshing = true
-        viewModel.getCurrentData(
-            onLoadSuccess = { swipeRefreshLayout.isRefreshing = false },
-            onLoadFailure = {
-                swipeRefreshLayout.isRefreshing = false
-                Snackbar.make(
-                    swipeRefreshLayout,
-                    Constants.LOAD_DATA_ERROR,
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            })
     }
 
 }

@@ -17,8 +17,10 @@ class VideoStorageViewModel : ViewModel() {
             .child(Constants.VIDEO_PATH_STORAGE)
             .listAll().addOnSuccessListener {
                 it.items.forEach { ref ->
-                    list.add(ref.toString())
-                    videoStorageAdapter.setData(list)
+                    ref.downloadUrl.addOnSuccessListener { uri ->
+                        list.add(uri.toString())
+                        videoStorageAdapter.setData(list)
+                    }
                 }
                 onSuccess.invoke()
             }.addOnFailureListener {

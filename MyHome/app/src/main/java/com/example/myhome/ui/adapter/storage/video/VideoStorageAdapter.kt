@@ -11,9 +11,13 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.myhome.R
 
-class VideoStorageAdapter(private val context: Context) :
+class VideoStorageAdapter(
+    private val context: Context,
+    private val onClickItem: ((res: String) -> Unit) = {}
+) :
     RecyclerView.Adapter<VideoStorageAdapter.VideoStorageViewHolder>() {
 
     private var listRes: MutableList<String> = mutableListOf()
@@ -37,9 +41,14 @@ class VideoStorageAdapter(private val context: Context) :
             .load(res)
             .placeholder(R.drawable.outline_cached_black_48dp)
             .error(R.drawable.outline_error_black_48dp)
+            .transform(RoundedCorners(20))
             .into(holder.video)
 
         holder.nameVideo.text = URLUtil.guessFileName(res, null, null)
+
+        holder.rlt_video.setOnClickListener {
+            onClickItem.invoke(res)
+        }
     }
 
     override fun getItemCount(): Int {
