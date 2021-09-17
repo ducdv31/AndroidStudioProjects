@@ -13,10 +13,10 @@ import com.example.myhome.R
 import com.example.myhome.utils.Constants
 import com.google.firebase.storage.StorageReference
 
-class PdfNameAdapter(private val activity: BaseActivity) :
-    RecyclerView.Adapter<PdfNameAdapter.PdfNameViewHolder>() {
+class PdfStorageAdapter(private val activity: BaseActivity) :
+    RecyclerView.Adapter<PdfStorageAdapter.PdfNameViewHolder>() {
 
-    private val TAG = PdfNameAdapter::class.java.simpleName
+    private val TAG = PdfStorageAdapter::class.java.simpleName
     private var listData: MutableList<StorageReference> = mutableListOf()
 
     @SuppressLint("NotifyDataSetChanged")

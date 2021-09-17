@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhome.BaseFragment
 import com.example.myhome.R
-import com.example.myhome.ui.adapter.storage.pdf.PdfNameAdapter
+import com.example.myhome.ui.adapter.storage.pdf.PdfStorageAdapter
 import com.example.myhome.ui.view.activity.storage.StorageActivity
 import com.example.myhome.ui.viewmodel.storage.PdfStorageViewModel
 
@@ -17,7 +17,7 @@ class PdfStorageFragment : BaseFragment() {
         ViewModelProvider(requireActivity())[PdfStorageViewModel::class.java]
     }
     private lateinit var recyclerView: RecyclerView
-    private lateinit var pdfNameAdapter: PdfNameAdapter
+    private lateinit var pdfStorageAdapter: PdfStorageAdapter
     private lateinit var llmn: LinearLayoutManager
     private lateinit var storageActivity: StorageActivity
     private lateinit var progressBar: ProgressBar
@@ -30,15 +30,15 @@ class PdfStorageFragment : BaseFragment() {
         storageActivity = activity as StorageActivity
         progressBar = rootView.findViewById(R.id.progress_bar)
         recyclerView = rootView.findViewById(R.id.rv_storage)
-        pdfNameAdapter = PdfNameAdapter(storageActivity)
+        pdfStorageAdapter = PdfStorageAdapter(storageActivity)
         llmn = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         recyclerView.layoutManager = llmn
-        recyclerView.adapter = pdfNameAdapter
+        recyclerView.adapter = pdfStorageAdapter
     }
 
     override fun initListener() {
         showLoading(true)
-        pdfStorageViewModel.getListPdfName(pdfNameAdapter, {
+        pdfStorageViewModel.getListPdfName(pdfStorageAdapter, {
             showLoading(false)
         }, {
             showLoading(false)

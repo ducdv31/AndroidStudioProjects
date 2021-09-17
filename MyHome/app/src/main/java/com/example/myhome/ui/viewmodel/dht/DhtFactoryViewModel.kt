@@ -4,9 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class DhtFactoryViewModel(activity: Activity) : ViewModelProvider.Factory {
-
-    private val activity = activity
+class DhtFactoryViewModel(private val activity: Activity) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return DhtViewmodel(activity) as T
