@@ -1,5 +1,6 @@
 package com.example.myhome.ui.view.fragment.storage
 
+import android.content.Intent
 import android.view.View
 import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,9 @@ import com.example.myhome.R
 import com.example.myhome.ui.adapter.storage.image.ImageStorageAdapter
 import com.example.myhome.ui.viewmodel.storage.ImageStorageFactoryViewModel
 import com.example.myhome.ui.viewmodel.storage.ImageStorageViewModel
+import com.example.myhome.utils.Constants
+import com.example.myhome.utils.showimage.PlayImageBookAnimActivity
+import java.util.*
 
 class ImageStorageFragment : BaseFragment() {
 
@@ -36,7 +40,15 @@ class ImageStorageFragment : BaseFragment() {
         progressBar = rootView.findViewById(R.id.progress_bar)
         recyclerView = rootView.findViewById(R.id.rv_storage)
         swipeRefreshLayout = rootView.findViewById(R.id.refresh_container)
-        imageStorageAdapter = ImageStorageAdapter(requireContext())
+        imageStorageAdapter = ImageStorageAdapter(requireContext()) { listRes, position ->
+            val intent = Intent(requireContext(), PlayImageBookAnimActivity::class.java)
+            intent.putStringArrayListExtra(
+                Constants.LIST_IMAGE_RES_KEY,
+                listRes as ArrayList<String>
+            )
+            intent.putExtra(Constants.POSITION_IMAGE_KEY, position)
+            startActivity(intent)
+        }
         gridLayoutManager = GridLayoutManager(
             requireContext(),
             2,

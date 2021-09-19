@@ -18,7 +18,7 @@ class UserManager(private val context: Context) {
         val BIRTHDAY = intPreferencesKey("BIRTHDAY")
     }
 
-    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
 
     val userNameFlow: Flow<String> = context.dataStore.data.map {
         it[USER_NAME] ?: ""

@@ -13,7 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.myhome.data.model.login.UserProfileModel
-import com.example.myhome.data.repository.MyDataLocal
+import com.example.myhome.data.repository.UserLoginLocalStore
 import com.example.myhome.ui.viewmodel.typeuser.TypeUserViewModel
 import com.example.myhome.utils.Constants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -32,6 +32,9 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -228,14 +231,18 @@ open class BaseActivity : AppCompatActivity() {
                 .load(acct.photoUrl?.toString())
                 .into(getUserImgView())
             acct.id?.let {
-                MyDataLocal.getInstance().putIDCurrentUser(it)
+                CoroutineScope(Dispatchers.IO).launch {
+                    UserLoginLocalStore.getInstant(context = this@BaseActivity).setIdUserLogin(it)
+                }
             }
             typeUserViewModel.getTypeUser()
         } else {
             idLd.value = Constants.EMPTY
             Glide.with(this).load(R.drawable.outline_account_circle_black_48dp)
                 .into(getUserImgView())
-            MyDataLocal.getInstance().clearIDCurrentUser()
+            CoroutineScope(Dispatchers.IO).launch {
+                UserLoginLocalStore.getInstant(this@BaseActivity).setIdUserLogin(Constants.EMPTY)
+            }
         }
 
     }

@@ -12,12 +12,15 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var btnSave: Button
+    private val userManager: UserManager by lazy {
+        UserManager(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         btnSave = findViewById(R.id.btn_save)
-        val userManager = UserManager(this)
 
         CoroutineScope(Dispatchers.IO).launch {
             launch {
@@ -33,8 +36,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSave.setOnClickListener {
-            val userName = "Duc" + Random.nextInt()
+            val userName = "Duc " + Random.nextInt()
             val birth = Random.nextInt()
+            Log.e("set data: ", "$userName - $birth")
             CoroutineScope(Dispatchers.IO).launch {
                 userManager.saveDataStore(userName, birth)
             }

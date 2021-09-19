@@ -21,6 +21,7 @@ object Constants {
     const val PDF_PATH_STORAGE = "Pdf"
     const val IMAGE_PATH_STORAGE = "Images"
     const val VIDEO_PATH_STORAGE = "Videos"
+
     /* item type */
     const val ITEM_TYPE_DHT: Int = 1
     /* ********* */
@@ -54,4 +55,6 @@ object Constants {
     const val PDF_APPLICATION = "application/pdf"
 
     const val VIDEO_KEY = "VIDEO_KEY"
+    const val LIST_IMAGE_RES_KEY = "LIST_IMAGE_RES_KEY"
+    const val POSITION_IMAGE_KEY = "POSITION_IMAGE_KEY"
 }

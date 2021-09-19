@@ -12,7 +12,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.myhome.R
 
-class ImageStorageAdapter(private val context: Context) :
+class ImageStorageAdapter(
+    private val context: Context,
+    private val onClickItem: ((listRes: MutableList<String>, position: Int) -> Unit) = { it, it1 ->
+    }
+) :
     RecyclerView.Adapter<ImageStorageAdapter.ImageStorageViewHolder>() {
 
     private var listImageRes: MutableList<String> = mutableListOf()
@@ -37,6 +41,10 @@ class ImageStorageAdapter(private val context: Context) :
             .error(R.drawable.outline_error_black_48dp)
             .transform(RoundedCorners(20))
             .into(holder.image)
+
+        holder.lnImage.setOnClickListener {
+            onClickItem.invoke(listImageRes, position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +53,6 @@ class ImageStorageAdapter(private val context: Context) :
 
     class ImageStorageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.image_storage)
-        val ln_image: LinearLayout = itemView.findViewById(R.id.ln_image_storage)
+        val lnImage: LinearLayout = itemView.findViewById(R.id.ln_image_storage)
     }
 }
