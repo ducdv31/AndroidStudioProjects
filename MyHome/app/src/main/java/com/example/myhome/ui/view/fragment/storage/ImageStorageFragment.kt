@@ -13,7 +13,7 @@ import com.example.myhome.ui.adapter.storage.image.ImageStorageAdapter
 import com.example.myhome.ui.viewmodel.storage.ImageStorageFactoryViewModel
 import com.example.myhome.ui.viewmodel.storage.ImageStorageViewModel
 import com.example.myhome.utils.Constants
-import com.example.myhome.utils.showimage.PlayImageBookAnimActivity
+import com.example.myhome.utils.showimage.PlayImageSliderActivity
 import java.util.*
 
 class ImageStorageFragment : BaseFragment() {
@@ -41,7 +41,7 @@ class ImageStorageFragment : BaseFragment() {
         recyclerView = rootView.findViewById(R.id.rv_storage)
         swipeRefreshLayout = rootView.findViewById(R.id.refresh_container)
         imageStorageAdapter = ImageStorageAdapter(requireContext()) { listRes, position ->
-            val intent = Intent(requireContext(), PlayImageBookAnimActivity::class.java)
+            val intent = Intent(requireContext(), PlayImageSliderActivity::class.java)
             intent.putStringArrayListExtra(
                 Constants.LIST_IMAGE_RES_KEY,
                 listRes as ArrayList<String>

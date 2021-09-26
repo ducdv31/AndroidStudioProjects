@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyHome">
         <activity
+            android:name=".utils.showimage.PlayImageSliderActivity"
+            android:exported="true" />
+        <activity
             android:name=".utils.showimage.PlayImageBookAnimActivity"
             android:exported="true" />
         <activity

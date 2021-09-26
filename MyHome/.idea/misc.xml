@@ -10,6 +10,7 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/background_corner_16.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/background_dialog.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/background_img_clear.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/background_indicator.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/background_stroke_2.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/background_stroke_2_corner_16.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/button_selector.xml" value="0.2526041666666667" />
@@ -20,6 +21,7 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_main.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_manage_user.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_play_image_book_anim.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_play_imagr_slider.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_play_media.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_play_medial_mx.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_storage_main.xml" value="0.23645833333333333" />
@@ -40,6 +42,7 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_video_storage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_data_dht_history.xml" value="0.4" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_data_history.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_image_slider_storage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_image_storage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_name_file_storage.xml" value="0.4" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_user.xml" value="0.264" />
