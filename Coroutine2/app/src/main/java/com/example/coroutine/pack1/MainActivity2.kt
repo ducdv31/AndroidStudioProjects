@@ -1,10 +1,12 @@
 package com.example.coroutine.pack1
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coroutine.R
 import com.example.coroutine.SimpleThread
+import kotlinx.coroutines.*
 
 class MainActivity2 : AppCompatActivity() {
 
@@ -19,10 +21,28 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         btn = findViewById(R.id.btn)
 
-        val simpleThread1 = SimpleThread("Thread 1")
-        val simpleThread2 = SimpleThread("Thread 2")
-        simpleThread1.start()
-        simpleThread2.start()
+        CoroutineScope(Dispatchers.IO).launch {
+            testCoroutine()
+            repeat(100) {
+                launch {
+                    delay(1000)
+                    testCoroutine()
+                    Log.e(TAG, "onCreate: ${Thread.currentThread().id}")
+                }
+            }
+        }
 
+    }
+
+    private fun testCoroutine() {
+        Log.e(TAG, "testCoroutine: Ok")
+    }
+
+    private fun block() = equalFun {
+
+    }
+
+    private fun equalFun(onSuccess: () -> Unit) {
+        onSuccess.invoke()
     }
 }
