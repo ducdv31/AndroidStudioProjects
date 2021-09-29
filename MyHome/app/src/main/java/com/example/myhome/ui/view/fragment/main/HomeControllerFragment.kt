@@ -9,14 +9,15 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.myhome.R
 import com.example.myhome.ui.adapter.main.HomeViewPager
 import com.example.myhome.ui.view.activity.main.MainActivity
+import com.example.myhome.utils.animationViewPager2.ZoomOutPageTransformer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class HomeControllerFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var homeViewPager: HomeViewPager
-    private lateinit var view_pager_home: ViewPager2
-    private lateinit var bottom_view_home: BottomNavigationView
+    private lateinit var viewPagerHome: ViewPager2
+    private lateinit var bottomViewHome: BottomNavigationView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,32 +25,33 @@ class HomeControllerFragment : Fragment() {
     ): View? {
         val fragView = inflater.inflate(R.layout.fragment_home_controller, container, false)
         mainActivity = activity as MainActivity
-        view_pager_home = fragView.findViewById(R.id.view_pager_home)
-        bottom_view_home = fragView.findViewById(R.id.bottom_view_home)
+        viewPagerHome = fragView.findViewById(R.id.view_pager_home)
+        bottomViewHome = fragView.findViewById(R.id.bottom_view_home)
         homeViewPager = HomeViewPager(mainActivity)
         return fragView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view_pager_home.adapter = homeViewPager
-        view_pager_home.isUserInputEnabled = true
+        viewPagerHome.adapter = homeViewPager
+        viewPagerHome.isUserInputEnabled = true
+        viewPagerHome.setPageTransformer(ZoomOutPageTransformer())
 
-        bottom_view_home.setOnItemSelectedListener { item ->
+        bottomViewHome.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.btn_home_bottom -> view_pager_home.currentItem = 0
-                R.id.btn_account_bottom -> view_pager_home.currentItem = 1
+                R.id.btn_home_bottom -> viewPagerHome.currentItem = 0
+                R.id.btn_account_bottom -> viewPagerHome.currentItem = 1
             }
 
             true
         }
 
-        view_pager_home.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPagerHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when (position) {
-                    0 -> bottom_view_home.menu.findItem(R.id.btn_home_bottom).isChecked = true
-                    1 -> bottom_view_home.menu.findItem(R.id.btn_account_bottom).isChecked = true
+                    0 -> bottomViewHome.menu.findItem(R.id.btn_home_bottom).isChecked = true
+                    1 -> bottomViewHome.menu.findItem(R.id.btn_account_bottom).isChecked = true
                 }
             }
         })

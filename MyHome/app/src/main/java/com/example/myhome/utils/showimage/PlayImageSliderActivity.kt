@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.myhome.R
 import com.example.myhome.ui.adapter.storage.image.ImageSliderAdapter
 import com.example.myhome.utils.Constants
+import com.example.myhome.utils.animationViewPager2.ZoomOutPageTransformer
 import de.hdodenhof.circleimageview.CircleImageView
 import me.relex.circleindicator.CircleIndicator3
 
@@ -33,6 +34,7 @@ class PlayImageSliderActivity : AppCompatActivity() {
         mImageSliderAdapter = ImageSliderAdapter(this, getResIntent(intent))
 
         mImageSliderVp.adapter = mImageSliderAdapter
+        mImageSliderVp.setPageTransformer(ZoomOutPageTransformer())
         mIndicator.setViewPager(mImageSliderVp)
         position = intent.getIntExtra(Constants.POSITION_IMAGE_KEY, 0)
         mImageSliderVp.currentItem = position

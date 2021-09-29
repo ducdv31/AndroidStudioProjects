@@ -5,6 +5,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.myhome.BaseActivity
 import com.example.myhome.R
 import com.example.myhome.ui.adapter.storage.StorageVewPagerAdapter
+import com.example.myhome.utils.animationViewPager2.ZoomOutPageTransformer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -36,6 +37,7 @@ class StorageActivity : BaseActivity() {
     private fun initLogicViewPager() {
         mViewPager.adapter = mStorageViewPagerAdapter
         mViewPager.offscreenPageLimit = 3
+        mViewPager.setPageTransformer(ZoomOutPageTransformer())
 
         mViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -52,7 +54,7 @@ class StorageActivity : BaseActivity() {
         })
 
         bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.imageStorageFragment -> mViewPager.currentItem = 0
                 R.id.videoStorageFragment -> mViewPager.currentItem = 1
                 R.id.pdfStorageFragment -> mViewPager.currentItem = 2
