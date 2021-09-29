@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.coroutine.R
 import com.example.coroutine.SimpleThread
 import kotlinx.coroutines.*
+import kotlin.random.Random
 
 class MainActivity2 : AppCompatActivity() {
 
@@ -21,28 +22,21 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         btn = findViewById(R.id.btn)
 
+        val job1 = CoroutineScope(Dispatchers.IO).async {
+            delay(1000)
+            "Hello"
+        }
+
+        val job2 = CoroutineScope(Dispatchers.IO).async {
+            delay(2000)
+            Random.nextInt()
+        }
+
         CoroutineScope(Dispatchers.IO).launch {
-            testCoroutine()
-            repeat(100) {
-                launch {
-                    delay(1000)
-                    testCoroutine()
-                    Log.e(TAG, "onCreate: ${Thread.currentThread().id}")
-                }
-            }
+            val a = job1.await() + job2.await()
+            Log.e(TAG, "onCreate: $a")
         }
 
     }
 
-    private fun testCoroutine() {
-        Log.e(TAG, "testCoroutine: Ok")
-    }
-
-    private fun block() = equalFun {
-
-    }
-
-    private fun equalFun(onSuccess: () -> Unit) {
-        onSuccess.invoke()
-    }
 }

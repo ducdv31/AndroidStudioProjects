@@ -18,28 +18,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyHome">
+        android:theme="@style/Theme.MyHome"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity
             android:name=".utils.showimage.PlayImageSliderActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".utils.showimage.PlayImageBookAnimActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".utils.playmedia.PlayMedialMxActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".utils.playmedia.PlayMediaActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.view.activity.storage.StorageActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.view.activity.typeUser.ManageUserActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.view.activity.history.HistoryDataActivity"
-            android:exported="true" />
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

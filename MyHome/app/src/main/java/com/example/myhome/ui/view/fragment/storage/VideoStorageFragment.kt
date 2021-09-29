@@ -45,8 +45,10 @@ class VideoStorageFragment : BaseFragment() {
             false
         )
 
-        recyclerView.layoutManager = gridLayoutManager
-        recyclerView.adapter = videoStorageAdapter
+        recyclerView.apply {
+            layoutManager = gridLayoutManager
+            adapter = videoStorageAdapter
+        }
     }
 
     override fun initListener() {

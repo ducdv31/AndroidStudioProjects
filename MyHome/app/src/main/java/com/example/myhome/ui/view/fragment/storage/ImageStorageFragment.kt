@@ -56,8 +56,10 @@ class ImageStorageFragment : BaseFragment() {
             false
         )
 
-        recyclerView.layoutManager = gridLayoutManager
-        recyclerView.adapter = imageStorageAdapter
+        recyclerView.apply {
+            layoutManager = gridLayoutManager
+            adapter = imageStorageAdapter
+        }
 
         swipeRefreshLayout.setOnRefreshListener {
             imageStorageViewModel.getListImage(

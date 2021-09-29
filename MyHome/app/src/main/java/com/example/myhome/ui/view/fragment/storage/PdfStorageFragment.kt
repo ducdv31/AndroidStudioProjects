@@ -35,8 +35,10 @@ class PdfStorageFragment : BaseFragment() {
         recyclerView = rootView.findViewById(R.id.rv_storage)
         pdfStorageAdapter = PdfStorageAdapter(storageActivity)
         llmn = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        recyclerView.layoutManager = llmn
-        recyclerView.adapter = pdfStorageAdapter
+        recyclerView.apply {
+            layoutManager = llmn
+            adapter = pdfStorageAdapter
+        }
     }
 
     override fun initListener() {
