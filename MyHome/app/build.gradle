@@ -105,6 +105,10 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"        // Gson
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"  // Retrofit
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-jackson:$retrofit_version"
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.10.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.2'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 

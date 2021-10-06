@@ -2,6 +2,7 @@ package com.example.myhome.ui.view.fragment.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myhome.R
+import com.example.myhome.data.model.weatherapi.ForecastResponse
 import com.example.myhome.databinding.FragmentHomeDataBinding
 import com.example.myhome.ui.view.activity.history.HistoryDataActivity
 import com.example.myhome.ui.view.activity.main.MainActivity
 import com.example.myhome.ui.viewmodel.dht.DhtFactoryViewModel
 import com.example.myhome.ui.viewmodel.dht.DhtViewmodel
+import com.example.myhome.ui.viewmodel.weatherapi.WeatherApiVewModel
 import com.example.myhome.utils.Constants
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.material.snackbar.Snackbar
 
 class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -25,6 +29,12 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         ViewModelProvider(
             this, DhtFactoryViewModel(requireActivity())
         )[DhtViewmodel::class.java]
+    }
+
+    private val weatherApiViewModel: WeatherApiVewModel by lazy {
+        ViewModelProvider(
+            this
+        )[WeatherApiVewModel::class.java]
     }
 
     private val TAG = HomeDataFragment::class.java.simpleName
@@ -76,19 +86,22 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     Snackbar.LENGTH_SHORT
                 ).show()
             })
+        weatherApiViewModel.getForecast(
+            "Hanoi",
+            3,
+            onSuccess = {
+                it?.let {
+                    val jsonStr = it.body?.string()
+                    val json: ForecastResponse =
+                        ObjectMapper().readValue(jsonStr, ForecastResponse::class.java)
+                    Log.e(TAG, "loadData: ${json.location}")
+                }
+            }
+        )
     }
 
     override fun onRefresh() {
-        viewModel.getCurrentData(
-            onLoadSuccess = { swipeRefreshLayout.isRefreshing = false },
-            onLoadFailure = {
-                swipeRefreshLayout.isRefreshing = false
-                Snackbar.make(
-                    swipeRefreshLayout,
-                    Constants.LOAD_DATA_ERROR,
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            })
+        loadData()
     }
 
     override fun onResume() {

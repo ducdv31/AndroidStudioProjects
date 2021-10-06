@@ -14,7 +14,7 @@ import retrofit2.Response
 
 class DhtViewmodel(activity: Activity) : ViewModel() {
 
-    private var apiServices: ApiServices = ApiClient.getClient()
+    private val apiServices: ApiServices = ApiClient.getClient()
     val thVal: MutableLiveData<String> = MutableLiveData(activity.getString(R.string.temp_humi))
 
     init {
