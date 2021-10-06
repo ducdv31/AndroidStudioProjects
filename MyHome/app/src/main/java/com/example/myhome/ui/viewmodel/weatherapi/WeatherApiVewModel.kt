@@ -14,10 +14,6 @@ class WeatherApiVewModel : ViewModel() {
 
     private val TAG = WeatherApiVewModel::class.java.simpleName
 
-    init {
-        getData()
-    }
-
     fun getData() {
         ApiClientWeather.getClient().getForecastNow("Hanoi", 3)?.enqueue(object :
             Callback<ForecastResponse> {

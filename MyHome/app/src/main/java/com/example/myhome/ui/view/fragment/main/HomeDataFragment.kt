@@ -90,12 +90,17 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
             "Hanoi",
             3,
             onSuccess = {
+                swipeRefreshLayout.isRefreshing = false
                 it?.let {
                     val jsonStr = it.body?.string()
                     val json: ForecastResponse =
                         ObjectMapper().readValue(jsonStr, ForecastResponse::class.java)
                     Log.e(TAG, "loadData: ${json.location}")
                 }
+            },
+            onFailure = { _, t ->
+                swipeRefreshLayout.isRefreshing = false
+                Log.e(TAG, "loadData: $t")
             }
         )
     }
