@@ -40,15 +40,18 @@ class ImageStorageFragment : BaseFragment() {
         progressBar = rootView.findViewById(R.id.progress_bar)
         recyclerView = rootView.findViewById(R.id.rv_storage)
         swipeRefreshLayout = rootView.findViewById(R.id.refresh_container)
-        imageStorageAdapter = ImageStorageAdapter(requireContext()) { listRes, position ->
-            val intent = Intent(requireContext(), PlayImageSliderActivity::class.java)
-            intent.putStringArrayListExtra(
-                Constants.LIST_IMAGE_RES_KEY,
-                listRes as ArrayList<String>
-            )
-            intent.putExtra(Constants.POSITION_IMAGE_KEY, position)
-            startActivity(intent)
-        }
+        imageStorageAdapter =
+            ImageStorageAdapter(requireContext(), onClickItem = { listRes, position ->
+                val intent = Intent(requireContext(), PlayImageSliderActivity::class.java)
+                intent.putStringArrayListExtra(
+                    Constants.LIST_IMAGE_RES_KEY,
+                    listRes as ArrayList<String>
+                )
+                intent.putExtra(Constants.POSITION_IMAGE_KEY, position)
+                startActivity(intent)
+            },
+                onLongClickItem = { listRes, position ->
+                })
         gridLayoutManager = GridLayoutManager(
             requireContext(),
             2,

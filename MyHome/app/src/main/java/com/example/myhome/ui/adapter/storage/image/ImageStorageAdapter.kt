@@ -14,7 +14,9 @@ import com.example.myhome.R
 
 class ImageStorageAdapter(
     private val context: Context,
-    private val onClickItem: ((listRes: MutableList<String>, position: Int) -> Unit) = { it, it1 ->
+    private val onClickItem: ((listRes: MutableList<String>, position: Int) -> Unit) = { _, _ ->
+    },
+    private val onLongClickItem: ((listRes: MutableList<String>, position: Int) -> Unit) = { _, _ ->
     }
 ) :
     RecyclerView.Adapter<ImageStorageAdapter.ImageStorageViewHolder>() {
