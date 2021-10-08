@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myhome.BaseFragment
 import com.example.myhome.R
 import com.example.myhome.ui.adapter.storage.image.ImageStorageAdapter
+import com.example.myhome.ui.view.dialog.bottom.DetailImageDialog
 import com.example.myhome.ui.viewmodel.storage.ImageStorageFactoryViewModel
 import com.example.myhome.ui.viewmodel.storage.ImageStorageViewModel
 import com.example.myhome.utils.Constants
@@ -51,6 +52,12 @@ class ImageStorageFragment : BaseFragment() {
                 startActivity(intent)
             },
                 onLongClickItem = { listRes, position ->
+                    val d = DetailImageDialog(
+                        requireContext(),
+                        R.style.MyDialog,
+                        listRes[position]
+                    )
+                    d.show()
                 })
         gridLayoutManager = GridLayoutManager(
             requireContext(),

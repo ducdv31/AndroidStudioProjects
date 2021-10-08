@@ -47,6 +47,10 @@ class ImageStorageAdapter(
         holder.lnImage.setOnClickListener {
             onClickItem.invoke(listImageRes, position)
         }
+        holder.lnImage.setOnLongClickListener {
+            onLongClickItem.invoke(listImageRes, position)
+            true
+        }
     }
 
     override fun getItemCount(): Int {
