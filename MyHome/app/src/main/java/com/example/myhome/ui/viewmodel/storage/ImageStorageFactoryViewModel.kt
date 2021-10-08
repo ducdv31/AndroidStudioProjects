@@ -4,7 +4,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class ImageStorageFactoryViewModel(private val lifecycleOwner: LifecycleOwner) : ViewModelProvider.Factory {
+class ImageStorageFactoryViewModel(private val lifecycleOwner: LifecycleOwner) :
+    ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return ImageStorageViewModel(lifecycleOwner) as T
     }

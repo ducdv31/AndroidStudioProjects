@@ -120,7 +120,7 @@ class AccountFragment : Fragment() {
             }
         }
         btnManageUser.setOnClickListener {
-            /* open list user in firestore */
+            /* open list user in fire store */
             val intent = Intent(mainActivity, ManageUserActivity::class.java)
             startActivity(intent)
         }

@@ -95,8 +95,10 @@ class HistoryDataActivity : BaseActivity() {
 
             })
         val llmn = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        rvHistoryData.layoutManager = llmn
-        rvHistoryData.adapter = dataHistoryAdapter
+        rvHistoryData.apply {
+            layoutManager = llmn
+            adapter = dataHistoryAdapter
+        }
 
         /* get data from previous activity */
         sensorName = intent?.extras?.get(Constants.NAME_SENSOR) as? String
