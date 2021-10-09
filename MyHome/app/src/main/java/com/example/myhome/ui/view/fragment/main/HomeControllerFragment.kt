@@ -33,9 +33,21 @@ class HomeControllerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewPagerHome.adapter = homeViewPager
-        viewPagerHome.isUserInputEnabled = true
-        viewPagerHome.setPageTransformer(ZoomOutPageTransformer())
+        viewPagerHome.apply {
+            adapter = homeViewPager
+            isUserInputEnabled = true
+            setPageTransformer(ZoomOutPageTransformer())
+            offscreenPageLimit = 2
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    when (position) {
+                        0 -> bottomViewHome.menu.findItem(R.id.btn_home_bottom).isChecked = true
+                        1 -> bottomViewHome.menu.findItem(R.id.btn_account_bottom).isChecked = true
+                    }
+                }
+            })
+        }
 
         bottomViewHome.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -45,15 +57,5 @@ class HomeControllerFragment : Fragment() {
 
             true
         }
-
-        viewPagerHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                when (position) {
-                    0 -> bottomViewHome.menu.findItem(R.id.btn_home_bottom).isChecked = true
-                    1 -> bottomViewHome.menu.findItem(R.id.btn_account_bottom).isChecked = true
-                }
-            }
-        })
     }
 }

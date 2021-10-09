@@ -2,7 +2,7 @@ package com.example.myhome.ui.view.fragment.storage
 
 import android.view.View
 import android.widget.ProgressBar
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -14,9 +14,7 @@ import com.example.myhome.ui.viewmodel.storage.PdfStorageViewModel
 
 class PdfStorageFragment : BaseFragment() {
 
-    private val pdfStorageViewModel: PdfStorageViewModel by lazy {
-        ViewModelProvider(requireActivity())[PdfStorageViewModel::class.java]
-    }
+    private val pdfStorageViewModel: PdfStorageViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var pdfStorageAdapter: PdfStorageAdapter
     private lateinit var llmn: LinearLayoutManager

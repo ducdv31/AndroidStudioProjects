@@ -3,7 +3,7 @@ package com.example.myhome.ui.view.fragment.storage
 import android.content.Intent
 import android.view.View
 import android.widget.ProgressBar
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -20,11 +20,8 @@ import java.util.*
 class ImageStorageFragment : BaseFragment() {
 
     private val TAG = ImageStorageFragment::class.java.simpleName
-    private val imageStorageViewModel: ImageStorageViewModel by lazy {
-        ViewModelProvider(
-            requireActivity(),
-            ImageStorageFactoryViewModel(requireActivity())
-        )[ImageStorageViewModel::class.java]
+    private val imageStorageViewModel: ImageStorageViewModel by activityViewModels {
+        ImageStorageFactoryViewModel(requireActivity())
     }
 
     private lateinit var progressBar: ProgressBar

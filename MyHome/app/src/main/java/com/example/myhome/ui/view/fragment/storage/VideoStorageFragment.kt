@@ -3,7 +3,7 @@ package com.example.myhome.ui.view.fragment.storage
 import android.content.Intent
 import android.view.View
 import android.widget.ProgressBar
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -16,9 +16,7 @@ import com.example.myhome.utils.playmedia.PlayMediaActivity
 
 class VideoStorageFragment : BaseFragment() {
 
-    private val videoStorageViewHolder: VideoStorageViewModel by lazy {
-        ViewModelProvider(requireActivity())[VideoStorageViewModel::class.java]
-    }
+    private val videoStorageViewHolder: VideoStorageViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout

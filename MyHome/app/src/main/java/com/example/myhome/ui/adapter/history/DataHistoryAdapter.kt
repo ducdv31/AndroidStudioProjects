@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myhome.R
 import com.example.myhome.data.model.dht.DhtTimeValueModel
 import com.example.myhome.utils.Constants
-import java.util.*
 
 class DataHistoryAdapter<T>(
     val context: Context,
     private val itemType: Int,
-    val iClickItemData: IClickItemData
+    private val iClickItemData: IClickItemData
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var listData: MutableList<T>? = null

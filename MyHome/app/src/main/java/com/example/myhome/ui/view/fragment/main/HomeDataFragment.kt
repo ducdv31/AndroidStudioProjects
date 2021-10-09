@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myhome.R
 import com.example.myhome.data.model.weatherapi.ForecastResponse
@@ -24,19 +24,13 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.material.snackbar.Snackbar
 
 class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
-
-    private val viewModel: DhtViewmodel by lazy {
-        ViewModelProvider(
-            this, DhtFactoryViewModel(requireActivity())
-        )[DhtViewmodel::class.java]
+    private val dhtViewmodel: DhtViewmodel by activityViewModels {
+        DhtFactoryViewModel(
+            requireActivity()
+        )
     }
 
-    private val weatherApiViewModel: WeatherApiVewModel by lazy {
-        ViewModelProvider(
-            this
-        )[WeatherApiVewModel::class.java]
-    }
-
+    private val weatherApiViewModel: WeatherApiVewModel by activityViewModels()
     private val TAG = HomeDataFragment::class.java.simpleName
     private lateinit var mainActivity: MainActivity
     private lateinit var binding: FragmentHomeDataBinding
@@ -56,7 +50,7 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
         /* binding data */
         binding.lifecycleOwner = mainActivity
-        binding.dhtVM = viewModel
+        binding.dhtVM = dhtViewmodel
         /* ************ */
         swipeRefreshLayout.setOnRefreshListener(this)
 
@@ -76,7 +70,7 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun loadData() {
         swipeRefreshLayout.isRefreshing = true
-        viewModel.getCurrentData(
+        dhtViewmodel.getCurrentData(
             onLoadSuccess = { swipeRefreshLayout.isRefreshing = false },
             onLoadFailure = {
                 swipeRefreshLayout.isRefreshing = false

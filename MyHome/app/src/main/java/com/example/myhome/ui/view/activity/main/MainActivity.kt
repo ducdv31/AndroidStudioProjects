@@ -9,7 +9,9 @@ import com.example.myhome.BaseActivity
 import com.example.myhome.R
 import com.example.myhome.ui.broadcast.MyBroadCastReceiver
 import com.example.myhome.ui.view.dialog.DialogOptionMain
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private val TAG = MainActivity::class.java.simpleName

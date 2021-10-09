@@ -1,6 +1,6 @@
 package com.example.myhome.ui.viewmodel.dht
 
-import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myhome.R
@@ -12,15 +12,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DhtViewmodel(activity: Activity) : ViewModel() {
+class DhtViewmodel(
+    context: Context
+) : ViewModel() {
 
-    private val apiServices: ApiServices = ApiClient.getClient()
-    val thVal: MutableLiveData<String> = MutableLiveData(activity.getString(R.string.temp_humi))
+    private val apiServices: ApiServices by lazy { ApiClient.getClient() }
+    val thVal: MutableLiveData<String> = MutableLiveData(context.getString(R.string.temp_humi))
 
     init {
         getCurrentData()
     }
-
 
     fun getCurrentData(
         onLoadSuccess: () -> Unit = {},

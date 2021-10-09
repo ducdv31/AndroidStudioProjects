@@ -35,7 +35,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_history_data"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_data_dht_history" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhome.BaseActivity
 import com.example.myhome.R
@@ -17,11 +18,11 @@ class PdfStorageAdapter(private val activity: BaseActivity) :
     RecyclerView.Adapter<PdfStorageAdapter.PdfNameViewHolder>() {
 
     private val TAG = PdfStorageAdapter::class.java.simpleName
-    private var listData: MutableList<StorageReference> = mutableListOf()
+    private var listData: MutableLiveData<MutableList<StorageReference>> = MutableLiveData()
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(list: MutableList<StorageReference>) {
-        listData = list
+        listData.value = list
         notifyDataSetChanged()
     }
 
@@ -32,7 +33,7 @@ class PdfStorageAdapter(private val activity: BaseActivity) :
     }
 
     override fun onBindViewHolder(holder: PdfNameViewHolder, position: Int) {
-        val data = listData[position]
+        val data = listData.value?.get(position) ?: return
         holder.name.text = data.name
         holder.lnName.setOnClickListener {
             data.downloadUrl.addOnSuccessListener {
@@ -44,7 +45,7 @@ class PdfStorageAdapter(private val activity: BaseActivity) :
     }
 
     override fun getItemCount(): Int {
-        return listData.size
+        return listData.value?.size ?: 0
     }
 
     class PdfNameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
