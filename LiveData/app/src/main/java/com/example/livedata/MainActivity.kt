@@ -5,56 +5,49 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.livedata.adapter.UserAdapter
+import com.example.livedata.model.ID
+import com.example.livedata.model.User
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
     private lateinit var btn: Button
-    private val liveData: MutableLiveData<ArrayList<User>> = MutableLiveData()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var userAdapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val list = getListUser()
-        liveData.value = list
-
         btn = findViewById(R.id.btn)
+        recyclerView = findViewById(R.id.recyclerView)
+        userAdapter = UserAdapter(this)
+        val lllm = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        liveData.observe(this) {
-            Log.e(TAG, "onCreate: $it")
+        recyclerView.apply {
+            layoutManager = lllm
+            adapter = userAdapter
         }
 
+        val list = getListUser()
+        userAdapter.setData(list)
+
         btn.setOnClickListener {
-//            list[0].id.a = Random.nextInt()
-            liveData.value = list
+
         }
     }
 
     private fun getListUser(): ArrayList<User> {
         val list: ArrayList<User> = arrayListOf()
 
-        list.add(
-            User(
-                "Duc ${Random.nextInt(0, 5)}", ID(
-                    Random.nextInt(
-                        6,
-                        10
-                    ), Random.nextInt(11, 15)
-                )
-            )
-        )
-        list.add(
-            User(
-                "Duc ${Random.nextInt(0, 5)}", ID(
-                    Random.nextInt(
-                        6,
-                        10
-                    ), Random.nextInt(11, 15)
-                )
-            )
-        )
+        list.add(User("Hi", arrayListOf(ID(4, 5)), true))
+        list.add(User("Ok", arrayListOf(ID(7, 8)), true))
+        list.add(User("Hello", arrayListOf(ID(6, 8)), true))
+        list.add(User("Duc", arrayListOf(ID(9, 7)), true))
 
         return list
     }

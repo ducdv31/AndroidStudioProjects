@@ -51,7 +51,7 @@ class ImageStorageFragment : BaseFragment() {
                 onLongClickItem = { listRes, position ->
                     val d = DetailImageDialog(
                         requireContext(),
-                        R.style.MyDialog,
+                        R.style.MyBottomDialog,
                         listRes[position]
                     )
                     d.show()

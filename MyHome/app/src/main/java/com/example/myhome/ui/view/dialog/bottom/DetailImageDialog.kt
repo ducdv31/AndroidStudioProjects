@@ -7,7 +7,7 @@ import android.widget.TextView
 import com.example.myhome.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class DetailImageDialog(context: Context, theme: Int,  private val res: String) :
+class DetailImageDialog(context: Context, theme: Int, private val res: String) :
     BottomSheetDialog(context, theme) {
     private var name: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
