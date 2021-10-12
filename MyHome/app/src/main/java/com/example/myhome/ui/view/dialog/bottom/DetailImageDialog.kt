@@ -13,7 +13,7 @@ class DetailImageDialog(context: Context, theme: Int, private val res: String) :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_detail_image_storage)
-        name = findViewById(R.id.image_detail)
+        name = findViewById(R.id.image_name)
 
         name?.text = URLUtil.guessFileName(res, null, null)
     }
