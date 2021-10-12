@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.webkit.URLUtil
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
 import com.example.myhome.R
+import com.makeramen.roundedimageview.RoundedImageView
 
 class DialogDetailImageFullScreen(
     private val res: String
@@ -16,6 +18,7 @@ class DialogDetailImageFullScreen(
     private lateinit var name: TextView
     private lateinit var btnOk: TextView
     private lateinit var btnCancel: TextView
+    private lateinit var mRoundedImageView: RoundedImageView
 
     override fun onStart() {
         super.onStart()
@@ -51,6 +54,11 @@ class DialogDetailImageFullScreen(
 
     private fun logic() {
         if (URLUtil.isValidUrl(res)) {
+            Glide.with(requireContext())
+                .load(res)
+                .placeholder(R.drawable.uvv_common_ic_loading_icon)
+                .error(R.drawable.outline_error_black_48dp)
+                .into(mRoundedImageView)
             name.text = URLUtil.guessFileName(res, null, null)
         }
     }
@@ -59,6 +67,7 @@ class DialogDetailImageFullScreen(
         name = view.findViewById(R.id.image_name)
         btnOk = view.findViewById(R.id.btn_ok)
         btnCancel = view.findViewById(R.id.btn_cancel)
+        mRoundedImageView = view.findViewById(R.id.image_detail)
     }
 
     private fun startListening() {

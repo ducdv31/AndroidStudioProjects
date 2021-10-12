@@ -194,4 +194,6 @@ dependencies {
 //    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'         // Image slider
 
     implementation 'me.relex:circleindicator:2.1.6'                     // Circle Indicator
+
+    implementation "com.makeramen:roundedimageview:2.3.0"               // Round Corner Image
 }
