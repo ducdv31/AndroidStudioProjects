@@ -30,6 +30,7 @@ class DialogDetailImageFullScreen(
         /*
         Theme_DeviceDefault
         Theme_Black_NoTitleBar
+        Theme_Material
         */
         setStyle(
             STYLE_NORMAL,

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -22,6 +23,11 @@ import com.example.myhome.ui.viewmodel.weatherapi.WeatherApiVewModel
 import com.example.myhome.utils.Constants
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private val dhtViewmodel: DhtViewmodel by activityViewModels {
@@ -36,6 +42,7 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: FragmentHomeDataBinding
     private lateinit var tvTempHumi: TextView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var ratingBar: RatingBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +53,16 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         val fragView = binding.root
         tvTempHumi = fragView.findViewById(R.id.tv_temp_humi)
         swipeRefreshLayout = fragView.findViewById(R.id.refresh_container)
+        ratingBar = fragView.findViewById(R.id.rating)
         mainActivity = activity as MainActivity
 
+        ratingBar.rating = 2F
+        CoroutineScope(Dispatchers.Main).launch {
+            repeat(1000) {
+                delay(1000)
+                ratingBar.rating = Random.nextDouble(0.0,5.0).toFloat()
+            }
+        }
         /* binding data */
         binding.lifecycleOwner = mainActivity
         binding.dhtVM = dhtViewmodel
