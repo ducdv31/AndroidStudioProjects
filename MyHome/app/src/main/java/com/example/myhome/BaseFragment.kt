@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 
@@ -31,4 +32,8 @@ abstract class BaseFragment : Fragment() {
     abstract fun initListener()
 
     abstract fun handleLogic()
+
+    protected fun showToast(s: String) {
+        Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show()
+    }
 }

@@ -4,8 +4,13 @@ object Constants {
     /* api */
     const val BASE_URL = "https://duc-bkhn-k62.firebaseio.com/"
     const val BASE_URL_WEATHER = "https://weatherapi-com.p.rapidapi.com/"
+    const val BASE_URL_MUSIC =
+        "https://api.apify.com/v2/key-value-stores/EJ3Ppyr2t73Ifit64/records/"
+    const val BASE_URL_MOVIE =
+        "https://api.apify.com/v2/key-value-stores/QubTry45OOCkTyohU/records/"
     const val DATE_FORMAT_GSON = "yyyy-MM-dd HH:mm:ss"
     const val DATE_FORMAT_GSON_WEATHER = "yyyy-MM-dd"
+
     /* api - end */
     const val DHT11_CHILD = "DHT11"
     const val CURRENT_CHILD = "Current"

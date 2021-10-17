@@ -37,13 +37,14 @@ class HomeControllerFragment : Fragment() {
             adapter = homeViewPager
             isUserInputEnabled = true
             setPageTransformer(ZoomOutPageTransformer())
-            offscreenPageLimit = 2
+            offscreenPageLimit = 3
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     when (position) {
                         0 -> bottomViewHome.menu.findItem(R.id.btn_home_bottom).isChecked = true
-                        1 -> bottomViewHome.menu.findItem(R.id.btn_account_bottom).isChecked = true
+                        1 -> bottomViewHome.menu.findItem(R.id.btn_relax_bottom).isChecked = true
+                        2 -> bottomViewHome.menu.findItem(R.id.btn_account_bottom).isChecked = true
                     }
                 }
             })
@@ -52,7 +53,8 @@ class HomeControllerFragment : Fragment() {
         bottomViewHome.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.btn_home_bottom -> viewPagerHome.currentItem = 0
-                R.id.btn_account_bottom -> viewPagerHome.currentItem = 1
+                R.id.btn_relax_bottom -> viewPagerHome.currentItem = 1
+                R.id.btn_account_bottom -> viewPagerHome.currentItem = 2
             }
 
             true

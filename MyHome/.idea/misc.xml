@@ -27,6 +27,8 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_history_data.xml" value="0.176" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_main.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_manage_user.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_movies.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_music.xml" value="0.1" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_play_image_book_anim.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_play_imagr_slider.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_play_media.xml" value="0.23645833333333333" />
@@ -39,22 +41,28 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_account.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_base.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_dht.xml" value="0.264" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_entertainment.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_google_map.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_controller.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_data.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_controller.xml" value="0.264" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_data.xml" value="0.4" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_main.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_home_storage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_image_storage.xml" value="0.264" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_image_view_book_anim.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_pdf_storage.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_relax.xml" value="0.2" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_video_storage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_data_dht_history.xml" value="0.4" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_data_history.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_image_slider_storage.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_image_storage.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_music.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_name_file_storage.xml" value="0.4" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_top_music.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_type_music.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_user.xml" value="0.264" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_video_storage.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/layout_top_music.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/my_action_bar.xml" value="0.264" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/my_rating_display.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/preferences.xml" value="0.23645833333333333" />

@@ -14,12 +14,18 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyHome"
-        android:fullBackupContent="@xml/backup_descriptor">
+        android:theme="@style/Theme.MyHome">
+        <activity
+            android:name=".ui.view.activity.movie.MoviesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.activity.music.MusicActivity"
+            android:exported="false" />
         <activity
             android:name=".utils.showimage.PlayImageSliderActivity"
             android:exported="false" />
