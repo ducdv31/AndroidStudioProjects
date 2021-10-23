@@ -1,4 +1,4 @@
-package com.example.myhome.data.api
+package com.example.myhome.data.api.weather
 
 import com.example.myhome.utils.Constants
 import com.google.gson.Gson

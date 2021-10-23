@@ -1,4 +1,4 @@
-package com.example.myhome.data.api
+package com.example.myhome.data.api.firebase
 
 import com.example.myhome.data.model.dht.CurrentData
 import retrofit2.Call

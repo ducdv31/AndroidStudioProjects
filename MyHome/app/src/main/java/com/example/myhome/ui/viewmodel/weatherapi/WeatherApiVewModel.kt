@@ -2,7 +2,7 @@ package com.example.myhome.ui.viewmodel.weatherapi
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.myhome.data.api.ApiClientWeather
+import com.example.myhome.data.api.weather.ApiClientWeather
 import com.example.myhome.data.model.weatherapi.ForecastResponse
 import okhttp3.OkHttpClient
 import okhttp3.Response

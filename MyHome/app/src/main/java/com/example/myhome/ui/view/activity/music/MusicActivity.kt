@@ -12,7 +12,9 @@ import com.example.myhome.R
 import com.example.myhome.data.model.music.TypeSongs
 import com.example.myhome.ui.adapter.music.TypeMusicAdapter
 import com.example.myhome.ui.viewmodel.music.MusicListViewmodel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MusicActivity : BaseActivity() {
 
     private val TAG = MusicActivity::class.java.simpleName

@@ -1,4 +1,4 @@
-package com.example.myhome.data.api
+package com.example.myhome.data.api.weather
 
 import com.example.myhome.data.model.weatherapi.ForecastResponse
 import retrofit2.Call

@@ -1,4 +1,4 @@
-package com.example.myhome.data.api
+package com.example.myhome.data.api.movie
 
 import com.example.myhome.data.model.movie.Movies
 import retrofit2.Call
