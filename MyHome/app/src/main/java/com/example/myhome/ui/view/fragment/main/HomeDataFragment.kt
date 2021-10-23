@@ -17,24 +17,21 @@ import com.example.myhome.data.model.weatherapi.ForecastResponse
 import com.example.myhome.databinding.FragmentHomeDataBinding
 import com.example.myhome.ui.view.activity.history.HistoryDataActivity
 import com.example.myhome.ui.view.activity.main.MainActivity
-import com.example.myhome.ui.viewmodel.dht.DhtFactoryViewModel
 import com.example.myhome.ui.viewmodel.dht.DhtViewmodel
 import com.example.myhome.ui.viewmodel.weatherapi.WeatherApiVewModel
 import com.example.myhome.utils.Constants
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
-    private val dhtViewmodel: DhtViewmodel by activityViewModels {
-        DhtFactoryViewModel(
-            requireActivity()
-        )
-    }
+    private val dhtViewmodel: DhtViewmodel by activityViewModels()
 
     private val weatherApiViewModel: WeatherApiVewModel by activityViewModels()
     private val TAG = HomeDataFragment::class.java.simpleName
@@ -85,9 +82,9 @@ class HomeDataFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun loadData() {
         swipeRefreshLayout.isRefreshing = true
-        dhtViewmodel.getCurrentData(
-            onLoadSuccess = { swipeRefreshLayout.isRefreshing = false },
-            onLoadFailure = {
+        dhtViewmodel.getDataLatest(
+            onSuccess = { swipeRefreshLayout.isRefreshing = false },
+            onFailure = {
                 swipeRefreshLayout.isRefreshing = false
                 Snackbar.make(
                     swipeRefreshLayout,
