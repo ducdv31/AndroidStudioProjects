@@ -12,10 +12,7 @@ import com.example.myhome.ui.adapter.managerUserAdapter.ManageUserAdapter
 import com.example.myhome.ui.view.dialog.DialogSelectTypeUser
 import com.example.myhome.utils.Constants
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 
 class ManageUserActivity : BaseActivity() {
 
@@ -25,6 +22,7 @@ class ManageUserActivity : BaseActivity() {
     private lateinit var numberUser: TextView
     private lateinit var dialogSelectTypeUser: DialogSelectTypeUser
     private lateinit var lnManageUser: LinearLayout
+    private lateinit var callback: ListenerRegistration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +77,7 @@ class ManageUserActivity : BaseActivity() {
     }
 
     private fun getListUser() {
-        FirebaseFirestore.getInstance().collection(Constants.PERMISSION)
+        callback = FirebaseFirestore.getInstance().collection(Constants.PERMISSION)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     value?.let {
@@ -97,5 +95,10 @@ class ManageUserActivity : BaseActivity() {
                 }
 
             })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        callback.remove()
     }
 }

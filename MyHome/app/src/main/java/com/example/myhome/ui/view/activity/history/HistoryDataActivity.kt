@@ -20,9 +20,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.Serializable
 
 class HistoryDataActivity : BaseActivity() {
@@ -124,27 +121,29 @@ class HistoryDataActivity : BaseActivity() {
 
     private fun getDataFromDate(sensorName: String, date: String) {
         progressBar.visibility = View.VISIBLE
-        CoroutineScope(Dispatchers.Main).launch {
-            FirebaseDatabase.getInstance().reference
-                .child(sensorName).child(Constants.HISTORY_CHILD)
-                .child(date).addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val listData: MutableList<DhtTimeValueModel> = mutableListOf()
-                        for (snapTime: DataSnapshot in snapshot.children) {
-                            val dht11Value: ThValue? = snapTime.getValue(ThValue::class.java)
-                            dht11Value?.let {
-                                listData.add(DhtTimeValueModel(snapTime.key!!.toInt(), it))
-                            }
+        FirebaseDatabase.getInstance().reference
+            .child(sensorName).child(Constants.HISTORY_CHILD)
+            .child(date).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val listData: MutableList<DhtTimeValueModel> = mutableListOf()
+                    for (snapTime: DataSnapshot in snapshot.children) {
+                        val dht11Value: ThValue? = snapTime.getValue(ThValue::class.java)
+                        dht11Value?.let {
+                            listData.add(DhtTimeValueModel(snapTime.key!!.toInt(), it))
                         }
-                        dataHistoryAdapter.setData(listData)
-                        progressBar.visibility = View.GONE
                     }
+                    dataHistoryAdapter.setData(listData)
+                    progressBar.visibility = View.GONE
+                }
 
-                    override fun onCancelled(error: DatabaseError) {
+                override fun onCancelled(error: DatabaseError) {
 
-                    }
+                }
 
-                })
-        }
+            })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
