@@ -10,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,13 +21,11 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -125,6 +124,9 @@ fun PreviewList() {
 
 @Composable
 fun Greeting(name: String) {
+    var backgroundTextColorClicked by remember {
+        mutableStateOf(false)
+    }
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Image(
             painter = painterResource(id = R.drawable.ic_launcher_foreground),
@@ -144,9 +146,18 @@ fun Greeting(name: String) {
             Text(
                 text = "I am Dang Duc 2",
                 style = MaterialTheme.typography.body2,
-                modifier = Modifier.clickable {
-                    Log.e(TAG, "Greeting: 2")
-                }
+                color = Color.Red,
+                modifier = Modifier
+                    .clickable {
+                        Log.e(TAG, "Greeting: 2")
+                    }
+                    .drawBehind {
+                        drawCircle(Color.Green)
+                    }
+                    .background(if (backgroundTextColorClicked) Color.Blue else Color.Gray)
+                    .clickable {
+                        backgroundTextColorClicked = !backgroundTextColorClicked
+                    }
             )
             Surface(
                 shape = MaterialTheme.shapes.medium,
