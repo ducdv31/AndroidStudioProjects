@@ -80,6 +80,13 @@ fun MessageCard(message: Mess) {
     val isExpand by remember {
         mutableStateOf(false)
     }
+    NewFunc(isExpand, message)
+
+
+}
+
+@Composable
+private fun NewFunc(isExpand: Boolean, message: Mess) {
     val surfaceColor: Color by animateColorAsState(
         if (isExpand) {
             MaterialTheme.colors.primary
@@ -104,8 +111,6 @@ fun MessageCard(message: Mess) {
             )
         }
     }
-
-
 }
 
 @Preview

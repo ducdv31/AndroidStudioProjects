@@ -43,10 +43,10 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
-                app:menu="@menu/my_menu"
-                app:navigationIcon="@mipmap/ic_launcher"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"/>
+                android:layout_height="?actionBarSize"
+                app:menu="@menu/my_menu"
+                app:navigationIcon="@mipmap/ic_launcher" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -81,11 +81,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <SearchView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?actionBarSize"
+                android:background="@drawable/bg_search"
+                android:iconifiedByDefault="false"
+                android:searchIcon="@mipmap/ic_launcher"
+                android:showDividers="none" />
+
+            <com.example.collapsetoolbar.MyTextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Hello" />
+
+            <TextView
+                android:background="@drawable/bg_text"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:padding="3dp"
                 android:text="@string/app_name"
-                android:textSize="50sp" />
+                android:gravity="center"
+                android:textSize="30sp" />
 
             <TextView
                 android:layout_width="match_parent"
