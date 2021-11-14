@@ -9,13 +9,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -63,23 +65,35 @@ fun SingleChoiceView() {
 
 @Composable
 fun CardData(user: User, isChoose: Boolean, onClick: () -> Unit) {
-    Surface(color = if (isChoose) Color.Red else Color.Blue) {
+    Surface(
+        color = if (isChoose) Color.Red else Color.Blue,
+        elevation = 16.dp,
+        modifier = Modifier
+            .shadow(elevation = 16.dp, shape = RoundedCornerShape(8.dp))
+            .padding(
+                4.dp
+            ),
+        shape = RoundedCornerShape(8.dp)
+    ) {
         Column(modifier = Modifier.selectable(
             selected = isChoose,
             onClick = {
                 onClick.invoke()
             }
-        )
-
+        ), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                user.name,
+                text = user.name,
                 fontSize = 20.sp,
+                color = Color.White,
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
             Text(
-                user.age.toString(),
-                modifier = Modifier.padding(horizontal = 8.dp)
+                text = user.age.toString(),
+                color = Color.White,
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .shadow(elevation = 16.dp),
             )
         }
     }
