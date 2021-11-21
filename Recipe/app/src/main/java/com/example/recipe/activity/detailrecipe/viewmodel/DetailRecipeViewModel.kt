@@ -8,7 +8,6 @@ import com.example.recipe.data.constant.AUTH_FOOD
 import com.example.recipe.data.model.food.ResultsFood
 import com.example.recipe.data.repository.RepositoryFood_Impl
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,16 +18,19 @@ class DetailRecipeViewModel @Inject constructor(
 
     val detailRecipe: MutableState<ResultsFood> = mutableStateOf(ResultsFood())
 
-    fun getDetailRecipe(id: Int, onLoading: ((Boolean) -> Unit) = {}): ResultsFood {
+    fun getDetailRecipe(
+        id: Int,
+        isLoading: MutableState<Boolean> = mutableStateOf(false)
+    ): ResultsFood {
         viewModelScope.launch {
-            onLoading(true)
+            isLoading.value = true
             val data = repositoryFoodImpl.getFoodDetailById(
                 Authorization = AUTH_FOOD,
                 id = id
             )
 
             detailRecipe.value = data ?: ResultsFood()
-            onLoading(false)
+            isLoading.value = false
         }
         return detailRecipe.value
     }
