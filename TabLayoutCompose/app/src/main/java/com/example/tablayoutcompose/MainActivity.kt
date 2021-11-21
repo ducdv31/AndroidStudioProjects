@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +24,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.tablayoutcompose.ui.theme.TabLayoutComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -46,7 +52,7 @@ fun PreviewApp() {
 
 @Composable
 fun MyApp() {
-    Scaffold() {
+    Scaffold() { innerPadding ->
         Column {
             Tab(selected = true, onClick = { }) {
                 Text(text = "Tab 1")
@@ -88,13 +94,34 @@ fun MyApp() {
                     }, text = {
                         Text(
                             text = pair.first,
-                            fontWeight = if (tabIndex == index) FontWeight.Bold else FontWeight.Normal
+                            fontWeight = if (tabIndex == index)
+                                FontWeight.Bold else FontWeight.Normal
                         )
                     }, icon = {
                         Icon(imageVector = pair.second, contentDescription = null)
                     })
                 }
             }
+
+            /* nav controller */
+            /*var currentScreen by rememberSaveable {
+                mutableStateOf(HomeTab::class.java.simpleName)
+            }*/
+            val navHostController = rememberNavController()
+            val backStackEntry = navHostController.currentBackStackEntryAsState()
+            val currentScreen = backStackEntry.value?.destination?.route
+            NavHost(
+                navController = navHostController,
+                startDestination = HomeTab::class.java.simpleName.toString(),
+                modifier = Modifier.padding(innerPadding)
+            ) {
+                composable(
+                    HomeTab::class.java.simpleName
+                ) {
+
+                }
+            }
+            /* end - nav controller */
 
             val modifierText = Modifier.align(alignment = CenterHorizontally)
             val modifierImage = Modifier
@@ -109,7 +136,9 @@ fun MyApp() {
                         modifier = modifierText
                     )
                     Image(
-                        painter = painterResource(id = R.drawable.outline_home_black_48dp),
+                        painter = painterResource(
+                            id = R.drawable.outline_home_black_48dp
+                        ),
                         contentDescription = null,
                         modifier = modifierImage
                     )
@@ -120,7 +149,9 @@ fun MyApp() {
                         modifier = modifierText
                     )
                     Image(
-                        painter = painterResource(id = R.drawable.outline_local_grocery_store_black_24dp),
+                        painter = painterResource(
+                            id = R.drawable.outline_local_grocery_store_black_24dp
+                        ),
                         contentDescription = null,
                         modifier = modifierImage
                     )
@@ -131,7 +162,9 @@ fun MyApp() {
                         modifierText
                     )
                     Image(
-                        painter = painterResource(id = R.drawable.outline_confirmation_number_black_24dp),
+                        painter = painterResource(
+                            id = R.drawable.outline_confirmation_number_black_24dp
+                        ),
                         contentDescription = null,
                         modifier = modifierImage
                     )
@@ -142,7 +175,9 @@ fun MyApp() {
                         modifierText
                     )
                     Image(
-                        painter = painterResource(id = R.drawable.outline_menu_book_black_24dp),
+                        painter = painterResource(
+                            id = R.drawable.outline_menu_book_black_24dp
+                        ),
                         contentDescription = null,
                         modifier = modifierImage
                     )

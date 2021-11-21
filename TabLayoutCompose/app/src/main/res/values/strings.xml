@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TabLayout  Compose</string>
+    <string name="title_activity_home_tab">HomeTab</string>
+    <string name="title_activity_market_tab">MarketTab</string>
 </resources>
