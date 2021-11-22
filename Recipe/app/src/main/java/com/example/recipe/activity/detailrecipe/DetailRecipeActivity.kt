@@ -25,13 +25,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
-import coil.transform.CircleCropTransformation
 import com.example.recipe.R
 import com.example.recipe.activity.detailrecipe.ui.theme.RecipeTheme
 import com.example.recipe.activity.detailrecipe.viewmodel.DetailRecipeViewModel
@@ -58,27 +58,34 @@ class DetailRecipeActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         TopAppBar(
-                            title = {
-                                Text(
-                                    text = recipe?.title ?: EMPTY,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            },
-                            navigationIcon = {
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Box() {
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_48),
                                     contentDescription = null,
-                                    modifier = Modifier.clickable {
-                                        onBackPressed()
-                                    }
+                                    modifier = Modifier
+                                        .clickable {
+                                            onBackPressed()
+                                        }
+                                        .padding(vertical = 8.dp)
+                                        .fillMaxHeight()
+                                        .wrapContentHeight(CenterVertically),
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.recipe),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                        .wrapContentWidth(CenterHorizontally)
+                                        .wrapContentHeight(CenterVertically),
+                                    style = TextStyle(
+                                        color = Color.White,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                 )
                             }
-                        )
-                    },
-                    drawerContent = {
-                        Text(text = "Hello")
-                        Text(text = "Ok")
-                        Text(text = "Man")
+                        }
                     }
                 ) {
                     recipe?.pk?.let {

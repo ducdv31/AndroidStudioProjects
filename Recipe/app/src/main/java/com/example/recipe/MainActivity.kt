@@ -1,16 +1,11 @@
 package com.example.recipe
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -20,10 +15,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.recipe.activity.detailrecipe.DetailRecipeActivity
 import com.example.recipe.activity.main.FoodViewModel
 import com.example.recipe.activity.main.compose.RecipeCard
@@ -47,7 +48,35 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     topBar = {
-                        TopAppBar(title = { Text(text = "Recipe") })
+                        TopAppBar(modifier = Modifier.fillMaxWidth()) {
+                            Box {
+                                Text(
+                                    text = stringResource(id = R.string.home),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                        .wrapContentSize(Center),
+                                    style = TextStyle(
+                                        color = Color.White,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                )
+                            }
+                        }
+                    },
+                    drawerContent = {
+                        Text(
+                            text = "Made by Dang Duc",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentWidth(CenterHorizontally)
+                                .padding(16.dp),
+                            style = TextStyle(
+                                color = Color.Red,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 32.sp
+                            )
+                        )
                     }
                 ) {
                     RecipeList(foodViewModel,
