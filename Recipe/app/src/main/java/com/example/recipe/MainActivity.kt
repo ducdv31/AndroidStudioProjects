@@ -6,11 +6,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.example.recipe.activity.detailrecipe.DetailRecipeActivity
 import com.example.recipe.activity.main.FoodViewModel
 import com.example.recipe.activity.main.compose.RecipeCard
@@ -30,12 +40,22 @@ class MainActivity : ComponentActivity() {
             RecipeTheme {
                 // A surface container using the 'background' color from the theme
                 val content = LocalContext.current
-                RecipeList(foodViewModel,
-                    onClickItem = {
-                        val intent = Intent(content, DetailRecipeActivity::class.java)
-                        intent.putExtra(RECIPE_DATA_KEY, it)
-                        content.startActivity(intent)
-                    })
+                val scrollState: ScrollState = rememberScrollState()
+
+                Scaffold(
+                    topBar = {
+                        TopAppBar(title = { Text(text = "Recipe") })
+                    }
+                ) {
+                    RecipeList(foodViewModel,
+                        scrollState = scrollState,
+                        onClickItem = {
+                            val intent = Intent(content, DetailRecipeActivity::class.java)
+                            intent.putExtra(RECIPE_DATA_KEY, it)
+                            content.startActivity(intent)
+                        })
+                }
+
             }
         }
     }
@@ -44,6 +64,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RecipeList(
     foodViewModel: FoodViewModel,
+    scrollState: ScrollState = ScrollState(0),
     onClickItem: (ResultsFood) -> Unit
 ) {
     /*LazyColumn() {
@@ -57,9 +78,24 @@ fun RecipeList(
 
     Column(
         modifier = Modifier.verticalScroll(
-            state = ScrollState(0)
+            state = scrollState
         )
     ) {
+        if (foodViewModel.isLoading.value) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                verticalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .align(CenterHorizontally)
+                        .padding(8.dp)
+                )
+            }
+        }
+
         foodViewModel.foods.value?.let { list ->
             list.forEach {
                 RecipeCard(

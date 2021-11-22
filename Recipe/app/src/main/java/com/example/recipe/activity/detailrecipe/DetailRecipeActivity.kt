@@ -6,11 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -22,10 +25,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.recipe.R
 import com.example.recipe.activity.detailrecipe.ui.theme.RecipeTheme
 import com.example.recipe.activity.detailrecipe.viewmodel.DetailRecipeViewModel
 import com.example.recipe.data.constant.EMPTY
@@ -47,14 +52,42 @@ class DetailRecipeActivity : ComponentActivity() {
                 context.intent?.getParcelableExtra(RECIPE_DATA_KEY)
             val isLoading: MutableState<Boolean> = mutableStateOf(false)
             RecipeTheme {
-                recipe?.pk?.let {
-                    LoadDetailRecipe(
-                        detailRecipeViewModel.getDetailRecipe(
-                            id = it,
+
+                Scaffold(
+                    topBar = {
+                        TopAppBar(
+                            title = {
+                                Text(
+                                    text = recipe?.title ?: EMPTY,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            },
+                            navigationIcon = {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_48),
+                                    contentDescription = null,
+                                    modifier = Modifier.clickable {
+                                        onBackPressed()
+                                    }
+                                )
+                            }
+                        )
+                    },
+                    drawerContent = {
+                        Text(text = "Hello")
+                        Text(text = "Ok")
+                        Text(text = "Man")
+                    }
+                ) {
+                    recipe?.pk?.let {
+                        LoadDetailRecipe(
+                            detailRecipeViewModel.getDetailRecipe(
+                                id = it,
+                                isLoading = isLoading
+                            ),
                             isLoading = isLoading
-                        ),
-                        isLoading = isLoading
-                    )
+                        )
+                    }
                 }
             }
         }

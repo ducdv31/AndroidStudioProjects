@@ -18,6 +18,7 @@ class FoodViewModel @Inject constructor(
 ) : ViewModel() {
 
     var foods: MutableState<List<ResultsFood>?> = mutableStateOf(listOf())
+    val isLoading: MutableState<Boolean> = mutableStateOf(false)
 
     init {
         searchFood()
@@ -25,6 +26,7 @@ class FoodViewModel @Inject constructor(
 
     fun searchFood() {
         viewModelScope.launch {
+            isLoading.value = true
             val listRecipe = repositoryfoodImpl.getListRecipe(
                 AUTH_FOOD,
                 1,
@@ -32,6 +34,7 @@ class FoodViewModel @Inject constructor(
             )
             listRecipe?.let {
                 foods.value = it.results
+                isLoading.value = false
             }
         }
     }
