@@ -1,17 +1,20 @@
 package com.example.recipe
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -40,7 +43,7 @@ class MainActivity : ComponentActivity() {
             RecipeTheme {
                 // A surface container using the 'background' color from the theme
                 val content = LocalContext.current
-                val scrollState: ScrollState = rememberScrollState()
+                val scrollState: LazyListState = rememberLazyListState()
 
                 Scaffold(
                     topBar = {
@@ -64,19 +67,38 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RecipeList(
     foodViewModel: FoodViewModel,
-    scrollState: ScrollState = ScrollState(0),
+    scrollState: LazyListState,
     onClickItem: (ResultsFood) -> Unit
 ) {
-    /*LazyColumn() {
-        itemsIndexed(
-            items = foodViewModel.foods.value ?: listOf()
-        ) { index, item ->
-            RecipeCard(resultsFood = item,
-                onClick = onClickItem)
+    if (foodViewModel.isLoading.value) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .align(CenterHorizontally)
+                    .padding(8.dp)
+            )
         }
-    }*/
+    } else {
+        LazyColumn(
+            state = scrollState
+        ) {
+            itemsIndexed(
+                items = foodViewModel.foods.value ?: listOf()
+            ) { index, item ->
+                RecipeCard(
+                    resultsFood = item,
+                    onClick = onClickItem
+                )
+            }
+        }
+    }
 
-    Column(
+    /*Column(
         modifier = Modifier.verticalScroll(
             state = scrollState
         )
@@ -104,5 +126,5 @@ fun RecipeList(
                 )
             }
         }
-    }
+    }*/
 }

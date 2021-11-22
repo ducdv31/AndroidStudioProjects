@@ -56,4 +56,26 @@ object ImageUtils {
             })
         return bitmap
     }
+
+    /**
+     * Load with Glide
+     */
+    /*resultsFood.featuredImage?.let { url ->
+        val image = loadImage(
+            url = url,
+            R.drawable.ic_launcher_foreground
+        ).value
+        image?.let { img ->
+            Image(
+                bitmap = img.asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp)
+                    .padding(all = 8.dp)
+                    .clip(RoundedCornerShape(10)),
+                contentScale = ContentScale.Crop
+            )
+        }
+    }*/
 }

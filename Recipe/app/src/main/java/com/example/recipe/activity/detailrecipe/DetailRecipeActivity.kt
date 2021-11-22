@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -30,14 +29,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
+import coil.transform.CircleCropTransformation
 import com.example.recipe.R
 import com.example.recipe.activity.detailrecipe.ui.theme.RecipeTheme
 import com.example.recipe.activity.detailrecipe.viewmodel.DetailRecipeViewModel
 import com.example.recipe.data.constant.EMPTY
 import com.example.recipe.data.constant.RECIPE_DATA_KEY
 import com.example.recipe.data.model.food.ResultsFood
-import com.example.recipe.utils.ImageUtils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 
 @AndroidEntryPoint
 class DetailRecipeActivity : ComponentActivity() {
@@ -113,21 +115,22 @@ fun LoadDetailRecipe(
                     .padding(top = 100.dp)
             )
         } else {
-            detailFood.featuredImage?.let { url ->
-                val image = loadImage(url).value
-                image?.let { img ->
-                    Image(
-                        bitmap = img.asImageBitmap(),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(220.dp)
-                            .padding(8.dp)
-                            .clip(RoundedCornerShape(10)),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-            }
+            Image(
+                painter = rememberImagePainter(
+                    request = ImageRequest.Builder(LocalContext.current)
+                        .data(detailFood.featuredImage)
+                        .crossfade(true)
+                        .dispatcher(Dispatchers.IO)
+                        .build()
+                ),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp)
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(10)),
+                contentScale = ContentScale.Crop
+            )
 
             Text(
                 text = detailFood.title ?: EMPTY,
