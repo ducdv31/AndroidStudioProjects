@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
-import coil.transform.CircleCropTransformation
 import com.example.recipe.R
 import com.example.recipe.data.constant.EMPTY
 import com.example.recipe.data.model.food.ResultsFood
@@ -36,7 +35,8 @@ fun RecipeCard(
             .padding(all = 8.dp)
             .clickable {
                 onClick.invoke(resultsFood)
-            }
+            },
+        shape = RoundedCornerShape(8.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()

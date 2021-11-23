@@ -15,6 +15,9 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -27,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.recipe.activity.detailrecipe.DetailRecipeActivity
 import com.example.recipe.activity.main.FoodViewModel
+import com.example.recipe.activity.main.MAX_PAGE_FOOD
 import com.example.recipe.activity.main.compose.RecipeCard
 import com.example.recipe.data.constant.RECIPE_DATA_KEY
 import com.example.recipe.data.model.food.ResultsFood
@@ -79,7 +83,12 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
-                    RecipeList(foodViewModel,
+                    RecipeList(
+                        foodViewModel.isLoading,
+                        foodViewModel.foods,
+                        foodViewModel.isLoadMore,
+                        onLoadMore = { foodViewModel.loadMoreFood() },
+                        foodViewModel.page,
                         scrollState = scrollState,
                         onClickItem = {
                             val intent = Intent(content, DetailRecipeActivity::class.java)
@@ -95,65 +104,63 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun RecipeList(
-    foodViewModel: FoodViewModel,
+    isLoading: MutableState<Boolean> = mutableStateOf(false),
+    listFood: SnapshotStateList<ResultsFood?>,
+    isLoadMore: MutableState<Boolean> = mutableStateOf(false),
+    onLoadMore: () -> Unit,
+    page: MutableState<Int> = mutableStateOf(1),
     scrollState: LazyListState,
     onClickItem: (ResultsFood) -> Unit
 ) {
-    if (foodViewModel.isLoading.value) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .align(CenterHorizontally)
-                    .padding(8.dp)
-            )
+    LazyColumn(
+        state = scrollState
+    ) {
+        item {
+            if (isLoading.value && listFood.isNullOrEmpty()
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(CenterHorizontally)
+                            .padding(8.dp)
+                    )
+                }
+            }
         }
-    } else {
-        LazyColumn(
-            state = scrollState
-        ) {
-            itemsIndexed(
-                items = foodViewModel.foods.value ?: listOf()
-            ) { index, item ->
+
+        itemsIndexed(
+            items = listFood
+        ) { index, item ->
+            if (item != null) {
                 RecipeCard(
                     resultsFood = item,
                     onClick = onClickItem
                 )
             }
+            if (index + 1 == page.value * MAX_PAGE_FOOD) {
+                onLoadMore()
+            }
+        }
+
+        item {
+            if (isLoadMore.value && !isLoading.value) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(CenterHorizontally)
+                            .padding(8.dp)
+                    )
+                }
+            }
         }
     }
 
-    /*Column(
-        modifier = Modifier.verticalScroll(
-            state = scrollState
-        )
-    ) {
-        if (foodViewModel.isLoading.value) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .align(CenterHorizontally)
-                        .padding(8.dp)
-                )
-            }
-        }
-
-        foodViewModel.foods.value?.let { list ->
-            list.forEach {
-                RecipeCard(
-                    resultsFood = it,
-                    onClick = onClickItem
-                )
-            }
-        }
-    }*/
 }

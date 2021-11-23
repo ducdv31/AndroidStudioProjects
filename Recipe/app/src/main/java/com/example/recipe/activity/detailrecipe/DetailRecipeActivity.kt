@@ -119,7 +119,7 @@ fun LoadDetailRecipe(
             CircularProgressIndicator(
                 modifier = Modifier
                     .align(CenterHorizontally)
-                    .padding(top = 100.dp)
+                    .padding(top = 8.dp)
             )
         } else {
             Image(
