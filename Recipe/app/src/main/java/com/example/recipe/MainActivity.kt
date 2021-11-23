@@ -5,24 +5,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +38,7 @@ import com.example.recipe.data.constant.RECIPE_DATA_KEY
 import com.example.recipe.data.model.food.ResultsFood
 import com.example.recipe.ui.theme.RecipeTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -49,8 +52,10 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 val content = LocalContext.current
                 val scrollState: LazyListState = rememberLazyListState()
-
+                val scaffoldState = rememberScaffoldState()
+                val scope = rememberCoroutineScope()
                 Scaffold(
+                    scaffoldState = scaffoldState,
                     topBar = {
                         TopAppBar(modifier = Modifier.fillMaxWidth()) {
                             Box {
@@ -62,8 +67,25 @@ class MainActivity : ComponentActivity() {
                                         .wrapContentSize(Center),
                                     style = TextStyle(
                                         color = Color.White,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 24.sp
                                     )
+                                )
+
+                                Image(
+                                    painter = painterResource(id = R.drawable.outline_menu_white_24dp),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .wrapContentSize(CenterStart)
+                                        .padding(vertical = 8.dp)
+                                        .clickable {
+                                            scope.launch {
+                                                if (scaffoldState.drawerState.isClosed) {
+                                                    scaffoldState.drawerState.open()
+                                                }
+                                            }
+                                        }
                                 )
                             }
                         }

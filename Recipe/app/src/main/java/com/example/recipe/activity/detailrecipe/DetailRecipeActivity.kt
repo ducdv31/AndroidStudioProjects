@@ -81,7 +81,8 @@ class DetailRecipeActivity : ComponentActivity() {
                                         .wrapContentHeight(CenterVertically),
                                     style = TextStyle(
                                         color = Color.White,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 24.sp
                                     )
                                 )
                             }
