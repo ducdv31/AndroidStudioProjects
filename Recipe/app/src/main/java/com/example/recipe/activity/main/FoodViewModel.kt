@@ -25,19 +25,21 @@ class FoodViewModel @Inject constructor(
     val isLoading: MutableState<Boolean> = mutableStateOf(false)
     val isLoadMore: MutableState<Boolean> = mutableStateOf(false)
     var page: MutableState<Int> = mutableStateOf(1)
+    var textSearch: String = EMPTY
 
     init {
         searchFood()
     }
 
-    private fun searchFood() {
+    fun searchFood(search: String = EMPTY) {
+        textSearch = search
         viewModelScope.launch {
             page.value = 1
             isLoading.value = true
             val listRecipe = repositoryFoodImpl.getListRecipe(
                 Authorization = AUTH_FOOD,
                 page = page.value,
-                query = EMPTY
+                query = search
             )
             listRecipe?.let {
                 foods.clear()
@@ -54,7 +56,7 @@ class FoodViewModel @Inject constructor(
             val listLoadMore = repositoryFoodImpl.getListRecipe(
                 Authorization = AUTH_FOOD,
                 page = page.value,
-                query = EMPTY
+                query = textSearch
             )
 
             listLoadMore?.let {

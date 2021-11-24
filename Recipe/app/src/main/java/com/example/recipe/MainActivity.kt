@@ -13,17 +13,16 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterStart
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -34,6 +33,8 @@ import com.example.recipe.activity.detailrecipe.DetailRecipeActivity
 import com.example.recipe.activity.main.FoodViewModel
 import com.example.recipe.activity.main.MAX_PAGE_FOOD
 import com.example.recipe.activity.main.compose.RecipeCard
+import com.example.recipe.activity.main.compose.SearchBarFood
+import com.example.recipe.data.constant.EMPTY
 import com.example.recipe.data.constant.RECIPE_DATA_KEY
 import com.example.recipe.data.model.food.ResultsFood
 import com.example.recipe.ui.theme.RecipeTheme
@@ -45,15 +46,23 @@ class MainActivity : ComponentActivity() {
 
     private val foodViewModel: FoodViewModel by viewModels()
 
+    @ExperimentalComposeUiApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             RecipeTheme {
-                // A surface container using the 'background' color from the theme
+
+                val keyboardManager = LocalSoftwareKeyboardController.current
                 val content = LocalContext.current
                 val scrollState: LazyListState = rememberLazyListState()
                 val scaffoldState = rememberScaffoldState()
                 val scope = rememberCoroutineScope()
+                val inputSearch: MutableState<String> = remember { mutableStateOf(EMPTY) }
+
+                if (scrollState.isScrollInProgress) {
+                    keyboardManager?.hide()
+                }
+
                 Scaffold(
                     scaffoldState = scaffoldState,
                     topBar = {
@@ -105,18 +114,27 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
-                    RecipeList(
-                        foodViewModel.isLoading,
-                        foodViewModel.foods,
-                        foodViewModel.isLoadMore,
-                        onLoadMore = { foodViewModel.loadMoreFood() },
-                        foodViewModel.page,
-                        scrollState = scrollState,
-                        onClickItem = {
-                            val intent = Intent(content, DetailRecipeActivity::class.java)
-                            intent.putExtra(RECIPE_DATA_KEY, it)
-                            content.startActivity(intent)
-                        })
+                    Column {
+                        SearchBarFood(
+                            inputSearch,
+                            onTextChange = {
+                                inputSearch.value = it
+                                foodViewModel.searchFood(it)
+                            }
+                        )
+                        RecipeList(
+                            foodViewModel.isLoading,
+                            foodViewModel.foods,
+                            foodViewModel.isLoadMore,
+                            onLoadMore = { foodViewModel.loadMoreFood() },
+                            foodViewModel.page,
+                            scrollState = scrollState,
+                            onClickItem = {
+                                val intent = Intent(content, DetailRecipeActivity::class.java)
+                                intent.putExtra(RECIPE_DATA_KEY, it)
+                                content.startActivity(intent)
+                            })
+                    }
                 }
 
             }
