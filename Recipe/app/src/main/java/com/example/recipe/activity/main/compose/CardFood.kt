@@ -135,7 +135,7 @@ fun RecipeCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(all = 8.dp)
+                    .padding(all = 12.dp)
             ) {
                 Text(
                     text = resultsFood.title ?: EMPTY,
