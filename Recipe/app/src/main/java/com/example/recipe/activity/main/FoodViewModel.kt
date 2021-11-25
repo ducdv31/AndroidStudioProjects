@@ -1,11 +1,14 @@
 package com.example.recipe.activity.main
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.recipe.activity.main.convention.FoodEvent
 import com.example.recipe.data.constant.AUTH_FOOD
 import com.example.recipe.data.constant.EMPTY
 import com.example.recipe.data.model.food.ResultsFood
@@ -28,42 +31,55 @@ class FoodViewModel @Inject constructor(
     var textSearch: String = EMPTY
 
     init {
-        searchFood()
+        onTriggerEvent(FoodEvent.EventSearch())
     }
 
-    fun searchFood(search: String = EMPTY) {
-        textSearch = search
+    fun onTriggerEvent(foodEvent: FoodEvent) {
         viewModelScope.launch {
-            page.value = 1
-            isLoading.value = true
-            val listRecipe = repositoryFoodImpl.getListRecipe(
-                Authorization = AUTH_FOOD,
-                page = page.value,
-                query = search
-            )
-            listRecipe?.let {
-                foods.clear()
-                foods.addAll(it.results as MutableList<ResultsFood>)
-                isLoading.value = false
+            try {
+                when (foodEvent) {
+                    is FoodEvent.EventSearch -> {
+                        searchFood(foodEvent.input)
+                    }
+                    is FoodEvent.EventLoadMore -> {
+                        loadMoreFood()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "onTriggerEvent: ${e.cause}")
             }
         }
     }
 
-    fun loadMoreFood() {
-        page.value++
-        viewModelScope.launch {
-            isLoadMore.value = true
-            val listLoadMore = repositoryFoodImpl.getListRecipe(
-                Authorization = AUTH_FOOD,
-                page = page.value,
-                query = textSearch
-            )
+    private suspend fun searchFood(search: String = EMPTY) {
+        textSearch = search
+        page.value = 1
+        isLoading.value = true
+        val listRecipe = repositoryFoodImpl.getListRecipe(
+            Authorization = AUTH_FOOD,
+            page = page.value,
+            query = search
+        )
+        listRecipe?.let {
+            foods.clear()
+            foods.addAll(it.results as MutableList<ResultsFood>)
+            isLoading.value = false
+        }
+    }
 
-            listLoadMore?.let {
-                isLoadMore.value = false
-                it.results?.let { listFood ->
-                    foods.addAll(listFood)
-                }
+    private suspend fun loadMoreFood() {
+        page.value++
+        isLoadMore.value = true
+        val listLoadMore = repositoryFoodImpl.getListRecipe(
+            Authorization = AUTH_FOOD,
+            page = page.value,
+            query = textSearch
+        )
+
+        listLoadMore?.let {
+            isLoadMore.value = false
+            it.results?.let { listFood ->
+                foods.addAll(listFood)
             }
         }
     }

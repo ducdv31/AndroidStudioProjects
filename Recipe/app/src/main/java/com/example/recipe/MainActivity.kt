@@ -22,6 +22,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -34,6 +35,7 @@ import com.example.recipe.activity.main.FoodViewModel
 import com.example.recipe.activity.main.MAX_PAGE_FOOD
 import com.example.recipe.activity.main.compose.RecipeCard
 import com.example.recipe.activity.main.compose.SearchBarFood
+import com.example.recipe.activity.main.convention.FoodEvent
 import com.example.recipe.data.constant.EMPTY
 import com.example.recipe.data.constant.RECIPE_DATA_KEY
 import com.example.recipe.data.model.food.ResultsFood
@@ -53,6 +55,7 @@ class MainActivity : ComponentActivity() {
             RecipeTheme {
 
                 val keyboardManager = LocalSoftwareKeyboardController.current
+                val focusManager = LocalFocusManager.current
                 val content = LocalContext.current
                 val scrollState: LazyListState = rememberLazyListState()
                 val scaffoldState = rememberScaffoldState()
@@ -61,6 +64,7 @@ class MainActivity : ComponentActivity() {
 
                 if (scrollState.isScrollInProgress) {
                     keyboardManager?.hide()
+                    focusManager.clearFocus()
                 }
 
                 Scaffold(
@@ -119,14 +123,14 @@ class MainActivity : ComponentActivity() {
                             inputSearch,
                             onTextChange = {
                                 inputSearch.value = it
-                                foodViewModel.searchFood(it)
+                                foodViewModel.onTriggerEvent(FoodEvent.EventSearch(it))
                             }
                         )
                         RecipeList(
                             foodViewModel.isLoading,
                             foodViewModel.foods,
                             foodViewModel.isLoadMore,
-                            onLoadMore = { foodViewModel.loadMoreFood() },
+                            onLoadMore = { foodViewModel.onTriggerEvent(FoodEvent.EventLoadMore) },
                             foodViewModel.page,
                             scrollState = scrollState,
                             onClickItem = {
