@@ -15,6 +15,8 @@ import com.example.entertainment.data.PHIM_LE
 import com.example.entertainment.data.movie.model.CategoryItem
 import com.example.entertainment.screen.movie.composes.Film
 import com.example.entertainment.screen.movie.viewmodel.MovieViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshState
 
 @Composable
 fun MovieScreen(
@@ -23,45 +25,48 @@ fun MovieScreen(
     scrollState: ScrollState,
     onClick: (CategoryItem) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .padding(innerPadding)
-            .verticalScroll(
-                state = scrollState
-            )
-    ) {
-        if (movieViewModel.isLoading.value) {
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                CircularProgressIndicator(
-                    color = Color.Red
+    SwipeRefresh(state = SwipeRefreshState(false),
+        onRefresh = { movieViewModel.getListMovie() }) {
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(
+                    state = scrollState
+                )
+        ) {
+            if (movieViewModel.isLoading.value) {
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator(
+                        color = Color.Red
+                    )
+                }
+            } else {
+                Film(
+                    title = PHIM_BO,
+                    listCategoryItem = movieViewModel.phimBo,
+                    onClick = onClick
+                )
+                Film(
+                    title = PHIM_LE,
+                    listCategoryItem = movieViewModel.phimLe,
+                    onClick = onClick
+                )
+                Film(
+                    title = PHIM_CHIEU_RAP,
+                    listCategoryItem = movieViewModel.phimChieuRap,
+                    onClick = onClick
+                )
+                Film(
+                    title = PHIM_HOAT_HINH,
+                    listCategoryItem = movieViewModel.phimHoatHinh,
+                    onClick = onClick
                 )
             }
-        } else {
-            Film(
-                title = PHIM_BO,
-                listCategoryItem = movieViewModel.phimBo,
-                onClick = onClick
-            )
-            Film(
-                title = PHIM_LE,
-                listCategoryItem = movieViewModel.phimLe,
-                onClick = onClick
-            )
-            Film(
-                title = PHIM_CHIEU_RAP,
-                listCategoryItem = movieViewModel.phimChieuRap,
-                onClick = onClick
-            )
-            Film(
-                title = PHIM_HOAT_HINH,
-                listCategoryItem = movieViewModel.phimHoatHinh,
-                onClick = onClick
-            )
         }
     }
 }

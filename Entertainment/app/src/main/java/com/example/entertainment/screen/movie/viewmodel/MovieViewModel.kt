@@ -26,7 +26,7 @@ class MovieViewModel
         getListMovie()
     }
 
-    private fun getListMovie() {
+    fun getListMovie() {
         isLoading.value = true
         viewModelScope.launch {
             val data = repositoryImpl.getDataMovie()

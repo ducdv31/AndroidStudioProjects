@@ -8,16 +8,19 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavType
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.entertainment.data.CATEGORY_ITEM_KEY
 import com.example.entertainment.data.EMPTY
-import com.example.entertainment.screen.TotalMainScreen
+import com.example.entertainment.screen.bitcoin.ScreenBitcoin
+import com.example.entertainment.screen.bitcoin.viewmodel.BitcoinViewModel
 import com.example.entertainment.screen.movie.MovieScreen
 import com.example.entertainment.screen.movie.viewmodel.MovieViewModel
 import com.example.entertainment.ui.activity.detailMovie.DetailMovieActivity
@@ -29,6 +32,7 @@ class MainActivity : ComponentActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
     private val movieViewModel: MovieViewModel by viewModels()
+    private val bitcoinViewModel: BitcoinViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,16 +40,45 @@ class MainActivity : ComponentActivity() {
             val scrollVertical: ScrollState = rememberScrollState()
             val navController = rememberNavController()
             val context = LocalContext.current
+            val scaffoldState = rememberScaffoldState()
+            val coroutineScope = rememberCoroutineScope()
+            /* bitcoin */
+            val scrollStateBitcoin: ScrollState = rememberScrollState()
+
+            val tabIndex = rememberSaveable { mutableStateOf(0) }
+            val listTab = MyTabList.values().toList()
+            navController.addOnDestinationChangedListener { controller, destination, arguments ->
+                tabIndex.value = MyTabList.valueOf(destination.route ?: EMPTY).ordinal
+            }
             EntertainmentTheme {
                 Scaffold(
+                    scaffoldState = scaffoldState,
+                    topBar = {
+                        ActionBarHome(coroutineScope, scaffoldState)
+                    },
+                    bottomBar = {
+                        MyTabRow(
+                            tabIndex,
+                            listTab,
+                            onClick = {
+                                navController.navigate(
+                                    it,
+                                    navOptions = NavOptions.Builder()
+                                        .setLaunchSingleTop(true)
+                                        .setRestoreState(true)
+                                        .build()
+                                )
+                            }
+                        )
+                    }
                 ) { innerPadding ->
                     NavHost(
-                        startDestination = TotalMainScreen.ScreenMovie.name,
+                        startDestination = MyTabList.TabMovie.name,
                         navController = navController
                     ) {
 
                         composable(
-                            route = TotalMainScreen.ScreenMovie.name
+                            route = MyTabList.TabMovie.name
                         ) {
                             MovieScreen(
                                 innerPadding = innerPadding,
@@ -60,16 +93,13 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(
-                            route = TotalMainScreen.DetailMovieScreen.name
-                                    + "/{$CATEGORY_ITEM_KEY}",
-                            arguments = listOf(
-                                navArgument(CATEGORY_ITEM_KEY) {
-                                    type = NavType.StringType
-                                },
+                            route = MyTabList.TabBitCoin.name
+                        ) {
+                            ScreenBitcoin(
+                                innerPadding,
+                                bitcoinViewModel = bitcoinViewModel,
+                                scrollStateBitcoin
                             )
-                        ) { entry ->
-                            val data: String = entry.arguments?.getString("categoryItem") ?: EMPTY
-                            Text(text = data)
                         }
                     }
                 }
