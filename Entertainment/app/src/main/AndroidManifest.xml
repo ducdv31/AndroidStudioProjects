@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.entertainment">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:icon="@drawable/outline_live_tv_black_48dp"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/outline_live_tv_black_48dp"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Entertainment">
+        <activity
+            android:name=".ui.activity.detailMovie.DetailMovieActivity"
+            android:exported="false"
+            android:label="@string/title_activity_detail_movie"
+            android:theme="@style/Theme.Entertainment.NoActionBar" />
+        <activity
+            android:name=".ui.activity.main.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Entertainment.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
