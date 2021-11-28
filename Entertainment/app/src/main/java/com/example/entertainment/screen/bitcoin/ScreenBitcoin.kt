@@ -25,7 +25,7 @@ import com.google.accompanist.swiperefresh.SwipeRefreshState
 
 @Composable
 fun ScreenBitcoin(
-    innerPadding: PaddingValues,
+    innerPadding: PaddingValues = PaddingValues(0.dp),
     bitcoinViewModel: BitcoinViewModel,
     scrollState: ScrollState
 ) {
@@ -35,6 +35,7 @@ fun ScreenBitcoin(
         modifier = Modifier
             .padding(innerPadding)
             .fillMaxWidth()
+            .fillMaxHeight()
     ) {
         Column(
             modifier = Modifier
