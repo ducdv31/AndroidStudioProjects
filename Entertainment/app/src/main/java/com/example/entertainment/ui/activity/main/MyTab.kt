@@ -79,6 +79,12 @@ enum class MyTabList(
         R.drawable.outline_live_tv_white_48dp,
         R.string.movie
     ),
+
+    TabNews(
+        R.drawable.outline_newspaper_white_48dp,
+        R.string.news
+    ),
+
     TabBitCoin(
         R.drawable.outline_attach_money_white_48dp,
         R.string.bitcoin

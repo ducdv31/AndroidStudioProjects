@@ -13,6 +13,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
@@ -22,6 +23,8 @@ import com.example.entertainment.screen.bitcoin.ScreenBitcoin
 import com.example.entertainment.screen.bitcoin.viewmodel.BitcoinViewModel
 import com.example.entertainment.screen.movie.MovieScreen
 import com.example.entertainment.screen.movie.viewmodel.MovieViewModel
+import com.example.entertainment.screen.news.ScreenNews
+import com.example.entertainment.screen.news.viewmodel.NewsViewModel
 import com.example.entertainment.screen.weather.ScreenWeather
 import com.example.entertainment.screen.weather.WeatherViewModel
 import com.example.entertainment.ui.activity.detailMovie.DetailMovieActivity
@@ -40,7 +43,9 @@ class MainActivity : ComponentActivity() {
     private val movieViewModel: MovieViewModel by viewModels()
     private val bitcoinViewModel: BitcoinViewModel by viewModels()
     private val weatherViewModel: WeatherViewModel by viewModels()
+    private val newsViewModel: NewsViewModel by viewModels()
 
+    @ExperimentalComposeUiApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -98,6 +103,13 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                             }
+
+                            MyTabList.TabNews.ordinal -> {
+                                ScreenNews(
+                                    newsViewModel = newsViewModel
+                                )
+                            }
+
                             MyTabList.TabBitCoin.ordinal -> {
                                 ScreenBitcoin(
                                     bitcoinViewModel = bitcoinViewModel,

@@ -4,4 +4,6 @@
     <string name="movie">Movie</string>
     <string name="bitcoin">Bitcoin</string>
     <string name="weather">Weather</string>
+    <string name="memes">Memes</string>
+    <string name="news">News</string>
 </resources>

@@ -2,9 +2,11 @@ package com.example.entertainment.di.app
 
 import com.example.entertainment.data.BASE_URL_BITCOIN
 import com.example.entertainment.data.BASE_URL_MOVIE
+import com.example.entertainment.data.BASE_URL_NEWS
 import com.example.entertainment.data.BASE_URL_WEATHER
 import com.example.entertainment.data.bitcoin.ApiServiceBitcoin
 import com.example.entertainment.data.movie.ApiServiceMovie
+import com.example.entertainment.data.news.ApiServiceNews
 import com.example.entertainment.data.weather.ApiServiceWeather
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -42,4 +44,12 @@ class AppModule {
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
         .build()
         .create(ApiServiceWeather::class.java)
+
+    @Provides
+    @Singleton
+    fun provideApiNews(): ApiServiceNews = Retrofit.Builder()
+        .baseUrl(BASE_URL_NEWS)
+        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+        .build()
+        .create(ApiServiceNews::class.java)
 }

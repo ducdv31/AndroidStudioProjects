@@ -5,7 +5,13 @@ const val BASE_URL_BITCOIN = "https://api.coindesk.com/v1/bpi/"
 const val BASE_URL_WEATHER = "https://community-open-weather-map.p.rapidapi.com/"
 const val HOST_WEATHER = "community-open-weather-map.p.rapidapi.com"
 const val KEY_WEATHER = "347343136bmsh7a512efd2cc65f4p127eebjsna0e4064b4a5e"
+
+/* news */
+const val BASE_URL_NEWS = "https://newsapi.org/v2/"
+const val API_KEY_NEWS = "cec0ca49da3b477bb3daa14e97c0ae95"
+
 const val EMPTY = ""
+const val FINANCE = "Finance"
 const val PHIM_BO = "Phim bộ"
 const val PHIM_LE = "Phim lẻ"
 const val PHIM_CHIEU_RAP = "Phim chiếu rạp"

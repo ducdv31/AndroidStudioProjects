@@ -112,4 +112,9 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager:$pager_version"
     // If using indicators, also depend on
     implementation "com.google.accompanist:accompanist-pager-indicators:$pager_version"
+
+    /* play video */
+    implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
+    /* card stack view */
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
 }
