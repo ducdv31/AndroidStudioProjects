@@ -82,5 +82,10 @@ enum class MyTabList(
     TabBitCoin(
         R.drawable.outline_attach_money_white_48dp,
         R.string.bitcoin
+    ),
+
+    TabWeather(
+        R.drawable.outline_wb_sunny_white_48dp,
+        R.string.weather
     )
 }
