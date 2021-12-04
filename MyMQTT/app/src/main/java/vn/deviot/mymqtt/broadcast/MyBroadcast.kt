@@ -3,7 +3,6 @@ package vn.deviot.mymqtt.broadcast
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import vn.deviot.mymqtt.net.mqtt.action.MqttActionKey
 import vn.deviot.mymqtt.net.mqtt.model.MessageMqtt
 
@@ -20,8 +19,9 @@ class MyBroadcast : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         when (intent?.action) {
             MqttActionKey.ActionReceivedMessage.action -> {
-                val messageMqtt: MessageMqtt? = intent.getParcelableExtra(MqttActionKey.ActionReceivedMessage.name)
-                myMqttListener?.onMessageArrived(messageMqtt?.topic, messageMqtt?.payload.toString())
+                val messageMqtt: MessageMqtt? =
+                    intent.getParcelableExtra(MqttActionKey.ActionReceivedMessage.name)
+                myMqttListener?.onMessageArrived(messageMqtt?.topic, messageMqtt?.message)
             }
 
             MqttActionKey.ActionDeliveryComplete.action -> {
@@ -31,8 +31,17 @@ class MyBroadcast : BroadcastReceiver() {
             MqttActionKey.ActionDisconnected.action -> {
                 myMqttListener?.onDisconnect()
             }
-            MqttActionKey.ActionConnectLost.name -> {
-                myMqttListener?.onConnectionLost(null)
+            MqttActionKey.ActionConnectLost.action -> {
+                val data = intent.getStringExtra(MqttActionKey.ActionConnectLost.name)
+                myMqttListener?.onConnectionLost(data)
+            }
+
+            MqttActionKey.ActionSubscribeSuccess.action -> {
+                myMqttListener?.onSubscribe(true)
+            }
+
+            MqttActionKey.ActionUnSubscribeSuccess.action -> {
+                myMqttListener?.onSubscribe(false)
             }
         }
     }

@@ -12,8 +12,10 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 import vn.deviot.mymqtt.R
 import vn.deviot.mymqtt.broadcast.MyBroadcast
 import vn.deviot.mymqtt.broadcast.MyMqttListener
+import vn.deviot.mymqtt.constans.EMPTY
 import vn.deviot.mymqtt.net.mqtt.MyMqttService
 import vn.deviot.mymqtt.net.mqtt.action.MqttActionKey
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     @BindView(R.id.subscribe)
     lateinit var subscribe: View
+
+    @BindView(R.id.publish)
+    lateinit var publish: View
 
     private val myBroadcast: MyBroadcast by lazy { MyBroadcast() }
 
@@ -82,9 +87,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        publish.setOnClickListener {
+            if (mBound) {
+                mService.publish("duc", "Hi Duc ${Random.nextInt()}")
+            }
+        }
+
         myBroadcast.addOnMqttListener(object : MyMqttListener {
-            override fun onConnectionLost(t: Throwable?) {
-                showToast("Error")
+            override fun onConnectionLost(t: String?) {
+                showToast(t ?: EMPTY)
             }
 
             override fun onServerConnected(status: Boolean) {
@@ -94,6 +105,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onSubscribe(subscribe: Boolean) {
+                if (subscribe) {
+                    showToast("Subscribe Success")
+                }
             }
 
             override fun onMessageArrived(topic: String?, message: String?) {

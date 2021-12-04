@@ -4,7 +4,7 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
 
 interface MyMqttListener {
 
-    fun onConnectionLost(t: Throwable?)
+    fun onConnectionLost(t: String?)
 
     fun onServerConnected(status: Boolean)
 

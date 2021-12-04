@@ -217,11 +217,7 @@ class MyMqttService : MqttBlueprint() {
     private fun extractMqttMessage(topic: String? = null, message: MqttMessage?): MessageMqtt {
         return MessageMqtt(
             topic,
-            message?.payload,
-            message?.qos,
-            message?.id,
-            message?.isRetained,
-            message?.isDuplicate
+            message.toString()
         )
     }
 
