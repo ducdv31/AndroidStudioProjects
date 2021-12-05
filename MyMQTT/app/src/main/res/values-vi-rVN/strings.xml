@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My MQTT+</string>
+    <string name="connect">Kết nối</string>
+    <string name="subscribe">Đăng ký</string>
+    <string name="publish">Gửi</string>
+    <string name="disconnect">Ngắt kết nối</string>
+</resources>

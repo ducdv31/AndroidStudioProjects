@@ -6,17 +6,15 @@ interface MyMqttListener {
 
     fun onConnectionLost(t: String?)
 
-    fun onServerConnected(status: Boolean)
+    fun onConnected()
 
-    fun notifyConnected(notify: Boolean) // Requires connect
-
-    fun onSubscribe(subscribe: Boolean)
+    fun onSubscribe()
 
     fun onMessageArrived(topic: String?, message: String?)
 
     fun onDeliveryComplete(iMqttDeliveryToken: IMqttDeliveryToken?)
 
-    fun onUnsubscribe(unsubscribe: Boolean)
+    fun onUnsubscribe()
 
     fun onDisconnect()
 }

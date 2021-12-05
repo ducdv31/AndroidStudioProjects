@@ -130,12 +130,12 @@ class MyMqttService : MqttBlueprint() {
 
                     override fun onFailure(
                         asyncActionToken: IMqttToken,
-                        exception: Throwable
+                        exception: Throwable?
                     ) {
                         // The subscription could not be performed, maybe the user was not
                         // authorized to subscribe on the specified topic e.g. using wildcards
                         hasSubscribe = false
-                        sendActionError(exception.message)
+                        sendActionError(exception?.message)
                     }
                 }
             } catch (e: MqttException) {
@@ -160,13 +160,13 @@ class MyMqttService : MqttBlueprint() {
 
                         override fun onFailure(
                             asyncActionToken: IMqttToken,
-                            exception: Throwable
+                            exception: Throwable?
                         ) {
                             // some error occurred, this is very unlikely as even if the client
                             // did not had a subscription to the topic the unsubscribe action
                             // will be successfully
                             hasSubscribe = true
-                            sendActionError(exception.message)
+                            sendActionError(exception?.message)
                         }
                     }
                 }

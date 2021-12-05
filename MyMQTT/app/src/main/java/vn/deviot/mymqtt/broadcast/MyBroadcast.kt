@@ -25,6 +25,7 @@ class MyBroadcast : BroadcastReceiver() {
             }
 
             MqttActionKey.ActionDeliveryComplete.action -> {
+                myMqttListener?.onConnected()
                 myMqttListener?.onDeliveryComplete(null)
             }
 
@@ -37,11 +38,11 @@ class MyBroadcast : BroadcastReceiver() {
             }
 
             MqttActionKey.ActionSubscribeSuccess.action -> {
-                myMqttListener?.onSubscribe(true)
+                myMqttListener?.onSubscribe()
             }
 
             MqttActionKey.ActionUnSubscribeSuccess.action -> {
-                myMqttListener?.onSubscribe(false)
+                myMqttListener?.onSubscribe()
             }
         }
     }

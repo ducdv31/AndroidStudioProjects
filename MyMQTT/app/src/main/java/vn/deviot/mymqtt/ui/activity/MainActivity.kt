@@ -4,6 +4,7 @@ import android.content.*
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import butterknife.BindView
@@ -18,6 +19,9 @@ import vn.deviot.mymqtt.net.mqtt.action.MqttActionKey
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+
+    @BindView(R.id.title_bar)
+    lateinit var titleBar: TextView
 
     @BindView(R.id.start_service)
     lateinit var btnStart: View
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mService: MyMqttService
     private var mBound: Boolean = false
+
+    private var isShowConnected = false
 
     /** Defines callbacks for service binding, passed to bindService()  */
     private val connection = object : ServiceConnection {
@@ -68,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
+        titleBar.text = getString(R.string.app_name)
 
         btnStart.setOnClickListener {
             if (mBound) {
@@ -98,16 +105,11 @@ class MainActivity : AppCompatActivity() {
                 showToast(t ?: EMPTY)
             }
 
-            override fun onServerConnected(status: Boolean) {
+            override fun onConnected() {
             }
 
-            override fun notifyConnected(notify: Boolean) {
-            }
-
-            override fun onSubscribe(subscribe: Boolean) {
-                if (subscribe) {
-                    showToast("Subscribe Success")
-                }
+            override fun onSubscribe() {
+                showToast("Subscribe Success")
             }
 
             override fun onMessageArrived(topic: String?, message: String?) {
@@ -115,10 +117,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onDeliveryComplete(iMqttDeliveryToken: IMqttDeliveryToken?) {
-                showToast("Connected")
+                if (!isShowConnected) {
+                    showToast("Connected")
+                    isShowConnected = true
+                }
             }
 
-            override fun onUnsubscribe(unsubscribe: Boolean) {
+            override fun onUnsubscribe() {
             }
 
             override fun onDisconnect() {

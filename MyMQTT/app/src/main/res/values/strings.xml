@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My MQTT+</string>
+    <string name="connect">Connect</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="publish">Publish</string>
+    <string name="disconnect">Disconnect</string>
 </resources>
