@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/KMMApp.iml" filepath="$PROJECT_DIR$/.idea/KMMApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KMM_App.iml" filepath="$PROJECT_DIR$/.idea/modules/KMM_App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android_App/KMM_App.Android_App.iml" filepath="$PROJECT_DIR$/.idea/modules/Android_App/KMM_App.Android_App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.androidAndroidTestRelease.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.androidAndroidTestRelease.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.commonMain.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.commonMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.commonTest.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.commonTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosArm64Main.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosArm64Main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosArm64Test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosArm64Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosMain.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosTest.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosX64Main.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosX64Main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosX64Test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/KMM_App.shared.iosX64Test.iml" />
     </modules>
   </component>
 </project>
