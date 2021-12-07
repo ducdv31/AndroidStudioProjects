@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:recipe_flutter/net/api/recipe/api_client_recipe.dart';
 import 'package:recipe_flutter/net/api/recipe/model/recipe_model.dart';
 
@@ -8,17 +12,6 @@ import 'constant/constant.dart';
 void main() {
   runApp(MyApp());
 }
-
-/*void main(List<String> args) {
-  final dio = Dio(); // Provide a dio instance
-  dio.options.contentType =
-      "application/json"; // config your dio headers globally
-  dio.options.headers["Authorization"] =
-      "Token 9c8b06d329136da358c2d00e76946b0111ce2c48";
-  ApiClientRecipe(dio).getListRecipe(1, "").then((it) {
-    print(it.results?.elementAt(1).title);
-  });
-}*/
 
 class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
@@ -29,9 +22,11 @@ class MyApp extends StatefulWidget {
 
 class _StateMyApp extends State<MyApp> {
   final dio = Dio();
-  List<Results>? listRecipe = List.empty(growable: true);
   var page = 1;
   var query = EMPTY;
+
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -44,11 +39,6 @@ class _StateMyApp extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    ApiClientRecipe(dio).getListRecipe(page, query).then((response) => {
-          setState(() {
-            listRecipe = response.results;
-          })
-        });
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -56,25 +46,60 @@ class _StateMyApp extends State<MyApp> {
         ),
         home: SafeArea(
             child: Scaffold(
-          appBar: AppBar(
-            title: const Text("Recipe"),
-            centerTitle: true,
-          ),
-          body: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1, mainAxisSpacing: 10),
-            itemCount: listRecipe?.length,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, index) => Column(children: <Widget>[
-              Text(listRecipe?.elementAt(index).title ?? EMPTY),
-              Image.network(
-                listRecipe?.elementAt(index).featuredImage ?? EMPTY,
-                fit: BoxFit.fill,
-                height: 200,
-                width: 200,
-              ),
-            ]),
-          ),
-        )));
+                resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  title: const Text("Recipe"),
+                  centerTitle: true,
+                ),
+                body: FutureBuilder<ResponseRecipe>(
+                  future: ApiClientRecipe(dio).getListRecipe(page, query),
+                  builder: (context, snapshot) {
+                    var list = snapshot.data?.results;
+                    return ListView.builder(
+                        itemCount: list?.length,
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(10),
+                        itemBuilder: (context, index) => Card(
+                              elevation: 8,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    const Padding(padding: EdgeInsets.all(2)),
+                                    Container(
+                                      child: ClipRRect(
+                                        child: Image.network(
+                                          list
+                                                  ?.elementAt(index)
+                                                  .featuredImage ??
+                                              EMPTY,
+                                          fit: BoxFit.fitWidth,
+                                          height: 220,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        list?.elementAt(index).title ?? EMPTY,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 8),
+                                    ),
+                                  ]),
+                            ));
+                  },
+                ))));
   }
 }
