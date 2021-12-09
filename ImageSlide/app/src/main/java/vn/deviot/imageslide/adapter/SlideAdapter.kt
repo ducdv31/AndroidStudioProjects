@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dagger.hilt.android.qualifiers.ActivityContext
@@ -25,6 +26,7 @@ class SlideAdapter @Inject constructor(
 
     class SlideVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val img: ImageView = itemView.findViewById(R.id.img)
+        val name: TextView = itemView.findViewById(R.id.name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SlideVH {
@@ -38,6 +40,7 @@ class SlideAdapter @Inject constructor(
         Glide.with(context)
             .load(item.url)
             .into(holder.img)
+        holder.name.text = item.name
     }
 
     override fun getItemCount(): Int = listData.size

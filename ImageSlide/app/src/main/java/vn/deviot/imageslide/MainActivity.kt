@@ -1,9 +1,9 @@
 package vn.deviot.imageslide
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -11,6 +11,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import dagger.hilt.android.AndroidEntryPoint
 import vn.deviot.imageslide.adapter.SlideAdapter
+import vn.deviot.imageslide.adapter.ViewPagerAdapter
 import vn.deviot.imageslide.anim_viewpager.PagerTransformation
 import vn.deviot.imageslide.model.MemeItem
 import vn.deviot.imageslide.viewmodel.MainViewModel
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var slideAdapter: SlideAdapter
 
+    private val viewPagerAdapter: ViewPagerAdapter by lazy {
+        ViewPagerAdapter(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,12 +47,12 @@ class MainActivity : AppCompatActivity() {
             clipChildren = false
             clipToPadding = false
             setPageTransformer(compositePageTransformer)
-            adapter = slideAdapter
+            adapter = viewPagerAdapter
         }
 
         mainViewModel.listData.observe(this) {
             it?.let { list ->
-                slideAdapter.setData(list as MutableList<MemeItem>)
+                viewPagerAdapter.setData(list as MutableList<MemeItem>)
             }
         }
     }
