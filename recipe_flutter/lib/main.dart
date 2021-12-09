@@ -18,13 +18,14 @@ class MyApp extends StatefulWidget {
 class _StateMyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    final BuildContext buildContext = context;
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         home: BlocProvider(
-          create: (context) => RecipeCubit(),
+          create: (context) => RecipeCubit()..requestNew(),
           child: SafeArea(child: recipeScreen()),
         ));
   }
