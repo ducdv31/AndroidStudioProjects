@@ -5,13 +5,13 @@ import 'package:recipe_flutter/constant/constant.dart';
 import 'package:recipe_flutter/net/api/recipe/api_client_recipe.dart';
 import 'package:recipe_flutter/net/api/recipe/model/recipe_model.dart';
 
-class RecipeCubit extends Cubit<AsyncSnapshot<List<Results>>> {
-  RecipeCubit() : super(const AsyncSnapshot.nothing());
+class RecipeCubit extends Cubit<List<Results>> {
+  RecipeCubit() : super(List.empty());
 
   final dio = Dio();
   var page = 1;
   var query = EMPTY;
-  AsyncSnapshot<List<Results>> listResult = AsyncSnapshot.waiting();
+  List<Results> listResult = List.empty(growable: true);
 
   void requestNew() async {
     /* get data recipe */
@@ -19,8 +19,8 @@ class RecipeCubit extends Cubit<AsyncSnapshot<List<Results>>> {
     dio.options.headers[HEADER_KEY] = HEADER_VALUE;
     page = 1;
     var list = await ApiClientRecipe(dio).getListRecipe(page, query);
-    listResult.data?.clear();
-    listResult = AsyncSnapshot.withData(ConnectionState.active, list.results ?? List.empty());
+    listResult.clear();
+    listResult.addAll(list.results ?? List.empty());
     emit(listResult);
   }
 
@@ -29,7 +29,9 @@ class RecipeCubit extends Cubit<AsyncSnapshot<List<Results>>> {
     dio.options.headers[HEADER_KEY] = HEADER_VALUE;
     page++;
     var list = await ApiClientRecipe(dio).getListRecipe(page, query);
-    listResult.data?.addAll(list.results ?? List.empty());
-    emit(listResult);
+    listResult.addAll(list.results ?? List.empty());
+    List<Results> listMore = List.empty(growable: true);
+    listMore.addAll(listResult);
+    emit(listMore);
   }
 }

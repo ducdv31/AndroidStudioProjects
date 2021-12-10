@@ -14,34 +14,38 @@ Scaffold recipeScreen() {
         centerTitle: true,
       ),
       drawer: const Text("Drawer"),
-      body: BlocBuilder<RecipeCubit, AsyncSnapshot<List<Results>>>(
+      body: BlocBuilder<RecipeCubit, List<Results>>(
           builder: (context, results) {
-            print(results.data?.length);
-            return listRecipe(results.data ?? List.empty());
+            return listRecipe(results);
           }));
 }
 
 Widget listRecipe(List<Results> list) {
-  return ListView.builder(
-      itemCount: list.length,
-      physics: const BouncingScrollPhysics(),
-      shrinkWrap: true,
-      padding: const EdgeInsets.all(10),
-      itemBuilder: (context, index) => Card(
-            elevation: 8,
-            shape:
+  return RefreshIndicator(
+      onRefresh: () async {
+        RecipeCubit().requestNew();
+      },
+      child: ListView.builder(
+          itemCount: list.length,
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(10),
+          itemBuilder: (context, index) =>
+              Card(
+                elevation: 8,
+                shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            child: InkWell(
-              onTap: () {
-                if (index % 2 == 0) {
-                  return context.read<RecipeCubit>().requestNew();
-                } else {
-                  return context.read<RecipeCubit>().loadMore();
-                }
-              },
-              child: recipeItem(list, index),
-            ),
-          ));
+                child: InkWell(
+                  onTap: () {
+                    if (index % 2 == 0) {
+                      return context.read<RecipeCubit>().requestNew();
+                    } else {
+                      return context.read<RecipeCubit>().loadMore();
+                    }
+                  },
+                  child: recipeItem(list, index),
+                ),
+              )));
 }
 
 Column recipeItem(List<Results>? list, int index) {
@@ -53,7 +57,9 @@ Column recipeItem(List<Results>? list, int index) {
         Container(
           child: ClipRRect(
             child: Image.network(
-              list?.elementAt(index).featuredImage ?? EMPTY,
+              list
+                  ?.elementAt(index)
+                  .featuredImage ?? EMPTY,
               fit: BoxFit.fitWidth,
               height: 220,
             ),
@@ -63,7 +69,9 @@ Column recipeItem(List<Results>? list, int index) {
         ),
         Container(
           child: Text(
-            list?.elementAt(index).title ?? EMPTY,
+            list
+                ?.elementAt(index)
+                .title ?? EMPTY,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
