@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_flutter/constant/screen_route.dart';
+import 'package:recipe_flutter/ui/recipe_screen/detail_recipe_screen.dart';
 import 'package:recipe_flutter/ui/recipe_screen/recipe_screen.dart';
 
 void main() {
@@ -18,10 +20,15 @@ class _StateMyApp extends State<MyApp> {
   Widget build(BuildContext context) {
     final BuildContext buildContext = context;
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const RecipeScreen());
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: firstRecipeRoute,
+      routes: {
+        firstRecipeRoute: (context) => const RecipeScreen(),
+        detailRecipeRoute: (context) => const DetailRecipeScreen()
+      },
+    );
   }
 }

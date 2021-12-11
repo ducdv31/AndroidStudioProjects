@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_flutter/constant/constant.dart';
+import 'package:recipe_flutter/constant/screen_route.dart';
 import 'package:recipe_flutter/net/api/recipe/model/recipe_model.dart';
 import 'package:recipe_flutter/ui/recipe_screen/cubit/recipe_state.dart';
 
@@ -104,35 +105,40 @@ class _ItemState extends State<RecipeItem> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Card(
-        elevation: 8,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const Padding(padding: EdgeInsets.all(2)),
-              Container(
-                child: ClipRRect(
-                  child: Image.network(
-                    widget.list?.elementAt(widget.index).featuredImage ?? EMPTY,
-                    fit: BoxFit.fitWidth,
-                    height: 220,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, detailRecipeRoute, arguments: widget.list?.elementAt(widget.index).pk);
+      },
+      child: Card(
+          elevation: 8,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Padding(padding: EdgeInsets.all(2)),
+                Container(
+                  child: ClipRRect(
+                    child: Image.network(
+                      widget.list?.elementAt(widget.index).featuredImage ?? EMPTY,
+                      fit: BoxFit.fitWidth,
+                      height: 220,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  borderRadius: BorderRadius.circular(10),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-              ),
-              Container(
-                child: Text(
-                  widget.list?.elementAt(widget.index).title ?? EMPTY,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
+                Container(
+                  child: Text(
+                    widget.list?.elementAt(widget.index).title ?? EMPTY,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              ),
-            ]));
+              ])),
+    );
   }
 }
