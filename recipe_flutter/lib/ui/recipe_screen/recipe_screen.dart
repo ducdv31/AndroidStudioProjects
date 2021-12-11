@@ -17,12 +17,16 @@ Scaffold recipeScreen() {
         title: const Text("Recipe"),
         centerTitle: true,
       ),
-      drawer: const Text("Drawer"),
+      drawer: Container(
+        color: Colors.white,
+        margin: const EdgeInsets.only(right: 64),
+        child: const Center(
+          child: Text("Made by Dang Duc"),
+        ),
+      ),
       body: BlocBuilder<RecipeCubit, RecipeState>(builder: (context, state) {
         if (state is LoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return listRecipe(context, state.list, false);
         } else if (state is RequestNewState) {
           return listRecipe(context, state.list, false);
         } else if (state is LoadingMoreState) {
@@ -39,10 +43,13 @@ Scaffold recipeScreen() {
 
 Widget listRecipe(BuildContext context, List<Results> list, isLoadingMore) {
   return CustomScrollView(
+    physics: const BouncingScrollPhysics(),
     slivers: <Widget>[
       CupertinoSliverRefreshControl(
         onRefresh: () async {
-          context.read<RecipeCubit>().requestNew(1);
+          page = 1;
+          context.read<RecipeCubit>().requestNew(page);
+          await Future.delayed(const Duration(seconds: 1));
         },
       ),
       SliverPadding(
