@@ -25,7 +25,7 @@ class _StateMyApp extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
         home: BlocProvider(
-          create: (context) => RecipeCubit()..requestNew(),
+          create: (context) => RecipeCubit()..requestNew(1),
           child: SafeArea(child: recipeScreen()),
         ));
   }
