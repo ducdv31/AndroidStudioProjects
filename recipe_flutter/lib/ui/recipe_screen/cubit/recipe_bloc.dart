@@ -8,26 +8,27 @@ import 'package:recipe_flutter/ui/recipe_screen/cubit/recipe_state.dart';
 class RecipeCubit extends Cubit<RecipeState> {
   RecipeCubit() : super(InitState());
 
-  final dio = Dio();
-  var query = EMPTY;
+  final _dio = Dio();
+  var _query = EMPTY;
 
   List<Results> _list = List.empty(growable: true);
 
-  Future<void> requestNew(int page) async {
+  Future<void> requestNew(int page, {String strSearch = EMPTY}) async {
     /* get data recipe */
+    _query = strSearch;
     emit(LoadingState(_list));
-    dio.options.contentType = CONTENT_TYPE;
-    dio.options.headers[HEADER_KEY] = HEADER_VALUE;
-    var list = (await ApiClientRecipe(dio).getListRecipe(page, query));
+    _dio.options.contentType = CONTENT_TYPE;
+    _dio.options.headers[HEADER_KEY] = HEADER_VALUE;
+    var list = (await ApiClientRecipe(_dio).getListRecipe(page, _query));
     _list = list.results ?? List.empty(growable: true);
     emit(RequestNewState(list.results ?? List.empty()));
   }
 
   void loadMore(int page) async {
-    dio.options.contentType = CONTENT_TYPE;
-    dio.options.headers[HEADER_KEY] = HEADER_VALUE;
+    _dio.options.contentType = CONTENT_TYPE;
+    _dio.options.headers[HEADER_KEY] = HEADER_VALUE;
     emit(LoadingMoreState(_list));
-    var list = (await ApiClientRecipe(dio).getListRecipe(page, query));
+    var list = (await ApiClientRecipe(_dio).getListRecipe(page, _query));
     _list.addAll(list.results!);
     emit(LoadMoreState(_list));
   }
