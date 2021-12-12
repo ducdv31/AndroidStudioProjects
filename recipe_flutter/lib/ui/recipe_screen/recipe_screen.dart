@@ -54,14 +54,14 @@ class RecipeScreen extends StatelessWidget {
 }
 
 Widget listRecipe(BuildContext context, List<Results> list, isLoadingMore) {
-  return CustomScrollView(
+  return Scrollbar(
+      child: CustomScrollView(
     physics: const BouncingScrollPhysics(),
     slivers: <Widget>[
       CupertinoSliverRefreshControl(
         onRefresh: () async {
           page = 1;
-          context.read<RecipeCubit>().requestNew(page);
-          await Future.delayed(const Duration(seconds: 1));
+          await context.read<RecipeCubit>().requestNew(page);
         },
       ),
       SliverPadding(
@@ -85,7 +85,7 @@ Widget listRecipe(BuildContext context, List<Results> list, isLoadingMore) {
             : const SizedBox(),
       )
     ],
-  );
+  ));
 }
 
 class RecipeItem extends StatefulWidget {
@@ -107,7 +107,8 @@ class _ItemState extends State<RecipeItem> {
     // TODO: implement build
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, detailRecipeRoute, arguments: widget.list?.elementAt(widget.index).pk);
+        Navigator.pushNamed(context, detailRecipeRoute,
+            arguments: widget.list?.elementAt(widget.index));
       },
       child: Card(
           elevation: 8,
@@ -120,7 +121,8 @@ class _ItemState extends State<RecipeItem> {
                 Container(
                   child: ClipRRect(
                     child: Image.network(
-                      widget.list?.elementAt(widget.index).featuredImage ?? EMPTY,
+                      widget.list?.elementAt(widget.index).featuredImage ??
+                          EMPTY,
                       fit: BoxFit.fitWidth,
                       height: 220,
                     ),
@@ -136,7 +138,8 @@ class _ItemState extends State<RecipeItem> {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 ),
               ])),
     );
