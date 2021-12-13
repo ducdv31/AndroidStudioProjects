@@ -16,46 +16,40 @@ final TextEditingController _textEditingController =
 bool _isSearching = false;
 final ScrollController _scrollController = ScrollController();
 
-class RecipeScreen extends StatelessWidget {
+class RecipeScreen extends StatefulWidget {
   const RecipeScreen({Key? key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _RecipeScreenState();
+}
+
+class _RecipeScreenState extends State<RecipeScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    super.build(context);
     return BlocProvider(
-      create: (context) => RecipeCubit()..requestNew(1),
-      child: SafeArea(
-          child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              appBar: AppBar(
-                title: const Text("Recipe"),
-                centerTitle: true,
-              ),
-              drawer: Container(
-                color: Colors.white,
-                margin: const EdgeInsets.only(right: 64),
-                child: const Center(
-                  child: Text("Made by Dang Duc"),
-                ),
-              ),
-              body: BlocBuilder<RecipeCubit, RecipeState>(
-                  builder: (context, state) {
-                if (state is LoadingState) {
-                  return _listRecipe(context, state.list, false);
-                } else if (state is RequestNewState) {
-                  return _listRecipe(context, state.list, false);
-                } else if (state is LoadingMoreState) {
-                  return _listRecipe(context, state.list, true);
-                } else if (state is LoadMoreState) {
-                  return _listRecipe(context, state.list, false);
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }))),
-    );
+        create: (context) => RecipeCubit()..requestNew(1),
+        child: BlocBuilder<RecipeCubit, RecipeState>(builder: (context, state) {
+          if (state is LoadingState) {
+            return _listRecipe(context, state.list, false);
+          } else if (state is RequestNewState) {
+            return _listRecipe(context, state.list, false);
+          } else if (state is LoadingMoreState) {
+            return _listRecipe(context, state.list, true);
+          } else if (state is LoadMoreState) {
+            return _listRecipe(context, state.list, false);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        }));
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 Widget _listRecipe(

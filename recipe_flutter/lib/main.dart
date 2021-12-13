@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_flutter/constant/screen_route.dart';
+import 'package:recipe_flutter/ui/main_screen.dart';
 import 'package:recipe_flutter/ui/recipe_screen/detail_recipe_screen.dart';
 import 'package:recipe_flutter/ui/recipe_screen/recipe_screen.dart';
 
@@ -29,9 +30,9 @@ class _StateMyApp extends State<MyApp> {
         primaryColor: Colors.redAccent,
         primarySwatch: Colors.red,
       ),
-      initialRoute: firstRecipeRoute,
+      initialRoute: firstScreen,
       routes: {
-        firstRecipeRoute: (context) => const RecipeScreen(),
+        firstScreen: (context) => const HomeScreen(),
         detailRecipeRoute: (context) => const DetailRecipeScreen()
       },
     );

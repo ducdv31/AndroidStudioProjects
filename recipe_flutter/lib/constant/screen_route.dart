@@ -1,4 +1,4 @@
 
 
-const firstRecipeRoute = "/";
+const firstScreen = "/";
 const detailRecipeRoute = "detailRecipeRoute";
