@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
             app:contentScrim="@color/teal_200"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:title="@string/app_name">
 
             <LinearLayout
@@ -45,29 +45,16 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                android:isScrollContainer="true"
                 app:menu="@menu/my_menu"
-                app:navigationIcon="@mipmap/ic_launcher" />
+                app:navigationIcon="@mipmap/ic_launcher" >
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_launcher_foreground"/>
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_scrollFlags="noScroll">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="25sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ok"
-                android:textSize="25sp" />
-        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -88,11 +75,6 @@
                 android:iconifiedByDefault="false"
                 android:searchIcon="@mipmap/ic_launcher"
                 android:showDividers="none" />
-
-            <com.example.collapsetoolbar.MyTextView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Hello" />
 
             <TextView
                 android:background="@drawable/bg_text"

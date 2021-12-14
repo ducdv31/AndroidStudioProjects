@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             clipToPadding = false
             setPageTransformer(compositePageTransformer)
             adapter = viewPagerAdapter
+            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
 
         mainViewModel.listData.observe(this) {

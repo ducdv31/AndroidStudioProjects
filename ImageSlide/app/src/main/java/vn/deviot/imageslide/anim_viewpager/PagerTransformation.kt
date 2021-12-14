@@ -4,12 +4,49 @@ import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import kotlin.math.abs
 
+private const val MIN_SCALE = 0.75f
+
 class PagerTransformation : ViewPager2.PageTransformer {
     override fun transformPage(page: View, position: Float) {
         page.apply {
             val r = 1 - abs(position)
-            scaleY = (0.75 + r * 0.25).toFloat()
-            alpha = (0.5 + 0.5 * r).toFloat()
+            val pageWidth = width
+            when {
+                position < -1 -> { // [-Infinity,-1)
+                    // This page is way off-screen to the left.
+                    alpha = 0f
+                }
+                position <= 0 -> { // [-1,0]
+                    // Use the default slide transition when moving to the left page
+                    alpha = 1f
+                    translationX = 0f
+                    translationZ = 0f
+                    scaleX = 1f
+                    scaleY = 1f
+                    translationX = (pageWidth * (r - 1)).toFloat()
+                }
+                position <= 1 -> { // (0,1]
+                    // Fade the page out.
+                    alpha = 1f
+
+                    // Counteract the default slide transition
+                    translationX = (-0.2 * (1 - r) * pageWidth).toFloat()
+                    // Move it behind the left page
+                    translationZ = -1f
+
+                    // Scale the page down (between MIN_SCALE and 1)
+                    val scaleFactor = (MIN_SCALE + (1 - MIN_SCALE) * (1 - abs(position)))
+                    scaleX = scaleFactor
+                    scaleY = scaleFactor
+                }
+                else -> { // (1,+Infinity]
+                    // This page is way off-screen to the right.
+                    val scaleFactor = (MIN_SCALE + (1 - MIN_SCALE) * (1 - abs(position)))
+                    scaleX = scaleFactor
+                    scaleY = scaleFactor
+                    alpha = 1f
+                }
+            }
         }
     }
 }
