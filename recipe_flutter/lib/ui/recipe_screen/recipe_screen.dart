@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_flutter/constant/constant.dart';
 import 'package:recipe_flutter/constant/screen_route.dart';
+import 'package:recipe_flutter/generated/l10n.dart';
 import 'package:recipe_flutter/net/api/recipe/model/recipe_model.dart';
 import 'package:recipe_flutter/ui/recipe_screen/cubit/recipe_state.dart';
 
@@ -152,7 +153,7 @@ class _SearchBarRecipeState extends State<SearchBarRecipe> {
         decoration: InputDecoration(
             border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(16))),
-            labelText: "Search recipe",
+            labelText: S.of(context).search_recipe,
             prefixIcon: const Icon(Icons.search),
             suffixIcon: strSearch.isNotEmpty
                 ? IconButton(
