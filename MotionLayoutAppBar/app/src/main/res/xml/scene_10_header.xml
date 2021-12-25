@@ -24,6 +24,12 @@
             motion:dragDirection="dragUp"
             motion:touchAnchorId="@+id/background"
             motion:touchAnchorSide="bottom" />
+        <KeyFrameSet >
+            <KeyAttribute
+                motion:motionTarget="@+id/background"
+                motion:framePosition="80"
+                android:rotationX="90" />
+        </KeyFrameSet>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -40,33 +46,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.6"
-            android:rotation="-90.0"
-            android:translationY="8dp"
-            motion:layout_constraintBottom_toBottomOf="@+id/background"
-            motion:layout_constraintStart_toStartOf="parent" />
+            android:rotation="0"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
             android:id="@+id/sublabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             motion:layout_constraintBaseline_toBaselineOf="@+id/label"
-            motion:layout_constraintStart_toEndOf="parent" />
+            motion:layout_constraintEnd_toEndOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@id/background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:alpha="1"
             android:translationX="0dp"
-            android:translationY="100dp"
-            motion:layout_constraintBottom_toBottomOf="parent" />
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            motion:layout_constraintEnd_toStartOf="@id/sublabel" />
         <Constraint
             android:id="@id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="0dp"
             android:layout_marginBottom="8dp"
             android:rotation="0.0"
             motion:layout_constraintBottom_toBottomOf="@+id/background"
@@ -75,7 +82,6 @@
             android:id="@id/sublabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             motion:layout_constraintBaseline_toBaselineOf="@+id/label"
             motion:layout_constraintEnd_toEndOf="parent" />
     </ConstraintSet>
