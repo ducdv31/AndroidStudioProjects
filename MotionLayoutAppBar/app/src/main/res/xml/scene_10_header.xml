@@ -42,7 +42,6 @@
             android:scaleY="1"
             motion:layout_constraintTop_toBottomOf="@id/label"
             motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="50dp" />
         <Constraint
             android:id="@+id/label"

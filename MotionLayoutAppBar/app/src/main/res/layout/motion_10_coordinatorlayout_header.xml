@@ -20,7 +20,7 @@
     android:background="#1e376b"
     android:minHeight="50dp"
     app:layoutDescription="@xml/scene_10_header"
-    app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed">
+    app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
     <com.wajahatkarim3.easyflipview.EasyFlipView
         android:id="@+id/background"
