@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ghi chú</string>
+    <string name="login">Đăng nhập</string>
+    <string name="notes">Ghi chú</string>
+    <string name="username">Tên đăng nhập</string>
+    <string name="password">Mật khẩu</string>
+</resources>
