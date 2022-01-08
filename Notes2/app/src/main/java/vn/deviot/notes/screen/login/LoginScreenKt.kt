@@ -1,6 +1,5 @@
 package vn.deviot.notes.screen.login
 
-import android.text.TextUtils
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.border
@@ -13,9 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import vn.deviot.notes.R
 import vn.deviot.notes.screen.login.viewmodel.LoginViewModel
 
@@ -49,7 +52,7 @@ fun LoginScreen(
                     border = BorderStroke(
                         width = 1.dp,
                         color = Color.Cyan
-                    )
+                    ), shape = RectangleShape
                 ),
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -67,7 +70,9 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
-            loginViewModel.login()
+            CoroutineScope(Dispatchers.Default).launch {
+                loginViewModel.login()
+            }
         }) {
             Text(text = stringResource(id = R.string.login))
         }

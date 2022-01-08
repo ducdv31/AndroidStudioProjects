@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import okhttp3.RequestBody
 import vn.deviot.notes.data.common.ResponseData
 import vn.deviot.notes.data.repo.Repository_Impl
@@ -29,18 +32,18 @@ class LoginViewModel @Inject constructor(
 
     private val dataLogin: MutableState<ResponseData<LoginRp>?> = mutableStateOf(null)
 
-    fun login() {
-        viewModelScope.launch {
+    suspend fun login() {
+        withContext(viewModelScope.coroutineContext) {
             val userCredential = UserCredential(username.value, password.value)
             val body: RequestBody = RequestBody.create(JSON, Gson().toJson(userCredential))
-            dataLogin.value = try {
+            val job = CoroutineScope(Dispatchers.Main).async {
                 repositoryImpl.logIn(body)
+            }
+            try {
+                dataLogin.value = job.await()
+                token.value = dataLogin.value?.data?.token ?: EMPTY
             } catch (e: Exception) {
                 Log.e(TAG, "login: ${e.message}")
-                null
-            } finally {
-                token.value = dataLogin.value?.data?.token ?: EMPTY
-                Log.e(TAG, "login: ${token.value}")
             }
         }
     }
