@@ -25,6 +25,7 @@ import vn.deviot.notes.screen.common.Route
 import vn.deviot.notes.screen.login.LoginScreen
 import vn.deviot.notes.screen.login.viewmodel.LoginViewModel
 import vn.deviot.notes.screen.notes.NoteScreen
+import vn.deviot.notes.screen.notes.viewmodel.NoteViewModel
 import vn.deviot.notes.ui.theme.NotesTheme
 import vn.deviot.notes.utils.TOKEN_ARGS
 
@@ -36,6 +37,7 @@ class MainActivity : ComponentActivity() {
     private val titleApp: MutableState<Int> = mutableStateOf(R.string.app_name)
 
     private val loginViewModel: LoginViewModel by viewModels()
+    private val noteViewModel: NoteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +80,7 @@ class MainActivity : ComponentActivity() {
                             ) { entry ->
                                 val token = entry.arguments?.getString(TOKEN_ARGS)
                                 titleApp.value = Route.Notes.title
-                                NoteScreen(token = token)
+                                NoteScreen(token = token, noteViewModel)
                             }
                         }
                     }

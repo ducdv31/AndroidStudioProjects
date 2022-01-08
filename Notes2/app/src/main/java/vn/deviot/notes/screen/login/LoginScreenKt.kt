@@ -40,7 +40,7 @@ fun LoginScreen(
                 Text(text = stringResource(id = R.string.username))
             },
             textStyle = TextStyle(
-                color = Color.Cyan
+                color = Color.Black
             ),
             modifier = Modifier
                 .fillMaxWidth()

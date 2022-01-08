@@ -4,6 +4,7 @@ import okhttp3.RequestBody
 import retrofit2.http.*
 import vn.deviot.notes.data.common.ResponseData
 import vn.deviot.notes.screen.login.model.LoginRp
+import vn.deviot.notes.screen.notes.model.ResponseNotes
 
 interface ApiService {
 
@@ -14,6 +15,6 @@ interface ApiService {
 
     @GET("notes")
     suspend fun getAllNote(
-        @Header("Authorization") authorization: String
-    ): Any
+        @Header("Authorization") Authorization: String
+    ): ResponseData<ResponseNotes>?
 }
