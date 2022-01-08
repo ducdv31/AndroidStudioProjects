@@ -88,6 +88,7 @@ dependencies {
 
     // Saved state module for ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+    implementation 'androidx.fragment:fragment-ktx:1.4.0'
 
     implementation "android.arch.lifecycle:common-java8:1.1.1"
 
