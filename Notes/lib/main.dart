@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:notes/route/route_manager.dart';
 import 'package:notes/screen/login/login_screen.dart';
+import 'package:notes/screen/note/note_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -27,6 +29,11 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      initialRoute: loginRoute,
+      routes: {
+        loginRoute: (context) => const LoginScreen(),
+        noteRoute: (context) => const NoteScreen(),
+      },
       home: const LoginScreen(),
     );
   }

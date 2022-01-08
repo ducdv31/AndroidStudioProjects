@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/data/net/api/api_service.dart';
+import 'package:notes/route/route_manager.dart';
+import 'package:notes/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -74,9 +77,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () async {
                     var dio = Dio();
                     dio.options.contentType = CONTENT_TYPE;
-                    var logindata =
+                    var loginData =
                         await ApiClientNote(dio).logIn(username, password);
-                    print(logindata.data?.token);
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString(TOKEN, loginData.data?.token ?? EMPTY);
+                    Navigator.pushNamed(context, noteRoute);
                   },
                   child: const Text(
                     "Log in",

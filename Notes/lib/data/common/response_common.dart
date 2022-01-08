@@ -1,39 +1,32 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'response_common.g.dart';
+
+@JsonSerializable()
 class ResponseLogin {
   ResponseLogin({
-      this.code, 
-      this.data,});
+    this.code,
+    this.data,
+  });
 
-  ResponseLogin.fromJson(dynamic json) {
-    code = json['code'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
-  }
   int? code;
   Data? data;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['code'] = code;
-    if (data != null) {
-      map['data'] = data?.toJson();
-    }
-    return map;
-  }
+  factory ResponseLogin.fromJson(Map<String, dynamic> json) =>
+      _$ResponseLoginFromJson(json);
 
+  Map<String, dynamic> toJson() => _$ResponseLoginToJson(this);
 }
 
+@JsonSerializable()
 class Data {
   Data({
-      this.token,});
+    this.token,
+  });
 
-  Data.fromJson(dynamic json) {
-    token = json['token'];
-  }
   String? token;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['token'] = token;
-    return map;
-  }
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 }
