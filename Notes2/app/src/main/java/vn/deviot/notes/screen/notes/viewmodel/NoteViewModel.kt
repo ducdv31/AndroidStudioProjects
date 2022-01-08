@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import vn.deviot.notes.data.repo.Repository_Impl
 import vn.deviot.notes.screen.notes.model.NoteRp
+import vn.deviot.notes.utils.BEARER
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,10 +22,9 @@ class NoteViewModel @Inject constructor(
     val listNote: SnapshotStateList<NoteRp?> = mutableStateListOf()
 
     fun getNote(auth: String) {
-        Log.e(TAG, "getNote: $auth")
         viewModelScope.launch {
             val response = try {
-                repositoryImpl.getAllNote(auth = auth)
+                repositoryImpl.getAllNote(auth = "$BEARER $auth")
             } catch (e: Exception) {
                 Log.e(TAG, "getNote: ${e.message}")
                 null
