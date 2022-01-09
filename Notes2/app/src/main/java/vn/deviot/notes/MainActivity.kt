@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import vn.deviot.notes.data.datastore.DataStoreManager
 import vn.deviot.notes.screen.common.AppBarCenter
 import vn.deviot.notes.screen.common.Route
 import vn.deviot.notes.screen.login.LoginScreen
@@ -28,11 +29,15 @@ import vn.deviot.notes.screen.notes.NoteScreen
 import vn.deviot.notes.screen.notes.viewmodel.NoteViewModel
 import vn.deviot.notes.ui.theme.NotesTheme
 import vn.deviot.notes.utils.TOKEN_ARGS
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
+
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
 
     private val titleApp: MutableState<Int> = mutableStateOf(R.string.app_name)
 

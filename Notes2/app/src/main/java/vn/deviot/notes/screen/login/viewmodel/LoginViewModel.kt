@@ -7,12 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import okhttp3.RequestBody
 import vn.deviot.notes.data.common.ResponseData
+import vn.deviot.notes.data.datastore.DataStoreManager
 import vn.deviot.notes.data.repo.Repository_Impl
 import vn.deviot.notes.screen.login.model.LoginRp
 import vn.deviot.notes.screen.login.model.UserCredential
@@ -22,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repositoryImpl: Repository_Impl
+    private val repositoryImpl: Repository_Impl,
+    private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
     private val TAG = LoginViewModel::class.java.simpleName
 
@@ -32,8 +32,19 @@ class LoginViewModel @Inject constructor(
 
     private val dataLogin: MutableState<ResponseData<LoginRp>?> = mutableStateOf(null)
 
+    init {
+        viewModelScope.launch {
+            username.value = dataStoreManager.usernameFlow.first()
+            password.value = dataStoreManager.passwordFlow.first()
+        }
+    }
+
     suspend fun login() {
         withContext(viewModelScope.coroutineContext) {
+            /* save data local */
+            dataStoreManager.setUserToStore(username.value)
+            dataStoreManager.setPasswordToStore(password.value)
+            /* *************** */
             val userCredential = UserCredential(username.value, password.value)
             val body: RequestBody = RequestBody.create(JSON, Gson().toJson(userCredential))
             val job = CoroutineScope(Dispatchers.Main).async {
