@@ -29,6 +29,7 @@ class LoginViewModel @Inject constructor(
     val username: MutableState<String> = mutableStateOf(EMPTY)
     val password: MutableState<String> = mutableStateOf(EMPTY)
     val token: MutableState<String> = mutableStateOf(EMPTY)
+    val exception: MutableState<Exception?> = mutableStateOf(null)
 
     private val dataLogin: MutableState<ResponseData<LoginRp>?> = mutableStateOf(null)
 
@@ -55,6 +56,7 @@ class LoginViewModel @Inject constructor(
                 token.value = dataLogin.value?.data?.token ?: EMPTY
             } catch (e: Exception) {
                 Log.e(TAG, "login: ${e.message}")
+                exception.value = e
             }
         }
     }

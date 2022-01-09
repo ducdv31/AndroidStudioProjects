@@ -17,12 +17,12 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import vn.deviot.notes.R
+import vn.deviot.notes.screen.common.DialogError
 import vn.deviot.notes.screen.login.viewmodel.LoginViewModel
 
 @Composable
@@ -87,5 +87,12 @@ fun LoginScreen(
         }) {
             Text(text = stringResource(id = R.string.login))
         }
+    }
+
+    if (loginViewModel.exception.value != null) {
+        DialogError(exception = loginViewModel.exception.value!!,
+            onDismissDialog = {
+                loginViewModel.exception.value = null
+            })
     }
 }
