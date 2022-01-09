@@ -8,6 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +30,21 @@ fun LoginScreen(
     loginViewModel: LoginViewModel,
     onLoginSuccess: (String) -> Unit
 ) {
+    val modifierLogin = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 16.dp)
+        .border(
+            border = BorderStroke(
+                width = 1.dp,
+                color = Color.Green
+            ), shape = RectangleShape
+        )
+    val colorTextFiledIndicator = TextFieldDefaults.textFieldColors(
+        focusedIndicatorColor = Color.Transparent,
+        disabledIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent,
+        backgroundColor = Color.LightGray,
+    )
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -42,18 +60,11 @@ fun LoginScreen(
             label = {
                 Text(text = stringResource(id = R.string.username))
             },
+            colors = colorTextFiledIndicator,
             textStyle = TextStyle(
                 color = Color.Black
             ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .border(
-                    border = BorderStroke(
-                        width = 1.dp,
-                        color = Color.Cyan
-                    ), shape = RectangleShape
-                ),
+            modifier = modifierLogin
         )
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
@@ -61,12 +72,12 @@ fun LoginScreen(
             onValueChange = {
                 loginViewModel.password.value = it
             },
+            colors = colorTextFiledIndicator,
             label = {
                 Text(text = stringResource(id = R.string.password))
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = modifierLogin
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {

@@ -18,10 +18,10 @@ import java.util.*
 @Composable
 fun NoteItem(noteRp: NoteRp) {
     Surface(
-        elevation = 8.dp,
+        elevation = 4.dp,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(8.dp)
     ) {
         Column(
 
