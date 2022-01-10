@@ -7,4 +7,6 @@
     <string name="password">Mật khẩu</string>
     <string name="error_request">Lỗi</string>
     <string name="ok">Đồng ý</string>
+    <string name="add_note">Thêm ghi chú</string>
+    <string name="cancel">Huỷ</string>
 </resources>

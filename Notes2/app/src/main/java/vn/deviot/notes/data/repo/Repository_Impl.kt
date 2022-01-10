@@ -13,6 +13,10 @@ class Repository_Impl
         return apiService.logIn(body)
     }
 
+    override suspend fun addNote(auth: String, note: String): ResponseData<String?>? {
+        return apiService.addNote(auth, note)
+    }
+
     override suspend fun getAllNote(auth: String): ResponseData<ResponseNotes>? {
         return apiService.getAllNote(auth)
     }

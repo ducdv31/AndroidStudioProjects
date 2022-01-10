@@ -9,6 +9,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import vn.deviot.notes.utils.BEARER
 import vn.deviot.notes.utils.EMPTY
 import javax.inject.Inject
 
@@ -18,6 +19,8 @@ val Context.userStore: DataStore<Preferences> by preferencesDataStore(name = "us
 /* key user */
 val USER_DATA_KEY = stringPreferencesKey("user_name_key")
 val PASS_DATA_KEY = stringPreferencesKey("pass_word_key")
+
+val TOKEN_LOGIN = stringPreferencesKey("token_login")
 
 class DataStoreManager @Inject constructor(
     @ApplicationContext private val context: Context
@@ -43,6 +46,23 @@ class DataStoreManager @Inject constructor(
     suspend fun setPasswordToStore(password: String) {
         context.userStore.edit { userStore ->
             userStore[PASS_DATA_KEY] = password
+        }
+    }
+
+    /* token */
+    val tokenFlow: Flow<String> = context.userStore.data
+        .map { value: Preferences ->
+            val token = value[TOKEN_LOGIN] ?: EMPTY
+            if (token.contains(BEARER)) {
+                token.trim()
+            } else {
+                "$BEARER ${token.trim()}"
+            }
+        }
+
+    suspend fun setToken(token: String) {
+        context.userStore.edit { userStore ->
+            userStore[TOKEN_LOGIN] = token
         }
     }
 }

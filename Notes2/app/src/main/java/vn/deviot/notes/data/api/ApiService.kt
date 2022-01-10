@@ -5,6 +5,8 @@ import retrofit2.http.*
 import vn.deviot.notes.data.common.ResponseData
 import vn.deviot.notes.screen.login.model.LoginRp
 import vn.deviot.notes.screen.notes.model.ResponseNotes
+import vn.deviot.notes.utils.AUTHORIZATION
+import vn.deviot.notes.utils.NOTE
 
 interface ApiService {
 
@@ -15,6 +17,13 @@ interface ApiService {
 
     @GET("notes")
     suspend fun getAllNote(
-        @Header("Authorization") Authorization: String
+        @Header(AUTHORIZATION) Authorization: String
     ): ResponseData<ResponseNotes>?
+
+    @FormUrlEncoded
+    @POST("add/note")
+    suspend fun addNote(
+        @Header(AUTHORIZATION) Authorization: String,
+        @Field(NOTE) note: String
+    ): ResponseData<String?>?
 }

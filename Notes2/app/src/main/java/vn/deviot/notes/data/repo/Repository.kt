@@ -10,4 +10,6 @@ interface Repository {
     suspend fun logIn(body: RequestBody): ResponseData<LoginRp>?
 
     suspend fun getAllNote(auth: String): ResponseData<ResponseNotes>?
+
+    suspend fun addNote(auth: String, note: String): ResponseData<String?>?
 }

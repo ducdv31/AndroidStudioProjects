@@ -1,4 +1,4 @@
-package vn.deviot.notes
+package vn.deviot.notes.view.activity.main
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
+import vn.deviot.notes.R
 import vn.deviot.notes.data.datastore.DataStoreManager
 import vn.deviot.notes.screen.common.AppBarCenter
 import vn.deviot.notes.screen.common.Route
@@ -27,7 +28,7 @@ import vn.deviot.notes.screen.login.LoginScreen
 import vn.deviot.notes.screen.login.viewmodel.LoginViewModel
 import vn.deviot.notes.screen.notes.NoteScreen
 import vn.deviot.notes.screen.notes.viewmodel.NoteViewModel
-import vn.deviot.notes.ui.theme.NotesTheme
+import vn.deviot.notes.view.activity.main.theme.NotesTheme
 import vn.deviot.notes.utils.TOKEN_ARGS
 import javax.inject.Inject
 

@@ -54,6 +54,7 @@ class LoginViewModel @Inject constructor(
             try {
                 dataLogin.value = job.await()
                 token.value = dataLogin.value?.data?.token ?: EMPTY
+                dataStoreManager.setToken(token = token.value)
             } catch (e: Exception) {
                 Log.e(TAG, "login: ${e.message}")
                 exception.value = e

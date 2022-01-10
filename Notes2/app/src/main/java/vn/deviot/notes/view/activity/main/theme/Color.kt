@@ -1,4 +1,4 @@
-package vn.deviot.notes.ui.theme
+package vn.deviot.notes.view.activity.main.theme
 
 import androidx.compose.ui.graphics.Color
 

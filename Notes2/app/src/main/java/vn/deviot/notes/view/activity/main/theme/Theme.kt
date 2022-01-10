@@ -1,10 +1,14 @@
-package vn.deviot.notes.ui.theme
+package vn.deviot.notes.view.activity.main.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import vn.deviot.notes.screen.common.LocalTextStyleNotes
+import vn.deviot.notes.screen.common.TextStyleValue
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -35,10 +39,13 @@ fun NotesTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable(
         LightColorPalette
     }
 
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    CompositionLocalProvider(LocalTextStyleNotes provides TextStyleValue()) {
+        MaterialTheme(
+            colors = colors,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
+
 }

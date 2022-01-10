@@ -9,10 +9,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import vn.deviot.notes.data.datastore.DataStoreManager
 import vn.deviot.notes.data.repo.Repository_Impl
 import vn.deviot.notes.screen.notes.model.NoteRp
-import vn.deviot.notes.utils.BEARER
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,14 +21,18 @@ class NoteViewModel @Inject constructor(
     private val repositoryImpl: Repository_Impl
 ) : ViewModel() {
 
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
+
     private val TAG = NoteViewModel::class.java.simpleName
 
     val listNote: SnapshotStateList<NoteRp?> = mutableStateListOf()
 
-    fun getNote(auth: String) {
+    fun getNote() {
         viewModelScope.launch {
+            val auth = dataStoreManager.tokenFlow.first()
             val job = CoroutineScope(Dispatchers.Default).async {
-                repositoryImpl.getAllNote(auth = "$BEARER $auth")
+                repositoryImpl.getAllNote(auth = auth)
             }
             try {
                 val response = job.await()
@@ -37,6 +42,17 @@ class NoteViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "getNote: ${e.message}")
+            }
+        }
+    }
+
+    suspend fun addNote(note: String) {
+        viewModelScope.launch {
+            val auth = dataStoreManager.tokenFlow.first()
+            try {
+                repositoryImpl.addNote(auth = auth, note = note)
+            } catch (e: Exception) {
+                Log.e(TAG, "addNote: ${e.message}")
             }
         }
     }
