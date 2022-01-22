@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="type_user_array">
-        <item>Master</item>
-        <item>Root</item>
-        <item>Normal</item>
-        <item>None</item>
-    </string-array>
-</resources>

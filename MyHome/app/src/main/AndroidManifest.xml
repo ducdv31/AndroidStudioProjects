@@ -1,66 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myhome">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    package="vn.dv.myhome">
 
     <application
-        android:name=".MyApplication"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyHome">
         <activity
-            android:name=".ui.view.activity.movie.MoviesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.view.activity.music.MusicActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utils.showimage.PlayImageSliderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utils.showimage.PlayImageBookAnimActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utils.playmedia.PlayMedialMxActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utils.playmedia.PlayMediaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.view.activity.storage.StorageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.view.activity.typeUser.ManageUserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.view.activity.history.HistoryDataActivity"
-            android:exported="false" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCDy2-JaN3GIZPVGRNBB2tXooVGJx2hgzw" />
-
-        <activity
-            android:name=".BaseActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.view.activity.main.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
