@@ -2,9 +2,11 @@ package vn.dv.myhome
 
 import android.content.*
 import android.os.IBinder
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import butterknife.ButterKnife
+import com.google.android.material.snackbar.Snackbar
 import vn.dv.myhome.broadcast.IMqttBroadcastSendData
 import vn.dv.myhome.broadcast.MqttBroadcast
 import vn.dv.myhome.service.mqtt.MqttActionKey
@@ -120,5 +122,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showSnackBar(view: View, message: String) {
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
 }

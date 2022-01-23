@@ -57,7 +57,7 @@ class MainActivity : BaseActivity() {
             override fun onDeliveryCompleted(token: String?) {
                 Log.e(TAG, "onDeliveryCompleted: $token")
                 if (token != null) {
-                    showToast(token)
+                    showSnackBar(drawerLayout, "Sent")
                 }
             }
 
