@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import vn.dv.myhome.BaseActivity
 import vn.dv.myhome.R
 import vn.dv.myhome.broadcast.IMqttBroadcastSendData
+import vn.dv.myhome.data.local.datastore.DataStoreManager
 import vn.dv.myhome.view.activity.main.adapter.EBottomTabHome
 import vn.dv.myhome.view.activity.main.adapter.HomeVpAdapter
 import vn.dv.myhome.view.activity.main.drawer.DrawerMainFragment
@@ -31,6 +32,9 @@ class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var homeVpAdapter: HomeVpAdapter
+
+    @Inject
+    lateinit var dataStoreManager: DataStoreManager
 
     private lateinit var fragmentDrawer: DrawerMainFragment
 

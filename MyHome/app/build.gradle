@@ -80,6 +80,10 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
 
     implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
+
+    // data store
+    implementation("androidx.datastore:datastore:1.0.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
 
 // Allow references to generated code

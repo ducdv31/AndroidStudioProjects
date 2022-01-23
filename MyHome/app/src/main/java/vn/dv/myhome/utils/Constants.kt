@@ -5,6 +5,7 @@ object Constants {
     const val SPACE = " "
     const val TOPIC = "TOPIC"
     const val MESSAGE = "MESSAGE"
+    const val PORT_DEFAULT = 1883
     const val ZERO = 0
     const val ONE = 1
     const val TWO = 2
