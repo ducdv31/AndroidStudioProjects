@@ -12,4 +12,6 @@
     <string name="config_mqtt">Cấu hình MQTT</string>
     <string name="publish">Công khai</string>
     <string name="subscribe">Đăng ký</string>
+    <string name="message_mqtt">Bản tin</string>
+    <string name="topic_mqtt">Chủ đề</string>
 </resources>

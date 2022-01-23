@@ -1,7 +1,6 @@
 package vn.dv.myhome
 
 import android.content.*
-import android.os.Bundle
 import android.os.IBinder
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -84,12 +83,38 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected fun subscribeTopic(
+    fun publishTopic(
+        topic: String,
+        content: String,
+        isRemain: Boolean = false
+    ) {
+        if (mBound) {
+            mqttService.publishMqtt(
+                topic,
+                content,
+                isRemain
+            )
+        }
+    }
+
+    fun subscribeTopic(
         topic: String,
         qos: Int = Constants.ZERO
     ) {
         if (mBound) {
             mqttService.subscribeMqtt(topic, qos)
+        }
+    }
+
+    fun unSubscribe(topic: String) {
+        if (mBound) {
+            mqttService.unSubscribeMqtt(topic)
+        }
+    }
+
+    fun disconnectMqtt() {
+        if (mBound) {
+            mqttService.disconnectMqtt()
         }
     }
 

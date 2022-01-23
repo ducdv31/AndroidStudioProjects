@@ -101,6 +101,7 @@ class MainActivity : BaseActivity() {
         viewPager2.apply {
             adapter = homeVpAdapter
             offscreenPageLimit = EBottomTabHome.values().size
+            isUserInputEnabled = false
         }
     }
 
