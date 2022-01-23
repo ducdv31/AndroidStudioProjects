@@ -5,4 +5,8 @@
     <string name="open_drawer">Mở menu</string>
     <string name="close_drawer">Đóng menu</string>
     <string name="connect">Kết nối</string>
+    <string name="host">Host</string>
+    <string name="port">Port</string>
+    <string name="host_test_mosquitto">test.mosquitto.org</string>
+    <string name="port_1883">1883</string>
 </resources>
