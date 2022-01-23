@@ -68,7 +68,7 @@ dependencies {
     // Annotation processor
     implementation "android.arch.lifecycle:common-java8:1.1.1"
 
-    implementation "androidx.fragment:fragment-ktx:$lifecycle_version"
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
 
     /* MQTT */
     implementation('org.eclipse.paho:org.eclipse.paho.android.service:1.1.1') {
