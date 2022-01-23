@@ -2,14 +2,20 @@ package vn.dv.myhome.view.activity.main
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager2.widget.ViewPager2
 import butterknife.BindView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import vn.dv.myhome.BaseActivity
 import vn.dv.myhome.R
 import vn.dv.myhome.broadcast.IMqttBroadcastSendData
-import vn.dv.myhome.view.activity.main.fragment.DrawerMainFragment
+import vn.dv.myhome.view.activity.main.adapter.EBottomTabHome
+import vn.dv.myhome.view.activity.main.adapter.HomeVpAdapter
+import vn.dv.myhome.view.activity.main.drawer.DrawerMainFragment
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
@@ -17,10 +23,16 @@ class MainActivity : BaseActivity() {
     @BindView(R.id.drawer_layout)
     lateinit var drawerLayout: DrawerLayout
 
-    private lateinit var fragmentDrawer: DrawerMainFragment
+    @BindView(R.id.viewpager)
+    lateinit var viewPager2: ViewPager2
 
-    @BindView(R.id.tv)
-    lateinit var tv: View
+    @BindView(R.id.bottom_nav)
+    lateinit var bottomNavigationView: BottomNavigationView
+
+    @Inject
+    lateinit var homeVpAdapter: HomeVpAdapter
+
+    private lateinit var fragmentDrawer: DrawerMainFragment
 
     override fun onStart() {
         super.onStart()
@@ -85,12 +97,34 @@ class MainActivity : BaseActivity() {
         fragmentDrawer =
             supportFragmentManager.findFragmentById(R.id.fragment_drawer) as DrawerMainFragment
         fragmentDrawer.setUpWithDrawer(drawerLayout)
+
+        viewPager2.apply {
+            adapter = homeVpAdapter
+            offscreenPageLimit = EBottomTabHome.values().size
+        }
     }
 
     override fun initListener() {
 
-        tv.setOnClickListener {
-            subscribeTopic("Duc")
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                EBottomTabHome.values().toList().forEach {
+                    if (position == it.ordinal) {
+                        bottomNavigationView.menu.findItem(it.bottomId).isChecked =
+                            true
+                    }
+                }
+            }
+        })
+
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            EBottomTabHome.values().toList().forEach {
+                if (it.bottomId == menuItem.itemId) {
+                    viewPager2.currentItem = it.ordinal
+                    return@setOnItemSelectedListener true
+                }
+            }
+            true
         }
     }
 

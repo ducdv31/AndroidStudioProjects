@@ -5,19 +5,10 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".view.activity.main.fragment.DrawerMainFragment">
+    tools:context=".view.activity.main.drawer.DrawerMainFragment">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:src="@drawable/ic_launcher_foreground" />
-
-    <TextView
+    <include
         android:id="@+id/config_mqtt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Config Mqtt"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        layout="@layout/item_drawer_config_mqtt" />
 
 </LinearLayout>

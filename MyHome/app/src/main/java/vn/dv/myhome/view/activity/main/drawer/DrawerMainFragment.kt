@@ -1,4 +1,4 @@
-package vn.dv.myhome.view.activity.main.fragment
+package vn.dv.myhome.view.activity.main.drawer
 
 import android.content.Intent
 import android.view.View

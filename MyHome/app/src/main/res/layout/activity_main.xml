@@ -10,7 +10,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_drawer"
-        android:name="vn.dv.myhome.view.activity.main.fragment.DrawerMainFragment"
+        android:name="vn.dv.myhome.view.activity.main.drawer.DrawerMainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"

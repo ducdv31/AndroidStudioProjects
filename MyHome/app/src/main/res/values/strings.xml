@@ -9,4 +9,7 @@
     <string name="port">Port</string>
     <string name="host_test_mosquitto">test.mosquitto.org</string>
     <string name="port_1883">1883</string>
+    <string name="config_mqtt">Configuration MQTT</string>
+    <string name="publish">Publish</string>
+    <string name="subscribe">Subscribe</string>
 </resources>
