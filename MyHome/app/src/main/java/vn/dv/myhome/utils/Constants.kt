@@ -17,4 +17,5 @@ object Constants {
     const val EIGHT = 8
     const val NINE = 9
     const val TEN = 10
+    const val TIME_HH_MM = "HH:mm"
 }

@@ -13,9 +13,12 @@ import vn.dv.myhome.BaseActivity
 import vn.dv.myhome.R
 import vn.dv.myhome.broadcast.IMqttBroadcastSendData
 import vn.dv.myhome.data.local.datastore.DataStoreManager
+import vn.dv.myhome.utils.bus.EventBus
+import vn.dv.myhome.utils.bus.GlobalBus
 import vn.dv.myhome.view.activity.main.adapter.EBottomTabHome
 import vn.dv.myhome.view.activity.main.adapter.HomeVpAdapter
 import vn.dv.myhome.view.activity.main.drawer.DrawerMainFragment
+import vn.dv.myhome.view.activity.main.model.SubscribeDataModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -57,9 +60,17 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onArrivedMessage(topic: String?, message: String?) {
-                Log.e(TAG, "onArrivedMessage: $topic - $message")
                 if (topic != null && message != null) {
-                    showToast("Topic: $topic - Message: $message")
+                    val data = SubscribeDataModel(
+                        topic,
+                        message
+                    )
+
+                    val subscribeEvent = EventBus.SubscribeDataEvent.apply {
+                        setData(data)
+                    }
+
+                    GlobalBus.getBus().post(subscribeEvent)
                 }
             }
 

@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.main.fragment.SubscribeMqttFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_data_sub"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        app:layout_constraintBottom_toTopOf="@id/topic_subscribe_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_subscribe_data" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/topic_subscribe_input_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

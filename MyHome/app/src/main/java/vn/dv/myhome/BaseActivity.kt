@@ -14,6 +14,7 @@ import vn.dv.myhome.broadcast.MqttBroadcast
 import vn.dv.myhome.service.mqtt.MqttActionKey
 import vn.dv.myhome.service.mqtt.MqttService
 import vn.dv.myhome.utils.Constants
+import vn.dv.myhome.utils.bus.GlobalBus
 import vn.dv.myhome.view.activity.configmqtt.ConfigMqttActivity
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -51,6 +52,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
         ButterKnife.bind(this)
+        GlobalBus.getBus().register(this)
         initVar()
         initListener()
         requestData()
@@ -68,6 +70,7 @@ abstract class BaseActivity : AppCompatActivity() {
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()
         }
+        GlobalBus.getBus().unregister(this)
     }
 
     protected fun setTitleHeader(title: String) {
