@@ -2,6 +2,8 @@ package vn.dv.myhome.view.activity.main
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import butterknife.BindView
@@ -29,6 +31,9 @@ class MainActivity : BaseActivity() {
 
     @BindView(R.id.bottom_nav)
     lateinit var bottomNavigationView: BottomNavigationView
+
+    @BindView(R.id.btn_left_menu)
+    lateinit var btnLeftMenu: View
 
     @Inject
     lateinit var homeVpAdapter: HomeVpAdapter
@@ -81,7 +86,7 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onNoConnected() {
-                Log.e(TAG, "onNoConnected: ")
+                openConfigMqttScreen()
                 showToast("onNoConnected")
             }
 
@@ -95,6 +100,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setTitleHeader(getString(R.string.home))
     }
 
     override fun initVar() {
@@ -130,6 +136,12 @@ class MainActivity : BaseActivity() {
                 }
             }
             true
+        }
+
+        btnLeftMenu.setOnClickListener {
+            if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
         }
     }
 

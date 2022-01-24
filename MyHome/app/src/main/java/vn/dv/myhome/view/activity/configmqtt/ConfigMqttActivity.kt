@@ -93,6 +93,7 @@ class ConfigMqttActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_config_mqtt)
+        setTitleHeader(getString(R.string.config_mqtt))
         CoroutineScope(Dispatchers.Main).launch {
             edtHost.setText(dataStoreManager.hostDataFlow.first())
             edtHost.setSelection(edtHost.length())

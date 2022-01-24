@@ -5,6 +5,8 @@ import android.os.IBinder
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
+import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.snackbar.Snackbar
 import vn.dv.myhome.broadcast.IMqttBroadcastSendData
@@ -12,6 +14,7 @@ import vn.dv.myhome.broadcast.MqttBroadcast
 import vn.dv.myhome.service.mqtt.MqttActionKey
 import vn.dv.myhome.service.mqtt.MqttService
 import vn.dv.myhome.utils.Constants
+import vn.dv.myhome.view.activity.configmqtt.ConfigMqttActivity
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -19,6 +22,11 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private var mBound = false
     private lateinit var mqttService: MqttService
+
+    private var btnBack: View? = null
+
+    @BindView(R.id.title_tool_bar)
+    lateinit var titleToolBarBack: AppCompatTextView
 
     /** Defines callbacks for service binding, passed to bindService()  */
     private val connection = object : ServiceConnection {
@@ -46,6 +54,11 @@ abstract class BaseActivity : AppCompatActivity() {
         initVar()
         initListener()
         requestData()
+        btnBack = findViewById(R.id.btn_back_tool_bar)
+
+        btnBack?.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onDestroy() {
@@ -55,6 +68,10 @@ abstract class BaseActivity : AppCompatActivity() {
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()
         }
+    }
+
+    protected fun setTitleHeader(title: String) {
+        titleToolBarBack.text = title
     }
 
     protected fun bindMqttService(iMqttBroadcastSendData: IMqttBroadcastSendData) {
@@ -126,5 +143,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showSnackBar(view: View, message: String) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    fun openConfigMqttScreen() {
+        startActivity(Intent(this, ConfigMqttActivity::class.java))
     }
 }
