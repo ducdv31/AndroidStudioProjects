@@ -1,7 +1,6 @@
 package vn.dv.myhome.view.activity.configmqtt
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import butterknife.BindView
 import com.google.android.material.textfield.TextInputEditText
@@ -14,6 +13,9 @@ import vn.dv.myhome.BaseActivity
 import vn.dv.myhome.R
 import vn.dv.myhome.broadcast.IMqttBroadcastSendData
 import vn.dv.myhome.data.local.datastore.DataStoreManager
+import vn.dv.myhome.utils.bus.EventBus
+import vn.dv.myhome.utils.bus.GlobalBus
+import vn.dv.myhome.view.activity.main.model.SubscribeDataModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,52 +42,58 @@ class ConfigMqttActivity : BaseActivity() {
         super.onStart()
         bindMqttService(object : IMqttBroadcastSendData {
             override fun onConnectSuccess(asyncActionToken: String?) {
-                Log.e(TAG, "onConnectSuccess: $asyncActionToken")
-                asyncActionToken?.let { showToast(it) }
+                showSnackBar(rootView, getString(R.string.connect_success))
             }
 
             override fun onConnectLost(message: String?) {
-                Log.e(TAG, "onConnectLost: $message")
-                message?.let { showToast(it) }
+                message?.let {
+                    showSnackBar(
+                        rootView,
+                        "${getString(R.string.connection_lost)}: $message"
+                    )
+                }
             }
 
             override fun onArrivedMessage(topic: String?, message: String?) {
-                Log.e(TAG, "onArrivedMessage: $topic - $message")
                 if (topic != null && message != null) {
-                    showToast("Topic: $topic - Message: $message")
+                    val data = SubscribeDataModel(
+                        topic,
+                        message
+                    )
+
+                    val subscribeEvent = EventBus.SubscribeDataEvent.apply {
+                        setData(data)
+                    }
+
+                    GlobalBus.getBus().post(subscribeEvent)
                 }
             }
 
             override fun onDeliveryCompleted(token: String?) {
-                Log.e(TAG, "onDeliveryCompleted: $token")
                 if (token != null) {
-                    showToast(token)
+                    showSnackBar(rootView, getString(R.string.sent))
                 }
             }
 
             override fun onSubscribeSuccess() {
-                Log.e(TAG, "onSubscribeSuccess: ")
-                showToast("onSubscribeSuccess")
+                showSnackBar(rootView, getString(R.string.subscribe_success))
             }
 
             override fun onUnSubscribeSuccess() {
-                Log.e(TAG, "onUnSubscribeSuccess: ")
-                showToast("onUnSubscribeSuccess")
+                showSnackBar(rootView, getString(R.string.un_subscribe_success))
             }
 
             override fun onError(message: String?) {
-                Log.e(TAG, "onError: $message")
-                showToast("Error: $message")
+                showSnackBar(rootView, "${getString(R.string.error)}: $message")
             }
 
             override fun onNoConnected() {
-                Log.e(TAG, "onNoConnected: ")
-                showToast("onNoConnected")
+                showToast(getString(R.string.no_connection))
+                openConfigMqttScreen()
             }
 
             override fun onDisconnected() {
-                Log.e(TAG, "onDisconnected: ")
-                showToast("onDisconnected")
+                showSnackBar(rootView, getString(R.string.disconnected))
             }
         })
     }

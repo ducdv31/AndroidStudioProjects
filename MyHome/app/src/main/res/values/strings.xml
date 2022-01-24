@@ -15,4 +15,12 @@
     <string name="message_mqtt">Message</string>
     <string name="topic_mqtt">Topic</string>
     <string name="home">Home</string>
+    <string name="subscribe_success">Subscribe success!</string>
+    <string name="un_subscribe_success">Unsubscribe success!</string>
+    <string name="sent">Sent</string>
+    <string name="error">Error</string>
+    <string name="no_connection">No connection</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="connection_lost">Connection lost</string>
+    <string name="connect_success">Connect success</string>
 </resources>

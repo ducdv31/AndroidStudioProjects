@@ -12,6 +12,7 @@
         android:layout_height="0dp"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/topic_subscribe_input_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

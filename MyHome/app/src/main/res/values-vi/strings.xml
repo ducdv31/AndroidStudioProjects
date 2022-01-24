@@ -15,4 +15,12 @@
     <string name="message_mqtt">Bản tin</string>
     <string name="topic_mqtt">Chủ đề</string>
     <string name="home">Trang chủ</string>
+    <string name="subscribe_success">Đăng ký thành công!</string>
+    <string name="un_subscribe_success">Huỷ Đăng ký thành công!</string>
+    <string name="sent">Đã gửi</string>
+    <string name="error">Lỗi</string>
+    <string name="no_connection">Không có kết nối</string>
+    <string name="disconnected">Đã ngắt kết nối</string>
+    <string name="connection_lost">Mất kết nối</string>
+    <string name="connect_success">Kết nối thành công</string>
 </resources>

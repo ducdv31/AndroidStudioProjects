@@ -1,7 +1,6 @@
 package vn.dv.myhome.view.activity.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -50,13 +49,16 @@ class MainActivity : BaseActivity() {
         super.onStart()
         bindMqttService(object : IMqttBroadcastSendData {
             override fun onConnectSuccess(asyncActionToken: String?) {
-                Log.e(TAG, "onConnectSuccess: $asyncActionToken")
-                asyncActionToken?.let { showToast(it) }
+                showSnackBar(drawerLayout, getString(R.string.connect_success))
             }
 
             override fun onConnectLost(message: String?) {
-                Log.e(TAG, "onConnectLost: $message")
-                message?.let { showToast(it) }
+                message?.let {
+                    showSnackBar(
+                        drawerLayout,
+                        "${getString(R.string.connection_lost)}: $message"
+                    )
+                }
             }
 
             override fun onArrivedMessage(topic: String?, message: String?) {
@@ -75,35 +77,30 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onDeliveryCompleted(token: String?) {
-                Log.e(TAG, "onDeliveryCompleted: $token")
                 if (token != null) {
-                    showSnackBar(drawerLayout, "Sent")
+                    showSnackBar(drawerLayout, getString(R.string.sent))
                 }
             }
 
             override fun onSubscribeSuccess() {
-                Log.e(TAG, "onSubscribeSuccess: ")
-                showToast("onSubscribeSuccess")
+                showSnackBar(drawerLayout, getString(R.string.subscribe_success))
             }
 
             override fun onUnSubscribeSuccess() {
-                Log.e(TAG, "onUnSubscribeSuccess: ")
-                showToast("onUnSubscribeSuccess")
+                showSnackBar(drawerLayout, getString(R.string.un_subscribe_success))
             }
 
             override fun onError(message: String?) {
-                Log.e(TAG, "onError: $message")
-                showToast("Error: $message")
+                showSnackBar(drawerLayout, "${getString(R.string.error)}: $message")
             }
 
             override fun onNoConnected() {
+                showToast(getString(R.string.no_connection))
                 openConfigMqttScreen()
-                showToast("onNoConnected")
             }
 
             override fun onDisconnected() {
-                Log.e(TAG, "onDisconnected: ")
-                showToast("onDisconnected")
+                showSnackBar(drawerLayout, getString(R.string.disconnected))
             }
         })
     }

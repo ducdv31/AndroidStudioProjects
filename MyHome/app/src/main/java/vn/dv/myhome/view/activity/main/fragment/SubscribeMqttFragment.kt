@@ -72,6 +72,7 @@ class SubscribeMqttFragment : BaseFragment(R.layout.fragment_subscribe_mqtt) {
     @Subscribe
     fun getDataReceived(subscribeDataModel: EventBus.SubscribeDataEvent) {
         subscribeDataModel.getData()?.let { subscribeDataAdapter.addDataItem(it) }
+        rvDataSub.smoothScrollToPosition(subscribeDataAdapter.itemCount)
     }
 
 }
