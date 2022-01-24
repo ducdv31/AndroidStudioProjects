@@ -108,13 +108,15 @@ abstract class BaseActivity : AppCompatActivity() {
     fun publishTopic(
         topic: String,
         content: String,
-        isRemain: Boolean = false
+        isRemain: Boolean = false,
+        qos: Int = Constants.ZERO
     ) {
         if (mBound) {
             mqttService.publishMqtt(
                 topic,
                 content,
-                isRemain
+                isRemain,
+                qos
             )
         }
     }

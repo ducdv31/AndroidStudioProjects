@@ -14,7 +14,8 @@ abstract class BaseMqttService : Service() {
     abstract fun publishMqtt(
         topic: String = Constants.EMPTY,
         content: String = Constants.EMPTY,
-        remain: Boolean = false
+        remain: Boolean = false,
+        qos: Int = 0
     )
 
     abstract fun subscribeMqtt(

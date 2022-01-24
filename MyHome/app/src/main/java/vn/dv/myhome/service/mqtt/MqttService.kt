@@ -87,13 +87,19 @@ class MqttService : BaseMqttService(), IOnMqttSendAction {
         }
     }
 
-    override fun publishMqtt(topic: String, content: String, remain: Boolean) {
+    override fun publishMqtt(
+        topic: String,
+        content: String,
+        remain: Boolean,
+        qos: Int
+    ) {
         if (hasConnected) {
             val encodedPayload: ByteArray?
             try {
                 encodedPayload = content.toByteArray(charset("UTF-8"))
                 val message = MqttMessage(encodedPayload)
                 message.isRetained = remain
+                message.qos = qos
                 client?.publish(topic, message)
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()
