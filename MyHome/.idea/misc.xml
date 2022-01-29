@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/corner_16_red.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/corner_16_red_alpha_50.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/corner_16_white.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/corner_8_red.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/corner_8_white.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/corner_8_white_stroke.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/drawable/ic_baseline_network_locked_24.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_config_mqtt.xml" value="0.4" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/activity_main.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/content_main.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_drawer_main.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_publish_mqtt.xml" value="0.4" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/fragment_subscribe_mqtt.xml" value="0.264" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_selection_drawer.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/item_subscribe_data.xml" value="0.536" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/tool_bar_back.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/layout/tool_bar_home.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/MyHome/app/src/main/res/menu/bottom_main_menu.xml" value="0.23333333333333334" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
