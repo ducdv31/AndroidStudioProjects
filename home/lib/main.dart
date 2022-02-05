@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_server_client.dart';
 
-import 'mqtt_example_pub_sub.dart';
+import 'mqtt/mqtt_config.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,13 +31,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String strPub = '';
+  String topicSub = '';
+  late MqttConfig mqttConfig;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      runMqtt();
-    });
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    mqttConfig = MqttConfig();
+    mqttConfig.connectMqtt();
   }
 
   @override
@@ -54,20 +54,80 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: TextField(
+                    onChanged: (text) {
+                      strPub = text;
+                    },
+                    decoration: const InputDecoration(
+                      label: Text("Publish"),
+                    ),
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    mqttConfig.publish("Duc", strPub);
+                  },
+                  child: const Text("Publish"),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            OutlinedButton(
+              onPressed: () {
+                mqttConfig.listenPublish();
+              },
+              child: const Text("Listen Publish"),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                mqttConfig.listenUpdate();
+              },
+              child: const Text("Listen Update"),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: TextField(
+                    onChanged: (text) {
+                      topicSub = text;
+                    },
+                    decoration: const InputDecoration(
+                      label: Text("Subscribe"),
+                    ),
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    mqttConfig.subscribe(topicSub);
+                  },
+                  child: const Text("Subscribe"),
+                ),
+              ],
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.publish),
+            label: "Publish",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.subscriptions_outlined),
+            label: "Subscribe",
+          ),
+        ],
+        onTap: (pos) {
+          setState(() {
+            currentIndex = pos;
+          });
+        },
+        currentIndex: currentIndex,
       ),
     );
   }
