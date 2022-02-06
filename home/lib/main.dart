@@ -1,13 +1,18 @@
+import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:home/screen/mqtt/publish/publish_screen.dart';
+import 'package:home/screen/mqtt/subscribe/subscribe_screen.dart';
 
 import 'mqtt/mqtt_config.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -15,9 +20,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: "MQTT"),
     );
   }
 }
@@ -34,8 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
   String strPub = '';
   String topicSub = '';
   late MqttConfig mqttConfig;
+  final PageController _pageController = PageController();
 
-  int currentIndex = 0;
+  int currentBottomIndex = 0;
 
   @override
   void initState() {
@@ -49,67 +55,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: TextField(
-                    onChanged: (text) {
-                      strPub = text;
-                    },
-                    decoration: const InputDecoration(
-                      label: Text("Publish"),
-                    ),
-                  ),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    mqttConfig.publish("Duc", strPub);
-                  },
-                  child: const Text("Publish"),
-                ),
-              ],
-            ),
-            OutlinedButton(
-              onPressed: () {
-                mqttConfig.listenPublish();
-              },
-              child: const Text("Listen Publish"),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                mqttConfig.listenUpdate();
-              },
-              child: const Text("Listen Update"),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: TextField(
-                    onChanged: (text) {
-                      topicSub = text;
-                    },
-                    decoration: const InputDecoration(
-                      label: Text("Subscribe"),
-                    ),
-                  ),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    mqttConfig.subscribe(topicSub);
-                  },
-                  child: const Text("Subscribe"),
-                ),
-              ],
-            ),
-          ],
-        ),
+      body: PageView(
+        controller: _pageController,
+        children: const [
+          PublishScreen(),
+          SubscribeScreen(),
+        ],
+        onPageChanged: (pos) {
+          setState(() {
+            currentBottomIndex = pos;
+          });
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
@@ -123,11 +81,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         onTap: (pos) {
+          _pageController.animateToPage(
+            pos,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.ease,
+          );
           setState(() {
-            currentIndex = pos;
+            currentBottomIndex = pos;
           });
         },
-        currentIndex: currentIndex,
+        currentIndex: currentBottomIndex,
       ),
     );
   }
