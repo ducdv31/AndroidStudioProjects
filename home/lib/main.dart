@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,23 @@ import 'package:home/screen/mqtt/publish/publish_screen.dart';
 import 'package:home/screen/mqtt/subscribe/subscribe_screen.dart';
 
 import 'mqtt/mqtt_config.dart';
+Future<void> createNewIsoLate() async {
+  var receivedPort = ReceivePort();
+  await Isolate.spawn(taskRunner, receivedPort.sendPort);
+  receivedPort.listen((message) {
+    print(message);
+  });
+}
 
-void main() {
+void taskRunner(SendPort sendPort) {
+  int total = 0;
+  for (int i = 1; i < 100; i++) {
+    total += i;
+  }
+  sendPort.send(total);
+}
+
+void main() async {
   runApp(MyApp());
 }
 

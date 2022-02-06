@@ -78,34 +78,28 @@ class _PublishScreenState extends State<PublishScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Expanded(
-          child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: textFieldCommon("Topic", (text) {
-                  topic = text;
-                })),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: textFieldCommon("Message", (value) {
-                message = value;
-              }),
-            ),
-            OutlinedButton(
-              onPressed: () async {
-                final MqttConfig _mqttConfig = MqttConfig();
-                await _mqttConfig.connectMqtt();
-                _mqttConfig.publish(topic, message);
-              },
-              child: const Text("Publish"),
-            ),
-          ],
+    return Column(
+      children: [
+        Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: textFieldCommon("Topic", (text) {
+              topic = text;
+            })),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: textFieldCommon("Message", (value) {
+            message = value;
+          }),
         ),
-      )),
+        OutlinedButton(
+          onPressed: () async {
+            final MqttConfig _mqttConfig = MqttConfig();
+            await _mqttConfig.connectMqtt();
+            _mqttConfig.publish(topic, message);
+          },
+          child: const Text("Publish"),
+        ),
+      ],
     );
   }
 }

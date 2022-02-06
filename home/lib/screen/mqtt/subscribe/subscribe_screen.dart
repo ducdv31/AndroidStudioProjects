@@ -15,31 +15,27 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Expanded(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: textFieldCommon(
-                "Topic",
-                (text) {
-                  topic = text;
-                },
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () async {
-                final MqttConfig _mqttConfig = MqttConfig();
-                await _mqttConfig.connectMqtt();
-                _mqttConfig.subscribe(topic);
-                _mqttConfig.listenUpdate();
-              },
-              child: const Text("Subscribe"),
-            ),
-          ],
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: textFieldCommon(
+            "Topic",
+            (text) {
+              topic = text;
+            },
+          ),
         ),
-      ),
+        OutlinedButton(
+          onPressed: () async {
+            final MqttConfig _mqttConfig = MqttConfig();
+            await _mqttConfig.connectMqtt();
+            _mqttConfig.subscribe(topic);
+            _mqttConfig.listenUpdate();
+          },
+          child: const Text("Subscribe"),
+        ),
+      ],
     );
   }
 }
