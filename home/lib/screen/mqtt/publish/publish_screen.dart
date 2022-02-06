@@ -61,6 +61,9 @@ Column(
  */
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:home/component/textfield_component.dart';
+import 'package:home/mqtt/mqtt_config.dart';
 
 class PublishScreen extends StatefulWidget {
   const PublishScreen({Key? key}) : super(key: key);
@@ -70,10 +73,39 @@ class PublishScreen extends StatefulWidget {
 }
 
 class _PublishScreenState extends State<PublishScreen> {
+  String topic = '';
+  String message = '';
+
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Publish"),
+    return Center(
+      child: Expanded(
+          child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Column(
+          children: [
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: textFieldCommon("Topic", (text) {
+                  topic = text;
+                })),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: textFieldCommon("Message", (value) {
+                message = value;
+              }),
+            ),
+            OutlinedButton(
+              onPressed: () async {
+                final MqttConfig _mqttConfig = MqttConfig();
+                await _mqttConfig.connectMqtt();
+                _mqttConfig.publish(topic, message);
+              },
+              child: const Text("Publish"),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }
