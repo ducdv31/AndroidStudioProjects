@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/popular_image"
+        android:icon="@drawable/ic_image_black_24dp"
+        android:title="@string/popular_image" />
+    <item
+        android:id="@+id/popular_video"
+        android:icon="@drawable/ic_videocam_black_24dp"
+        android:title="@string/popular_video" />
+</menu>
