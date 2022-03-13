@@ -7,15 +7,25 @@
     app:layoutDescription="@xml/fragment_popular_video_scene"
     tools:context=".view.main.fragment.PopularVideoFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_container_video"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.exoplayer2.ui.StyledPlayerView
         android:id="@+id/exoPlayer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:elevation="2dp"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="@id/top_container_video"
+        app:layout_constraintEnd_toEndOf="@id/top_container_video"
+        app:layout_constraintStart_toStartOf="@id/top_container_video"
+        app:layout_constraintTop_toTopOf="@id/top_container_video">
 
         <ProgressBar
             android:id="@+id/progressLoadVideo"
@@ -33,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_container_video"
         tools:listitem="@layout/item_video_pexels" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
