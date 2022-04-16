@@ -1,11 +1,16 @@
 package vn.dv.myvideo.view.main.fragment
 
+import android.app.Activity
+import android.os.Environment
+import androidx.core.os.EnvironmentCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
+import com.google.android.gms.wallet.PaymentsClient
+import com.google.android.gms.wallet.Wallet
 import dagger.hilt.android.AndroidEntryPoint
 import vn.dv.myvideo.common.BaseFragment
 import vn.dv.myvideo.common.divider.VerticalDpDivider
