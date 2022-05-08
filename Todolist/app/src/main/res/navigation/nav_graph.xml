@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScenes">
+
+    <fragment
+        android:id="@+id/homeScenes"
+        android:name="vn.dv.todolist.app.scenes.home.HomeScenes"
+        android:label="fragment_home_scenes"
+        tools:layout="@layout/fragment_home_scenes" >
+        <action
+            android:id="@+id/action_homeScenes_to_detailTodoScreen"
+            app:destination="@id/detailTodoScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailTodoScreen"
+        android:name="vn.dv.todolist.app.scenes.detailltodo.DetailTodoScreen"
+        android:label="fragment_detail_todo_screen"
+        tools:layout="@layout/fragment_detail_todo_screen" />
+</navigation>
