@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_16_gray.xml" value="0.1375" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_8_gray.xml" value="0.1375" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_8_gray_100.xml" value="0.22" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_8_gray_300.xml" value="0.22" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/activity_detail_todo_screen.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/activity_main.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/fragment_base.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/fragment_detail_todo_screen.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/fragment_home_scenes.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/item_category_reminder.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/tool_bar_layout.xml" value="0.23333333333333334" />
       </map>
     </option>
