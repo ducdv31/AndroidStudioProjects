@@ -32,11 +32,11 @@ class TodoAdapter(
     override fun onBindViewHolder(holder: TodoVH, position: Int) {
         val itemTodo = listTodo[position]
         holder.bind(itemTodo, onCheckItem = { isChecked, todoModel ->
-            listTodo.find {
+            /*listTodo.find {
                 it.id == todoModel.id
             }.run {
                 this?.checked = isChecked
-            }
+            }*/
             onCheckItem.invoke(isChecked, todoModel)
         })
     }
@@ -57,11 +57,11 @@ class TodoAdapter(
                 cbTodo.apply {
                     isChecked = todoModel.checked
                     setOnCheckedChangeListener { compoundButton, isChecked ->
-                        titleTodo.text = if (isChecked) {
+                        /*titleTodo.text = if (isChecked) {
                             spannableText(todoModel.title)
                         } else {
                             todoModel.title
-                        }
+                        }*/
                         onCheckItem.invoke(isChecked, todoModel)
                     }
                 }
