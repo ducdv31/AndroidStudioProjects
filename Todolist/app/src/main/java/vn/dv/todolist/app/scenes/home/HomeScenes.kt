@@ -26,6 +26,10 @@ class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBin
     @Inject
     lateinit var categoryTodoDb: CategoryTodoDb
 
+    private val dialogInputCategory: DialogInputCategory by lazy {
+        DialogInputCategory()
+    }
+
     private val categoryReminderAdapter: CategoryReminderAdapter by lazy {
         CategoryReminderAdapter(
             onClickItem = {
@@ -65,6 +69,11 @@ class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBin
     }
 
     override fun initListener() {
+        binding.btnAddList.setOnClickListener {
+            if (!dialogInputCategory.isAdded) {
+                dialogInputCategory.show(parentFragmentManager, null)
+            }
+        }
     }
 
     override fun initObservers() {
