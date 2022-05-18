@@ -4,15 +4,27 @@ import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import vn.dv.todolist.R
 import vn.dv.todolist.app.base.BaseFragment
 import vn.dv.todolist.app.scenes.home.adapter.CategoryReminderAdapter
-import vn.dv.todolist.app.scenes.home.model.CategoryReminderModel
 import vn.dv.todolist.databinding.FragmentHomeScenesBinding
+import vn.dv.todolist.doimain.home.room.db.CategoryTodoDb
+import vn.dv.todolist.doimain.home.room.dto.getCategoryFromEntity
+import vn.dv.todolist.doimain.home.room.entity.CategoryTodoEntity
 import vn.dv.todolist.infrastructure.core.recyclerview.VerticalDpDivider
+import javax.inject.Inject
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBinding::inflate) {
+
+    @Inject
+    lateinit var categoryTodoDb: CategoryTodoDb
 
     private val categoryReminderAdapter: CategoryReminderAdapter by lazy {
         CategoryReminderAdapter(
@@ -35,12 +47,21 @@ class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBin
     }
 
     override fun initActions() {
-        val listData = listOf(
-            CategoryReminderModel(1, "Ok"),
-            CategoryReminderModel(2, "Hehe"),
-            CategoryReminderModel(3, "Leo leo"),
-        )
-        categoryReminderAdapter.setData(listData.toMutableList())
+        CoroutineScope(IO).launch {
+            categoryTodoDb.getCategoryTodoDao()
+                .addCategory(
+                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
+                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
+                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
+                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
+                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
+                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}")
+                )
+            val listData = categoryTodoDb.getCategoryTodoDao().getAllCategory()
+            withContext(Main) {
+                categoryReminderAdapter.setData(getCategoryFromEntity(listData).toMutableList())
+            }
+        }
     }
 
     override fun initListener() {
