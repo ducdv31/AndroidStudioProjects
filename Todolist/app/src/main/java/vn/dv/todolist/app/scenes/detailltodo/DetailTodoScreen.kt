@@ -4,10 +4,11 @@ import android.os.Bundle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import vn.dv.todolist.R
 import vn.dv.todolist.app.base.BaseFragment
+import vn.dv.todolist.app.scenes.detailltodo.adapter.RecyclerViewItemTouchHelper
 import vn.dv.todolist.app.scenes.detailltodo.adapter.TodoAdapter
 import vn.dv.todolist.app.scenes.detailltodo.model.TodoModel
 import vn.dv.todolist.databinding.FragmentDetailTodoScreenBinding
@@ -101,37 +102,48 @@ class DetailTodoScreen :
     }
 
     private fun initRecyclerviewTodo() {
-        val itemTouchHelper =
-            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
+        val itemHelperCallback = RecyclerViewItemTouchHelper(
+            0,
+            ItemTouchHelper.LEFT
+        ) { viewHolder ->
+            val pos = viewHolder.absoluteAdapterPosition
+            val todoModelDelete = listTodo[pos]
+            todoAdapter removeItemAt pos
+            Snackbar.make(binding.root, "Deleted ${todoModelDelete.title}", Snackbar.LENGTH_LONG)
+                .setAction("Undo") {
+                    todoAdapter.undoItem(todoModelDelete, pos)
                 }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val pos = viewHolder.absoluteAdapterPosition
-                    listTodo.removeAt(pos)
-                    todoAdapter.notifyItemRemoved(pos)
-                }
-            })
+                .show()
+        }
         binding.rvTodoReminder.apply {
             adapter = todoAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             addItemDecoration(VerticalDpDivider(SPACE_ITEM_TODO, resources))
         }
-        itemTouchHelper.attachToRecyclerView(binding.rvTodoReminder)
+        ItemTouchHelper(itemHelperCallback).attachToRecyclerView(binding.rvTodoReminder)
         todoAdapter.setData(listTodo)
     }
 
     private fun initRecyclerviewDone() {
+        val itemHelperCallback = RecyclerViewItemTouchHelper(
+            0,
+            ItemTouchHelper.LEFT
+        ) { viewHolder ->
+            val pos = viewHolder.absoluteAdapterPosition
+            val todoModelDelete = listTodo[pos]
+            doneAdapter removeItemAt pos
+            Snackbar.make(binding.root, "Deleted ${todoModelDelete.title}", Snackbar.LENGTH_LONG)
+                .setAction("Undo") {
+                    doneAdapter.undoItem(todoModelDelete, pos)
+                }
+                .show()
+        }
         binding.rvDoneReminder.apply {
             adapter = doneAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             addItemDecoration(VerticalDpDivider(SPACE_ITEM_TODO, resources))
         }
+        ItemTouchHelper(itemHelperCallback).attachToRecyclerView(binding.rvDoneReminder)
         doneAdapter.setData(listDone)
     }
 

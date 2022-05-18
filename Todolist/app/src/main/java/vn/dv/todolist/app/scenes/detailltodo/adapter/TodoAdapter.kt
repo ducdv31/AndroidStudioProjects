@@ -4,6 +4,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vn.dv.todolist.app.scenes.detailltodo.model.TodoModel
@@ -32,11 +33,6 @@ class TodoAdapter(
     override fun onBindViewHolder(holder: TodoVH, position: Int) {
         val itemTodo = listTodo[position]
         holder.bind(itemTodo, onCheckItem = { isChecked, todoModel ->
-            /*listTodo.find {
-                it.id == todoModel.id
-            }.run {
-                this?.checked = isChecked
-            }*/
             onCheckItem.invoke(isChecked, todoModel)
         })
     }
@@ -46,6 +42,9 @@ class TodoAdapter(
     inner class TodoVH(
         private var binding: ItemTodoReminderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        val foregroundLayout: View
+            get() = binding.foregroundLayout
 
         fun bind(todoModel: TodoModel, onCheckItem: (Boolean, TodoModel) -> Unit) {
             with(binding) {
@@ -57,11 +56,6 @@ class TodoAdapter(
                 cbTodo.apply {
                     isChecked = todoModel.checked
                     setOnCheckedChangeListener { compoundButton, isChecked ->
-                        /*titleTodo.text = if (isChecked) {
-                            spannableText(todoModel.title)
-                        } else {
-                            todoModel.title
-                        }*/
                         onCheckItem.invoke(isChecked, todoModel)
                     }
                 }
@@ -78,5 +72,15 @@ class TodoAdapter(
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         return spanTextBuilder
+    }
+
+    infix fun removeItemAt(index: Int) {
+        listTodo.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
+    fun undoItem(todoModel: TodoModel, index: Int) {
+        listTodo.add(index, todoModel)
+        notifyItemInserted(index)
     }
 }
