@@ -6,11 +6,15 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/check_box_todo.xml" value="0.1375" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_16_gray.xml" value="0.1375" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_24_white.xml" value="0.2395" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_24_white_bottom_left.xml" value="0.2255" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_24_white_bottom_right.xml" value="0.2255" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_24_white_stroke_black.xml" value="0.2255" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_8_gray.xml" value="0.1375" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_8_gray_100.xml" value="0.22" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/corner_8_gray_300.xml" value="0.22" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/ic_baseline_radio_button_checked_24.xml" value="0.2125" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/ripple_corner_24_white_bottom_left.xml" value="0.2255" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/drawable/ripple_corner_24_white_bottom_right.xml" value="0.1385" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/activity_detail_todo_screen.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/activity_main.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/fragment_base.xml" value="0.23333333333333334" />
@@ -19,7 +23,7 @@
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/item_category_reminder.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/item_todo_done.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/item_todo_reminder.xml" value="0.23229166666666667" />
-        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/layout_input_name_category.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/layout_input_name_category.xml" value="0.1" />
         <entry key="..\:/Users/ducda/AndroidStudioProjects/Todolist/app/src/main/res/layout/tool_bar_layout.xml" value="0.23333333333333334" />
       </map>
     </option>

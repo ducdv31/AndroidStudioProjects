@@ -18,16 +18,29 @@ import vn.dv.todolist.doimain.home.room.dto.getCategoryFromEntity
 import vn.dv.todolist.doimain.home.room.entity.CategoryTodoEntity
 import vn.dv.todolist.infrastructure.core.recyclerview.VerticalDpDivider
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBinding::inflate) {
+
+    private val ioLauncher = CoroutineScope(IO)
 
     @Inject
     lateinit var categoryTodoDb: CategoryTodoDb
 
     private val dialogInputCategory: DialogInputCategory by lazy {
-        DialogInputCategory()
+        DialogInputCategory(
+            getString(R.string.title_input_category),
+            onClickOk = { categoryName ->
+                if (categoryName?.isNotEmpty() == true) {
+                    ioLauncher.launch {
+                        categoryTodoDb
+                            .getCategoryTodoDao()
+                            .addCategory(CategoryTodoEntity(title = categoryName))
+                        loadAllDataFromDb()
+                    }
+                }
+            }
+        )
     }
 
     private val categoryReminderAdapter: CategoryReminderAdapter by lazy {
@@ -48,24 +61,10 @@ class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBin
     override fun initViews() {
         showToolBar(getString(R.string.app_name))
         initRecyclerview()
+        loadAllDataFromDb()
     }
 
     override fun initActions() {
-        CoroutineScope(IO).launch {
-            categoryTodoDb.getCategoryTodoDao()
-                .addCategory(
-                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
-                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
-                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
-                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
-                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}"),
-                    CategoryTodoEntity(title = "Ok ${Random.nextInt()}")
-                )
-            val listData = categoryTodoDb.getCategoryTodoDao().getAllCategory()
-            withContext(Main) {
-                categoryReminderAdapter.setData(getCategoryFromEntity(listData).toMutableList())
-            }
-        }
     }
 
     override fun initListener() {
@@ -77,6 +76,15 @@ class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBin
     }
 
     override fun initObservers() {
+    }
+
+    private fun loadAllDataFromDb() {
+        ioLauncher.launch {
+            val listData = categoryTodoDb.getCategoryTodoDao().getAllCategory()
+            withContext(Main) {
+                categoryReminderAdapter.setData(getCategoryFromEntity(listData).toMutableList())
+            }
+        }
     }
 
     private fun initRecyclerview() {

@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
+
 /**
  * Call this method (in onActivityCreated or later) to set
  * the width of the dialog to a percentage of the current
@@ -27,4 +28,11 @@ fun DialogFragment.setFullScreen() {
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.WRAP_CONTENT
     )
+}
+
+fun DialogFragment.setDimScreenPercent(percentage: Int) {
+    val percent = percentage.toFloat() / 100
+    val lp = dialog?.window?.attributes
+    lp?.dimAmount = percent // Dim level. 0.0 - no dim, 1.0 - completely opaque
+    dialog?.window?.attributes = lp
 }

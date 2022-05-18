@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_list">Add list</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok_1">Ok</string>
+    <string name="title_input_category">Input category name</string>
 </resources>
