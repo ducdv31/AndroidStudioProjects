@@ -44,4 +44,9 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+    <declare-styleable name="BannerHome">
+        <attr name="bh_dot_color" format="color" />
+        <attr name="bh_selected_dot_color" format="color" />
+    </declare-styleable>
 </resources>

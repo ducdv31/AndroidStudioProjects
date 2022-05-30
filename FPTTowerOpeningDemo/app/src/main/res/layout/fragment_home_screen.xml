@@ -6,29 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".scene.home.HomeScreen">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPagerNews"
+    <vn.dv.fpttoweropeningdemo.views.BannerHome
+        android:id="@+id/bannerHome"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="16:9"
+        android:layout_height="wrap_content"
+        app:bh_dot_color="@color/gray_400"
+        app:bh_selected_dot_color="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/dotsIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:dotsColor="@color/gray_400"
-        app:dotsCornerRadius="8dp"
-        app:dotsSize="8dp"
-        app:dotsSpacing="4dp"
-        app:dotsWidthFactor="2.5"
-        app:layout_constraintEnd_toEndOf="@id/viewPagerNews"
-        app:layout_constraintStart_toStartOf="@id/viewPagerNews"
-        app:layout_constraintTop_toBottomOf="@id/viewPagerNews"
-        app:progressMode="false"
-        app:selectedDotColor="@color/purple_700" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
