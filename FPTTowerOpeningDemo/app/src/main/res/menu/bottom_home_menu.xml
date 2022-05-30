@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home_nav"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/home"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/search_flight_nav"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/search_flights" />
+
+    <item
+        android:id="@+id/flight_status_nav"
+        android:icon="@drawable/ic_baseline_flight_24"
+        android:title="@string/flight_status" />
+
+    <item
+        android:id="@+id/my_trip_nav"
+        android:icon="@drawable/ic_baseline_work_24"
+        android:title="@string/my_trips" />
+
+    <item
+        android:id="@+id/more_nav"
+        android:icon="@drawable/ic_baseline_more_horiz_24"
+        android:title="@string/more" />
+</menu>

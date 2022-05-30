@@ -6,14 +6,22 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import vn.dv.todolist.R
 import vn.dv.todolist.app.base.BaseFragment
 import vn.dv.todolist.app.scenes.detailltodo.adapter.RecyclerViewItemTouchHelper
 import vn.dv.todolist.app.scenes.detailltodo.adapter.TodoAdapter
 import vn.dv.todolist.app.scenes.detailltodo.model.TodoModel
 import vn.dv.todolist.databinding.FragmentDetailTodoScreenBinding
+import vn.dv.todolist.doimain.detailtodo.room.db.TodoItemDb
+import vn.dv.todolist.doimain.detailtodo.room.dto.TodoItemDto
 import vn.dv.todolist.infrastructure.core.recyclerview.VerticalDpDivider
-import kotlin.random.Random
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -22,18 +30,23 @@ class DetailTodoScreen :
         FragmentDetailTodoScreenBinding::inflate
     ) {
 
+    @Inject
+    lateinit var todoItemDb: TodoItemDb
+
     private val args: DetailTodoScreenArgs by navArgs()
 
     private val todoAdapter: TodoAdapter by lazy {
         TodoAdapter(
             onCheckItem = { isChecked, todoModel ->
-                if (listTodo.contains(todoModel)) {
-                    todoModel.checked = true
-                    val pos = listTodo.indexOf(todoModel)
-                    listTodo.remove(todoModel)
-                    todoAdapter.notifyItemRemoved(pos)
-                    listDone.add(todoModel)
-                    doneAdapter.notifyItemInserted(listDone.lastIndex)
+                CoroutineScope(Main).launch {
+                    if (getListDone(args.idCategory)?.contains(todoModel) == true) {
+                        todoModel.checked = true
+                        val pos = getListNotDone(args.idCategory)?.indexOf(todoModel)
+                        listTodo.remove(todoModel)
+                        todoAdapter.notifyItemRemoved(pos)
+                        listDone.add(todoModel)
+                        doneAdapter.notifyItemInserted(listDone.lastIndex)
+                    }
                 }
             }
         )
@@ -52,32 +65,6 @@ class DetailTodoScreen :
                 }
             }
         )
-    }
-
-    private val listAll: MutableList<TodoModel> by lazy {
-        val list = mutableListOf<TodoModel>()
-        (0..10).forEach {
-            list.add(TodoModel(it, Random.nextBoolean(), "Todo ${Random.nextInt()}"))
-        }
-        list
-    }
-
-    private val listTodo: MutableList<TodoModel> by lazy {
-        val listTd = mutableListOf<TodoModel>()
-        listAll.forEach {
-            if (!it.checked) {
-                listTd.add(it)
-            }
-        }
-        listTd
-    }
-
-    private val listDone: MutableList<TodoModel> by lazy {
-        val listD = mutableListOf<TodoModel>()
-        listAll.forEach {
-            if (it.checked) listD.add(it)
-        }
-        listD
     }
 
     override fun initData(data: Bundle?) {
@@ -145,6 +132,33 @@ class DetailTodoScreen :
         }
         ItemTouchHelper(itemHelperCallback).attachToRecyclerView(binding.rvDoneReminder)
         doneAdapter.setData(listDone)
+    }
+
+    private suspend fun getListTodo(idCategory: Int): List<TodoModel>? {
+        return CoroutineScope(IO).async {
+            TodoItemDto.toTodoItem(todoItemDb.getTodoDao().getAllTodoItem(args.idCategory))
+                ?.toMutableList()
+        }.await()
+    }
+
+    private suspend fun getListDone(idCategory: Int): List<TodoModel>? {
+        return withContext(IO) {
+            val listD = mutableListOf<TodoModel>()
+            getListTodo(idCategory)?.forEach {
+                if (it.checked) listD.add(it)
+            }
+            listD
+        }
+    }
+
+    private suspend fun getListNotDone(idCategory: Int): List<TodoModel>? {
+        return withContext(IO) {
+            val listNotDone = mutableListOf<TodoModel>()
+            getListTodo(idCategory)?.forEach {
+                if (!it.checked) listNotDone.add(it)
+            }
+            listNotDone
+        }
     }
 
     companion object {

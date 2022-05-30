@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_home_scenes">
         <action
             android:id="@+id/action_homeScenes_to_detailTodoScreen"
-            app:destination="@id/detailTodoScreen">
+            app:destination="@id/detailTodoScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right">
             <argument
                 android:name="idCategory"
                 app:argType="integer" />
