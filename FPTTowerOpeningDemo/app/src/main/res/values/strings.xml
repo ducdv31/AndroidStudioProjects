@@ -7,4 +7,6 @@
     <string name="flight_status">Flight Status</string>
     <string name="my_trips">My Trips</string>
     <string name="more">More</string>
+    <string name="play">Play</string>
+    <string name="youtube_player">Youtube player</string>
 </resources>

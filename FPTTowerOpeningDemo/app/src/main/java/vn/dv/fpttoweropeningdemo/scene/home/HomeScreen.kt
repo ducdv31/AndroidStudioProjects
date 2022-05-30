@@ -1,9 +1,11 @@
 package vn.dv.fpttoweropeningdemo.scene.home
 
+import android.content.Intent
 import android.os.Bundle
 import vn.dv.fpttoweropeningdemo.base.BaseFragment
 import vn.dv.fpttoweropeningdemo.databinding.FragmentHomeScreenBinding
 import vn.dv.fpttoweropeningdemo.scene.home.model.NewsModel
+import vn.dv.fpttoweropeningdemo.youtubeplayer.YoutubeActivity
 
 class HomeScreen : BaseFragment<FragmentHomeScreenBinding>(FragmentHomeScreenBinding::inflate) {
 
@@ -18,6 +20,10 @@ class HomeScreen : BaseFragment<FragmentHomeScreenBinding>(FragmentHomeScreenBin
     }
 
     override fun initListener() {
+        binding.btnYoutubePlayer.setOnClickListener {
+            val intent = Intent(context, YoutubeActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun initObservers() {
