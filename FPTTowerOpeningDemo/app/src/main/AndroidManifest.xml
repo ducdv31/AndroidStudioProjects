@@ -4,6 +4,8 @@
     package="vn.dv.fpttoweropeningdemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +19,9 @@
         android:theme="@style/Theme.FPTTowerOpeningDemo"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".qrscanner.QrScanActivity"
+            android:exported="false" />
         <activity
             android:name=".youtubeplayer.YoutubeActivity"
             android:exported="false" />

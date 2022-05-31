@@ -7,6 +7,7 @@ import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import vn.dv.fpttoweropeningdemo.base.BaseFragment
 import vn.dv.fpttoweropeningdemo.databinding.FragmentQrScreenBinding
+import vn.dv.fpttoweropeningdemo.qrscanner.QrScanActivity
 
 
 class QrScreen : BaseFragment<FragmentQrScreenBinding>(FragmentQrScreenBinding::inflate) {
@@ -23,6 +24,7 @@ class QrScreen : BaseFragment<FragmentQrScreenBinding>(FragmentQrScreenBinding::
         with(binding) {
             btnScan.setOnClickListener {
                 val option = ScanOptions().apply {
+                    captureActivity = QrScanActivity::class.java
                     setBeepEnabled(false)
                     setCameraId(0)
                     setPrompt("Prompt QR")
