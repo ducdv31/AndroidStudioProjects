@@ -1,7 +1,7 @@
-package vn.dv.todolist.doimain.detailtodo.room.dto
+package vn.dv.todolist.app.scenes.home.room.dto
 
 import vn.dv.todolist.app.scenes.detailltodo.model.TodoModel
-import vn.dv.todolist.doimain.detailtodo.room.entity.ItemTodoEntity
+import vn.dv.todolist.app.scenes.home.room.entity.ItemTodoEntity
 
 object TodoItemDto {
     fun toTodoItem(todoEntity: List<ItemTodoEntity>?): List<TodoModel>? {

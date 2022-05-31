@@ -9,6 +9,12 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import vn.dv.todolist.app.const.Const
 import vn.dv.todolist.databinding.FragmentBaseBinding
 import vn.dv.todolist.databinding.ToolBarLayoutBinding
 
@@ -74,5 +80,58 @@ abstract class BaseFragment<VB : ViewBinding>(
     }
 
     override fun onClickEndIcon() {
+    }
+
+    protected fun showSnackBarWithAction(
+        message: String?,
+        actionText: String?,
+        onClickAction: (View) -> Unit,
+        onDismiss: suspend ((transientBottomBar: Snackbar?, event: Int) -> Unit) = { _, _ -> },
+        onShown: suspend ((transientBottomBar: Snackbar?) -> Unit) = {}
+    ) {
+        Snackbar.make(binding.root, message ?: Const.EMPTY, Snackbar.LENGTH_LONG)
+            .setAction(actionText) {
+                onClickAction.invoke(it)
+            }
+            .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    super.onDismissed(transientBottomBar, event)
+                    CoroutineScope(IO).launch {
+                        onDismiss.invoke(transientBottomBar, event)
+                    }
+                }
+
+                override fun onShown(transientBottomBar: Snackbar?) {
+                    super.onShown(transientBottomBar)
+                    CoroutineScope(IO).launch {
+                        onShown.invoke(transientBottomBar)
+                    }
+                }
+            })
+            .show()
+    }
+
+    protected fun showSnackBar(
+        message: String?,
+        onDismiss: suspend ((transientBottomBar: Snackbar?, event: Int) -> Unit) = { _, _ -> },
+        onShown: suspend ((transientBottomBar: Snackbar?) -> Unit) = {}
+    ) {
+        Snackbar.make(binding.root, message ?: Const.EMPTY, Snackbar.LENGTH_LONG)
+            .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    super.onDismissed(transientBottomBar, event)
+                    CoroutineScope(IO).launch {
+                        onDismiss.invoke(transientBottomBar, event)
+                    }
+                }
+
+                override fun onShown(transientBottomBar: Snackbar?) {
+                    super.onShown(transientBottomBar)
+                    CoroutineScope(IO).launch {
+                        onShown.invoke(transientBottomBar)
+                    }
+                }
+            })
+            .show()
     }
 }

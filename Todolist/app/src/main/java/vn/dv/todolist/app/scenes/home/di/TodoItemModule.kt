@@ -1,4 +1,4 @@
-package vn.dv.todolist.doimain.detailtodo.di
+package vn.dv.todolist.app.scenes.home.di
 
 import android.content.Context
 import androidx.room.Room
@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityScoped
-import vn.dv.todolist.doimain.detailtodo.room.db.TodoItemDb
+import vn.dv.todolist.app.scenes.home.room.db.TodoItemDb
 
 @Module
 @InstallIn(ActivityComponent::class)

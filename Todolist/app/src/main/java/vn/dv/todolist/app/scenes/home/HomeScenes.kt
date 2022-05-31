@@ -1,7 +1,7 @@
 package vn.dv.todolist.app.scenes.home
 
 import android.os.Bundle
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -11,11 +11,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import vn.dv.todolist.R
 import vn.dv.todolist.app.base.BaseFragment
-import vn.dv.todolist.app.scenes.home.adapter.CategoryReminderAdapter
+import vn.dv.todolist.app.scenes.detailltodo.adapter.RecyclerViewItemTouchHelper
+import vn.dv.todolist.app.scenes.detailltodo.adapter.TodoAdapter
+import vn.dv.todolist.app.scenes.detailltodo.model.TodoModel
+import vn.dv.todolist.app.scenes.home.room.db.TodoItemDb
+import vn.dv.todolist.app.scenes.home.room.dto.TodoItemDto
+import vn.dv.todolist.app.scenes.home.room.entity.ItemTodoEntity
 import vn.dv.todolist.databinding.FragmentHomeScenesBinding
-import vn.dv.todolist.doimain.home.room.db.CategoryTodoDb
-import vn.dv.todolist.doimain.home.room.dto.getCategoryFromEntity
-import vn.dv.todolist.doimain.home.room.entity.CategoryTodoEntity
 import vn.dv.todolist.infrastructure.core.recyclerview.VerticalDpDivider
 import javax.inject.Inject
 
@@ -25,17 +27,17 @@ class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBin
     private val ioLauncher = CoroutineScope(IO)
 
     @Inject
-    lateinit var categoryTodoDb: CategoryTodoDb
+    lateinit var todoDb: TodoItemDb
 
     private val dialogInputCategory: DialogInputCategory by lazy {
         DialogInputCategory(
-            getString(R.string.title_input_category),
-            onClickOk = { categoryName ->
-                if (categoryName?.isNotEmpty() == true) {
+            getString(R.string.title_input_todo_name),
+            onClickOk = { todoName ->
+                if (todoName?.isNotEmpty() == true) {
                     ioLauncher.launch {
-                        categoryTodoDb
-                            .getCategoryTodoDao()
-                            .addCategory(CategoryTodoEntity(title = categoryName))
+                        todoDb
+                            .getTodoDao()
+                            .addItemTodo(ItemTodoEntity(titleTodo = todoName))
                         loadAllDataFromDb()
                     }
                 }
@@ -43,14 +45,17 @@ class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBin
         )
     }
 
-    private val categoryReminderAdapter: CategoryReminderAdapter by lazy {
-        CategoryReminderAdapter(
-            onClickItem = {
-                val action = HomeScenesDirections.actionHomeScenesToDetailTodoScreen(
-                    idCategory = it.id,
-                    titleCategory = it.title
-                )
-                findNavController().navigate(action)
+    private val todoAdapter: TodoAdapter by lazy {
+        TodoAdapter(
+            onCheckItem = { isChecked, todoModel ->
+                todoDb.getTodoDao()
+                    .updateTodoItem(
+                        ItemTodoEntity(
+                            idItemTodo = todoModel.id,
+                            titleTodo = todoModel.title,
+                            isChecked = isChecked
+                        )
+                    )
             }
         )
     }
@@ -80,19 +85,66 @@ class HomeScenes : BaseFragment<FragmentHomeScenesBinding>(FragmentHomeScenesBin
 
     private fun loadAllDataFromDb() {
         ioLauncher.launch {
-            val listData = categoryTodoDb.getCategoryTodoDao().getAllCategory()
+            val listData = todoDb.getTodoDao().getAllTodoItem()
             withContext(Main) {
-                categoryReminderAdapter.setData(getCategoryFromEntity(listData).toMutableList())
+                TodoItemDto.toTodoItem(listData)?.let { todoAdapter.setData(it.toMutableList()) }
             }
         }
     }
 
     private fun initRecyclerview() {
-        binding.rvCategoryReminder.apply {
-            adapter = categoryReminderAdapter
+        binding.rvTodo.apply {
+            adapter = todoAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             addItemDecoration(VerticalDpDivider(SPACE_ITEM_CATEGORY, resources))
         }
+        val itemHelperCallback = RecyclerViewItemTouchHelper(
+            0,
+            ItemTouchHelper.LEFT
+        ) { viewHolder ->
+            val pos = viewHolder.absoluteAdapterPosition
+            CoroutineScope(IO).launch {
+                val todoModelDelete = getListTodoFromDb()?.get(pos)
+                withContext(Main) {
+                    todoModelDelete?.let {
+                        todoAdapter removeItemAt pos
+                        var deleteItem = true
+                        showSnackBarWithAction(
+                            message = "Deleted ${todoModelDelete.title}",
+                            actionText = "Undo",
+                            onClickAction = {
+                                todoAdapter.undoItem(todoModelDelete, pos)
+                                deleteItem = false
+                            },
+                            onDismiss = { transientBottomBar, event ->
+                                if (deleteItem) {
+                                    withContext(IO) {
+                                        todoDb.getTodoDao()
+                                            .deleteItemTodo(
+                                                ItemTodoEntity(
+                                                    idItemTodo = todoModelDelete.id,
+                                                    titleTodo = todoModelDelete.title,
+                                                    isChecked = todoModelDelete.checked
+                                                )
+                                            )
+                                    }
+                                }
+                            }
+                        )
+                    } ?: run {
+                        showSnackBar(
+                            message = "Error"
+                        )
+                    }
+                }
+            }
+        }
+        ItemTouchHelper(itemHelperCallback).attachToRecyclerView(binding.rvTodo)
+    }
+
+    private suspend fun getListTodoFromDb(): List<TodoModel>? = withContext(IO) {
+        val listTodoDb = todoDb.getTodoDao().getAllTodoItem()
+        TodoItemDto.toTodoItem(listTodoDb)
     }
 
     companion object {

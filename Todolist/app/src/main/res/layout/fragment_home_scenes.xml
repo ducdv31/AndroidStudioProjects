@@ -7,7 +7,7 @@
     tools:context=".app.scenes.home.HomeScenes">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCategoryReminder"
+        android:id="@+id/rvTodo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingHorizontal="16dp"
@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_category_reminder" />
+        tools:listitem="@layout/item_todo_reminder" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_bottom"

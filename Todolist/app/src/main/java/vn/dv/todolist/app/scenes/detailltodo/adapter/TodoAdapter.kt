@@ -1,5 +1,6 @@
 package vn.dv.todolist.app.scenes.detailltodo.adapter
 
+import android.annotation.SuppressLint
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.UnderlineSpan
@@ -7,15 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import vn.dv.todolist.app.scenes.detailltodo.model.TodoModel
 import vn.dv.todolist.databinding.ItemTodoReminderBinding
 
 class TodoAdapter(
-    private val onCheckItem: (Boolean, TodoModel) -> Unit
+    private val onCheckItem: suspend (isChecked: Boolean, todoModel: TodoModel) -> Unit
 ) : RecyclerView.Adapter<TodoAdapter.TodoVH>() {
 
     private var listTodo: MutableList<TodoModel> = mutableListOf()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(list: MutableList<TodoModel>) {
         this.listTodo = list
         notifyDataSetChanged()
@@ -33,7 +38,9 @@ class TodoAdapter(
     override fun onBindViewHolder(holder: TodoVH, position: Int) {
         val itemTodo = listTodo[position]
         holder.bind(itemTodo, onCheckItem = { isChecked, todoModel ->
-            onCheckItem.invoke(isChecked, todoModel)
+            CoroutineScope(IO).launch {
+                onCheckItem.invoke(isChecked, todoModel)
+            }
         })
     }
 
