@@ -2,9 +2,12 @@ package vn.dv.fpttoweropeningdemo.scene.home
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.navigation.fragment.findNavController
+import vn.dv.fpttoweropeningdemo.R
 import vn.dv.fpttoweropeningdemo.base.BaseFragment
 import vn.dv.fpttoweropeningdemo.databinding.FragmentHomeScreenBinding
 import vn.dv.fpttoweropeningdemo.scene.home.model.NewsModel
+import vn.dv.fpttoweropeningdemo.scene.main.MainScreenDirections
 import vn.dv.fpttoweropeningdemo.youtubeplayer.YoutubeActivity
 
 class HomeScreen : BaseFragment<FragmentHomeScreenBinding>(FragmentHomeScreenBinding::inflate) {
@@ -23,6 +26,10 @@ class HomeScreen : BaseFragment<FragmentHomeScreenBinding>(FragmentHomeScreenBin
         binding.btnYoutubePlayer.setOnClickListener {
             val intent = Intent(context, YoutubeActivity::class.java)
             startActivity(intent)
+        }
+        binding.btnQrCode.setOnClickListener {
+            val action = MainScreenDirections.actionMainScreenToQrScreen()
+            findNavController().navigate(action)
         }
     }
 

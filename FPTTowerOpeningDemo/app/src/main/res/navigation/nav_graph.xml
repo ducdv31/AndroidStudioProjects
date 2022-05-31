@@ -9,5 +9,14 @@
         android:id="@+id/homeScreen"
         android:name="vn.dv.fpttoweropeningdemo.scene.main.MainScreen"
         android:label="fragment_home_screen"
-        tools:layout="@layout/fragment_main_screen" />
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreen_to_qrScreen"
+            app:destination="@id/qrScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/qrScreen"
+        android:name="vn.dv.fpttoweropeningdemo.scene.qrscreen.QrScreen"
+        android:label="fragment_qr_screen"
+        tools:layout="@layout/fragment_qr_screen" />
 </navigation>

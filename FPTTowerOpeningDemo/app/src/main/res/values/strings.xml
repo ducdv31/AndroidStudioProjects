@@ -9,4 +9,6 @@
     <string name="more">More</string>
     <string name="play">Play</string>
     <string name="youtube_player">Youtube player</string>
+    <string name="qr_code">QR Code</string>
+    <string name="scan">Scan</string>
 </resources>
